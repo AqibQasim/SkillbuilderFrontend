@@ -63,10 +63,10 @@ module.exports = {
           DEFAULT: '#575757' 
         },
         lightgray: {
-          DEFAULT: '#858585', // Sets the default shade for 'darkgray'
+          DEFAULT: '#858585',
         },
       }
     },
   },
   plugins: [],
-};
+};  
