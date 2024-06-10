@@ -1,10 +1,11 @@
 import React from "react";
+import Signup from "@/components/Signup";
 
-const Signup = () =>{
+const SignupPage = () =>{
     return(
-        <div>
-            
-        </div>
+    <div className="flex items-center justify-center min-h-screen bg-gray-100 py-4">
+        <Signup />
+    </div>
     )
 }
-export default Signup;
+export default SignupPage;
