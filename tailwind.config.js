@@ -25,6 +25,9 @@ module.exports = {
         darkgray: {
           DEFAULT: '#333333', // Sets the default shade for 'darkgray'
         },
+        lightgray: {
+          DEFAULT: '#858585', // Sets the default shade for 'darkgray'
+        },
       }
     },
   },
