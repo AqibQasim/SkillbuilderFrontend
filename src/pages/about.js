@@ -1,6 +1,9 @@
 import Navbar from "@/components/Navbar";
 import { useEffect } from "react";
 import { setCurrentTab } from "@/utils/currentTabMethods";
+import AboutHero from "@/components/AboutHero";
+import AboutGoals from "@/components/AboutGoals";
+import AboutVision from "@/components/AboutVision";
 
 const about = () => {
 
@@ -10,13 +13,13 @@ const about = () => {
 
     return (
         <>
+        <div className="h-[100%] w-[100%] flex flex-col  bg-bg_gray">
             <Navbar />
-            <div className="h-[90vh] w-[100%] flex justify-center items-center" >
-            <h1>
-                This page is coming soon!</h1>
-            </div>
+            <AboutHero />
+            <AboutGoals />
+            <AboutVision />
+        </div>
         </>
     )
 }
-
 export default about;

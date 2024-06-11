@@ -15,7 +15,6 @@ const Home = () => {
 
     return(
         <>
-
         <div className="h-[100%] w-[100%] flex flex-col items-center bg-bg_gray">
             <Navbar /> 
             <HeroSection />       
@@ -24,7 +23,6 @@ const Home = () => {
             <PromotionalList />
             <Footer />
         </div>
-            
         </>
     )
 }

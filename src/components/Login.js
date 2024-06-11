@@ -1,14 +1,31 @@
-import React from 'react';
+import React,{useState} from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useDispatch , useSelector } from 'react-redux';
+import { loginUser } from '../../redux/thunks/auththunks';
 
 const Login = () => {
+  const dispatch = useDispatch();
+  const { isLoading, error } = useSelector(state => state.auth);
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  
+  const SubmitHandler = (e) => {
+    e.preventDefault();
+    dispatch(loginUser ( { email , password}))
+  }
+  const emailchangeHandler = (event) =>{
+    setEmail(event.target.value);
+  }
+  const passwordchangeHandler = (event) =>{
+    setPassword(event.target.value);
+  }
     return (
         
         <div className="max-w-md w-full p-6 bg-white rounded-md shadow-md">
             <h2 className="text-2xl font-bold text-darkgray text-center">Welcome Back</h2>
         {/* Form */}
-        <form>
+        <form onSubmit={SubmitHandler}>
           {/* Email */}
           <div className="mb-4 mt-4">
             <label htmlFor="email" className="block text-sm font-medium text-gray-900">
@@ -18,8 +35,10 @@ const Login = () => {
               type="email"
               id="email"
               name="email"
+              value={email}
               className="mt-1 p-2 border border-gray-300 rounded-lg w-full"
               required
+              onChange={emailchangeHandler}
             />
           </div>
 
@@ -27,15 +46,20 @@ const Login = () => {
           <div>
             <label htmlFor="password" className="block text-sm font-medium text-gray-900">
               Password<span className='text-red-500 text-lg'>*</span>
-            </label>
+            </label> 
             <input
               type="password"
               id="password"
               name="password"
+              value={password}
               className="mt-1 p-2 border border-gray-300 rounded-lg w-full"
               required
+              onChange={passwordchangeHandler}
             />
           </div>
+
+          {error && <div className="text-red-500">{error}</div>}
+
           <span className="ml-2 text-sm font-semibold text-blue">
                 Forgot Password?
               </span>
@@ -46,7 +70,7 @@ const Login = () => {
               type="submit"
               className="w-full bg-blue text-white p-2 rounded-lg hover:bg-blue-600"
             >
-              Login
+              {isLoading ? 'Logging in...' : 'Login'}
             </button>
           </div>
         </form>
