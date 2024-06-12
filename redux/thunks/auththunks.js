@@ -12,6 +12,7 @@ export const loginUser = createAsyncThunk('auth/login', async (userData, { rejec
           body: JSON.stringify(userData)
         });
         const data = await response.json();
+        console.log("data:", data);
         if (!response.ok) {
           throw new Error(data.message || 'Unable to login');
         }
@@ -33,7 +34,7 @@ export const signupUser = createAsyncThunk('auth/signup', async (userData, { rej
           body: JSON.stringify(userData)
         });
         console.log("response tk to phch gya");
-        const data = await response.json();
+        const data = await response.text();
         console.log("response data" , data)
         if (!response.ok) {
           throw new Error(data.message || 'Unable to signup');
