@@ -2,23 +2,23 @@ import "../styles/skills.css";
 import Image from "next/image";
 import React from "react";
 
-const SkillsList = () => {
-  const imageSize = 40;
+const AboutTeam = () => {
+  const imageSize = 127;
 
   const skills = [
-    { src: "/dataScience.svg", alt: "Data Science", label: "Data Science" },
+    { src: "/team.png", alt: "Data Science", label: "Data Science" },
     {
-      src: "/criticalThinking.svg",
+      src: "/team.png",
       alt: "Critical Thinking",
       label: "Critical Thinking",
     },
     {
-      src: "/problemSolving.svg",
+      src: "/team.png",
       alt: "Problem Solving",
       label: "Problem Solving",
     },
     {
-      src: "/testAutomation.svg",
+      src: "/team.png",
       alt: "Test Automation",
       label: "Test Automation",
     },
@@ -27,17 +27,15 @@ const SkillsList = () => {
   const repeatedSkills = [...Array(100)].flatMap(() => skills);
 
   return (
-    <div className="my-10 w-[90%] mt-[-1rem]">
-      <h1 className="text-2xl  font-semibold">
-        Our Top Skills At Your Disposal
-      </h1>
+    <div className="my-10 w-[90%] mt-16">
+      <h1 className="text-3xl font-semibold">Our Team Members</h1>
       <div className="container mx-auto border w-[100%] bg-white rounded-tl-br p-4 shadow-xl mt-12 overflow-hidden">
         <div className="logos mx-auto w-[100%]">
-          <div className="logos-slide flex gap-x-16 animate-scroll">
+          <div className="logos-slide flex gap-x-64 animate-scroll">
             {repeatedSkills.map((skill, index) => (
               <div
                 key={index}
-                className="flex flex-col justify-between items-center gap-3"
+                className="flex flex-col justify-between items-center"
               >
                 <Image
                   src={skill.src}
@@ -56,4 +54,4 @@ const SkillsList = () => {
   );
 };
 
-export default SkillsList;
+export default AboutTeam;
