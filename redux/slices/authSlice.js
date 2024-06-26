@@ -1,14 +1,18 @@
-import { createSlice } from '@reduxjs/toolkit';
-import { loginUser , signupUser } from '../thunks/auththunks';
+import { createSlice } from "@reduxjs/toolkit";
+import { loginUser, signupUser } from "../thunks/auththunks";
 
 const authSlice = createSlice({
-  name: 'auth',
+  name: "auth",
   initialState: {
     user: null,
     error: null,
     isLoading: false,
+    successMessage: null,
   },
   reducers: {
+    setSuccess: (state, action) => {
+      state.successMessage = action.payload;
+    },
     logout(state) {
       state.user = null;
     },
@@ -29,18 +33,20 @@ const authSlice = createSlice({
       })
       .addCase(signupUser.pending, (state) => {
         state.isLoading = true;
+        state.successMessage = null;
       })
       .addCase(signupUser.fulfilled, (state, action) => {
         state.user = action.payload.user;
         state.isLoading = false;
         state.error = null;
+        state.successMessage = action.payload;
       })
       .addCase(signupUser.rejected, (state, action) => {
         state.error = action.payload;
         state.isLoading = false;
       });
-  }
+  },
 });
 
-export const { logout } = authSlice.actions;
+export const { logout, setSuccess } = authSlice.actions;
 export default authSlice.reducer;
