@@ -51,3 +51,31 @@
       transform: translateX(-100%);
     }
   }
+
+  .img {
+    width: 40px;
+    height: 40px;
+  }
+  
+  /* Medium screens (e.g., tablets) */
+  @media (max-width: 768px) {
+    .img {
+      width: 30px;
+      height: 30px;
+    }
+  }
+  
+  /* Small screens (e.g., phones) */
+  @media (max-width: 480px) {
+    .img {
+      width: 3rem;
+      height: 3rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .img2 {
+      width: 8rem;
+      height: 8rem;
+    }
+  }

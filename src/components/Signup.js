@@ -2,7 +2,9 @@ import React,{useState} from "react";
 import Image from 'next/image';
 import Link from "next/link";
 import { useDispatch, useSelector } from "react-redux";
-import { signupUser } from "../../redux/thunks/auththunks";
+import { signupUser, googleLogin } from "../../redux/thunks/auththunks";
+// import { signupUser } from "../../redux/thunks/auththunks";
+
 
 const Signup = () =>{
     const dispatch = useDispatch();
@@ -21,6 +23,10 @@ const Signup = () =>{
       }
       dispatch(signupUser({first_name , last_name , email , password}));
     }
+
+    const handleGoogleSubmit = () => {
+      dispatch(googleLogin());
+    };
 
     return(
       <div className="max-w-md w-full px-6 py-4 bg-white rounded-md shadow-md">
@@ -146,7 +152,7 @@ const Signup = () =>{
           <span className="mx-4 text-gray-600">Or</span>
           <div className="flex-grow border-t border-gray-300"></div>
           </div>
-          <button className="bg-white mt-4 bg-blue-700 border mb-4 w-full border-black text-black p-2 rounded-lg flex items-center justify-center">
+          <button onClick={handleGoogleSubmit} className="bg-white mt-4 bg-blue-700 border mb-4 w-full border-black text-black p-2 rounded-lg flex items-center justify-center">
             <span className="mr-2">
                 <Image src="/googlelogo.png" width={25} height={25} alt=""/>
                 {/* <img src={googleicon} width={24} height={24} alt="Google Icon" /> */}

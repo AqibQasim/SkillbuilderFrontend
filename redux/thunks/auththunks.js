@@ -43,5 +43,33 @@ export const signupUser = createAsyncThunk('auth/signup', async (userData, { rej
         }catch (error) {
             return rejectWithValue(error.message || 'Failed to signup');
         }
-
 });
+
+// import { createAsyncThunk } from '@reduxjs/toolkit';
+
+export const googleLogin = createAsyncThunk(
+  'auth/googleLogin',
+  async (_, thunkAPI) => {  // No need to pass tokenId
+    try {
+      const response = await fetch(`${base_Api}/auth/google`, {
+        method: 'GET',
+        // headers: {
+        //   'Content-Type': 'application/json',
+        // },
+      });
+
+      // if (!response.ok) {
+      //   throw new Error('Network response was not ok');
+      // }
+
+      const data = await response.json();
+      console.log("data:",data);
+      return { user: data.user };
+    } catch (error) {
+      console.log("error",error)
+      return thunkAPI.rejectWithValue(error.message);
+    }
+  }
+);
+
+
