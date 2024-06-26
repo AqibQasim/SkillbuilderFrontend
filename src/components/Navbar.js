@@ -32,7 +32,9 @@ const Navbar = () => {
                     <div className="lg:hidden">
                         <button
                             className="text-bg_text_gray"
-                            onClick={togglerMethod}
+                            onClick={() => {
+                                togglerMethod(setMenuOpen,menuOpen)
+                            }}
                         >
                             <svg
                                 className="w-8 h-8"
@@ -71,7 +73,9 @@ const Navbar = () => {
                 <>
                     <div className="absolute w-[95%] flex justify-center mb-10">
                         <div className="w-[100%] flex justify-end items-center relative z-10">
-                            <button onClick={togglerMethod}>
+                            <button onClick={() => {
+                                togglerMethod(setMenuOpen,menuOpen)
+                            }}>
                                 <Image src='/Cross.png' width={40} height={40} alt="Close Menu" />
                             </button>
                         </div>

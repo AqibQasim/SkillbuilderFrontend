@@ -31,6 +31,7 @@ export const signupUser = createAsyncThunk(
     console.log("Api call krne jarha hu bhai");
     try {
       console.log("Let's seee");
+      // <<<<<<< HEAD
       const response = await fetch(`${base_Api}/signup`, {
         method: "POST",
         headers: {
@@ -54,3 +55,56 @@ export const signupUser = createAsyncThunk(
     }
   }
 );
+// import { createAsyncThunk } from '@reduxjs/toolkit';
+
+export const googleLogin = createAsyncThunk(
+  'auth/googleLogin',
+  async (_, thunkAPI) => {  // No need to pass tokenId
+    try {
+      const response = await fetch(`${base_Api}/auth/google`, {
+        method: 'GET',
+        // headers: {
+        //   'Content-Type': 'application/json',
+        // },
+      });
+
+      // if (!response.ok) {
+      //   throw new Error('Network response was not ok');
+      // }
+
+      const data = await response.json();
+      console.log("data:", data);
+      return { user: data.user };
+    } catch (error) {
+      console.log("error", error)
+      return thunkAPI.rejectWithValue(error.message);
+    }
+  }
+);
+
+
+// =======
+//       const response = await fetch(`${base_Api}/signup`, {
+//         method: "POST",
+//         headers: {
+//           "Content-Type": "application/json",
+//         },
+//         body: JSON.stringify(userData),
+//       });
+//       console.log("response tk to phch gya");
+//       const data = await response.text();
+
+//       dispatch(setSuccess(data.message));
+
+//       console.log("response data", data);
+
+//       if (!response.ok) {
+//         throw new Error(data.message || "User Already exist");
+//       }
+//       return data; // assuming the API returns the user object
+//     } catch (error) {
+//       return rejectWithValue(error.message || "Failed to signup");
+//     }
+//   }
+// );
+// >>>>>>> a5d183ea25ab2a2120c6617c11081be5f0f7641e

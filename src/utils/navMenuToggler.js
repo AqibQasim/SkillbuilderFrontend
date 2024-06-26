@@ -1,3 +1,3 @@
-export async function togglerMethod() {
+export async function togglerMethod(setMenuOpen,menuOpen) {
     setMenuOpen(!menuOpen);
 }

@@ -25,13 +25,15 @@ module.exports = {
         xsm: "320px", // Extra small devices (portrait phones, less than 576px)
         sm: "640px", // Small devices (landscape phones, 576px and up)
         md: "768px", // Medium devices (tablets, 768px and up)
-        lg: "1024px", // Large devices (desktops, 992px and up)
+        lg: "1023px", // Large devices (desktops, 992px and up)
         xlg: "1280px", // Extra large devices (large desktops, 1200px and up)
         "max-xsm": { max: "319px" }, // Styles for devices smaller than 320px
-        "max-sm": { max: "639px" }, // Styles for devices smaller than 640px
-        "max-md": { max: "769px" }, // Styles for devices smaller than 768px
-        "max-lg": { max: "1023px" }, // Styles for devices smaller than 1024px
-        "max-xlg": { max: "1279px" },
+        "max-sm": { max: "540px" }, // Styles for devices smaller than 640px
+        "max-lsm": { max: "792px" },
+        "max-md": { max: "854px" }, // Styles for devices smaller than 768px
+        // 'max-lsm' : { 'max': '792'},
+        "max-lg": { max: "1250px" }, // Styles for devices smaller than 1024px
+        "max-xlg": { max: "1422px" },
       },
 
       colors: {
