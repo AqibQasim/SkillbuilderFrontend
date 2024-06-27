@@ -26,50 +26,6 @@ const Signup = () => {
       setFormError("Passwords do not match");
       return;
     }
-
-<<<<<<< HEAD
-    const handleGoogleSubmit = () => {
-      dispatch(googleLogin());
-    };
-
-    return(
-      <div className="max-w-md w-full px-6 py-4 bg-white rounded-md shadow-md">
-        <h2 className="text-2xl font-bold text-darkgray">Create Your Account</h2>
-        <p className="text-lightgray">Start your learning journey with us </p>
-        {/* Form */}
-        <form className="mt-4" onSubmit={handleSubmit}>
-          {/* First Name */}
-          <div className="mb-2 ">
-            <label htmlFor="fullName" className="block text-sm font-medium text-gray-900">
-              First Name<span className='text-red-500 text-lg'>*</span>
-            </label>
-            <input
-              type="text"
-              id="fullName"
-              name="fullName"
-              className="mt-1 p-2 border border-gray-300 rounded-lg w-full"
-              required
-              value= {first_name}
-              onChange={(e) => setfirst_name(e.target.value)}
-            />
-          </div>
-          {/* Last Name */}
-          
-          <div className="mb-2 ">
-            <label htmlFor="fullName" className="block text-sm font-medium text-gray-900">
-              Last Name<span className='text-red-500 text-lg'>*</span>
-            </label>
-            <input
-              type="text"
-              id="fullName"
-              name="fullName"
-              className="mt-1 p-2 border border-gray-300 rounded-lg w-full"
-              required
-              value={last_name}
-              onChange={(e) => setlast_name(e.target.value)}
-            />
-          </div>
-=======
     if (!passwordCriteria.test(password)) {
       setFormError(
         "Password must contain at least one capital letter, one number, and one special character."
@@ -80,7 +36,10 @@ const Signup = () => {
     if (password)
       dispatch(signupUser({ first_name, last_name, email, password }));
   };
->>>>>>> a5d183ea25ab2a2120c6617c11081be5f0f7641e
+
+  const handleGoogleSubmit = () => {
+    dispatch(googleLogin());
+  };
 
   return (
     <div className="max-w-md w-full px-6 py-4 bg-white rounded-md shadow-md">
@@ -237,33 +196,29 @@ const Signup = () => {
           <div className="flex-grow border-t border-gray-300"></div>
           <span className="mx-4 text-gray-600">Or</span>
           <div className="flex-grow border-t border-gray-300"></div>
-<<<<<<< HEAD
-          </div>
-          <button onClick={handleGoogleSubmit} className="bg-white mt-4 bg-blue-700 border mb-4 w-full border-black text-black p-2 rounded-lg flex items-center justify-center">
-            <span className="mr-2">
-                <Image src="/googlelogo.png" width={25} height={25} alt=""/>
-                {/* <img src={googleicon} width={24} height={24} alt="Google Icon" /> */}
-            </span>
-            <span className="font-semibold text-sm">Continue with Google</span>
-           </button>
-
-           <button className="bg-white bg-blue-700 border mb-4 w-full border-black text-black p-2 rounded-lg flex items-center justify-center">
-            <span className="mr-2">
-                <Image src="/applelogo.png" width={25} height={25}/>
-            </span>
-            <span className="font-semibold text-sm">Continue with Apple</span>
-           </button>
-=======
->>>>>>> a5d183ea25ab2a2120c6617c11081be5f0f7641e
         </div>
-        <button className="bg-white mt-4 bg-blue-700 border mb-4 w-full border-black text-black p-2 rounded-lg flex items-center justify-center">
+        <button onClick={handleGoogleSubmit} className="bg-white mt-4 bg-blue-700 border mb-4 w-full border-black text-black p-2 rounded-lg flex items-center justify-center">
           <span className="mr-2">
             <Image src="/googlelogo.png" width={25} height={25} alt="" />
             {/* <img src={googleicon} width={24} height={24} alt="Google Icon" /> */}
           </span>
           <span className="font-semibold text-sm">Continue with Google</span>
         </button>
+
+        <button className="bg-white bg-blue-700 border mb-4 w-full border-black text-black p-2 rounded-lg flex items-center justify-center">
+          <span className="mr-2">
+            <Image src="/applelogo.png" width={25} height={25} />
+          </span>
+          <span className="font-semibold text-sm">Continue with Apple</span>
+        </button>
       </div>
+      <button className="bg-white mt-4 bg-blue-700 border mb-4 w-full border-black text-black p-2 rounded-lg flex items-center justify-center">
+        <span className="mr-2">
+          <Image src="/googlelogo.png" width={25} height={25} alt="" />
+          {/* <img src={googleicon} width={24} height={24} alt="Google Icon" /> */}
+        </span>
+        <span className="font-semibold text-sm">Continue with Google</span>
+      </button>
     </div>
   );
 };
