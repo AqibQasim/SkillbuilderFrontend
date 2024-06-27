@@ -6,21 +6,29 @@ const AboutTeam = () => {
   const imageSize = 127;
 
   const skills = [
-    { src: "/team.png", alt: "Data Science", label: "Data Science" },
     {
       src: "/team.png",
-      alt: "Critical Thinking",
-      label: "Critical Thinking",
+      alt: "Syed Zubair Alam",
+      label: "Syed Zubair Alam",
+      designation: "CEO Of Skillbuilder",
     },
     {
       src: "/team.png",
-      alt: "Problem Solving",
-      label: "Problem Solving",
+      alt: "Syed Zubair Alam",
+      label: "Syed Zubair Alam",
+      designation: "CEO Of Skillbuilder",
     },
     {
       src: "/team.png",
-      alt: "Test Automation",
-      label: "Test Automation",
+      alt: "Muhammad Ahsan Khan",
+      label: "Muhammad Ahsan Khan",
+      designation: "CEO Of Skillbuilder",
+    },
+    {
+      src: "/team.png",
+      alt: "Muhammad Ahsan Khan",
+      label: "Muhammad Ahsan Khan",
+      designation: "CEO Of Skillbuilder",
     },
   ];
 
@@ -36,15 +44,18 @@ const AboutTeam = () => {
               <div
                 key={index}
                 className="flex flex-col justify-between items-center"
+                style={{ flexShrink: 0 }}
               >
                 <Image
                   src={skill.src}
                   alt={skill.alt}
                   width={imageSize}
                   height={imageSize}
-                  className="img"
                 />
-                <p className="font-semibold">{skill.label}</p>
+                <p className="text-xl font-semibold">{skill.label}</p>
+                <p className="text-md font-normal text-darkgray">
+                  {skill.designation}
+                </p>
               </div>
             ))}
           </div>
