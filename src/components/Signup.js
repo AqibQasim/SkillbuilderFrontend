@@ -25,7 +25,6 @@ const Signup = () => {
       setFormError("Passwords do not match");
       return;
     }
-
     if (!passwordCriteria.test(password)) {
       setFormError(
         "Password must contain at least one capital letter, one number, and one special character."
@@ -35,6 +34,10 @@ const Signup = () => {
     setFormError(""); // Clear any previous error
     if (password)
       dispatch(signupUser({ first_name, last_name, email, password }));
+  };
+
+  const handleGoogleSubmit = () => {
+    dispatch(googleLogin());
   };
 
   return (
@@ -193,14 +196,31 @@ const Signup = () => {
           <span className="mx-4 text-gray-600">Or</span>
           <div className="flex-grow border-t border-gray-300"></div>
         </div>
-        <button className="bg-white mt-4 bg-blue-700 border mb-4 w-full border-black text-black p-2 rounded-lg flex items-center justify-center">
+        <button
+          onClick={handleGoogleSubmit}
+          className="bg-white mt-4 bg-blue-700 border mb-4 w-full border-black text-black p-2 rounded-lg flex items-center justify-center"
+        >
           <span className="mr-2">
             <Image src="/googlelogo.png" width={25} height={25} alt="" />
             {/* <img src={googleicon} width={24} height={24} alt="Google Icon" /> */}
           </span>
           <span className="font-semibold text-sm">Continue with Google</span>
         </button>
+
+        <button className="bg-white bg-blue-700 border mb-4 w-full border-black text-black p-2 rounded-lg flex items-center justify-center">
+          <span className="mr-2">
+            <Image src="/applelogo.png" width={25} height={25} />
+          </span>
+          <span className="font-semibold text-sm">Continue with Apple</span>
+        </button>
       </div>
+      <button className="bg-white mt-4 bg-blue-700 border mb-4 w-full border-black text-black p-2 rounded-lg flex items-center justify-center">
+        <span className="mr-2">
+          <Image src="/googlelogo.png" width={25} height={25} alt="" />
+          {/* <img src={googleicon} width={24} height={24} alt="Google Icon" /> */}
+        </span>
+        <span className="font-semibold text-sm">Continue with Google</span>
+      </button>
     </div>
   );
 };

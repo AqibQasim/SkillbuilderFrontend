@@ -19,7 +19,7 @@ const Home = () => {
             <Navbar /> 
             <HeroSection />       
             <SkillsList /> 
-            <Courses />
+            <Courses heading='Our Courses' />
             <PromotionalList />
             <Footer />
         </div>
