@@ -31,7 +31,6 @@ export const signupUser = createAsyncThunk(
     console.log("Api call krne jarha hu bhai");
     try {
       console.log("Let's seee");
-      // <<<<<<< HEAD
       const response = await fetch(`${base_Api}/signup`, {
         method: "POST",
         headers: {
@@ -55,33 +54,55 @@ export const signupUser = createAsyncThunk(
     }
   }
 );
-// import { createAsyncThunk } from '@reduxjs/toolkit';
 
-export const googleLogin = createAsyncThunk(
-  'auth/googleLogin',
-  async (_, thunkAPI) => {  // No need to pass tokenId
+// export const googleLogin = createAsyncThunk(
+//   "auth/googleLogin",
+//   async (_, thunkAPI) => {
+//     try {
+//       const response = await fetch(`${base_Api}/auth/google`, {
+//         method: "GET",
+//         headers: {
+//           "Content-Type": "application/json",
+//         },
+//       });
+
+//       if (!response.ok) {
+//         const errorData = await response.json();
+//         throw new Error(errorData.message || "Network response was not ok");
+//       }
+
+//       const data = await response.json();
+//       console.log("data:", data);
+//       return { user: data.user };
+//     } catch (error) {
+//       console.error("Google login error:", error);
+//       return thunkAPI.rejectWithValue(error.message);
+//     }
+//   }
+// );
+
+export const signupWithGoogle = createAsyncThunk(
+  "auth/googleSignup",
+  async (token, { rejectWithValue }) => {
     try {
       const response = await fetch(`${base_Api}/auth/google`, {
-        method: 'GET',
-        // headers: {
-        //   'Content-Type': 'application/json',
-        // },
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ token }),
       });
-
-      // if (!response.ok) {
-      //   throw new Error('Network response was not ok');
-      // }
-
       const data = await response.json();
-      console.log("data:", data);
-      return { user: data.user };
+      console.log("API Response Data:", data);
+      if (!response.ok) {
+        throw new Error(data.message || "Unable to sign up with Google");
+      }
+      return data; // assuming the API returns the user object
     } catch (error) {
-      console.log("error", error)
-      return thunkAPI.rejectWithValue(error.message);
+      return rejectWithValue(error.message || "Failed to sign up with Google");
     }
   }
 );
-
 
 // =======
 //       const response = await fetch(`${base_Api}/signup`, {
