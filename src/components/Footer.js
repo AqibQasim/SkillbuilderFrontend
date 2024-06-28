@@ -20,7 +20,8 @@ const Footer = () => {
 
 
     return (
-        <footer className="w-[100%] bg-white text-white p-4 mt-12 max-sm:mt-[-4rem]">
+        // <footer className="w-[100%] bg-white text-white p-4 mt-12 max-sm:mt-[-4rem]">
+        <footer className="w-[100%] bg-white text-white p-4 mt-12">
             <div className="container w-[95%] mx-auto flex justify-between flex-wrap">
                 {/* Left column */} 
                 <div className="w-[50%] max-sm:flex max-sm:flex-col max-sm:items-center  md:w-1/3 mb-4 md:mb-0 max-sm:w-[100%]">
