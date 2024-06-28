@@ -3,7 +3,7 @@ import Image from "next/image";
 
 const AboutGoals = () => {
   return (
-    <div className="container">
+    <div className="w-[90%] max-w-screen-2xl">
       <h1 className="text-3xl font-semibold">Our Goals</h1>
       <br />
       <div className="flex flex-col md:flex-row">

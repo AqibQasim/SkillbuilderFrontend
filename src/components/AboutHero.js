@@ -4,13 +4,13 @@ import aboutHeroImage from "../../public/Abouthero.png";
 
 const AboutHero = () => {
   return (
-    <div className="w-full bg-white">
+    <div className="w-full bg-white mb-8 xl:mb-11">
       {/* <div
         className="relative bg-white mb-[3%] pt-[5%] pb-[5%] mt-[3%] flex items-center container h-[50%] bg-white"
         id="Overview"
       > */}
       <div
-        className="relative mx-auto mb-16 flex w-[90%] max-w-screen-2xl items-center py-16 lg:mb-20"
+        className="relative mx-auto flex w-[90%] max-w-screen-2xl items-center pt-10 pb-9"
         id="Overview"
       >
         {/* Left Section */}
