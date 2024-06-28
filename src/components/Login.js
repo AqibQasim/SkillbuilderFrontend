@@ -31,6 +31,10 @@ const Login = () => {
   const passwordchangeHandler = (event) => {
     setPassword(event.target.value);
   };
+  const handleGoogleLogin = async (googleUser) => {
+    const token = googleUser.getAuthResponse().id_token;
+    dispatch(loginWithGoogle(token));
+  };
   return (
     <div className="max-w-md w-full p-6 bg-white rounded-md shadow-md">
       <h2 className="text-2xl font-bold text-darkgray text-center">
@@ -109,7 +113,17 @@ const Login = () => {
             <Image src="/googlelogo.png" width={25} height={25} />
             {/* <img src={googleicon} width={24} height={24} alt="Google Icon" /> */}
           </span>
-          <span className="font-semibold text-sm">Continue with Google</span>
+          <span
+            className="font-semibold text-sm"
+            onClick={() => {
+              window.gapi.auth2
+                .getAuthInstance()
+                .signIn()
+                .then(handleGoogleLogin);
+            }}
+          >
+            Continue with Google
+          </span>
         </button>
       </div>
       <div className="text-center mt-4">

@@ -1,11 +1,33 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useDispatch, useSelector } from "react-redux";
-import { signupUser, googleLogin } from "../../redux/thunks/auththunks";
+import { signupUser, signupWithGoogle } from "../../redux/thunks/auththunks";
 // import { signupUser } from "../../redux/thunks/auththunks";
 
 const Signup = () => {
+  useEffect(() => {
+    const initializeGoogleSignIn = () => {
+      if (window.gapi) {
+        window.gapi.load("auth2", () => {
+          window.gapi.auth2
+            .init({
+              client_id:
+                "39529635224-ct7s70vmmtjpvh6gsdmhpvec1i7ol36a.apps.googleusercontent.com",
+            })
+            .then(() => {
+              console.log("Google API initialized.");
+            })
+            .catch((error) => {
+              console.error("Error initializing Google API:", error);
+            });
+        });
+      }
+    };
+
+    initializeGoogleSignIn();
+  }, []);
+
   const dispatch = useDispatch();
   const { isLoading, error, successMessage } = useSelector(
     (state) => state.auth
@@ -36,8 +58,36 @@ const Signup = () => {
       dispatch(signupUser({ first_name, last_name, email, password }));
   };
 
-  const handleGoogleSubmit = () => {
-    dispatch(googleLogin());
+  const handleGoogleSignup = async (googleUser) => {
+    try {
+      const idToken = googleUser.getAuthResponse().id_token;
+      console.log("Google User ID Token:", idToken);
+      dispatch(signupWithGoogle(idToken));
+    } catch (error) {
+      console.error("Error during Google sign-up:", error);
+    }
+  };
+
+  const handleGoogleSignIn = () => {
+    if (window.gapi && window.gapi.auth2) {
+      const auth2 = window.gapi.auth2.getAuthInstance();
+      auth2
+        .signIn()
+        .then(handleGoogleSignup)
+        .catch((error) => {
+          console.error("Error during Google sign-in:", error);
+          if (error.error === "popup_closed_by_user") {
+            alert("Sign-in popup closed by user. Please try again.");
+          } else {
+            alert("An error occurred during sign-in. Please try again.");
+          }
+        });
+    } else {
+      console.error("Google API not initialized.");
+      alert(
+        "Google API not initialized. Please refresh the page and try again."
+      );
+    }
   };
 
   return (
@@ -197,7 +247,7 @@ const Signup = () => {
           <div className="flex-grow border-t border-gray-300"></div>
         </div>
         <button
-          onClick={handleGoogleSubmit}
+          onClick={handleGoogleSignIn}
           className="bg-white mt-4 bg-blue-700 border mb-4 w-full border-black text-black p-2 rounded-lg flex items-center justify-center"
         >
           <span className="mr-2">
@@ -206,21 +256,7 @@ const Signup = () => {
           </span>
           <span className="font-semibold text-sm">Continue with Google</span>
         </button>
-
-        <button className="bg-white bg-blue-700 border mb-4 w-full border-black text-black p-2 rounded-lg flex items-center justify-center">
-          <span className="mr-2">
-            <Image src="/applelogo.png" width={25} height={25} />
-          </span>
-          <span className="font-semibold text-sm">Continue with Apple</span>
-        </button>
       </div>
-      <button className="bg-white mt-4 bg-blue-700 border mb-4 w-full border-black text-black p-2 rounded-lg flex items-center justify-center">
-        <span className="mr-2">
-          <Image src="/googlelogo.png" width={25} height={25} alt="" />
-          {/* <img src={googleicon} width={24} height={24} alt="Google Icon" /> */}
-        </span>
-        <span className="font-semibold text-sm">Continue with Google</span>
-      </button>
     </div>
   );
 };
