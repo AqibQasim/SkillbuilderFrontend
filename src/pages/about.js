@@ -17,7 +17,7 @@ const about = () => {
     <>
       <div className="h-[100%] w-[100%] flex flex-col items-center bg-bg_gray">
         <Navbar />
-        <div className="path-wrapper w-[90%] mx-auto mt-16 ">
+        <div className="path-wrapper w-[90%] max-w-screen-2xl mx-auto mt-16 mb-8">
           <CurrentPath />
         </div>
         <AboutHero />
