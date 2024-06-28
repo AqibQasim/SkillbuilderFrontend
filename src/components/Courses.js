@@ -1,15 +1,12 @@
+// components/Courses.js
+
 import Image from "next/image";
 import { useRouter } from "next/router";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faStar } from "@fortawesome/free-solid-svg-icons";
 import StarRating from "./StarRating";
 import "../styles/courses.css";
 
 const Courses = ({ heading, paddingTop }) => {
-  // const renderStars = (rating) => {
-  //     const fullStars = Math.floor(rating);
-  //     const halfStar = rating % 1 !== 0;
-  //     const stars = [];
+  const router = useRouter();
 
   const courses = [
     {
@@ -101,6 +98,7 @@ const Courses = ({ heading, paddingTop }) => {
             <div
               key={course.id}
               className="img-container border border-cards_gray h-auto w-full max-w-sm mb-4 bg-white rounded-2xl p-2 flex flex-col items-start transform transition transition-shadow duration-300 hover:shadow-lg hover:border-[rgb(152,159,233)]"
+              onClick={() => router.push(`/courses/${course.id}`)}
             >
               <Image
                 className="w-[100%] pt-1"

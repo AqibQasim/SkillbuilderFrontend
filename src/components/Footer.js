@@ -26,8 +26,7 @@ const Footer = () => {
                 <div className="w-[50%] max-sm:flex max-sm:flex-col max-sm:items-center  md:w-1/3 mb-4 md:mb-0 max-sm:w-[100%]">
                     <Image src='/logo.svg' className='img' width={50} height={50} />
                     <p className='text-black mt-4 max-sm:w-[100%]'>Venture your Educational dreams. </p>
-                    <div className="flex gap-6 max-sm:gap-7 mt-4 ">
-                        
+                    <div className="flex gap-6 max-sm:gap-7 mt-4 ">  
                         <a className="gdWidget" href="https://www.glassdoor.com/api/api.htm?version=1&action=employer-review&t.s=w-l&t.a=c&format=300x250&employerId=9082484" target="_gd">
                             <Image src='/review.svg' width={150} height={100} />
                         </a>
