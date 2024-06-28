@@ -6,6 +6,7 @@ import AboutGoals from "@/components/AboutGoals";
 import AboutVision from "@/components/AboutVision";
 import Footer from "@/components/Footer";
 import AboutTeam from "@/components/AboutTeam";
+import CurrentPath from "@/components/CurrentPath";
 
 const about = () => {
   useEffect(() => {
@@ -16,6 +17,9 @@ const about = () => {
     <>
       <div className="h-[100%] w-[100%] flex flex-col items-center bg-bg_gray">
         <Navbar />
+        <div className="path-wrapper w-[90%] max-w-screen-2xl mx-auto mt-16 mb-8">
+          <CurrentPath />
+        </div>
         <AboutHero />
         <AboutGoals />
         <AboutVision />

@@ -1,24 +1,32 @@
+import ContactForm from "@/components/ContactForm";
+import ContactHero from "@/components/ContactHero";
+import CurrentPath from "@/components/CurrentPath";
+import Footer from "@/components/Footer";
+import HomeSvg from "@/components/HomeSvg";
 import Navbar from "@/components/Navbar";
+import RightIconSvg from "@/components/RightIconSvg";
 import { setCurrentTab } from "@/utils/currentTabMethods";
+import Image from "next/image";
 import { useEffect } from "react";
 
 const contact = () => {
+  useEffect(() => {
+    setCurrentTab("contact");
+  }, []);
 
-
-    useEffect(() => {
-        setCurrentTab('contact');
-    }, []);
-
-    return (
-        <>
-
-            <Navbar />
-            <div className="h-[90vh] w-[100%] flex justify-center items-center" >
-                <h1>
-                    This page is coming soon!</h1>
-            </div>
-        </>
-    )
-}
+  return (
+    <>
+      <div className="h-[100%] w-[100%] bg-bg_gray">
+        <Navbar />
+        <div className="path-wrapper w-[90%] max-w-screen-2xl mx-auto mt-16 mb-8">
+          <CurrentPath />
+        </div>
+        <ContactHero />
+        <ContactForm />
+        <Footer />
+      </div>
+    </>
+  );
+};
 
 export default contact;

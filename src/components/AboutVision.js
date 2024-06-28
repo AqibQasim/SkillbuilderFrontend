@@ -3,8 +3,8 @@ import Image from "next/image";
 
 const AboutVision = () => {
   return (
-    <div className="mt-16">
-      <div className="flex flex-col md:flex-row container">
+    <div className="mt-16 w-[90%] max-w-screen-2xl">
+      <div className="flex flex-col md:flex-row w-full">
         <br />
         {/* Section 1 */}
         <div className="md:w-1/2 p-4 flex items-center justify-center">

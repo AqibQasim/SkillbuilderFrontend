@@ -6,7 +6,7 @@ import StarRating from "./StarRating";
 import "../styles/courses.css";
 
 const Courses = ({ heading, paddingTop }) => {
-  const router = useRouter();
+  const router = useRouter(); // Define useRouter hook
 
   const courses = [
     {
@@ -78,9 +78,9 @@ const Courses = ({ heading, paddingTop }) => {
   return (
     <>
       <div
-        className={`${paddingTop} w-[90%] flex justify-between mt-[-0.5rem]   h-auto my-8 max-sm:my-0 max-sm:mb-6 max-sm:mt-[-3rem] `}
+        className={`${paddingTop} w-[90%] flex justify-between mt-[-0.5rem] h-auto my-8 max-sm:my-0 max-sm:mb-6 max-sm:mt-[-3rem] `}
       >
-        <h2 className="text-2xl font-semibold max-sm:text-xl max-sm:mt-4 ">
+        <h2 className="text-2xl font-semibold max-sm:text-xl max-sm:mt-4">
           {heading}
         </h2>
         <span
@@ -127,7 +127,6 @@ const Courses = ({ heading, paddingTop }) => {
                       88% off
                     </span>
                   </div>
-
                   <button className="py-2 px-2 text-white bg-blue rounded-lg text-xs">
                     Add To Cart
                   </button>
