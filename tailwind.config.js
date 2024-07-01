@@ -67,6 +67,20 @@ module.exports = {
         lightgray: {
           DEFAULT: "#858585",
         },
+        span: {
+          DEFAULT: "#767676",
+        },
+      },
+      spacing: {
+        layout: "2rem",
+        "layout-md": "4rem",
+        "layout-lg": "8.4375rem",
+        maxSize: "100rem",
+        "video-h-md": "27.875rem",
+        "video-h-sm": "20rem",
+        "video-h": "16rem",
+        "video-w-xl": "70.125rem",
+        "video-w": "58rem",
       },
     },
   },
