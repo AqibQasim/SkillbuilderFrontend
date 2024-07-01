@@ -1,10 +1,10 @@
+import { SubHeading } from "@/pages/instructor/[instructorId]";
+
 function InstructorIntro({ video }) {
   console.log(video);
   return (
     <div className="w-[90%] max-w-screen-2xl mx-auto mt-8">
-      <h1 className="sub-heading capitalize text-3xl font-semibold">
-        Instructor introduction
-      </h1>
+      <SubHeading>Instructor introduction</SubHeading>
       {/* video */}
       <div className="flex w-full justify-center items-center mt-10">
         <video

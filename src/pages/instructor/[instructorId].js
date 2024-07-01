@@ -2,9 +2,18 @@ import CurrentPath from "@/components/CurrentPath";
 import Footer from "@/components/Footer";
 import InstructorHero from "@/components/InstructorHero";
 import InstructorIntro from "@/components/InstructorIntro";
+import InstructorTopCourses from "@/components/InstructorTopCourses";
 import Navbar from "@/components/Navbar";
 import { instructor } from "@/data/getInstructorById";
 import { useRouter } from "next/router";
+
+export function SubHeading({ children }) {
+  return (
+    <h2 className="sub-heading capitalize text-3xl font-semibold">
+      {children}
+    </h2>
+  );
+}
 
 function instructorDetails() {
   const router = useRouter();
@@ -17,6 +26,8 @@ function instructorDetails() {
       </div>
       <InstructorHero instructor={instructor} />
       <InstructorIntro video="avideosource" />
+      <InstructorTopCourses courses={instructor.topCourses} />
+
       <Footer />
     </div>
   );
