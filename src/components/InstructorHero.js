@@ -48,7 +48,7 @@ items-center gap-2 text-center w-[90%] max-w-screen-2xl mx-auto xl:flex-row xl:g
             <p className="text-xl xl:text-2xl font-normal text-black">
               Super Skills:
             </p>
-            <ul className="ml-0  mt-4 inline-flex flex-wrap space-y-2 justify-center items-center gap-3 xl:ml-6">
+            <ul className="ml-0  mt-4 inline-flex flex-wrap justify-center items-center gap-3 xl:ml-6">
               {instructor.skills.map((skill) => (
                 <li className="rounded-lg bg-[#F0F2F9] py-3 px-5 text-nowrap text-blue font-normal min-w-max flex justify-center items-center gap-4 text-xl">
                   <Image
