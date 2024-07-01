@@ -104,6 +104,29 @@ export const signupWithGoogle = createAsyncThunk(
   }
 );
 
+export const fetchAllCourses = createAsyncThunk(
+  "courses/fetchAll",
+  async (token, { rejectWithValue }) => {
+    try {
+      const response = await fetch(`${base_Api}/all-courses`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        // body: JSON.stringify({ token }),
+      });
+      const data = await response.json();
+      console.log("API Response Data:", data);
+      if (!response.ok) {
+        throw new Error(data.message || "Unable to sign up with Google");
+      }
+      return data; // assuming the API returns the user object
+    } catch (error) {
+      return rejectWithValue(error.message || "Failed to sign up with Google");
+    }
+  }
+);
+
 // =======
 //       const response = await fetch(`${base_Api}/signup`, {
 //         method: "POST",

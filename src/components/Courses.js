@@ -4,9 +4,37 @@ import Image from "next/image";
 import { useRouter } from "next/router";
 import StarRating from "./StarRating";
 import "../styles/courses.css";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchAllCourses } from "../../redux/thunks/auththunks";
+import { useEffect , useState } from "react";
 
 const Courses = ({ heading, paddingTop }) => {
-  const router = useRouter(); // Define useRouter hook
+  const router = useRouter(); 
+  const dispatch = useDispatch();
+  const { isLoading, error, successMessage } = useSelector(
+    (state) => state.auth
+  );
+const [allCourses, setCourses] = useState([]);
+
+
+  useEffect(() => {
+    dispatch(fetchAllCourses());
+  }, [dispatch]);
+
+//   const { data, isLoading, error } = useSelector(
+//     (state) => state.courses
+//   );
+
+//   console.log('data',data);
+
+  const coursesData = useSelector(state => state?.courses?.data);
+  console.log("data in the client component:", coursesData);
+
+//   useEffect(() => {
+//     if (coursesData) {
+//       setCourses(coursesData);
+//     }
+//   }, [coursesData]);
 
   const courses = [
     {
