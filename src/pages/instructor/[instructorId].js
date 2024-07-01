@@ -1,10 +1,10 @@
 import CurrentPath from "@/components/CurrentPath";
+import Footer from "@/components/Footer";
 import InstructorHero from "@/components/InstructorHero";
+import InstructorIntro from "@/components/InstructorIntro";
 import Navbar from "@/components/Navbar";
 import { instructor } from "@/data/getInstructorById";
 import { useRouter } from "next/router";
-
-console.log(instructor);
 
 function instructorDetails() {
   const router = useRouter();
@@ -16,6 +16,8 @@ function instructorDetails() {
         <CurrentPath />
       </div>
       <InstructorHero instructor={instructor} />
+      <InstructorIntro video="avideosource" />
+      <Footer />
     </div>
   );
 }
