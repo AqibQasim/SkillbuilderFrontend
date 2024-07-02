@@ -8,7 +8,7 @@ module.exports = {
   theme: {
     extend: {
       container: {
-        padding: "25px",
+        padding: "50px",
       },
       borderRadius: {
         "tl-br": "var(--tw-border-radius-tl-br)",
