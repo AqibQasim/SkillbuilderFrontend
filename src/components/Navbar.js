@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { handleRouteChange, getCurrentTab } from "@/utils/currentTabMethods";
 import { togglerMethod } from "@/utils/navMenuToggler";
+import User from "./User";
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -111,9 +112,13 @@ const Navbar = () => {
             />
           </div>
 
-          <button className="py-2 px-4 hidden lg:flex justify-between items-center w-full lg:w-auto bg-blue text-white rounded-lg">
+          {/* <button className="py-2 px-4 hidden lg:flex justify-between items-center w-full lg:w-auto bg-blue text-white rounded-lg">
             Get started
-          </button>
+          </button> */}
+          {/* USER */}
+          <div className="hidden lg:block">
+            <User />
+          </div>
         </div>
       </div>
 
@@ -153,9 +158,14 @@ const Navbar = () => {
               <Link className="px-[1.2rem] py-2 lg:px-[0.5rem]" href="/contact">
                 Contact Us
               </Link>
-              <button className="py-2 px-4 bg-blue text-white rounded-lg mt-4">
+
+              {/* <button className="py-2 px-4 hidden lg:flex justify-between items-center w-full lg:w-auto bg-blue text-white rounded-lg">
                 Get started
-              </button>
+              </button> */}
+              {/* USER */}
+              <div className="lg:hidden block">
+                <User />
+              </div>
             </div>
           </div>
         </>

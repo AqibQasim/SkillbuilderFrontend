@@ -37,6 +37,9 @@ module.exports = {
       },
 
       colors: {
+        "dark-svg": {
+          DEFAULT: "#15161B",
+        },
         bottom_border_gray: {
           DEFAULT: "#D4D5E7",
         },
