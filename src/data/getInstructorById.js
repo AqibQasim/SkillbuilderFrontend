@@ -1,0 +1,58 @@
+export const instructor = {
+  id: new Date(),
+  name: "Zubair Alam",
+  email: "zubairalam@gmail.com",
+  image: "external url",
+  location: "New York, USA",
+  skills: ["QA Automation", "UI UX Design", "DevOps", "Data science"],
+  introductionVideo:
+    "can be a external link to the video or can be recieved within the responce as video source",
+  topCourses: [
+    // Recieve the minimun info on courses on initial responsecan or fetch the courses via id's
+    {
+      id: 96,
+      title: "Softwere Testing",
+      duration: "6 Months",
+      rating: 4.9,
+      reviews: { rate: 4, count: 468 },
+      image: "/dummyImg.svg",
+      desc: "Equipping you with essential skills",
+      price: 480,
+    },
+    {
+      id: 98,
+      title: "API Automation",
+      duration: "6 Months",
+      rating: 4.9,
+      reviews: { rate: 4, count: 468 },
+      image: "/dummyImg.svg",
+      desc: "Equipping you with essential skills",
+      price: 480,
+    },
+    {
+      id: 97,
+      title: "Web Development",
+      duration: "6 Months",
+      rating: 4.9,
+      reviews: { rate: 4, count: 468 },
+      image: "/dummyImg.svg",
+      desc: "Equipping you with essential skills",
+      price: 480,
+    },
+    {
+      id: 99,
+      title: "UI / UX Designing",
+      duration: "6 Months",
+      rating: 4.9,
+      reviews: { rate: 4, count: 468 },
+      image: "/dummyImg.svg",
+      desc: "Equipping you with essential skills",
+      price: 480,
+    },
+    // Or id's
+    // { course1Id: 1 },
+    // { course12d: 2 },
+    // { course13d: 3 },
+    // { course4Id: 4 },
+  ],
+};
