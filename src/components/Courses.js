@@ -6,102 +6,112 @@ import StarRating from "./StarRating";
 import "../styles/courses.css";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchAllCourses } from "../../redux/thunks/auththunks";
-import { useEffect , useState } from "react";
+import { useEffect, useState } from "react";
 
 const Courses = ({ heading, paddingTop }) => {
-  const router = useRouter(); 
+  const router = useRouter();
   const dispatch = useDispatch();
-  const { isLoading, error, successMessage } = useSelector(
-    (state) => state.auth
+  const {
+    data: courses = [],
+    isLoading,
+    error,
+  } = useSelector(
+    (state) => state.courses || { data: [], isLoading: false, error: null }
   );
-const [allCourses, setCourses] = useState([]);
-
 
   useEffect(() => {
     dispatch(fetchAllCourses());
   }, [dispatch]);
 
-//   const { data, isLoading, error } = useSelector(
-//     (state) => state.courses
-//   );
+  //   const { data, isLoading, error } = useSelector(
+  //     (state) => state.courses
+  //   );
 
-//   console.log('data',data);
+  //   console.log('data',data);
 
-  const coursesData = useSelector(state => state?.courses?.data);
-  console.log("data in the client component:", coursesData);
+  // const coursesData = useSelector((state) => state?.courses?.data);
+  // console.log("data in the client component:", coursesData);
 
-//   useEffect(() => {
-//     if (coursesData) {
-//       setCourses(coursesData);
-//     }
-//   }, [coursesData]);
+  //   useEffect(() => {
+  //     if (coursesData) {
+  //       setCourses(coursesData);
+  //     }
+  //   }, [coursesData]);
 
-  const courses = [
-    {
-      id: 1,
-      title: "Software Testing",
-      rating: 5,
-      image: "/dummyImg.svg",
-      desc: "Equipping you with essential skills",
-      price: 480,
-    },
-    {
-      id: 2,
-      title: "UI / UX Designing",
-      rating: 4.9,
-      image: "/dummyImg.svg",
-      desc: "Equipping you with essential skills",
-      price: 480,
-    },
-    {
-      id: 3,
-      title: "Web-Development",
-      rating: 4.9,
-      image: "/dummyImg.svg",
-      desc: "Equipping you with essential skills",
-      price: 480,
-    },
-    {
-      id: 4,
-      title: "Full-Stack Development",
-      rating: 4.9,
-      image: "/dummyImg.svg",
-      desc: "Equipping you with essential skills",
-      price: 480,
-    },
-    {
-      id: 5,
-      title: "Devops",
-      rating: 4.9,
-      image: "/dummyImg.svg",
-      desc: "Equipping you with essential skills",
-      price: 480,
-    },
-    {
-      id: 6,
-      title: "API Automation",
-      rating: 4.9,
-      image: "/dummyImg.svg",
-      desc: "Equipping you with essential skills",
-      price: 480,
-    },
-    {
-      id: 7,
-      title: "Web Automation",
-      rating: 4.9,
-      image: "/dummyImg.svg",
-      desc: "Equipping you with essential skills",
-      price: 480,
-    },
-    {
-      id: 8,
-      title: "API Automation",
-      rating: 4.9,
-      image: "/dummyImg.svg",
-      desc: "Equipping you with essential skills",
-      price: 480,
-    },
-  ];
+  // const courses = [
+  //   {
+  //     id: 1,
+  //     title: "Software Testing",
+  //     rating: 5,
+  //     image: "/dummyImg.svg",
+  //     desc: "Equipping you with essential skills",
+  //     price: 480,
+  //   },
+  //   {
+  //     id: 2,
+  //     title: "UI / UX Designing",
+  //     rating: 4.9,
+  //     image: "/dummyImg.svg",
+  //     desc: "Equipping you with essential skills",
+  //     price: 480,
+  //   },
+  //   {
+  //     id: 3,
+  //     title: "Web-Development",
+  //     rating: 4.9,
+  //     image: "/dummyImg.svg",
+  //     desc: "Equipping you with essential skills",
+  //     price: 480,
+  //   },
+  //   {
+  //     id: 4,
+  //     title: "Full-Stack Development",
+  //     rating: 4.9,
+  //     image: "/dummyImg.svg",
+  //     desc: "Equipping you with essential skills",
+  //     price: 480,
+  //   },
+  //   {
+  //     id: 5,
+  //     title: "Devops",
+  //     rating: 4.9,
+  //     image: "/dummyImg.svg",
+  //     desc: "Equipping you with essential skills",
+  //     price: 480,
+  //   },
+  //   {
+  //     id: 6,
+  //     title: "API Automation",
+  //     rating: 4.9,
+  //     image: "/dummyImg.svg",
+  //     desc: "Equipping you with essential skills",
+  //     price: 480,
+  //   },
+  //   {
+  //     id: 7,
+  //     title: "Web Automation",
+  //     rating: 4.9,
+  //     image: "/dummyImg.svg",
+  //     desc: "Equipping you with essential skills",
+  //     price: 480,
+  //   },
+  //   {
+  //     id: 8,
+  //     title: "API Automation",
+  //     rating: 4.9,
+  //     image: "/dummyImg.svg",
+  //     desc: "Equipping you with essential skills",
+  //     price: 480,
+  //   },
+  // ];
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
+  if (error) {
+    return <div>Error: {error}</div>;
+  }
 
   return (
     <>
