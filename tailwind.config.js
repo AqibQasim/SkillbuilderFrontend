@@ -8,7 +8,7 @@ module.exports = {
   theme: {
     extend: {
       container: {
-        padding: "50px",
+        padding: "25px",
       },
       borderRadius: {
         "tl-br": "var(--tw-border-radius-tl-br)",
@@ -37,6 +37,9 @@ module.exports = {
       },
 
       colors: {
+        "dark-svg": {
+          DEFAULT: "#15161B",
+        },
         bottom_border_gray: {
           DEFAULT: "#D4D5E7",
         },
