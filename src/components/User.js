@@ -12,11 +12,12 @@ function User() {
   const ref = useOutsideClick(handleClose);
 
   const { data: session, status } = useSession();
-  console.log(show);
 
+  // Runs on every outside click while the user is logged in, returning immediately
+  // to prevent unnecessary state changes.
   function handleClose() {
-    setShow((v) => !v);
-    console.log(show);
+    if (!show) return;
+    setShow(false);
   }
 
   if (status === "loading") {
@@ -39,7 +40,7 @@ function User() {
           ref={ref}
           className="action relative flex justify-center items-center"
         >
-          <button onClick={handleClose}>
+          <button onClick={() => setShow((prevValue) => !prevValue)}>
             <img
               src={session?.user?.image}
               className="rounded-full h-7 w-7 ml-6"
