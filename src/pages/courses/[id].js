@@ -1,12 +1,13 @@
 // pages/courses/[id]/index.js
 import { useRouter } from "next/router";
-import Image from "next/image";
 import courses from "@/data/courses";
 import Navbar from "@/components/Navbar";
 import CourseInstructor from "@/components/CourseInstructor";
 import CourseHero from "@/components/CourseHero";
 import CurrentPath from "@/components/CurrentPath";
 import Footer from "@/components/Footer";
+import CourseReviews from "@/components/CourseReviews";
+import CourseModule from "@/components/CourseModule";
 const CourseDetails = () => {
   const router = useRouter();
   const { id } = router.query;
@@ -25,6 +26,8 @@ const CourseDetails = () => {
         </div>
         <CourseHero />
         <CourseInstructor />
+        <CourseModule />
+        <CourseReviews />
         <Footer />
       </div>
     </>

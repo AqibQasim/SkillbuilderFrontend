@@ -25,6 +25,7 @@ function CourseHero() {
             </p>
           </div>
         </div>
+
         {/* Right Section (visible on all screens) */}
         <div className="hidden flex-1 text-black lg:flex lg:items-center lg:justify-center">
           {/* <div className="relative h-[19.5rem] w-[30.5625rem] flex justify-center items-center">
