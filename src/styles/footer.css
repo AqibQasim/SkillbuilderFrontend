@@ -1,20 +1,20 @@
 .img {
-    width: 8rem;
-    height: 3rem;
-  }
-  
-  /* Medium screens (e.g., tablets) */
-  @media (max-width: 768px) {
-    .img {
+  width: 8rem;
+  height: 3rem;
+}
+
+/* Medium screens (e.g., tablets) */
+@media (max-width: 768px) {
+  /* .img {
       width: 30px;
       height: 30px;
-    }
-  }
-  
-  /* Small screens (e.g., phones) */
-  @media (max-width: 480px) {
-    .img {
+    } */
+}
+
+/* Small screens (e.g., phones) */
+@media (max-width: 480px) {
+  /* .img {
       width: 12rem;
       height: 3rem;
-    }
-  }
+    } */
+}
