@@ -9,6 +9,8 @@ function CurrentPath({ className }) {
 
   if (currentPath === "contact" || currentPath === "about") {
     currentPath += " us";
+  }else if(currentPath === "shoppingcart"){
+    currentPath = "Shopping Cart"
   }
 
   return (
