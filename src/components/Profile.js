@@ -5,15 +5,19 @@ import Image from "next/image";
 import Form from "./Form";
 import { useState } from "react";
 import styles from "../styles/form.module.css";
+import CurrentPath from "./CurrentPath";
 
 const Profile = ({ profile_text }) => {
-  const [state, setstate] = useState(false);
+  const [state, setstate] = useState(true);
   const { image, name, email, course, location } = profile_text;
   return (
     <div className="w-full  bg-gray-100 ">
       <Navbar />
 
       <div className="flex flex-col justify-center mt-10 pt-10">
+        <div className="ml-16 pl-8 mb-5 ">
+          <CurrentPath />
+        </div>
         <div className="w-[100%] h-[60%] bg-white flex items-center justify-center">
           <div className="flex items-center w-[70%] m-3 max-xsm:flex-col max-sm:flex-col max-md:flex-col lg:flex-row ">
             <div className="flex items-center w-[80%] m-3 p-3 max-xsm:flex-col max-sm:flex-col max-md:flex-col lg:flex-row ">
@@ -32,7 +36,7 @@ const Profile = ({ profile_text }) => {
                     width={40}
                     height={40}
                     alt=""
-                    className="absolute bottom-2 right-2 sm:bottom-1 sm:right-2 md:bottom-3 md:right-3 lg:bottom-5 lg:right-5 "
+                    className="absolute bottom-2 right-2 sm:bottom-1 sm:right-2 md:bottom-3 md:right-3 lg:bottom-5 lg:right-5 cursor-pointer"
                   />
                 )}
               </div>
@@ -62,7 +66,7 @@ const Profile = ({ profile_text }) => {
               </div>
             </div>
             <div className="">
-              <div className="flex flex-col  max-sm:gap-10 md:gap-20 lg:gap-25 max-xsm:gap-5 sm:gap-5 sm:items-center max-xsm:items-center max-sm:items-center md:items-center lg:items-end mx-4">
+              <div className="flex flex-col gap-20 max-md:gap-5 lg:gap-20 max-xsm:gap-5  max-xsm:items-center  max-md:items-center lg:items-end mx-4">
                 <div>
                   <Image
                     src="/Icon.svg"
@@ -93,11 +97,6 @@ const Profile = ({ profile_text }) => {
         {state && (
           <div className=" max-xsm:ml-10 max-xsm:pl-10 max-sm:ml-20 max-sm:pl-10 md:pl-10 md:ml-10 lg:ml-0 lg:pl-0">
             <Form />
-            {/* justify-end w-[80%] */}
-            <div className="flex justify-end w-[80%]">
-              <button className={styles.buttonchanges}>Save Changes</button>
-              <button className={styles.cancel}>Cancel</button>
-            </div>
           </div>
         )}
       </div>
