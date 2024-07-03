@@ -92,7 +92,7 @@ export const signupWithGoogle = createAsyncThunk(
   async (token, { rejectWithValue }) => {
     try {
       const response = await fetch(
-        `${process.env.NEXT_PUBLIC_BASE_API}/auth/google`,
+        `${process.env.NEXT_PUBLIC_BASE_API}/auth/google`, 
         {
           method: "POST",
           headers: {
