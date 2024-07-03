@@ -8,7 +8,7 @@ import styles from "../styles/form.module.css";
 import CurrentPath from "./CurrentPath";
 
 const Profile = ({ profile_text }) => {
-  const [state, setstate] = useState(true);
+  const [state, setstate] = useState(false);
   const { image, name, email, course, location } = profile_text;
   return (
     <div className="w-full  bg-gray-100 ">
