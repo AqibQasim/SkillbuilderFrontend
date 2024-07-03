@@ -5,11 +5,7 @@ import { useState } from "react";
 import BellIconSvg from "./BellIconSvg";
 import CartIconSvg from "./CartIconSvg";
 import ChatIconSvg from "./ChatIconSvg";
-<<<<<<< HEAD
-import { useSelector } from "react-redux";
-=======
 import ChevronRightIconSvg from "./ChevronRightIconSvg";
->>>>>>> 081822ffeff8d9c3296e212612661465834ad26a
 
 function User() {
   const [show, setShow] = useState(false);
@@ -18,12 +14,6 @@ function User() {
   const { data: session, status } = useSession();
   const { user, isLoading } = useSelector((state) => state.auth);
 
-<<<<<<< HEAD
-  console.log(user);
-
-  if (status === "loading" || isLoading) {
-    // or a loading indicator if desired
-=======
   // Runs on every outside click while the user is logged in, returning immediately
   // to prevent unnecessary state changes.
   function handleClose() {
@@ -32,7 +22,6 @@ function User() {
   }
 
   if (status === "loading") {
->>>>>>> 081822ffeff8d9c3296e212612661465834ad26a
     return null;
   }
 
