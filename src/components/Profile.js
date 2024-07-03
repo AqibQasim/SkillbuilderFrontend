@@ -15,7 +15,7 @@ const Profile = ({ profile_text }) => {
       <Navbar />
 
       <div className="flex flex-col justify-center mt-10 pt-10">
-        <div className="ml-16 pl-8 mb-5 ">
+        <div className="ml-16 pl-8 mb-5 pb-5">
           <CurrentPath />
         </div>
         <div className="w-[100%] h-[60%] bg-white flex items-center justify-center">
@@ -36,7 +36,7 @@ const Profile = ({ profile_text }) => {
                     width={40}
                     height={40}
                     alt=""
-                    className="absolute bottom-2 right-2 sm:bottom-1 sm:right-2 md:bottom-3 md:right-3 lg:bottom-5 lg:right-5 cursor-pointer"
+                    className={`absolute bottom-2 right-2 sm:bottom-1 sm:right-2 md:bottom-3 md:right-3 lg:bottom-5 lg:right-5 cursor-pointer`}
                   />
                 )}
               </div>
@@ -76,6 +76,7 @@ const Profile = ({ profile_text }) => {
                     onClick={() => {
                       setstate(!state);
                     }}
+                    className="cursor-pointer"
                   />
                 </div>
                 <div className="flex sm:flex-row md:flex-row lg:flex-row gap-3 h-[100%] pt-5">
