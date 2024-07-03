@@ -6,7 +6,9 @@
   border: 1px solid #bbbbbb;
   border-radius: 2px;
 }
-
+.cursortest {
+  cursor: pointer;
+}
 .label {
   white-space: nowrap; /* Ensure the label doesn't wrap */
 }
