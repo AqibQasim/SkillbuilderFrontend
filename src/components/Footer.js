@@ -21,14 +21,14 @@ const Footer = () => {
 
   return (
     // <footer className="w-[100%] bg-white text-white p-4 mt-12 max-sm:mt-[-4rem]">
-    <footer className="mt-12 bg-white text-white">
+    <footer className="mt-12 w-full bg-white pt-12 text-white">
       <LayoutWidth>
         <div className="footer-inner">
           <div className="flex flex-col flex-wrap items-start justify-between space-y-4 lg:flex-row lg:items-center lg:space-y-0">
             {/* Left column */}
             {/* <div className="w-[50%] max-sm:flex max-sm:flex-col max-sm:items-center  md:w-1/3 mb-4 md:mb-0 max-sm:w-[100%]"> */}
             <div className="mb-4 w-full md:mb-0 lg:w-auto max-sm:flex max-sm:flex-col max-sm:items-center">
-              <Image src="/logo.svg" className="img" width={50} height={50} />
+              <Image src="/logo.svg" className="imba" width={170} height={30} />
               <p className="mt-4 text-black max-sm:w-[100%] max-sm:text-center">
                 Venture your Educational dreams.{" "}
               </p>
@@ -50,7 +50,7 @@ const Footer = () => {
                 </a>
               </div>
             </div>
-            <div className="flex w-full items-start justify-between lg:w-[unset] lg:justify-center lg:gap-28 max-sm:justify-center max-sm:gap-2">
+            <div className="flex w-full items-start justify-between lg:w-[unset] lg:justify-center lg:gap-28 max-sm:justify-center max-sm:gap-8">
               {/* Right columns */}
               {/* <div className="flex justify-between gap-24 max-sm:justify-center"> */}
               {/* First column in the right side */}
