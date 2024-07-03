@@ -3,16 +3,20 @@ import Link from "next/link";
 import BellIconSvg from "./BellIconSvg";
 import CartIconSvg from "./CartIconSvg";
 import ChatIconSvg from "./ChatIconSvg";
+import { useSelector } from "react-redux";
 
 function User() {
   const { data: session, status } = useSession();
+  const { user, isLoading } = useSelector((state) => state.auth);
 
-  if (status === "loading") {
+  console.log(user);
+
+  if (status === "loading" || isLoading) {
     // or a loading indicator if desired
     return null;
   }
 
-  if (status === "authenticated") {
+  if (status === "authenticated" || user) {
     return (
       <div className="inline-flex justify-center items-center gap-3 text-dark-svg">
         <button>

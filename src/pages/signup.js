@@ -1,13 +1,17 @@
 import { useSession } from "next-auth/react";
 import Signup from "@/components/Signup";
 import { useRouter } from "next/router";
+import { useSelector } from "react-redux";
 
 function SignupPage() {
   const { data: session, status } = useSession();
+  const { isLoading, error, successMessage } = useSelector(
+    (state) => state.auth
+  );
   const router = useRouter();
 
   // Check if user is authenticated
-  if (status === "authenticated") {
+  if (status === "authenticated" ) {
     router.replace("/home");
     return null;
   }
