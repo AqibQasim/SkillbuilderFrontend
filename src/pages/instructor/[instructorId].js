@@ -27,7 +27,6 @@ function instructorDetails() {
       <InstructorHero instructor={instructor} />
       <InstructorIntro video="avideosource" />
       <InstructorTopCourses courses={instructor.topCourses} />
-
       <Footer />
     </div>
   );

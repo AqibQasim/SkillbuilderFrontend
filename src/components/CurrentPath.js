@@ -8,9 +8,8 @@ function CurrentPath({ className }) {
   let currentPath = router.pathname.replace("/", "");
 
   if (currentPath === "contact" || currentPath === "about") {
-    currentPath += " us";
+    currentPath += "us";
   }
-
   return (
     <>
       <Link href="/home">

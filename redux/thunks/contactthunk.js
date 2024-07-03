@@ -1,17 +1,19 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-const base_Api = "http://localhost:4000";
 
 export const submitContactForm = createAsyncThunk(
   "contact/submit",
   async (contactData, { rejectWithValue }) => {
     try {
-      const response = await fetch(`${base_Api}/contact-us`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(contactData),
-      });
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_BASE_API}/contact-us`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(contactData),
+        }
+      );
       const data = await response.json();
       console.log("data:", data);
       if (!response.ok) {
