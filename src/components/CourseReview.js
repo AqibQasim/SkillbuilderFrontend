@@ -5,7 +5,7 @@ import LikeDislike from "./LikeDislike";
 const CourseReview = ({ name, rating, description }) => {
   return (
     <div className="flex justify-center p-10">
-      <article className="w-[75%] rounded-sm p-10 bg-white">
+      <article className="w-[75%] max-md:w-[100%]  rounded-sm p-10 bg-white">
         <div class="flex items-center mb-4 justify-between">
           <div className="flex items-center">
             <Image
@@ -31,7 +31,7 @@ const CourseReview = ({ name, rating, description }) => {
         </div>
         <p class="py-4 text-bg_text_gray dark:text-gray-400">{description}</p>
         <div className="w-full flex justify-between">
-          <div className="mt-5 w-[25%] border-2 rounded-sm shadow-sm flex justify-center cursor-pointer hover:bg-bg_gray ">
+          <div className="mt-5 w-[25%] max-md:w-[50%] border-2 rounded-sm shadow-sm flex justify-center cursor-pointer hover:bg-bg_gray ">
             {" "}
             <button>
               <a
