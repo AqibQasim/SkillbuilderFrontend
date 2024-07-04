@@ -1,0 +1,47 @@
+/* dropdown.module.css */
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+/* Style the button that opens the dropdown */
+.dropbtn {
+  font-size: 24px; /* Adjust the size as needed */
+  border: none;
+  cursor: pointer;
+  padding: 10px;
+}
+
+/* Dropdown content (hidden by default) */
+.dropdownContent {
+  display: none;
+  position: absolute;
+  right: 0; /* Align the dropdown to the right of the button */
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+}
+
+/* Links inside the dropdown */
+.dropdownContent a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+/* Change color of dropdown links on hover */
+.dropdownContent a:hover {
+  background-color: #f1f1f1;
+}
+
+/* Show the dropdown menu when the user clicks on the button */
+.show {
+  display: block;
+}
+
+/* Add a hover effect to the dropbtn */
+.dropbtn:hover {
+  background-color: #ffffff;
+}

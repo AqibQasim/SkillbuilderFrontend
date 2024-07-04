@@ -24,6 +24,18 @@ const coursereviews = () => {
       description:
         "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Asperiores incidunt sapiente vel nobis enim voluptate officiis iusto perspiciatis quam. Officiis veritatis maxime similique nesciunt officia distinctio magnam saepe unde dolorum voluptatum autem consequatur ullam quas magni, odit sequi nihil quo placeat laboriosam quia repellat? Ducimus.",
     },
+    {
+      name: "Ahmad zaman",
+      rating: "2",
+      description:
+        "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Asperiores incidunt sapiente vel nobis enim voluptate officiis iusto perspiciatis quam. Officiis veritatis maxime similique nesciunt officia distinctio magnam saepe unde dolorum voluptatum autem consequatur ullam quas magni, odit sequi nihil quo placeat laboriosam quia repellat? Ducimus.",
+    },
+    {
+      name: "Sanjay ",
+      rating: "0",
+      description:
+        "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Asperiores incidunt sapiente vel nobis enim voluptate officiis iusto perspiciatis quam. Officiis veritatis maxime similique nesciunt officia distinctio magnam saepe unde dolorum voluptatum autem consequatur ullam quas magni, odit sequi nihil quo placeat laboriosam quia repellat? Ducimus.",
+    },
   ];
 
   return (
