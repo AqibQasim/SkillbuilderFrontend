@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import styles from "../styles/form.module.css";
 import { editProfile } from "../../redux/thunks/profilethunk";
 
-const Form = () => {
+const EditProfileForm = () => {
   const { user, isLoading } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
 
@@ -217,4 +217,4 @@ const Form = () => {
   );
 };
 
-export default Form;
+export default EditProfileForm;
