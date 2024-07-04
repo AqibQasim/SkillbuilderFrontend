@@ -1,9 +1,11 @@
 import React, { useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import styles from "../styles/form.module.css";
+import { editProfile } from "../../redux/thunks/profilethunk";
 
 const Form = () => {
   const { user, isLoading } = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
 
   const initialState = {
     id: user ? user : null,
@@ -35,7 +37,34 @@ const Form = () => {
 
   function handleSubmit(e) {
     e.preventDefault();
-    const dataToSubmit = { ...changedFields, id: formData.id };
+    // Destructure the form data and initial state for readability
+    const { id, ...formValues } = formData;
+    // If all form fields are empty
+    const areAllFieldsEmpty = (fields) => {
+      return Object.values(fields).every((value) => value === "");
+    };
+    // If there are no changes
+    const hasNoActualChanges = (changes, initial) => {
+      return Object.keys(changes).every((key) => changes[key] === initial[key]);
+    };
+    // If all fields are empty or no actual changes
+    const allFieldsEmpty = areAllFieldsEmpty(formValues);
+    const noActualChanges = hasNoActualChanges(changedFields, initialState);
+
+    if (
+      Object.keys(changedFields).length === 0 ||
+      allFieldsEmpty ||
+      noActualChanges
+    ) {
+      // Exit early if no fields changed, all fields are empty, or no actual changes
+      return;
+    }
+
+    // Prepare data for submission
+    const dataToSubmit = { ...changedFields, id };
+
+    // Log the data to the console (replace this with actual submission logic)
+    dispatch(editProfile(dataToSubmit));
     console.log(dataToSubmit);
   }
 
