@@ -1,6 +1,6 @@
 import Image from "next/image";
 import StarRating from "./StarRating";
-import Dropdown from "./dropdown";
+import Dropdown from "./DropDown";
 import LikeDislike from "./LikeDislike";
 const CourseReview = ({ name, rating, description }) => {
   return (

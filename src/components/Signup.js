@@ -3,11 +3,10 @@ import Image from "next/image";
 import Link from "next/link";
 import { useDispatch, useSelector } from "react-redux";
 import { signupUser, signupWithGoogle } from "../../redux/thunks/auththunks";
-import { useSession, signIn, signOut } from 'next-auth/react';
+import { useSession, signIn, signOut } from "next-auth/react";
 // import { signupUser } from "../../redux/thunks/auththunks";
 
 const Signup = () => {
-
   const dispatch = useDispatch();
   const { isLoading, error, successMessage } = useSelector(
     (state) => state.auth
@@ -19,8 +18,8 @@ const Signup = () => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [formError, setFormError] = useState("");
-  
- const handleSubmit = (e) => {
+
+  const handleSubmit = (e) => {
     e.preventDefault();
     const passwordCriteria =
       /^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+{}\[\]:;<>,.?~\\/-])[A-Za-z\d!@#$%^&*()_+{}\[\]:;<>,.?~\\/-]{8,}$/;
@@ -34,15 +33,15 @@ const Signup = () => {
       );
       return;
     }
-    setFormError(""); 
+    setFormError("");
     if (password)
       dispatch(signupUser({ first_name, last_name, email, password }));
   };
 
   const { data, status } = useSession();
-  console.log("data:",data,"status:",status);
-  if (status === 'loading') return <h1> loading... please wait</h1>;
-  if (status === 'authenticated') {
+  console.log("data:", data, "status:", status);
+  if (status === "loading") return <h1> loading... please wait</h1>;
+  if (status === "authenticated") {
     console.log("AUTHENTICATED SUCCESSFULLY!");
   }
 
@@ -204,8 +203,8 @@ const Signup = () => {
         </div>
         <button
           // onClick={handleGoogleSignIn}
-          onClick={() => signIn('google')}
-          className="bg-white mt-4 bg-blue-700 border mb-4 w-full border-black text-black p-2 rounded-lg flex items-center justify-center"
+          onClick={() => signIn("google")}
+          className="bg-white mt-4 border mb-4 w-full border-black text-black p-2 rounded-lg flex items-center justify-center"
         >
           <span className="mr-2">
             <Image src="/googlelogo.png" width={25} height={25} alt="" />
