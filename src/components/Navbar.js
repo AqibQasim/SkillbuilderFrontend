@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { handleRouteChange, getCurrentTab } from "@/utils/currentTabMethods";
 import { togglerMethod } from "@/utils/navMenuToggler";
-import User from "./User";
+import User from "@/components/User";
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -25,8 +25,8 @@ const Navbar = () => {
 
   return (
     <>
-      <div className="h-[10vh] w-[100%] bg-white flex flex-row justify-center items-center">
-        <div className="w-[90%] flex justify-between items-center">
+      <div className="flex h-[10vh] w-[100%] flex-row items-center justify-center bg-white">
+        <div className="flex w-[90%] items-center justify-between">
           <Image src="/logo.svg" width={160} height={160} alt="Logo" />
 
           <div className="lg:hidden">
@@ -37,7 +37,7 @@ const Navbar = () => {
               }}
             >
               <svg
-                className="w-8 h-8"
+                className="h-8 w-8"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -55,11 +55,11 @@ const Navbar = () => {
             </button>
           </div>
 
-          <div className="flex justify-center items-center gap-4 lg:text-sm text-bg_text_gray hidden lg:flex items-center w-full lg:w-auto">
+          <div className="flex hidden w-full items-center justify-center gap-4 text-bg_text_gray lg:flex lg:w-auto lg:text-sm">
             <Link
               className={
                 currentTab === "home"
-                  ? `px-[1.2rem] py-2 bg-bg_gray rounded-lg text-blue font-semibold lg:px-[0.8rem]`
+                  ? `rounded-lg bg-bg_gray px-[1.2rem] py-2 font-semibold text-blue lg:px-[0.8rem]`
                   : `px-[1.2rem] py-2 lg:px-[0.5rem]`
               }
               href="/home"
@@ -69,7 +69,7 @@ const Navbar = () => {
             <Link
               className={
                 currentTab === "courses"
-                  ? `px-[1.2rem] py-2 bg-bg_gray lg:px-[0.5rem] rounded-lg text-blue font-semibold lg:px-[0.8rem]`
+                  ? `rounded-lg bg-bg_gray px-[1.2rem] py-2 font-semibold text-blue lg:px-[0.5rem] lg:px-[0.8rem]`
                   : `px-[1.2rem] py-2 lg:px-[0.5rem]`
               }
               href="/courses"
@@ -79,7 +79,7 @@ const Navbar = () => {
             <Link
               className={
                 currentTab === "about"
-                  ? `px-[1.2rem] py-2 bg-bg_gray lg:px-[0.5rem] rounded-lg text-blue font-semibold lg:px-[0.8rem]`
+                  ? `rounded-lg bg-bg_gray px-[1.2rem] py-2 font-semibold text-blue lg:px-[0.5rem] lg:px-[0.8rem]`
                   : `px-[1.2rem] py-2 lg:px-[0.5rem]`
               }
               href="/about"
@@ -89,7 +89,7 @@ const Navbar = () => {
             <Link
               className={
                 currentTab === "contact"
-                  ? `px-[1.2rem] py-2 bg-bg_gray lg:px-[0.5rem] rounded-lg text-blue font-semibold lg:px-[0.8rem]`
+                  ? `rounded-lg bg-bg_gray px-[1.2rem] py-2 font-semibold text-blue lg:px-[0.5rem] lg:px-[0.8rem]`
                   : `px-[1.2rem] py-2 lg:px-[0.5rem]`
               }
               href="/contact"
@@ -98,7 +98,7 @@ const Navbar = () => {
             </Link>
           </div>
 
-          <div className="flex border-[1px] rounded-lg hidden lg:flex justify-between items-center w-full border-border_gray px-4 gap-2 lg:w-[25%]">
+          <div className="flex hidden w-full items-center justify-between gap-2 rounded-lg border-[1px] border-border_gray px-4 lg:flex lg:w-[25%]">
             <Image
               src="/searchIcon.svg"
               width={20}
@@ -124,8 +124,8 @@ const Navbar = () => {
 
       {menuOpen && (
         <>
-          <div className="absolute w-[95%] flex justify-center mb-10">
-            <div className="w-[100%] flex justify-end items-center relative z-10">
+          <div className="absolute mb-10 flex w-[95%] justify-center">
+            <div className="relative z-10 flex w-[100%] items-center justify-end">
               <button
                 onClick={() => {
                   togglerMethod(setMenuOpen, menuOpen);
@@ -141,10 +141,10 @@ const Navbar = () => {
             </div>
           </div>
 
-          <div className="lg:hidden fixed inset-0 bg-white flex flex-col justify-center items-center z-0">
+          <div className="fixed inset-0 z-0 flex flex-col items-center justify-center bg-white lg:hidden">
             <div className="flex flex-col items-center gap-4">
               <Link
-                className="px-[1.2rem] py-2 lg:px-[0.5rem] rounded-lg"
+                className="rounded-lg px-[1.2rem] py-2 lg:px-[0.5rem]"
                 href="/home"
               >
                 Home
@@ -163,7 +163,7 @@ const Navbar = () => {
                 Get started
               </button> */}
               {/* USER */}
-              <div className="lg:hidden block">
+              <div className="block lg:hidden">
                 <User />
               </div>
             </div>
@@ -172,8 +172,8 @@ const Navbar = () => {
       )}
 
       {/* Mobile Search Bar */}
-      <div className="lg:hidden flex justify-center items-center w-full bg-white py-2">
-        <div className="flex border-[1px] rounded-md border-border_gray px-4 gap-2 w-[90%]">
+      <div className="flex w-full items-center justify-center bg-white py-2 lg:hidden">
+        <div className="flex w-[90%] gap-2 rounded-md border-[1px] border-border_gray px-4">
           <Image
             src="/searchIcon.svg"
             width={20}

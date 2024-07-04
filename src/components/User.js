@@ -1,48 +1,49 @@
 import { useOutsideClick } from "@/utils/useOutsideClick";
-import { signOut, useSession } from "next-auth/react";
-import Link from "next/link";
-import { useState } from "react";
+import { useSession } from "next-auth/react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { logout } from "../../redux/slices/authSlice";
-import BellIconSvg from "./BellIconSvg";
 import CartIconSvg from "./CartIconSvg";
+import BellIconSvg from "./BellIconSvg";
 import ChatIconSvg from "./ChatIconSvg";
+import Link from "next/link";
 import ChevronRightIconSvg from "./ChevronRightIconSvg";
 
 function User() {
   const [show, setShow] = useState(false);
   const ref = useOutsideClick(handleClose);
-  const { user, isLoading, error } = useSelector((state) => state.auth);
-  const dispatch = useDispatch();
-
-  const { data: session, status } = useSession();
   const { user, isLoading } = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
+  const { data: session, status } = useSession();
 
-  console.log("Session", session);
-  console.log("Status", status);
-
-  // Runs on every outside click while the user is logged in, returning immediately
-  // to prevent unnecessary state changes.
+  // Handle the closing of the dropdown menu
   function handleClose() {
     if (!show) return;
     setShow(false);
   }
 
+  // Handle logout
   function handleLogout() {
-    // if logged in through Google
     if (session) {
       signOut();
     }
-    // if logged in through custom authentication (Redux state)
     if (user) {
       dispatch(logout());
     }
   }
 
+  // Use effect to handle side effects
+  useEffect(() => {
+    if (status === "authenticated" || user) {
+      // User is authenticated, you can perform additional side effects here if needed
+    }
+  }, [status, user]);
+
+  // Render nothing if loading
   if (status === "loading" || isLoading) {
     return null;
   }
 
+  // Render the user menu if authenticated
   if (status === "authenticated" || user) {
     return (
       <div className="relative inline-flex items-center justify-center gap-3 text-dark-svg">
@@ -61,26 +62,26 @@ function User() {
         >
           <button onClick={() => setShow((prevValue) => !prevValue)}>
             <img
-              src={session?.user?.image}
+              src={session?.user?.image || user?.avatar} // Use user avatar if session image is not available
               className="ml-6 h-7 w-7 rounded-full"
               alt="User avatar"
             />
           </button>
-          {/* menu */}
-
           {show && (
             <div className="absolute right-0 top-6 z-50 mt-2 min-w-80 rounded-lg bg-white py-3">
               <div className="mb-5 px-5">
                 <img
-                  src={session?.user?.image}
+                  src={session?.user?.image || user?.avatar} // Use user avatar if session image is not available
                   alt="User avatar"
                   className="mx-auto h-16 w-16 rounded-full"
                 />
                 <p className="mt-2 text-center font-semibold">
-                  {session?.user?.name}
+                  {session?.user?.name || user?.name} // Use user name if
+                  session name is not available
                 </p>
                 <p className="text-center text-gray-500">
-                  {session?.user?.email}
+                  {session?.user?.email || user?.email} // Use user email if
+                  session email is not available
                 </p>
               </div>
               <ul className="space-y-1">
@@ -145,6 +146,7 @@ function User() {
     );
   }
 
+  // Render the "Get started" link if not authenticated
   return (
     <Link
       href="/signup"
