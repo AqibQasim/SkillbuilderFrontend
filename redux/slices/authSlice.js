@@ -28,10 +28,6 @@ const authSlice = createSlice({
         state.isLoading = true;
       })
       .addCase(loginUser.fulfilled, (state, action) => {
-<<<<<<< HEAD
-        console.log(action.payload.userId);
-=======
->>>>>>> user-dropdown
         state.user = action.payload.userId;
         state.isLoading = false;
         state.error = null;
