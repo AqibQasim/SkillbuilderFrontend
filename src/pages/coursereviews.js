@@ -1,9 +1,8 @@
 import CourseReview from "@/components/CourseReview";
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
-import Image from "next/image";
 import React from "react";
-
+import Writereview from "@/components/Writereview";
 const coursereviews = () => {
   let arrayofobjects = [
     {
@@ -43,7 +42,7 @@ const coursereviews = () => {
       {" "}
       <div className="w-full bg-bg_gray">
         <Navbar />
-
+        <Writereview />
         {arrayofobjects.map((i) => (
           <CourseReview key={i.name} {...i} />
         ))}
