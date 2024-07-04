@@ -20,8 +20,8 @@ const Profile = ({ profile_text }) => {
         </div>
         <div className="w-[100%] h-[60%] bg-white flex items-center justify-center">
           <div className="flex items-center w-[70%] m-3 max-xsm:flex-col max-sm:flex-col max-md:flex-col lg:flex-row ">
-            <div className="flex items-center w-[80%] m-3 p-3 max-xsm:flex-col max-sm:flex-col max-md:flex-col lg:flex-row ">
-              <div className="m-2 p-2 w-[27%] relative">
+            <div className="flex items-center w-[80%] m-3 p-3 max-xsm:flex-col  max-md:flex-col lg:flex-row ">
+              <div className="m-2 p-2 w-[27%] max-md:w-[50%] relative">
                 <Image
                   src={image}
                   width={160}
@@ -41,28 +41,30 @@ const Profile = ({ profile_text }) => {
                 )}
               </div>
 
-              <div className="mt-4 flex flex-col max-sm:items-center max-md:items-center lg:items-start">
-                <h1 className="text-xl max-xsm:text-sm md:text-xl lg:text-xl font-bold mb-3 leading-5">
+              <div className="mt-4 flex flex-col max-md:items-center lg:items-start">
+                <h1 className="text-xl max-md:text-sm lg:text-xl font-bold mb-3 leading-5">
                   {name}
                 </h1>
-                <p className="font-normal max-sm:text-xs max-md:text-xs lg:text-sm text-wrap mb-2">
-                  Email:{" "}
-                  <span className="font-light text-bg_text_gray pl-1">
-                    {email}
-                  </span>
-                </p>
-                <p className="font-normal max-sm:text-xs max-md:text-xs lg:text-sm text-wrap mb-2">
-                  Course:{" "}
-                  <span className="font-light text-bg_text_gray pl-1">
-                    {course}{" "}
-                  </span>
-                </p>
-                <p className="font-normal max-sm:text-xs max-md:text-xs lg:text-sm text-wrap mb-2">
-                  Location:{" "}
-                  <span className="font-light text-bg_text_gray pl-1">
-                    {location}
-                  </span>
-                </p>
+                <div className="flex flex-col max-md:items-center">
+                  <p className="font-normal max-md:text-xs lg:text-sm text-wrap mb-2 max-md:self-end">
+                    Email:
+                    <span className="font-light text-bg_text_gray pl-1">
+                      {email}
+                    </span>
+                  </p>
+                  <p className="font-normal  max-md:text-xs lg:text-sm text-wrap mb-2">
+                    Course:{" "}
+                    <span className="font-light text-bg_text_gray pl-1">
+                      {course}{" "}
+                    </span>
+                  </p>
+                  <p className="font-normal max-md:text-xs lg:text-sm text-wrap mb-2">
+                    Location:{" "}
+                    <span className="font-light text-bg_text_gray pl-1">
+                      {location}
+                    </span>
+                  </p>
+                </div>
               </div>
             </div>
             <div className="">
@@ -96,7 +98,7 @@ const Profile = ({ profile_text }) => {
         </div>
 
         {state && (
-          <div className=" max-xsm:ml-10 max-xsm:pl-10 max-sm:ml-20 max-sm:pl-10 md:pl-10 md:ml-10 lg:ml-0 lg:pl-0">
+          <div className=" max-xsm:ml-10 max-xsm:pl-10  md:pl-10 md:ml-10 lg:ml-0 lg:pl-0">
             <Form />
           </div>
         )}

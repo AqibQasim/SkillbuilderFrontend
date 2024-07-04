@@ -78,7 +78,7 @@ const Form = () => (
             required
             type="text"
             placeholder="Location"
-            className={`max-xsm:w-[80%] max-sm:w-[80%]  max-md:w-[80%] md:w-[80%] lg:w-[39.5%] px-4 py-2 border border-border_gray rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 ${styles.smallPlaceholder}`}
+            className={`max-md:w-[80%]  w-[39.5%] px-4 py-2 border border-border_gray rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 ${styles.smallPlaceholder}`}
           />
         </div>
       </div>
@@ -111,16 +111,16 @@ const Form = () => (
           className={`w-[39.5%] px-4 py-2 border border-border_gray rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 ${styles.smallPlaceholder}`}
         />
       </div>
-      <div className="flex justify-end max-md:w-[55%] lg:w-[90%]  ">
+      <div className="flex justify-end max-md:justify-between max-md:w-[100%] w-[90%]">
         <button
           type="submit"
-          className="lg:w-[13%] lg:h-[3.9em] m-[1%] bg-blue text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-600 text-xs"
+          className="max-md:text-wrap min-w-fit max-md:p-1 max-md:w-full w-[13%] h-[3.9em] m-[1%] bg-blue text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-600 text-xs"
         >
           Save changes
         </button>
         <button
           type="submit"
-          className={`lg:w-[13%] lg:h-[3.9em] m-[1%] text-blue bg-slate-200 rounded-lg hover:bg-slate-300 focus:outline-none focus:ring-2 focus:ring-slate-300 text-xs`}
+          className={`w-[13%] h-[3.9em] min-w-fit px-2 max-md:w-full max-md:p-1 max-md:mr-2 [3.9em] m-[1%] text-blue bg-slate-200 rounded-lg hover:bg-slate-300 focus:outline-none focus:ring-2 focus:ring-slate-300 text-xs`}
         >
           cancel
         </button>
