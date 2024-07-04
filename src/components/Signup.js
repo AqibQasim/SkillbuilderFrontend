@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useDispatch, useSelector } from "react-redux";
-import { signupUser, signupWithGoogle } from "../../redux/thunks/auththunks";
+import { signupUser, signupWithGoogle } from "../../redux/thunks/authThunks";
 import { useSession, signIn, signOut } from 'next-auth/react';
 // import { signupUser } from "../../redux/thunks/auththunks";
 
@@ -13,14 +13,118 @@ const Signup = () => {
     (state) => state.auth
   );
 
+
   const [first_name, setfirst_name] = useState("");
   const [last_name, setlast_name] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [formError, setFormError] = useState("");
+  const [gmailData, setGmailData] = useState();
+  const [gstatus, setgStatus] = useState();
+
+  // const createGoogleUser = async () => {
+  //   try {
+  //     const reqBody = {
+  //       email: data?.user?.email,
+  //       image: data?.user?.image,
+  //       name: data?.user?.name,
+  //       status: status
+  //     }
+
+  //     const response = await fetch(`${base_Api}/api/createGoogleUser`, {
+  //       method: "POST",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //       },
+  //       body: JSON.stringify(reqBody),
+  //     });
+  //     const data = await response.json();
+  //     console.log("data:",data);
+  //   } catch (e) {
+  //     console.log('ERR:', err);
+  //   }
+  // }
+
+  // const handleSubmit = (e) => {
+  //   e.preventDefault();
+  //   const passwordCriteria =
+  //     /^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+{}\[\]:;<>,.?~\\/-])[A-Za-z\d!@#$%^&*()_+{}\[\]:;<>,.?~\\/-]{8,}$/;
+  //   if (password !== confirmPassword) {
+  //     setFormError("Passwords do not match");
+  //     return;
+  //   }
+  //   if (!passwordCriteria.test(password)) {
+  //     setFormError(
+  //       "Password must contain at least one capital letter, one number, and one special character."
+  //     );
+  //     return;
+  //   }
+  //   setFormError("");
+  //   if (password)
+  //     dispatch(signupUser({ first_name, last_name, email, password }));
+  // };
+
+  // const { data, status } = useSession();
+  // console.log("data:", data, "status:", status);
+  // if (status === 'loading') return <h1> loading... please wait</h1>;
+  // if (status === 'authenticated') {
+  //   console.log("AUTHENTICATED SUCCESSFULLY!");
+  //   setGmailData(data);
+  //   setgStatus(status);
+  //   if(gmailData && gstatus){
+  //     createGoogleUser();
+  //   }
+  // }
+
+
+  // const base_Api = "http://localhost:3000";
+
+  // // export const loginUser = createAsyncThunk(
+  // //   "auth/login",
+  // //   async (userData, { rejectWithValue }) => {
+  // //     try {
+  // //       const response = await fetch(`${base_Api}/login`, {
+  // //         method: "POST",
+  // //         headers: {
+  // //           "Content-Type": "application/json",
+  // //         },
+  // //         body: JSON.stringify(userData),
+  // //       });
+
+
+  const { data, status } = useSession();
   
- const handleSubmit = (e) => {
+  useEffect(() => {
+    if (status === 'authenticated') {
+      console.log("AUTHENTICATED SUCCESSFULLY!");
+      createGoogleUser(data);
+    }
+  }, [status, data]);
+
+  const createGoogleUser = async (data) => {
+    try {
+      const reqBody = {
+        email: data?.user?.email,
+        image: data?.user?.image,
+        name: data?.user?.name,
+      }
+
+      const response = await fetch('/api/create-user', {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(reqBody),
+      });
+      const result = await response.json();
+      console.log("Google user created:", result);
+    } catch (err) {
+      console.log('ERR:', err);
+    }
+  }
+
+  const handleSubmit = (e) => {
     e.preventDefault();
     const passwordCriteria =
       /^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+{}\[\]:;<>,.?~\\/-])[A-Za-z\d!@#$%^&*()_+{}\[\]:;<>,.?~\\/-]{8,}$/;
@@ -35,16 +139,11 @@ const Signup = () => {
       return;
     }
     setFormError(""); 
-    if (password)
-      dispatch(signupUser({ first_name, last_name, email, password }));
+    dispatch(signupUser({ first_name, last_name, email, password }));
   };
 
-  const { data, status } = useSession();
-  console.log("data:",data,"status:",status);
-  if (status === 'loading') return <h1> loading... please wait</h1>;
-  if (status === 'authenticated') {
-    console.log("AUTHENTICATED SUCCESSFULLY!");
-  }
+  if (status === 'loading') return <h1>Loading... please wait</h1>;
+
 
   return (
     <div className="max-w-md w-full px-6 py-4 bg-white rounded-md shadow-md">

@@ -1,31 +1,31 @@
-import { fetchAllCourses } from "../thunks/auththunks";
+import { fetchOneCourse } from "../thunks/coursesThunks";
 import { createSlice } from "@reduxjs/toolkit";
 
 
-const coursesSlice = createSlice({
-  name: "courses",
+const singleCourseSlice = createSlice({
+  name: "course",
   initialState: {
-    data: [],
+    data: {},
     isLoading: false,
     error: null,
   },
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(fetchAllCourses.pending, (state) => {    
+      .addCase(fetchOneCourse.pending, (state) => {    
         state.isLoading = true;
         state.error = null;
       })
-      .addCase(fetchAllCourses.fulfilled, (state, action) => {
+      .addCase(fetchOneCourse.fulfilled, (state, action) => {
         console.log("action:", action);
         state.data = action.payload;
         state.isLoading = false;
       })
-      .addCase(fetchAllCourses.rejected, (state, action) => {
+      .addCase(fetchOneCourse.rejected, (state, action) => {
         state.error = action.payload;
         state.isLoading = false;
       });
   },
 });
 
-export default coursesSlice.reducer;
+export default singleCourseSlice.reducer;

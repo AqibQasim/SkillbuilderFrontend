@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { submitContactForm } from "../thunks/contactthunk";
+import { submitContactForm } from "../thunks/contactThunk";
 
 const contactSlice = createSlice({
   name: "contact",
