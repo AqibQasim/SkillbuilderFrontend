@@ -1,5 +1,5 @@
 import { useOutsideClick } from "@/utils/useOutsideClick";
-import { useSession } from "next-auth/react";
+import { signOut, useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import CartIconSvg from "./CartIconSvg";
@@ -77,12 +77,12 @@ function User() {
                   className="mx-auto h-16 w-16 rounded-full"
                 />
                 <p className="mt-2 text-center font-semibold">
-                  {session?.user?.name || user?.name} // Use user name if
-                  session name is not available
+                  {/* Use user name if session name is not available */}
+                  {session?.user?.name || user?.name || "no mail yet"}
                 </p>
                 <p className="text-center text-gray-500">
-                  {session?.user?.email || user?.email} // Use user email if
-                  session email is not available
+                  {/* Use user email if session email is not available */}
+                  {session?.user?.email || user?.email}
                 </p>
               </div>
               <ul className="space-y-1">
