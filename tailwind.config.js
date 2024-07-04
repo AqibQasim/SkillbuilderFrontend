@@ -87,5 +87,27 @@ module.exports = {
       },
     },
   },
-  plugins: [],
+  plugins: [
+    function ({ addUtilities }) {
+      const newUtilities = {
+        '.placeholder-xsm::placeholder': {
+          'font-size': '0.6rem',
+        },
+        '.placeholder-sm::placeholder': {
+          'font-size': '0.75rem',
+        },
+        '.placeholder-base::placeholder': {
+          'font-size': '1rem',
+        },
+        '.placeholder-lg::placeholder': {
+          'font-size': '1.25rem',
+        },
+        '.placeholder-xl::placeholder': {
+          'font-size': '1.5rem',
+        },
+      }
+
+      addUtilities(newUtilities, ['responsive', 'hover'])
+    },
+  ],
 };
