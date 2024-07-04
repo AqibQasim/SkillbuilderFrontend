@@ -26,30 +26,3 @@ const takereview = () => {
 
 export default takereview
 
-// pages/index.js
-// import Modal from '../components/Modal';
-
-// const HomePage = () => {
-//   const [isModalOpen, setIsModalOpen] = useState(false);
-
-//   const openModal = () => {
-//     setIsModalOpen(true);
-//   };
-
-//   const closeModal = () => {
-//     setIsModalOpen(false);
-//   };
-
-//   return (
-//     <div>
-//       <h1>Home Page</h1>
-//       <button onClick={openModal}>Open Modal</button>
-//       <Modal isOpen={isModalOpen} onClose={closeModal}>
-//         <h2>Modal Title</h2>
-//         <p>This is the modal content.</p>
-//       </Modal>
-//     </div>
-//   );
-// };
-
-// export default HomePage;

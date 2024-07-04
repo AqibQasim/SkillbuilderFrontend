@@ -4,6 +4,10 @@ import Navbar from "@/components/Navbar";
 import React from "react";
 import Writereview from "@/components/Writereview";
 import Reviews from "@/components/Reviews";
+import ReviewModal from "@/components/ReviewModal";
+import StarRating from "@/components/StarRating";
+import ReviewModalContainer from "@/components/ReviewModalContainer";
+import { useState } from "react";
 
 const coursereviews = () => {
   let arrayofobjects = [
@@ -93,7 +97,16 @@ const coursereviews = () => {
         break;
     }
   });
+  //Rayyans work
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
+  const openModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
   return (
     <main>
       {" "}
@@ -102,7 +115,10 @@ const coursereviews = () => {
         <div>
           <Reviews rating={result} total={total_count} counts={rating_counts} />
         </div>
-        <Writereview />
+        <ReviewModalContainer isOpen={isModalOpen} onClose={closeModal}>
+          <ReviewModal onClose={closeModal} />
+        </ReviewModalContainer>
+        <Writereview openModal={openModal} />
         {arrayofobjects.map((i) => (
           <CourseReview key={i.name} {...i} />
         ))}
