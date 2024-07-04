@@ -7,6 +7,7 @@ import BellIconSvg from "./BellIconSvg";
 import ChatIconSvg from "./ChatIconSvg";
 import Link from "next/link";
 import ChevronRightIconSvg from "./ChevronRightIconSvg";
+import { logout } from "../../redux/slices/authSlice";
 
 function User() {
   const [show, setShow] = useState(false);
