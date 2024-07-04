@@ -1,6 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit";
 import authReducer from "../slices/authSlice";
 import contactReducer from "../slices/contactslice";
+import profileReducer from "../slices/profileSlice";
 
 // Function to load state from localStorage
 function loadState() {
@@ -29,6 +30,7 @@ export const store = configureStore({
   reducer: {
     auth: authReducer,
     contact: contactReducer,
+    profile: profileReducer,
   },
   preloadedState,
 });
