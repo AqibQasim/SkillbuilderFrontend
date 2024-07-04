@@ -4,6 +4,7 @@ import {setCurrentTab} from '../utils/currentTabMethods'
 import Courses from "../components/Courses";
 import Footer from "@/components/Footer";
 import CurrentPath from "@/components/CurrentPath";
+import ShopCheckout from "@/components/ShopCheckout";
 
 const ShoppingCart = () => {
 
@@ -52,6 +53,7 @@ const ShoppingCart = () => {
             <div className="path-wrapper w-[90%] max-w-screen-2xl mx-auto mt-16 mb-8">
                 <CurrentPath />
             </div>
+            <ShopCheckout/>
             <Courses courses={courses} heading='You Might Also Like' paddingTop={'pt-5'}/>
             <Footer />
         </div>

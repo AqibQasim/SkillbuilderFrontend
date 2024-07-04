@@ -24,16 +24,18 @@ const ShopCheckout = () => {
     }
 ];
   return (
-    <div className='w-full h-fit flex flex-wrap gap-2 p-4
-                    md:flex-nowrap 
-                    lg:flex-nowrap'>
-        <ShoppingCart
-        courses={courses}
-        />
-        <Bill
-        courses={courses}
-        />
+    <div className='container'>
+        <div className='w-full h-fit flex flex-wrap gap-2
+                        md:flex-nowrap 
+                        lg:flex-nowrap'>
+            <ShoppingCart
+            courses={courses}
+            />
+            <Bill
+            courses={courses}
+            />
 
+        </div>
     </div>
   )
 }
