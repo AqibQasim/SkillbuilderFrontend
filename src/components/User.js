@@ -66,7 +66,7 @@ function User() {
               src={session?.user?.image || user?.avatar} // Use user avatar if session image is not available
               className="ml-6 h-7 w-7 rounded-full"
               alt="User avatar"
-            />
+          />
           </button>
           {show && (
             <div className="absolute right-0 top-6 z-50 mt-2 min-w-80 rounded-lg bg-white py-3">
