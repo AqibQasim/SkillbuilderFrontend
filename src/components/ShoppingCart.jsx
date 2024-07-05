@@ -37,5 +37,4 @@ const ShoppingCart = (props) => {
     </div>
   )
 }
-
 export default ShoppingCart

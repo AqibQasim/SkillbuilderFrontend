@@ -16,6 +16,7 @@ const Bill = (props) => {
 
   return (
     <div className='bg-white w-full flex flex-col h-fit gap-8 p-4
+                    
                     md:w-[30%] lg:w-[30%]'>
                         {/* md:my-5 md:mr-5 md:m-0 
                         lg:my-5 lg:mr-5 lg: lg:m-0 */}

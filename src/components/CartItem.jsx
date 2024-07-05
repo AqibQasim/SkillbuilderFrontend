@@ -10,14 +10,16 @@ const CartItem = ({
         price,
 }) => {
   return (
-    <div className='w-full h-fit gap-6 flex  my-4 flex-wrap justify-center
+    <div className='w-full h-fit gap-6 flex my-4 flex-wrap justify-center
                     sm:justify-between sm:flex-nowrap 
                     md:justify-between md:flex-nowrap
                     lg:justify-between lg:flex-nowrap'>
+
         <div className='w-full flex gap-5 flex-wrap justify-center 
                         sm:justify-normal sm:flex-nowrap
                         md:justify-normal md:flex-nowrap 
                         lg:justify-normal lg:flex-nowrap'>
+
             <div className='w-full md:w-fit lg:w-fit min-w-8 h-fit flex justify-center object-cover'>
                 <img src={imgSrc}
                  className='aspect-auto'/>
