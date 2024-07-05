@@ -2,12 +2,11 @@ import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useDispatch, useSelector } from "react-redux";
-import { signupUser, signupWithGoogle } from "../../redux/thunks/authThunks";
+import { signupUser, signupWithGoogle } from "../../redux/thunks/auththunks";
 import { useSession, signIn, signOut } from 'next-auth/react';
 // import { signupUser } from "../../redux/thunks/auththunks";
 
 const Signup = () => {
-
   const dispatch = useDispatch();
   const { isLoading, error, successMessage } = useSelector(
     (state) => state.auth
@@ -138,12 +137,17 @@ const Signup = () => {
       );
       return;
     }
-    setFormError(""); 
-    dispatch(signupUser({ first_name, last_name, email, password }));
+    setFormError("");
+    if (password)
+      dispatch(signupUser({ first_name, last_name, email, password }));
   };
 
-  if (status === 'loading') return <h1>Loading... please wait</h1>;
-
+  // const { data, status } = useSession();
+  console.log("data:", data, "status:", status);
+  if (status === "loading") return <h1> loading... please wait</h1>;
+  if (status === "authenticated") {
+    console.log("AUTHENTICATED SUCCESSFULLY!");
+  }
 
   return (
     <div className="max-w-md w-full px-6 py-4 bg-white rounded-md shadow-md">
@@ -303,8 +307,8 @@ const Signup = () => {
         </div>
         <button
           // onClick={handleGoogleSignIn}
-          onClick={() => signIn('google')}
-          className="bg-white mt-4 bg-blue-700 border mb-4 w-full border-black text-black p-2 rounded-lg flex items-center justify-center"
+          onClick={() => signIn("google")}
+          className="bg-white mt-4 border mb-4 w-full border-black text-black p-2 rounded-lg flex items-center justify-center"
         >
           <span className="mr-2">
             <Image src="/googlelogo.png" width={25} height={25} alt="" />

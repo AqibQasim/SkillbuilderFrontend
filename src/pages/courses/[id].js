@@ -10,7 +10,7 @@ import CourseReviews from "@/components/CourseReviews";
 import CourseModule from "@/components/CourseModule";
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect } from "react";
-import { fetchAllCourses } from "../../../redux/thunks/authThunks";
+import { fetchAllCourses } from "../../../redux/thunks/auththunks";
 import { fetchOneCourse } from "../../../redux/thunks/coursesThunks";
 
 const CourseDetails = () => {

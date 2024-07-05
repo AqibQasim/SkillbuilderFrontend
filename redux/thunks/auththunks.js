@@ -1,18 +1,20 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { setSuccess } from "../slices/authSlice";
-const base_Api = "http://localhost:4000";
 
 export const loginUser = createAsyncThunk(
   "auth/login",
   async (userData, { rejectWithValue }) => {
     try {
-      const response = await fetch(`${base_Api}/login`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(userData),
-      });
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_BASE_API}/login`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(userData),
+        }
+      );
       const data = await response.json();
       console.log("data:", data);
       if (!response.ok) {
@@ -30,14 +32,18 @@ export const signupUser = createAsyncThunk(
   async (userData, { rejectWithValue, dispatch }) => {
     console.log("Api call krne jarha hu bhai");
     try {
+      console.log(`${process.env.NEXT_PUBLIC_BASE_API}/signup`);
       console.log("Let's seee");
-      const response = await fetch(`${base_Api}/signup`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(userData),
-      });
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_BASE_API}/signup`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(userData),
+        }
+      );
       console.log("response tk to phch gya");
       const data = await response.text();
 
@@ -59,7 +65,7 @@ export const signupUser = createAsyncThunk(
 //   "auth/googleLogin",
 //   async (_, thunkAPI) => {
 //     try {
-//       const response = await fetch(`${base_Api}/auth/google`, {
+//       const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/auth/google`, {
 //         method: "GET",
 //         headers: {
 //           "Content-Type": "application/json",
@@ -85,13 +91,16 @@ export const signupWithGoogle = createAsyncThunk(
   "auth/googleSignup",
   async (token, { rejectWithValue }) => {
     try {
-      const response = await fetch(`${base_Api}/auth/google`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ token }),
-      });
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_BASE_API}/auth/google`, 
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ token }),
+        }
+      );
       const data = await response.json();
       console.log("API Response Data:", data);
       if (!response.ok) {
@@ -108,13 +117,16 @@ export const fetchAllCourses = createAsyncThunk(
   "courses/fetchAll",
   async (token, { rejectWithValue }) => {
     try {
-      const response = await fetch(`${base_Api}/all-courses`, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        // body: JSON.stringify({ token }),
-      });
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_BASE_API}/all-courses`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          // body: JSON.stringify({ token }),
+        }
+      );
       const data = await response.json();
       console.log("API Response Data:", data?.data);
       if (!response.ok) {
@@ -128,7 +140,7 @@ export const fetchAllCourses = createAsyncThunk(
 );
 
 // =======
-//       const response = await fetch(`${base_Api}/signup`, {
+//       const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/signup`, {
 //         method: "POST",
 //         headers: {
 //           "Content-Type": "application/json",
