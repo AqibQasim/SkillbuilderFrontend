@@ -6,7 +6,7 @@ import { loginUser } from "../../redux/thunks/auththunks";
 
 const Login = () => {
   const dispatch = useDispatch();
-  const { user, isLoading, error } = useSelector((state) => state.auth);
+  const { isLoading, error } = useSelector((state) => state.auth);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [formError, setFormError] = useState("");
@@ -39,7 +39,6 @@ const Login = () => {
     <div className="w-full max-w-md rounded-md bg-white p-6 shadow-md">
       <h2 className="text-center text-2xl font-bold text-darkgray">
         Welcome Back
-        {user ? ` userId: ${user}` : " nope"}
       </h2>
       {/* Form */}
       <form onSubmit={SubmitHandler}>

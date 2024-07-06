@@ -8,6 +8,7 @@ import ChatIconSvg from "./ChatIconSvg";
 import Link from "next/link";
 import ChevronRightIconSvg from "./ChevronRightIconSvg";
 import { logout } from "../../redux/slices/authSlice";
+import Avatar from "./Avatar";
 
 function User() {
   const [show, setShow] = useState(false);
@@ -62,23 +63,35 @@ function User() {
           className="action relative flex items-center justify-center"
         >
           <button onClick={() => setShow((prevValue) => !prevValue)}>
-            <img
-              src={session?.user?.image || user?.avatar} // Use user avatar if session image is not available
-              className="ml-6 h-7 w-7 rounded-full"
-              alt="User avatar"
-            />
+            {session?.user?.image ? (
+              <img
+                src={session?.user?.image}
+                className="ml-6 h-7 w-7 rounded-full"
+                alt="User avatar"
+              />
+            ) : (
+              <Avatar name={user.first_name} className="ml-6 h-7 w-7" />
+            )}
           </button>
           {show && (
-            <div className="absolute right-0 top-6 z-50 mt-2 min-w-80 rounded-lg bg-white py-3">
+            <div className="absolute right-0 top-12 z-50 mt-2 min-w-80 rounded-lg bg-white py-3">
               <div className="mb-5 px-5">
-                <img
-                  src={session?.user?.image || user?.avatar} // Use user avatar if session image is not available
-                  alt="User avatar"
-                  className="mx-auto h-16 w-16 rounded-full"
-                />
+                {session?.user?.image ? (
+                  <img
+                    src={session?.user?.image}
+                    className="mx-auto h-16 w-16 rounded-full"
+                    alt="User avatar"
+                  />
+                ) : (
+                  <Avatar
+                    name={user.first_name}
+                    className="mx-auto h-16 w-16"
+                  />
+                )}
+
                 <p className="mt-2 text-center font-semibold">
                   {/* Use user name if session name is not available */}
-                  {session?.user?.name || user?.name || "no mail yet"}
+                  {session?.user?.name || user?.name}
                 </p>
                 <p className="text-center text-gray-500">
                   {/* Use user email if session email is not available */}
@@ -97,7 +110,7 @@ function User() {
                 </li>
                 <li>
                   <Link
-                    href="/account-settings"
+                    href="/profile"
                     className="inline-flex w-full items-center justify-between px-5 py-2 text-gray-700 hover:bg-gray-100"
                   >
                     Account Settings
