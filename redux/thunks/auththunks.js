@@ -128,11 +128,11 @@ export const fetchAllCourses = createAsyncThunk(
         }
       );
       const data = await response.json();
-      console.log("API Response Data:", data);
+      console.log("API Response Data:", data?.data);
       if (!response.ok) {
         throw new Error(data.message || "Unable to sign up with Google");
       }
-      return data; // assuming the API returns the user object
+      return data?.data; // assuming the API returns the user object
     } catch (error) {
       return rejectWithValue(error.message || "Failed to sign up with Google");
     }

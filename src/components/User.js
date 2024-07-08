@@ -13,10 +13,17 @@ import Avatar from "./Avatar";
 function User() {
   const [show, setShow] = useState(false);
   const ref = useOutsideClick(handleClose);
-  const { user, isLoading } = useSelector((state) => state.auth);
+  const { user, isLoading, error } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
+
   const { data: session, status } = useSession();
-  // Handle the closing of the dropdown menu
+  // const { user, isLoading } = useSelector((state) => state.auth);
+
+  console.log("Session", session);
+  console.log("Status", status);
+
+  // Runs on every outside click while the user is logged in, returning immediately
+  // to prevent unnecessary state changes.
   function handleClose() {
     if (!show) return;
     setShow(false);
