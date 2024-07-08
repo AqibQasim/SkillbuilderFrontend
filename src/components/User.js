@@ -8,20 +8,17 @@ import ChatIconSvg from "./ChatIconSvg";
 import Link from "next/link";
 import ChevronRightIconSvg from "./ChevronRightIconSvg";
 import { logout } from "../../redux/slices/authSlice";
-
 function User() {
   const [show, setShow] = useState(false);
   const ref = useOutsideClick(handleClose);
   const { user, isLoading } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const { data: session, status } = useSession();
-
   // Handle the closing of the dropdown menu
   function handleClose() {
     if (!show) return;
     setShow(false);
   }
-
   // Handle logout
   function handleLogout() {
     if (session) {
@@ -31,19 +28,16 @@ function User() {
       dispatch(logout());
     }
   }
-
   // Use effect to handle side effects
   useEffect(() => {
     if (status === "authenticated" || user) {
       // User is authenticated, you can perform additional side effects here if needed
     }
   }, [status, user]);
-
   // Render nothing if loading
   if (status === "loading" || isLoading) {
     return null;
   }
-
   // Render the user menu if authenticated
   if (status === "authenticated" || user) {
     return (
@@ -66,7 +60,7 @@ function User() {
               src={session?.user?.image || user?.avatar} // Use user avatar if session image is not available
               className="ml-6 h-7 w-7 rounded-full"
               alt="User avatar"
-          />
+            />
           </button>
           {show && (
             <div className="absolute right-0 top-6 z-50 mt-2 min-w-80 rounded-lg bg-white py-3">
@@ -97,7 +91,7 @@ function User() {
                 </li>
                 <li>
                   <Link
-                    href="/account-settings"
+                    href="/profile"
                     className="inline-flex w-full items-center justify-between px-5 py-2 text-gray-700 hover:bg-gray-100"
                   >
                     Account Settings
@@ -146,7 +140,6 @@ function User() {
       </div>
     );
   }
-
   // Render the "Get started" link if not authenticated
   return (
     <Link
@@ -157,5 +150,4 @@ function User() {
     </Link>
   );
 }
-
 export default User;
