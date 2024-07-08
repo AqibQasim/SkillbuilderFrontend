@@ -1,6 +1,12 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { loginUser, signupUser, signupWithGoogle } from "../thunks/auththunks";
 
+const initialState = {
+  user: null,
+  error: null,
+  isLoading: false,
+  successMessage: null,
+};
 const authSlice = createSlice({
   name: "auth",
   initialState: {
@@ -23,9 +29,13 @@ const authSlice = createSlice({
         state.isLoading = true;
       })
       .addCase(loginUser.fulfilled, (state, action) => {
-        state.user = action.payload.userId;
+        console.log("action payload h ye : ",action.payload.user.id);
+        state.user = action.payload.user.id;
         state.isLoading = false;
         state.error = null;
+        // Save to localStorage
+        localStorage.setItem("auth", JSON.stringify(state.user));
+        
       })
       .addCase(loginUser.rejected, (state, action) => {
         state.error = action.payload;
@@ -59,6 +69,5 @@ const authSlice = createSlice({
       });
   },
 });
-
 export const { logout, setSuccess } = authSlice.actions;
 export default authSlice.reducer;

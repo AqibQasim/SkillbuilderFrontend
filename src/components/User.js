@@ -1,13 +1,14 @@
 import { useOutsideClick } from "@/utils/useOutsideClick";
 import { signOut, useSession } from "next-auth/react";
-import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { logout } from "../../redux/slices/authSlice";
-import BellIconSvg from "./BellIconSvg";
 import CartIconSvg from "./CartIconSvg";
+import BellIconSvg from "./BellIconSvg";
 import ChatIconSvg from "./ChatIconSvg";
+import Link from "next/link";
 import ChevronRightIconSvg from "./ChevronRightIconSvg";
+import { logout } from "../../redux/slices/authSlice";
+import Avatar from "./Avatar";
 
 function User() {
   const [show, setShow] = useState(false);
@@ -26,22 +27,26 @@ function User() {
     if (!show) return;
     setShow(false);
   }
-
+  // Handle logout
   function handleLogout() {
-    // if logged in through Google
     if (session) {
       signOut();
     }
-    // if logged in through custom authentication (Redux state)
     if (user) {
       dispatch(logout());
     }
   }
-
+  // Use effect to handle side effects
+  useEffect(() => {
+    if (status === "authenticated" || user) {
+      // User is authenticated, you can perform additional side effects here if needed
+    }
+  }, [status, user]);
+  // Render nothing if loading
   if (status === "loading" || isLoading) {
     return null;
   }
-
+  // Render the user menu if authenticated
   if (status === "authenticated" || user) {
     return (
       <div className="relative inline-flex items-center justify-center gap-3 text-dark-svg">
@@ -59,27 +64,39 @@ function User() {
           className="action relative flex items-center justify-center"
         >
           <button onClick={() => setShow((prevValue) => !prevValue)}>
-            <img
-              src={session?.user?.image}
-              className="ml-6 h-7 w-7 rounded-full"
-              alt="User avatar"
-            />
+            {session?.user?.image ? (
+              <img
+                src={session?.user?.image}
+                className="ml-6 h-7 w-7 rounded-full"
+                alt="User avatar"
+              />
+            ) : (
+              <Avatar name={user.first_name} className="ml-6 h-7 w-7" />
+            )}
           </button>
-          {/* menu */}
-
           {show && (
-            <div className="absolute right-0 top-6 z-50 mt-2 min-w-80 rounded-lg bg-white py-3">
+            <div className="absolute right-0 top-12 z-50 mt-2 min-w-80 rounded-lg bg-white py-3">
               <div className="mb-5 px-5">
-                <img
-                  src={session?.user?.image}
-                  alt="User avatar"
-                  className="mx-auto h-16 w-16 rounded-full"
-                />
+                {session?.user?.image ? (
+                  <img
+                    src={session?.user?.image}
+                    className="mx-auto h-16 w-16 rounded-full"
+                    alt="User avatar"
+                  />
+                ) : (
+                  <Avatar
+                    name={user.first_name}
+                    className="mx-auto h-16 w-16"
+                  />
+                )}
+
                 <p className="mt-2 text-center font-semibold">
-                  {session?.user?.name}
+                  {/* Use user name if session name is not available */}
+                  {session?.user?.name || user?.name}
                 </p>
                 <p className="text-center text-gray-500">
-                  {session?.user?.email}
+                  {/* Use user email if session email is not available */}
+                  {session?.user?.email || user?.email}
                 </p>
               </div>
               <ul className="space-y-1">
@@ -94,7 +111,7 @@ function User() {
                 </li>
                 <li>
                   <Link
-                    href="/account-settings"
+                    href="/profile"
                     className="inline-flex w-full items-center justify-between px-5 py-2 text-gray-700 hover:bg-gray-100"
                   >
                     Account Settings
@@ -143,7 +160,7 @@ function User() {
       </div>
     );
   }
-
+  // Render the "Get started" link if not authenticated
   return (
     <Link
       href="/signup"
@@ -153,5 +170,4 @@ function User() {
     </Link>
   );
 }
-
 export default User;
