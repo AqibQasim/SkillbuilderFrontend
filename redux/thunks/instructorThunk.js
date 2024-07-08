@@ -1,4 +1,4 @@
-const base_Api = "http://localhost:4000";
+const base_Api = process.env.NEXT_PUBLIC_BASE_API;
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
 export const fetchOneInstructor = createAsyncThunk(
