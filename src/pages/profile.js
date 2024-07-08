@@ -1,5 +1,8 @@
 import React from "react";
 import Profile from "@/components/Profile";
+import Navbar from "@/components/Navbar";
+import LayoutWidth from "@/components/LayoutWidth";
+import CurrentPath from "@/components/CurrentPath";
 const profile = () => {
   let profile_text = {
     image: "/profileimage.png",
@@ -9,9 +12,19 @@ const profile = () => {
     location: "Chicago, IL",
   };
   return (
-    <main className="flex items-center justify-center">
-      <Profile profile_text={profile_text} />
-    </main>
+    <>
+      <div className="flex h-[100%] w-[100%] flex-col items-center bg-bg_gray">
+        <Navbar />
+        <LayoutWidth>
+          <div className="path-wrapper mb-8 mt-16">
+            <CurrentPath />
+          </div>
+        </LayoutWidth>
+        <main className="w-full">
+          <Profile profile_text={profile_text} />
+        </main>
+      </div>
+    </>
   );
 };
 

@@ -7,6 +7,7 @@ import AboutTeam from "@/components/AboutTeam";
 import AboutVision from "@/components/AboutVision";
 import CurrentPath from "@/components/CurrentPath";
 import Footer from "@/components/Footer";
+import LayoutWidth from "@/components/LayoutWidth";
 
 const about = () => {
   // useEffect(() => {
@@ -17,9 +18,11 @@ const about = () => {
     <>
       <div className="flex h-[100%] w-[100%] flex-col items-center bg-bg_gray">
         <Navbar />
-        <div className="path-wrapper mx-auto mb-8 mt-16 w-[90%] max-w-screen-2xl">
-          <CurrentPath />
-        </div>
+        <LayoutWidth>
+          <div className="path-wrapper mb-8 mt-16">
+            <CurrentPath />
+          </div>
+        </LayoutWidth>
         <AboutHero />
         <AboutGoals />
         <AboutVision />

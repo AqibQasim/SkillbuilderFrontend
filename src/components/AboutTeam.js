@@ -1,6 +1,7 @@
 import "../styles/skills.css";
 import Image from "next/image";
 import React from "react";
+import LayoutWidth from "./LayoutWidth";
 
 const AboutTeam = () => {
   const imageSize = 127;
@@ -35,33 +36,35 @@ const AboutTeam = () => {
   const repeatedSkills = [...Array(100)].flatMap(() => skills);
 
   return (
-    <div className="my-10 w-[90%] mt-16">
-      <h1 className="text-3xl font-semibold">Our Team Members</h1>
-      <div className="container mx-auto border w-[100%] bg-white rounded-tl-br p-4 shadow-xl mt-12 overflow-hidden">
-        <div className="logos mx-auto w-[100%]">
-          <div className="logos-slide flex gap-x-64 animate-scroll">
-            {repeatedSkills.map((skill, index) => (
-              <div
-                key={index}
-                className="flex flex-col justify-between items-center"
-                style={{ flexShrink: 0 }}
-              >
-                <Image
-                  src={skill.src}
-                  alt={skill.alt}
-                  width={imageSize}
-                  height={imageSize}
-                />
-                <p className="text-xl font-semibold">{skill.label}</p>
-                <p className="text-md font-normal text-darkgray">
-                  {skill.designation}
-                </p>
-              </div>
-            ))}
+    <LayoutWidth>
+      <div className="my-10 mt-16">
+        <h1 className="text-3xl font-semibold">Our Team Members</h1>
+        <div className="container mx-auto mt-12 w-[100%] overflow-hidden rounded-tl-br border bg-white p-4 shadow-xl">
+          <div className="logos mx-auto w-[100%]">
+            <div className="logos-slide animate-scroll flex gap-x-64">
+              {repeatedSkills.map((skill, index) => (
+                <div
+                  key={index}
+                  className="flex flex-col items-center justify-between"
+                  style={{ flexShrink: 0 }}
+                >
+                  <Image
+                    src={skill.src}
+                    alt={skill.alt}
+                    width={imageSize}
+                    height={imageSize}
+                  />
+                  <p className="text-xl font-semibold">{skill.label}</p>
+                  <p className="text-md font-normal text-darkgray">
+                    {skill.designation}
+                  </p>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </LayoutWidth>
   );
 };
 
