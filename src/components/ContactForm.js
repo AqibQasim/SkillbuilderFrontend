@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { submitContactForm } from "../../redux/thunks/contactThunk";
+import { submitContactForm } from "../../redux/thunks/contactthunk";
 
 const ContactForm = () => {
   const dispatch = useDispatch();

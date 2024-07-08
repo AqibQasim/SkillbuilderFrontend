@@ -8,11 +8,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchAllCourses } from "../../redux/thunks/auththunks";
 import { useEffect, useState } from "react";
 
-const Courses = ({ heading, paddingTop, courses }) => {
+const Courses = ({ heading, paddingTop }) => {
   const router = useRouter();
   const dispatch = useDispatch();
   const {
-    // data: courses = [],
+    data: courses = [],
     isLoading,
     error,
   } = useSelector(
