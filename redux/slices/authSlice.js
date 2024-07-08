@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { loginUser, signupUser, signupWithGoogle } from "../thunks/auththunks";
+
 const initialState = {
   user: null,
   error: null,
@@ -32,6 +33,7 @@ const authSlice = createSlice({
         state.error = null;
         // Save to localStorage
         localStorage.setItem("auth", JSON.stringify(state.user));
+        
       })
       .addCase(loginUser.rejected, (state, action) => {
         state.error = action.payload;

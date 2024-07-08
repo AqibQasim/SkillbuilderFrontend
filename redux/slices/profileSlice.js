@@ -21,23 +21,11 @@ const profileSlice = createSlice({
   name: "profile",
   initialState,
   reducers: {
-    remove: (state) => {
-      state.id = null;
-      state.first_name = "";
-      state.last_name = "";
-      state.email = "";
-      state.password = "";
-      state.profession = "";
-      state.location = "";
-      state.facebook_profile = "";
-      state.twitter_profile = "";
-      state.linkedin_profile = "";
-      state.error = "";
-      state.status = "idle";
-      state.successMessage = "Profile removed";
-    },
-    add: (state, action) => {
+    setProfile: (state, action) => {
       Object.assign(state, action.payload);
+    },
+    clearProfile: (state) => {
+      return initialState;
     },
   },
   extraReducers: (builder) => {
@@ -48,15 +36,14 @@ const profileSlice = createSlice({
       .addCase(editProfile.fulfilled, (state, action) => {
         state.status = "idle";
         state.successMessage = "Profile updated successfully";
-        state.error = null;
         Object.assign(state, action.payload);
       })
       .addCase(editProfile.rejected, (state, action) => {
         state.status = "error";
-        state.error = action.error.message;
+        state.error = action.payload;
       });
   },
 });
 
-export const { add, remove } = profileSlice.actions;
+export const { setProfile, clearProfile } = profileSlice.actions;
 export default profileSlice.reducer;

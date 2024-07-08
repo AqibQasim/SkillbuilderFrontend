@@ -26,7 +26,7 @@ export async function middleware(request) {
 }
 
 export const config = {
-  matcher: ["/profile", "/login", "/signup"],
+  matcher: [ "/login", "/signup"],
 };
 
 // not using next-auth  provided middleware as i couldnt fix signup page redirect issue

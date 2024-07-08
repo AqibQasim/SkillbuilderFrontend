@@ -3,10 +3,12 @@ import Image from "next/image";
 import Link from "next/link";
 import { useDispatch, useSelector } from "react-redux";
 import { loginUser } from "../../redux/thunks/auththunks";
+import { useRouter } from "next/router";
 
 const Login = () => {
+  const router = useRouter();
   const dispatch = useDispatch();
-  const { isLoading, error } = useSelector((state) => state.auth);
+  const { isLoading, error, user } = useSelector((state) => state.auth);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [formError, setFormError] = useState("");
@@ -35,6 +37,9 @@ const Login = () => {
     const token = googleUser.getAuthResponse().id_token;
     dispatch(loginWithGoogle(token));
   };
+  if(user){
+    router.replace("/home");
+  }
   return (
     <div className="w-full max-w-md rounded-md bg-white p-6 shadow-md">
       <h2 className="text-center text-2xl font-bold text-darkgray">
