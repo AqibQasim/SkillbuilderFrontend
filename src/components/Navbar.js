@@ -1,27 +1,28 @@
-import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { handleRouteChange, getCurrentTab } from "@/utils/currentTabMethods";
-import { togglerMethod } from "@/utils/navMenuToggler";
+import { useState } from "react";
+// import { handleRouteChange, getCurrentTab } from "@/utils/currentTabMethods";
 import User from "@/components/User";
+import { togglerMethod } from "@/utils/navMenuToggler";
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
-  const [currentTab, setCurrentTab] = useState("");
+  // const [currentTab, setCurrentTab] = useState("");
   const router = useRouter();
+  const { pathname } = router;
 
-  useEffect(() => {
-    getCurrentTab(setCurrentTab);
-  }, []);
+  // useEffect(() => {
+  //   getCurrentTab(setCurrentTab);
+  // }, []);
 
-  useEffect(() => {
-    const onRouteChange = (url) => handleRouteChange(url, setCurrentTab);
-    router.events.on("routeChangeComplete", onRouteChange);
-    return () => {
-      router.events.off("routeChangeComplete", onRouteChange);
-    };
-  }, [router.events]);
+  // useEffect(() => {
+  //   const onRouteChange = (url) => handleRouteChange(url, setCurrentTab);
+  //   router.events.on("routeChangeComplete", onRouteChange);
+  //   return () => {
+  //     router.events.off("routeChangeComplete", onRouteChange);
+  //   };
+  // }, [router.events]);
 
   return (
     <>
@@ -55,43 +56,51 @@ const Navbar = () => {
             </button>
           </div>
 
-          <div className="flex hidden w-full items-center justify-center gap-4 text-bg_text_gray lg:flex lg:w-auto lg:text-sm">
+          <div className="flex hidden w-full items-center justify-center gap-3 text-bg_text_gray lg:flex lg:w-auto lg:text-sm">
             <Link
-              className={
-                currentTab === "home"
-                  ? `rounded-lg bg-bg_gray px-[1.2rem] py-2 font-semibold text-blue lg:px-[0.8rem]`
-                  : `px-[1.2rem] py-2 lg:px-[0.5rem]`
-              }
+              // className={
+              //   // currentTab === "home"
+              //   pathname === "/home"
+              //     ? `rounded-lg bg-bg_gray px-[1.2rem] py-2 font-semibold text-blue lg:px-[0.8rem]`
+              //     : `px-[1.2rem] py-2 lg:px-[0.5rem]`
+              // }
+              className={`rounded-lg px-[1.2rem] py-2 font-semibold lg:px-[0.8rem] ${pathname === "/home" ? `bg-bg_gray text-blue` : ""} `}
               href="/home"
             >
               Home
             </Link>
             <Link
-              className={
-                currentTab === "courses"
-                  ? `rounded-lg bg-bg_gray px-[1.2rem] py-2 font-semibold text-blue lg:px-[0.5rem] lg:px-[0.8rem]`
-                  : `px-[1.2rem] py-2 lg:px-[0.5rem]`
-              }
+              // className={
+              //   // currentTab === "courses"
+              //   pathname === "/courses"
+              //     ? `rounded-lg bg-bg_gray px-[1.2rem] py-2 font-semibold text-blue lg:px-[0.5rem] lg:px-[0.8rem]`
+              //     : `px-[1.2rem] py-2 lg:px-[0.5rem]`
+              // }
+              className={`rounded-lg px-[1.2rem] py-2 font-semibold lg:px-[0.8rem] ${pathname === "/courses" ? `bg-bg_gray text-blue` : ""} `}
               href="/courses"
             >
               Courses
             </Link>
             <Link
-              className={
-                currentTab === "about"
-                  ? `rounded-lg bg-bg_gray px-[1.2rem] py-2 font-semibold text-blue lg:px-[0.5rem] lg:px-[0.8rem]`
-                  : `px-[1.2rem] py-2 lg:px-[0.5rem]`
-              }
+              // className={
+              //   // currentTab === "about"
+              //   pathname === "/about"
+              //     ? `rounded-lg bg-bg_gray px-[1.2rem] py-2 font-semibold text-blue lg:px-[0.5rem] lg:px-[0.8rem]`
+              //     : `px-[1.2rem] py-2 lg:px-[0.5rem]`
+              // }
+              className={`rounded-lg px-[1.2rem] py-2 font-semibold lg:px-[0.8rem] ${pathname === "/about" ? `bg-bg_gray text-blue` : ""} `}
               href="/about"
             >
               About Us
             </Link>
             <Link
-              className={
-                currentTab === "contact"
-                  ? `rounded-lg bg-bg_gray px-[1.2rem] py-2 font-semibold text-blue lg:px-[0.5rem] lg:px-[0.8rem]`
-                  : `px-[1.2rem] py-2 lg:px-[0.5rem]`
-              }
+              // className={
+              //   // currentTab === "contact"
+              //   pathname === "/contact"
+              //     ? `rounded-lg bg-bg_gray px-[1.2rem] py-2 font-semibold text-blue lg:px-[0.5rem] lg:px-[0.8rem]`
+              //     : `px-[1.2rem] py-2 lg:px-[0.5rem]`
+              // }
+              className={`rounded-lg px-[1.2rem] py-2 font-semibold lg:px-[0.8rem] ${pathname === "/contact" ? `bg-bg_gray text-blue` : ""} `}
               href="/contact"
             >
               Contact Us
