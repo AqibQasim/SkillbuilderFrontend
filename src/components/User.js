@@ -16,7 +16,6 @@ function User() {
   const dispatch = useDispatch();
 
   const { data: session, status } = useSession();
-  // const { user, isLoading } = useSelector((state) => state.auth);
 
   console.log("Session", session);
   console.log("Status", status);
