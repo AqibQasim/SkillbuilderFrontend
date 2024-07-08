@@ -28,7 +28,7 @@ function ModuleAccordion({ title, lectures, duration, children }) {
   );
 }
 
-export default function CourseModules() {
+export default function CourseModules({ course }) {
   return (
     <LayoutWidth>
       {/* <div className="container mt-12"> */}
@@ -37,113 +37,42 @@ export default function CourseModules() {
           Course outline
         </h1>
         <div className="w-full ">
-          <ModuleAccordion
-            title="Module 1"
-            lectures="4 Lectures"
-            duration="24 mins"
-          ></ModuleAccordion>
-          <ModuleAccordion
-            title="Module 2"
-            lectures="3 Lectures"
-            duration="20 mins"
-          >
-            <div className="space-y-1">
-              <div className="flex justify-between items-center">
-                <span className="flex items-center">
-                  <Image
-                    src="/Play.svg"
-                    width={30}
-                    height={30}
-                    className="relative -ml-1"
-                  />
-                  <span className="ml-2">UI Design Principles</span>
-                </span>
-                <span className="text-blue-500">Preview 06:00</span>
-              </div>
-
-              <div className="flex justify-between items-center">
-                <span className="flex items-center">
-                  <Image
-                    src="/Play.svg"
-                    width={30}
-                    height={30}
-                    className="relative -ml-1"
-                  />
-                  <span className="ml-2">Interaction Design</span>
-                </span>
-                <span className="text-lightgray">Lock 06:00</span>
-              </div>
-
-              <div className="flex justify-between items-center">
-                <span className="flex items-center">
-                  <Image
-                    src="/Play.svg"
-                    width={30}
-                    height={30}
-                    className="relative -ml-1"
-                  />
-                  <span className="ml-2">Usability Testing</span>
-                </span>
-                <span className="text-lightgray">Lock 06:00</span>
-              </div>
-
-              <div className="flex justify-between items-center">
-                <span className="flex items-center">
-                  <Image
-                    src="/Play.svg"
-                    width={30}
-                    height={30}
-                    className="relative -ml-1"
-                  />
-                  <span className="ml-2">Weekly Quiz</span>
-                </span>
-                <span className="text-lightgray">Lock 06:00</span>
-              </div>
-
-              <div className="flex justify-between items-center">
-                <span className="flex items-center">
-                  <Image
-                    src="/Play.svg"
-                    width={30}
-                    height={30}
-                    className="relative -ml-1"
-                  />
-                  <span className="ml-2">Quiz Solution</span>
-                </span>
-                <span className="text-lightgray">Lock 06:00</span>
-              </div>
-
-              {/* <div className="flex items-center justify-between">
-                
-              <span>Interaction Design</span>
-              <span>06:00</span>
-            </div>
-            <div className="flex items-center justify-between">
-              <span>Usability Testing</span>
-              <span>06:00</span>
-            </div>
-            <div className="flex items-center justify-between">
-              <span>Weekly Quiz</span>
-              <span>06:00</span>
-            </div>
-            <div className="flex items-center justify-between">
-              <span>Quiz Solution</span>
-              <span>06:00</span>
-            </div> */}
-            </div>
-          </ModuleAccordion>
-          <ModuleAccordion
-            title="Module 3"
-            lectures="4 Lectures"
-            duration="24 mins"
-          ></ModuleAccordion>
-          <ModuleAccordion
-            title="Module 4"
-            lectures="4 Lectures"
-            duration="24 mins"
-          ></ModuleAccordion>
+          {
+            course?.modules?.map((module) => {
+              return (
+                <>
+                  <ModuleAccordion
+                    title={module?.title}
+                    lectures={`${module?.content?.length} Lectures`}
+                    duration="24 mins"
+                  >
+                    <div className="space-y-1">
+                      {module?.content?.map((content) => {
+                        return (
+                          <>
+                            <div className="flex justify-between items-center">
+                              <span className="flex items-center">
+                                <Image
+                                  src="/Play.svg"
+                                  width={30}
+                                  height={30}
+                                  className="relative -ml-1"
+                                />
+                                <span className="ml-2">{content?.title}</span>
+                              </span>
+                              <span className="text-blue-500">{content?.lock_status} {content?.duration}</span>
+                            </div>
+                          </>
+                        )
+                      })}
+                    </div>
+                  </ModuleAccordion>
+                </>
+              )
+            })
+          }
         </div>
-        {/* Repeat for other modules */}
+          
       </div>
     </LayoutWidth>
   );

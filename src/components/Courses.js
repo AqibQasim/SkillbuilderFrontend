@@ -22,88 +22,8 @@ const Courses = ({ heading, paddingTop }) => {
   useEffect(() => {
     dispatch(fetchAllCourses());
   }, [dispatch]);
-
-  //   const { data, isLoading, error } = useSelector(
-  //     (state) => state.courses
-  //   );
-
-  //   console.log('data',data);
-
-  // const coursesData = useSelector((state) => state?.courses?.data);
-  // console.log("data in the client component:", coursesData);
-
-  //   useEffect(() => {
-  //     if (coursesData) {
-  //       setCourses(coursesData);
-  //     }
-  //   }, [coursesData]);
-
-  // const courses = [
-  //   {
-  //     id: 1,
-  //     title: "Software Testing",
-  //     rating: 5,
-  //     image: "/dummyImg.svg",
-  //     desc: "Equipping you with essential skills",
-  //     price: 480,
-  //   },
-  //   {
-  //     id: 2,
-  //     title: "UI / UX Designing",
-  //     rating: 4.9,
-  //     image: "/dummyImg.svg",
-  //     desc: "Equipping you with essential skills",
-  //     price: 480,
-  //   },
-  //   {
-  //     id: 3,
-  //     title: "Web-Development",
-  //     rating: 4.9,
-  //     image: "/dummyImg.svg",
-  //     desc: "Equipping you with essential skills",
-  //     price: 480,
-  //   },
-  //   {
-  //     id: 4,
-  //     title: "Full-Stack Development",
-  //     rating: 4.9,
-  //     image: "/dummyImg.svg",
-  //     desc: "Equipping you with essential skills",
-  //     price: 480,
-  //   },
-  //   {
-  //     id: 5,
-  //     title: "Devops",
-  //     rating: 4.9,
-  //     image: "/dummyImg.svg",
-  //     desc: "Equipping you with essential skills",
-  //     price: 480,
-  //   },
-  //   {
-  //     id: 6,
-  //     title: "API Automation",
-  //     rating: 4.9,
-  //     image: "/dummyImg.svg",
-  //     desc: "Equipping you with essential skills",
-  //     price: 480,
-  //   },
-  //   {
-  //     id: 7,
-  //     title: "Web Automation",
-  //     rating: 4.9,
-  //     image: "/dummyImg.svg",
-  //     desc: "Equipping you with essential skills",
-  //     price: 480,
-  //   },
-  //   {
-  //     id: 8,
-  //     title: "API Automation",
-  //     rating: 4.9,
-  //     image: "/dummyImg.svg",
-  //     desc: "Equipping you with essential skills",
-  //     price: 480,
-  //   },
-  // ];
+  
+  
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -132,31 +52,32 @@ const Courses = ({ heading, paddingTop }) => {
 
       <div className="w-full flex flex-col justify-center items-center">
         <div className="h-auto w-[90%] grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 place-items-center">
-          {courses.map((course) => (
+          {courses?.slice(0,8).map((course) => (
             <div
-              key={course.id}
+              key={course?.id}
               className="img-container border border-cards_gray h-auto w-full max-w-sm mb-4 bg-white rounded-2xl p-2 flex flex-col items-start transform transition transition-shadow duration-300 hover:shadow-lg hover:border-[rgb(152,159,233)]"
-              onClick={() => router.push(`/courses/${course.id}`)}
+              onClick={() => router.push(`/courses/${course?.id}`)}
             >
               <Image
                 className="w-[100%] pt-1"
-                src={course.image}
-                alt={course.title}
+                // src={course?.image}
+                src='/dummyImg.svg'
+                alt={course?.title}
                 width={280}
                 height={260}
               />
               <div className="p-2 w-[100%]">
-                <div className="w-full flex justify-start items-center gap-3 mt-2">
-                  <span className="text-sm">{course.rating}</span>
-                  <StarRating rating={Math.round(course.rating)} />
+                <div className="w-full flex justify-start items-center gap-  mt-2">
+                  <span className="text-sm">{course?.rating}</span>
+                  <StarRating rating={Math.round(course?.rating)} />
                 </div>
-                <h3 className="text-lg font-semibold mt-4">{course.title}</h3>
-                <p className="mb-2 text-sm">{course.desc}</p>
+                <h3 className="text-lg font-semibold mt-4">{course?.title}</h3>
+                <p className="mb-2 text-sm">{course?.learning_outcomes}</p>
 
                 <div className="flex w-[100%] justify-between pb-2 max-md:pb-2">
                   <div className="w-[50%] flex lg:justify-start lg:items-center lg:gap-1 justify-start items-center gap-2">
                     <span className="text-blue font-semibold">
-                      ${course.price}
+                      ${course?.price}
                     </span>
                     <span className="text-[0.5rem] text-bg_text_gray ">
                       <span className="stroke-bg_text_gray line-through">

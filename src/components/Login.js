@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useDispatch, useSelector } from "react-redux";
-import { loginUser } from "../../redux/thunks/auththunks";
+import { loginUser } from "../../redux/thunks/authThunks";
 
 const Login = () => {
   const dispatch = useDispatch();
