@@ -3,7 +3,9 @@ import authReducer from "../slices/authSlice";
 import contactReducer from "../slices/contactslice";
 import coursesReducer from '../slices/allCoursesSlice'
 import singleCourseReducer from '../slices/singleCourseSlice'
-
+import singleInstructorReducer from '../slices/singleInstructorSlice'
+import singleUserSlice from '../slices/singleUserSlice'
+import getAllReviewsSlice from "../slices/getAllReviewsSlice";
 // Function to load state from localStorage
 function loadState() {
   try {
@@ -32,7 +34,10 @@ export const store = configureStore({
     auth: authReducer,
     contact: contactReducer,
     courses: coursesReducer,    
-    singleCourse : singleCourseReducer
+    singleCourse : singleCourseReducer,
+    singleInstructor : singleInstructorReducer,
+    singleUser : singleUserSlice,
+    allReviews: getAllReviewsSlice
   },
   preloadedState,
 });

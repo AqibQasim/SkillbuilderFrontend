@@ -1,13 +1,12 @@
 const base_Api = "http://localhost:4000";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
-
-export const fetchOneCourse = createAsyncThunk(
-    "singleCourse/fetchOne",
+export const fetchOneUser = createAsyncThunk(
+    "singleUser/fetchOne",
     async (id, { rejectWithValue }) => {
         console.log("this is id:",id);
         try {
-            const response = await fetch(`${base_Api}/get-one-course/${id}`, {
+            const response = await fetch(`${base_Api}/user/${id}`, {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",
@@ -15,11 +14,11 @@ export const fetchOneCourse = createAsyncThunk(
                 // body: JSON.stringify({ token }),
             });
             const data = await response.json();
-            // console.log("API Response Data:", data?.data);
+            // console.log("API Response Data in single user API :", data?.message);
             if (!response.ok) {
-                throw new Error(data.message || "Unable to sign up with Google");
+                throw new Error(data.message || "Unable to get data");
             }
-            return data?.data; // assuming the API returns the user object
+            return data?.message; 
         } catch (error) {
             return rejectWithValue(error.message || "Failed to sign up with Google");
         }

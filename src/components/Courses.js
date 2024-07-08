@@ -5,7 +5,7 @@ import { useRouter } from "next/router";
 import StarRating from "./StarRating";
 import "../styles/courses.css";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchAllCourses } from "../../redux/thunks/authThunks";
+import { fetchAllCourses } from "../../redux/thunks/auththunks";
 import { useEffect, useState } from "react";
 
 const Courses = ({ heading, paddingTop }) => {
@@ -22,6 +22,8 @@ const Courses = ({ heading, paddingTop }) => {
   useEffect(() => {
     dispatch(fetchAllCourses());
   }, [dispatch]);
+  
+  
 
   if (isLoading) {
     return <div>Loading...</div>;

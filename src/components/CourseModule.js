@@ -60,7 +60,7 @@ export default function CourseModules({ course }) {
                                 />
                                 <span className="ml-2">{content?.title}</span>
                               </span>
-                              <span className="text-blue-500">Preview 06:00</span>
+                              <span className="text-blue-500">{content?.lock_status} {content?.duration}</span>
                             </div>
                           </>
                         )
