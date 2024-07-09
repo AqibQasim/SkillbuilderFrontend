@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { editProfile } from "../thunks/profilethunk";
+import { filterObject } from "@/utils/filterObject";
 
 const initialState = {
   id: null,
@@ -14,7 +15,7 @@ const initialState = {
   linkedin_profile: "",
   error: "",
   status: "idle",
-  successMessage: "",
+  successMessage: null,
 };
 
 const profileSlice = createSlice({
@@ -35,6 +36,8 @@ const profileSlice = createSlice({
       state.error = "";
       state.status = "idle";
       state.successMessage = "Profile removed";
+      // Remove from localStorage
+      localStorage.removeItem("profile");
     },
     add: (state, action) => {
       Object.assign(state, action.payload);
@@ -46,10 +49,11 @@ const profileSlice = createSlice({
         state.status = "loading";
       })
       .addCase(editProfile.fulfilled, (state, action) => {
+        const dataToSet = filterObject(action.payload.data);
         state.status = "idle";
         state.successMessage = "Profile updated successfully";
         state.error = null;
-        Object.assign(state, action.payload);
+        Object.assign(state, dataToSet);
       })
       .addCase(editProfile.rejected, (state, action) => {
         state.status = "error";
