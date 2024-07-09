@@ -49,7 +49,9 @@ const profileSlice = createSlice({
         state.status = "loading";
       })
       .addCase(editProfile.fulfilled, (state, action) => {
-        const dataToSet = filterObject(action.payload.data);
+        let dataToSet;
+        console.log("Payload", action.payload);
+        if (action.payload) dataToSet = filterObject(action.payload.data);
         state.status = "idle";
         state.successMessage = "Profile updated successfully";
         state.error = null;
