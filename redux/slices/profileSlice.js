@@ -42,6 +42,9 @@ const profileSlice = createSlice({
     add: (state, action) => {
       Object.assign(state, action.payload);
     },
+    clearProfile: (state) => {
+      return initialState;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -59,10 +62,10 @@ const profileSlice = createSlice({
       })
       .addCase(editProfile.rejected, (state, action) => {
         state.status = "error";
-        state.error = action.error.message;
+        state.error = action.payload;
       });
   },
 });
 
-export const { add, remove } = profileSlice.actions;
+export const { setProfile, clearProfile } = profileSlice.actions;
 export default profileSlice.reducer;

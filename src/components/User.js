@@ -17,14 +17,18 @@ function User() {
   const { user, isLoading } = useSelector((store) => store.auth);
   const profile = useSelector((store) => store.profile);
   const dispatch = useDispatch();
+
   const { data: session, status } = useSession();
 
-  // Handle the closing of the dropdown menu
+  console.log("Session", session);
+  console.log("Status", status);
+
+  // Runs on every outside click while the user is logged in, returning immediately
+  // to prevent unnecessary state changes.
   function handleClose() {
     if (!show) return;
     setShow(false);
   }
-
   // Handle logout
   function handleLogout() {
     if (session) {
@@ -36,19 +40,16 @@ function User() {
       dispatch(remove());
     }
   }
-
   // Use effect to handle side effects
   useEffect(() => {
     if (status === "authenticated" || user) {
       // User is authenticated, you can perform additional side effects here if needed
     }
   }, [status, user]);
-
   // Render nothing if loading
   if (status === "loading" || isLoading) {
     return null;
   }
-
   // Render the user menu if authenticated
   if (status === "authenticated" || user) {
     return (
@@ -166,7 +167,6 @@ function User() {
       </div>
     );
   }
-
   // Render the "Get started" link if not authenticated
   return (
     <Link
@@ -177,5 +177,4 @@ function User() {
     </Link>
   );
 }
-
 export default User;

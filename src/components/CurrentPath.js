@@ -8,7 +8,9 @@ function CurrentPath({ className }) {
   let currentPath = router.pathname.replace("/", "");
 
   if (currentPath === "contact" || currentPath === "about") {
-    currentPath += "us";
+    currentPath += " us";
+  }else if(currentPath === "shoppingcart"){
+    currentPath = "Shopping Cart"
   }
   return (
     <>
