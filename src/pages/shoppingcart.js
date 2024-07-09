@@ -5,6 +5,7 @@ import Courses from "../components/Courses";
 import Footer from "@/components/Footer";
 import CurrentPath from "@/components/CurrentPath";
 import ShopCheckout from "@/components/ShopCheckout";
+import withAuth from "@/components/WithAuth";
 
 const ShoppingCart = () => {
   const courses = [
@@ -68,4 +69,4 @@ const ShoppingCart = () => {
   );
 };
 
-export default ShoppingCart;
+export default withAuth(ShoppingCart);

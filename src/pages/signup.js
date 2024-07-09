@@ -1,4 +1,5 @@
 import Signup from "@/components/Signup";
+import redirectIfAuthenticated from "@/components/redirectIfAuthenticated";
 
 function signup() {
   return (
@@ -8,4 +9,4 @@ function signup() {
   );
 }
 
-export default signup;
+export default redirectIfAuthenticated(signup);

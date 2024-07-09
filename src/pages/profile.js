@@ -1,5 +1,6 @@
 import React from "react";
 import Profile from "@/components/Profile";
+import withAuth from "@/components/WithAuth";
 const profile = () => {
   let profile_text = {
     image: "/profileimage.png",
@@ -15,4 +16,4 @@ const profile = () => {
   );
 };
 
-export default profile;
+export default withAuth(profile);

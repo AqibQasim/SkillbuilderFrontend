@@ -29,7 +29,8 @@ export const editProfile = createAsyncThunk(
       // return data;
 
       // Temporary placeholder for adding additional functionalities
-      return profileData;
+      return data;
+      
     } catch (error) {
       return rejectWithValue(error.message || "Failed to update profile");
     }
