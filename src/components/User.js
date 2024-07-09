@@ -9,11 +9,13 @@ import Link from "next/link";
 import ChevronRightIconSvg from "./ChevronRightIconSvg";
 import { logout } from "../../redux/slices/authSlice";
 import Avatar from "./Avatar";
+import { remove } from "../../redux/slices/profileSlice";
 
 function User() {
   const [show, setShow] = useState(false);
   const ref = useOutsideClick(handleClose);
-  const { user, isLoading, error } = useSelector((state) => state.auth);
+  const { user, isLoading } = useSelector((store) => store.auth);
+  const profile = useSelector((store) => store.profile);
   const dispatch = useDispatch();
 
   const { data: session, status } = useSession();
@@ -31,9 +33,11 @@ function User() {
   function handleLogout() {
     if (session) {
       signOut();
+      dispatch(remove());
     }
     if (user) {
       dispatch(logout());
+      dispatch(remove());
     }
   }
   // Use effect to handle side effects
@@ -71,7 +75,10 @@ function User() {
                 alt="User avatar"
               />
             ) : (
-              <Avatar name={user.first_name} className="ml-6 h-7 w-7" />
+              <Avatar
+                name={profile.first_name || user.first_name}
+                className="ml-6 h-7 w-7"
+              />
             )}
           </button>
           {show && (

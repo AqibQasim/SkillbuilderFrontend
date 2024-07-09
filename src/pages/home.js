@@ -1,30 +1,29 @@
 import HeroSection from "@/components/HeroSection";
 import Navbar from "@/components/Navbar";
-import { useEffect, useState } from "react";
-import {setCurrentTab} from '../utils/currentTabMethods'
-import SkillsList from "@/components/SkillsList";
-import PromotionalList from "@/components/PromotionalList";
-import Courses from "../components/Courses";
+// import { useEffect, useState } from "react";
+// import {setCurrentTab} from '../utils/currentTabMethods'
 import Footer from "@/components/Footer";
+import PromotionalList from "@/components/PromotionalList";
+import SkillsList from "@/components/SkillsList";
+import Courses from "../components/Courses";
 
 const Home = () => {
+  // useEffect(()=> {
+  //     setCurrentTab('home');
+  // },[]);
 
-    useEffect(()=> {    
-        setCurrentTab('home');
-    },[]);
-
-    return(
-        <>
-        <div className="h-[100%] w-[100%] flex flex-col items-center bg-bg_gray">
-            <Navbar /> 
-            <HeroSection />       
-            <SkillsList /> 
-            <Courses heading='Our Courses' />
-            <PromotionalList />
-            <Footer />
-        </div>
-        </>
-    )
-}
+  return (
+    <>
+      <div className="flex h-[100%] w-[100%] flex-col items-center bg-bg_gray">
+        <Navbar />
+        <HeroSection />
+        <SkillsList />
+        <Courses heading="Our Courses" />
+        <PromotionalList />
+        <Footer />
+      </div>
+    </>
+  );
+};
 
 export default Home;
