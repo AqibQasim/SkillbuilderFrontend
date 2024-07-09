@@ -5,56 +5,39 @@ import Courses from "../components/Courses";
 import Footer from "@/components/Footer";
 import CurrentPath from "@/components/CurrentPath";
 import ShopCheckout from "@/components/ShopCheckout";
+import Router, { useRouter } from "next/router";
+import { useSelector } from "react-redux";
+// import { useState, useEffect } from "react";
 
 const ShoppingCart = () => {
-  const courses = [
-    {
-      id: 1,
-      title: "Software Testing",
-      rating: 5,
-      image: "/dummyImg.svg",
-      desc: "Equipping you with essential skills",
-      price: 120,
-    },
-    {
-      id: 2,
-      title: "UI / UX Designing",
-      rating: 4.9,
-      image: "/dummyImg.svg",
-      desc: "Equipping you with essential skills",
-      price: 250,
-    },
-    {
-      id: 3,
-      title: "Web-Development",
-      rating: 4.9,
-      image: "/dummyImg.svg",
-      desc: "Equipping you with essential skills",
-      price: 250,
-    },
-    {
-      id: 4,
-      title: "Full-Stack Development",
-      rating: 4.9,
-      image: "/dummyImg.svg",
-      desc: "Equipping you with essential skills",
-      price: 250,
-    },
-  ];
 
   useEffect(() => {
     setCurrentTab("");
   }, []);
 
+  const router = useRouter();
+  const [isClient, setIsClient] = useState(false);
+  const courses = useSelector((state) => state.cart.items);
+  console.log("length in root file:", courses?.length)
+
+  useEffect(() => {
+
+    setIsClient(true);
+  }, [router?.isReady,courses]);
+
+  if (!isClient) {
+    return null;
+  }
+
   return (
     <>
       <div className="h-[100%] w-[100%] flex flex-col items-center bg-bg_gray">
-        <Navbar />
+        <Navbar cartItemsLength={courses?.length} />
         <div className="path-wrapper w-[90%] max-w-screen-2xl mx-auto mt-16 mb-8">
           <CurrentPath />
         </div>
         <div className="path-wrapper w-[90%] max-w-screen-2xl mx-auto mb-8">
-          <ShopCheckout />
+          <ShopCheckout courses={courses}  />
         </div>
 
         <Courses

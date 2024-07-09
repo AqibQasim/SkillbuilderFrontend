@@ -6,7 +6,9 @@ import { handleRouteChange, getCurrentTab } from "@/utils/currentTabMethods";
 import { togglerMethod } from "@/utils/navMenuToggler";
 import User from "@/components/User";
 
-const Navbar = () => {
+
+const Navbar = ({cartItemsLength}) => {
+  console.log("cart item length:", cartItemsLength)
   const [menuOpen, setMenuOpen] = useState(false);
   const [currentTab, setCurrentTab] = useState("");
   const router = useRouter();
@@ -22,6 +24,10 @@ const Navbar = () => {
       router.events.off("routeChangeComplete", onRouteChange);
     };
   }, [router.events]);
+
+  const routeToShoppingCartHandler = () => {
+    router.push('/shoppingcart');
+  }
 
   return (
     <>
@@ -112,12 +118,8 @@ const Navbar = () => {
             />
           </div>
 
-          {/* <button className="py-2 px-4 hidden lg:flex justify-between items-center w-full lg:w-auto bg-blue text-white rounded-lg">
-            Get started
-          </button> */}
-          {/* USER */}
           <div className="hidden lg:block">
-            <User />
+            <User cartItemsLength={cartItemsLength} cartClickHandler={routeToShoppingCartHandler} />
           </div>
         </div>
       </div>
@@ -164,7 +166,7 @@ const Navbar = () => {
               </button> */}
               {/* USER */}
               <div className="block lg:hidden">
-                <User />
+                <User cartClickHandler={routeToShoppingCartHandler} />
               </div>
             </div>
           </div>

@@ -14,7 +14,7 @@ export const fetchOneUser = createAsyncThunk(
                 // body: JSON.stringify({ token }),
             });
             const data = await response.json();
-            // console.log("API Response Data in single user API :", data?.message);
+            console.log("API Response Data in single user API :", data?.message);
             if (!response.ok) {
                 throw new Error(data.message || "Unable to get data");
             }

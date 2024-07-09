@@ -10,7 +10,8 @@ import ChevronRightIconSvg from "./ChevronRightIconSvg";
 import { logout } from "../../redux/slices/authSlice";
 import Avatar from "./Avatar";
 
-function User() {
+function User({ cartClickHandler, cartItemsLength }) {
+  console.log("cart item length:", cartItemsLength)
   const [show, setShow] = useState(false);
   const ref = useOutsideClick(handleClose);
   const { user, isLoading, error } = useSelector((state) => state.auth);
@@ -21,8 +22,6 @@ function User() {
   console.log("Session", session);
   console.log("Status", status);
 
-  // Runs on every outside click while the user is logged in, returning immediately
-  // to prevent unnecessary state changes.
   function handleClose() {
     if (!show) return;
     setShow(false);
@@ -36,22 +35,28 @@ function User() {
       dispatch(logout());
     }
   }
-  // Use effect to handle side effects
   useEffect(() => {
     if (status === "authenticated" || user) {
-      // User is authenticated, you can perform additional side effects here if needed
     }
   }, [status, user]);
-  // Render nothing if loading
   if (status === "loading" || isLoading) {
     return null;
   }
-  // Render the user menu if authenticated
   if (status === "authenticated" || user) {
     return (
       <div className="relative inline-flex items-center justify-center gap-3 text-dark-svg">
-        <button>
-          <CartIconSvg className="h-7 w-7" />
+        <button className="flex w-[100%]">
+          <CartIconSvg clickHandler={cartClickHandler} className="h-7 w-7" />
+          {
+            cartItemsLength ? (
+              <>
+                <div className="h-[1.25rem] text-sm w-[1.25rem] flex justify-center items-center bg-red-600 text-white rounded-[100%]">
+                  {cartItemsLength}
+                </div>
+              </>
+            ) :
+              <></>
+          }
         </button>
         <button>
           <BellIconSvg className="h-7 w-7" />
@@ -91,11 +96,9 @@ function User() {
                 )}
 
                 <p className="mt-2 text-center font-semibold">
-                  {/* Use user name if session name is not available */}
                   {session?.user?.name || user?.name}
                 </p>
                 <p className="text-center text-gray-500">
-                  {/* Use user email if session email is not available */}
                   {session?.user?.email || user?.email}
                 </p>
               </div>
@@ -160,7 +163,7 @@ function User() {
       </div>
     );
   }
-  // Render the "Get started" link if not authenticated
+
   return (
     <Link
       href="/signup"

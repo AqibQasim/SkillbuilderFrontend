@@ -6,9 +6,11 @@ import StarRating from "./StarRating";
 import "../styles/courses.css";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchAllCourses } from "../../redux/thunks/auththunks";
+import { addItem } from "../../redux/slices/addToCart";
 import { useEffect, useState } from "react";
 
 const Courses = ({ heading, paddingTop }) => {
+  const [addedToCart, setAddedToCart] = useState(false);
   const router = useRouter();
   const dispatch = useDispatch();
   const {
@@ -22,8 +24,30 @@ const Courses = ({ heading, paddingTop }) => {
   useEffect(() => {
     dispatch(fetchAllCourses());
   }, [dispatch]);
-  
-  
+
+
+  const cartItems = useSelector((state) => state.cart.items);
+
+  useEffect(() => {
+    dispatch(fetchAllCourses());
+  }, [dispatch]);
+
+  useEffect(() => {
+    console.log("Updated cart items:", cartItems);
+  }, [router?.isReady, cartItems]);
+
+  // const handleAddToCart = (course) => {
+  //   dispatch(addItem(course));
+  // };
+  const handleAddToCart = (course) => {
+    if (!cartItems.some(item => item.id === course.id)) {
+      dispatch(addItem(course));
+    }
+  };
+
+  const isCourseAddedToCart = (course) => {
+    return cartItems.some(item => item.id === course.id);
+  };
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -52,7 +76,7 @@ const Courses = ({ heading, paddingTop }) => {
 
       <div className="w-full flex flex-col justify-center items-center">
         <div className="h-auto w-[90%] grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 place-items-center">
-          {courses?.slice(0,8).map((course) => (
+          {courses?.slice(0, 8).map((course) => (
             <div
               key={course?.id}
               className="img-container border border-cards_gray h-auto w-full max-w-sm mb-4 bg-white rounded-2xl p-2 flex flex-col items-start transform transition transition-shadow duration-300 hover:shadow-lg hover:border-[rgb(152,159,233)]"
@@ -67,9 +91,15 @@ const Courses = ({ heading, paddingTop }) => {
                 height={260}
               />
               <div className="p-2 w-[100%]">
-                <div className="w-full flex justify-start items-center gap-  mt-2">
-                  <span className="text-sm">{course?.rating}</span>
-                  <StarRating rating={Math.round(course?.rating)} />
+                <div className="w-full flex justify-between items-center   mt-2">
+                  <div>
+                    <span className="text-sm">{course?.rating}</span>
+                    <StarRating rating={Math.round(course?.rating)} />
+                  </div>
+                  {isCourseAddedToCart(course) && (
+                    <span className="text-blue font-semibold">Added To Cart</span>
+                  )}
+                  {/* <span className="text-blue font-semibold" >Added To Cart</span> */}
                 </div>
                 <h3 className="text-lg font-semibold mt-4">{course?.title}</h3>
                 <p className="mb-2 text-sm">{course?.learning_outcomes}</p>
@@ -77,7 +107,7 @@ const Courses = ({ heading, paddingTop }) => {
                 <div className="flex w-[100%] justify-between pb-2 max-md:pb-2">
                   <div className="w-[50%] flex lg:justify-start lg:items-center lg:gap-1 justify-start items-center gap-2">
                     <span className="text-blue font-semibold">
-                      ${course?.price}
+                      ${course?.amount}
                     </span>
                     <span className="text-[0.5rem] text-bg_text_gray ">
                       <span className="stroke-bg_text_gray line-through">
@@ -86,7 +116,12 @@ const Courses = ({ heading, paddingTop }) => {
                       88% off
                     </span>
                   </div>
-                  <button className="py-2 px-2 text-white bg-blue rounded-lg text-xs">
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handleAddToCart(course);
+                    }}
+                    className="py-2 px-2 text-white bg-blue rounded-lg text-xs">
                     Add To Cart
                   </button>
                 </div>

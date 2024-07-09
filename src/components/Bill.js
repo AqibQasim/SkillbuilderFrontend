@@ -6,7 +6,7 @@ const Bill = (props) => {
   const courses = props.courses;
   var totalPrice = 0;
   courses.map((course) => {
-    totalPrice += course.price;
+    totalPrice += parseInt(course?.amount);
   });
 
   const NoOfCourses = courses.length;
@@ -30,15 +30,6 @@ const Bill = (props) => {
         {courses.map((course) => (
           <BillCourse {...course} />
         ))}
-
-        {/* <div className='flex justify-between text-sm'>
-                <p className=''>{title}</p>
-                <p className='text-[#5C5C5C]'>${price}</p>
-            </div>
-            <div className='flex justify-between text-sm'>
-                <p className=''>{title}</p>
-                <p className='text-[#5C5C5C]'>${price}</p>
-            </div> */}
 
         {/* ---------Courses--------- */}
 
