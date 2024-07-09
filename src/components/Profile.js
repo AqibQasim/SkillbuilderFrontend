@@ -7,10 +7,22 @@ import { useState } from "react";
 import styles from "../styles/form.module.css";
 import CurrentPath from "./CurrentPath";
 import LayoutWidth from "./LayoutWidth";
+import { useSelector } from "react-redux";
 
 const Profile = ({ profile_text }) => {
   const [state, setstate] = useState(false);
-  const { image, name, email, course, location } = profile_text;
+  const { first_name, last_name, email, location } = useSelector(
+    (state) => state.profile,
+  );
+  const {
+    image,
+    name,
+    email: dummyEmail,
+    course,
+    location: dummyLocation,
+  } = profile_text;
+  let dummyFName;
+  let dummyLName;
   return (
     <div className="bg-gray-100">
       <div className="mt-10 flex flex-col justify-center pt-10">
@@ -40,7 +52,8 @@ const Profile = ({ profile_text }) => {
 
                 <div className="mt-4 flex flex-col lg:items-start max-sm:items-center max-md:items-center">
                   <h1 className="mb-3 text-xl font-bold leading-5 md:text-xl lg:text-xl max-xsm:text-sm">
-                    {name}
+                    {first_name ? `${first_name} ` : "Set name "}
+                    {last_name ? `${last_name}` : "Please"}
                   </h1>
                   <p className="mb-2 text-wrap font-normal lg:text-sm max-sm:text-xs max-md:text-xs">
                     Email:{" "}
@@ -57,7 +70,7 @@ const Profile = ({ profile_text }) => {
                   <p className="mb-2 text-wrap font-normal lg:text-sm max-sm:text-xs max-md:text-xs">
                     Location:{" "}
                     <span className="pl-1 font-light text-bg_text_gray">
-                      {location}
+                      {location || "Set location"}
                     </span>
                   </p>
                 </div>
