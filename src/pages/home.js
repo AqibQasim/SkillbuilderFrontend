@@ -10,6 +10,9 @@ import { useRouter } from "next/router";
 import { useSelector } from "react-redux";
 
 const Home = () => {
+  // useEffect(()=> {
+  //     setCurrentTab('home');
+  // },[]);
 
     useEffect(() => {
         setCurrentTab('home');

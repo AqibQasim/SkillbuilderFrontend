@@ -8,6 +8,7 @@ import ShopCheckout from "@/components/ShopCheckout";
 import Router, { useRouter } from "next/router";
 import { useSelector } from "react-redux";
 // import { useState, useEffect } from "react";
+import withAuth from "@/components/WithAuth";
 
 const ShoppingCart = () => {
 
@@ -51,4 +52,4 @@ const ShoppingCart = () => {
   );
 };
 
-export default ShoppingCart;
+export default withAuth(ShoppingCart);

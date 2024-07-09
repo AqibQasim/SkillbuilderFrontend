@@ -1,27 +1,31 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styles from "../styles/form.module.css";
 import { editProfile } from "../../redux/thunks/profilethunk";
+import { filterObject } from "@/utils/filterObject";
 
 const EditProfileForm = () => {
   const { user, isLoading } = useSelector((state) => state.auth);
+  const profile = useSelector((state) => state.profile);
   const dispatch = useDispatch();
-
-  const initialState = {
-    id: user ? user : null,
-    first_name: "",
-    last_name: "",
-    email: "",
-    password: "",
-    profession: "",
-    location: "",
-    facebook_profile: "",
-    twitter_profile: "",
-    linkedin_profile: "",
-  };
-
-  const [formData, setFormData] = useState(initialState);
+  const [formData, setFormData] = useState(initialState());
   const [changedFields, setChangedFields] = useState({});
+
+  // Wanted to declare this constant after initialization
+  // Initialize default values based on profile data
+  function initialState() {
+    return {
+      id: user?.id || profile?.id ? user?.id || profile?.id : null,
+      first_name: profile?.first_name || "",
+      last_name: profile?.last_name || "",
+      email: profile?.email || "",
+      profession: profile?.profession || "",
+      location: profile?.location || "",
+      facebook_profile: profile?.facebook_profile || "",
+      twitter_profile: profile?.twitter_profile || "",
+      linkedin_profile: profile?.linkedin_profile || "",
+    };
+  }
 
   const handleChange = (e) => {
     const { id, value } = e.target;
@@ -67,6 +71,9 @@ const EditProfileForm = () => {
     dispatch(editProfile(dataToSubmit));
     console.log(dataToSubmit);
   }
+  useEffect(()=>{
+    console.log("this is user : ",first_name);
+  }, [])
 
   function handleReset() {
     setFormData(initialState);
@@ -88,6 +95,7 @@ const EditProfileForm = () => {
               First Name:
             </label>
             <input
+              disabled={profile?.status === "loading"}
               value={formData.first_name}
               id="first_name"
               type="text"
@@ -104,6 +112,7 @@ const EditProfileForm = () => {
               Last Name:
             </label>
             <input
+              disabled={profile?.status === "loading"}
               value={formData.last_name}
               id="last_name"
               type="text"
@@ -122,6 +131,7 @@ const EditProfileForm = () => {
               Email:
             </label>
             <input
+              disabled={profile?.status === "loading"}
               value={formData.email}
               id="email"
               placeholder="Email"
@@ -138,6 +148,7 @@ const EditProfileForm = () => {
               Profession:
             </label>
             <input
+              disabled={profile?.status === "loading"}
               value={formData.profession}
               id="profession"
               type="text"
@@ -156,6 +167,7 @@ const EditProfileForm = () => {
               Location:
             </label>
             <input
+              disabled={profile?.status === "loading"}
               value={formData.location}
               id="location"
               type="text"
@@ -173,6 +185,7 @@ const EditProfileForm = () => {
             Social Media
           </label>
           <input
+            disabled={profile?.status === "loading"}
             value={formData.facebook_profile}
             id="facebook_profile"
             type="text"
@@ -181,6 +194,7 @@ const EditProfileForm = () => {
             className={`mb-3 mr-2 w-[39.5%] rounded-lg border border-border_gray px-4 py-2 pr-1 focus:outline-none focus:ring-2 focus:ring-blue-600 ${styles.smallPlaceholder}`}
           />
           <input
+            disabled={profile?.status === "loading"}
             value={formData.linkedin_profile}
             id="linkedin_profile"
             type="text"
@@ -189,6 +203,7 @@ const EditProfileForm = () => {
             className={`w-[39.5%] rounded-lg border border-border_gray px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-600 md:ml-[10%] lg:ml-[10%] ${styles.smallPlaceholder}`}
           />
           <input
+            disabled={profile?.status === "loading"}
             value={formData.twitter_profile}
             id="twitter_profile"
             type="text"
@@ -202,7 +217,7 @@ const EditProfileForm = () => {
             type="submit"
             className="m-[1%] rounded-lg bg-blue text-xs text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-600 lg:h-[3.9em] lg:w-[13%]"
           >
-            Save changes
+            {profile?.status === "idle" ? "Save changes" : "Saving changes..."}
           </button>
           <button
             type="button"

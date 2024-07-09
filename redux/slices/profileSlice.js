@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { editProfile } from "../thunks/profilethunk";
+import { filterObject } from "@/utils/filterObject";
 
 const initialState = {
   id: null,
@@ -14,18 +15,32 @@ const initialState = {
   linkedin_profile: "",
   error: "",
   status: "idle",
-  successMessage: "",
+  successMessage: null,
 };
 
 const profileSlice = createSlice({
   name: "profile",
   initialState,
   reducers: {
-    setProfile: (state, action) => {
-      Object.assign(state, action.payload);
+    remove: (state) => {
+      state.id = null;
+      state.first_name = "";
+      state.last_name = "";
+      state.email = "";
+      state.password = "";
+      state.profession = "";
+      state.location = "";
+      state.facebook_profile = "";
+      state.twitter_profile = "";
+      state.linkedin_profile = "";
+      state.error = "";
+      state.status = "idle";
+      state.successMessage = "Profile removed";
+      // Remove from localStorage
+      localStorage.removeItem("profile");
     },
-    clearProfile: (state) => {
-      return initialState;
+    add: (state, action) => {
+      Object.assign(state, action.payload);
     },
   },
   extraReducers: (builder) => {
@@ -34,16 +49,20 @@ const profileSlice = createSlice({
         state.status = "loading";
       })
       .addCase(editProfile.fulfilled, (state, action) => {
+        let dataToSet;
+        console.log("Payload", action.payload);
+        if (action.payload) dataToSet = filterObject(action.payload.data);
         state.status = "idle";
         state.successMessage = "Profile updated successfully";
-        Object.assign(state, action.payload);
+        state.error = null;
+        Object.assign(state, dataToSet);
       })
       .addCase(editProfile.rejected, (state, action) => {
         state.status = "error";
-        state.error = action.payload;
+        state.error = action.error.message;
       });
   },
 });
 
-export const { setProfile, clearProfile } = profileSlice.actions;
+export const { add, remove } = profileSlice.actions;
 export default profileSlice.reducer;

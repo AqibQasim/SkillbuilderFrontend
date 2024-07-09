@@ -3,9 +3,10 @@ import ContactHero from "@/components/ContactHero";
 import CurrentPath from "@/components/CurrentPath";
 import Footer from "@/components/Footer";
 import HomeSvg from "@/components/HomeSvg";
+import LayoutWidth from "@/components/LayoutWidth";
 import Navbar from "@/components/Navbar";
 import RightIconSvg from "@/components/RightIconSvg";
-import { setCurrentTab } from "@/utils/currentTabMethods";
+// import { setCurrentTab } from "@/utils/currentTabMethods";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
@@ -13,9 +14,9 @@ import { useSelector } from "react-redux";
 
 
 const contact = () => {
-  useEffect(() => {
-    setCurrentTab("contact");
-  }, []);
+  // useEffect(() => {
+  //   setCurrentTab("contact");
+  // }, []);
 
   const router = useRouter();
   const [isClient, setIsClient] = useState(false);
@@ -34,9 +35,11 @@ const contact = () => {
     <>
       <div className="h-[100%] w-[100%] bg-bg_gray">
         <Navbar cartItemsLength={courses?.length} />
+        <LayoutWidth>
         <div className="path-wrapper w-[90%] max-w-screen-2xl mx-auto mt-16 mb-8">
           <CurrentPath />
         </div>
+        </LayoutWidth>  
         <ContactHero />
         <ContactForm />
         <Footer />

@@ -1,6 +1,8 @@
 import Navbar from "@/components/Navbar";
 import { useEffect, useState } from "react";
 import { setCurrentTab } from "@/utils/currentTabMethods";
+// import { useEffect } from "react";
+// import { setCurrentTab } from "@/utils/currentTabMethods";
 import Courses from "@/components/Courses";
 import Footer from "@/components/Footer";
 import { useRouter } from "next/router";
