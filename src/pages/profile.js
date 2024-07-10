@@ -17,7 +17,7 @@ const profile = () => {
       <div className="flex h-[100%] w-[100%] flex-col items-center bg-bg_gray">
         <Navbar />
         <LayoutWidth>
-          <div className="path-wrapper mb-8 mt-16">
+          <div className="path-wrapper mb-8 mt-8">
             <CurrentPath />
           </div>
         </LayoutWidth>
