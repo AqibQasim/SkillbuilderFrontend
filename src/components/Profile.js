@@ -22,7 +22,7 @@ const Profile = ({ profile_text }) => {
   let dummyLName;
   return (
     <div className="bg-gray-100">
-      <div className="mt-10 flex flex-col justify-center pt-10">
+      <div className="flex flex-col justify-center">
         <div className="flex h-[60%] w-[100%] items-center justify-center bg-white">
           <LayoutWidth>
             <div className="m-3 flex w-[70%] items-center lg:flex-row max-xsm:flex-col max-sm:flex-col max-md:flex-col">
