@@ -1,22 +1,24 @@
 import { useOutsideClick } from "@/utils/useOutsideClick";
 import { signOut, useSession } from "next-auth/react";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import CartIconSvg from "./CartIconSvg";
-import BellIconSvg from "./BellIconSvg";
-import ChatIconSvg from "./ChatIconSvg";
-import Link from "next/link";
-import ChevronRightIconSvg from "./ChevronRightIconSvg";
 import { logout } from "../../redux/slices/authSlice";
-import Avatar from "./Avatar";
 import { remove } from "../../redux/slices/profileSlice";
+import Avatar from "./Avatar";
+import BellIconSvg from "./BellIconSvg";
+import CartIconSvg from "./CartIconSvg";
+import ChatIconSvg from "./ChatIconSvg";
+import ChevronRightIconSvg from "./ChevronRightIconSvg";
 
+// DOTO make it dry
 function User({ cartClickHandler, cartItemsLength }) {
   console.log("cart item length:", cartItemsLength);
   const [show, setShow] = useState(false);
-  const ref = useOutsideClick(handleClose);
+  const [showIconsOnSmallScreen, setShowIconsOnSmallScreen] = useState(false);
   const { user, isLoading } = useSelector((store) => store.auth);
   const profile = useSelector((store) => store.profile);
+  const ref = useOutsideClick(handleClose);
   const dispatch = useDispatch();
 
   const { data: session, status } = useSession();
@@ -49,7 +51,7 @@ function User({ cartClickHandler, cartItemsLength }) {
   if (status === "authenticated" || user) {
     return (
       <div className="relative inline-flex items-center justify-center gap-3 text-dark-svg">
-        <button className="flex w-[100%]">
+        <button className="hidden w-[100%] md:flex">
           <CartIconSvg clickHandler={cartClickHandler} className="h-7 w-7" />
           {cartItemsLength ? (
             <>
@@ -61,10 +63,10 @@ function User({ cartClickHandler, cartItemsLength }) {
             <></>
           )}
         </button>
-        <button>
+        <button className="hidden md:block">
           <BellIconSvg className="h-7 w-7" />
         </button>
-        <button>
+        <button className="hidden md:block">
           <ChatIconSvg className="h-7 w-7" />
         </button>
         <div
@@ -75,42 +77,76 @@ function User({ cartClickHandler, cartItemsLength }) {
             {session?.user?.image ? (
               <img
                 src={session?.user?.image}
-                className="ml-6 h-7 w-7 rounded-full"
+                className="h-7 w-7 rounded-full"
                 alt="User avatar"
               />
             ) : (
               <Avatar
                 name={profile.first_name || user.first_name}
-                className="ml-6 h-7 w-7"
+                className="h-7 w-7"
               />
             )}
           </button>
           <div
-            className={`absolute right-0 top-6 z-50 min-w-80 rounded-lg bg-white py-3 shadow-lg transition-all duration-300 ${
+            className={`absolute -right-6 top-6 z-50 min-w-80 rounded-lg bg-white py-3 shadow-lg transition-all duration-300 sm:right-0 ${
               show
                 ? "visible translate-y-3 opacity-100"
                 : "invisible translate-y-0 opacity-0"
             }`}
           >
-            <div className="mb-5 px-5">
-              {session?.user?.image ? (
-                <img
-                  src={session?.user?.image}
-                  className="mx-auto h-16 w-16 rounded-full"
-                  alt="User avatar"
-                />
-              ) : (
-                <Avatar
-                  name={profile.first_name || user.first_name}
-                  className="mx-auto h-16 w-16"
-                />
-              )}
-
-              <p className="mt-2 text-center font-semibold">
-                {session?.user?.name || user?.name}
+            <div
+              className={`mb-5 flex flex-col items-center justify-center px-5`}
+            >
+              <div
+                className={`flex items-center justify-center gap-2 transition-all`}
+                onMouseEnter={() => setShowIconsOnSmallScreen(true)}
+                onMouseLeave={() => setShowIconsOnSmallScreen(false)}
+              >
+                {session?.user?.image ? (
+                  <img
+                    src={session?.user?.image}
+                    className={`z-[2] h-16 w-16 cursor-pointer rounded-full transition-all duration-300 ${showIconsOnSmallScreen ? "translate-x-0" : "translate-x-12 md:translate-x-0"}`}
+                    alt="User avatar"
+                  />
+                ) : (
+                  <Avatar
+                    name={profile.first_name || user.first_name}
+                    className={`z-[2] h-16 w-16 cursor-pointer transition-all duration-300 ${showIconsOnSmallScreen ? "translate-x-0" : "translate-x-[3.4rem] md:translate-x-0"}`}
+                  />
+                )}
+                <button
+                  className={`transition-all duration-300 md:hidden ${showIconsOnSmallScreen ? "scale-1 translate-x-4 opacity-100" : "translate-x-0 opacity-0"}`}
+                >
+                  <ChatIconSvg className="h-7 w-7" />
+                </button>
+                <button
+                  className={`transition-all delay-100 duration-300 md:hidden ${showIconsOnSmallScreen ? "scale-1 translate-x-4 opacity-100" : "translate-x-0 opacity-0"}`}
+                >
+                  <BellIconSvg className="h-7 w-7" />
+                </button>
+                <button
+                  className={`flex transition-all delay-200 duration-300 md:hidden ${showIconsOnSmallScreen ? "scale-1 translate-x-4 opacity-100" : "translate-x-0 opacity-0"}`}
+                >
+                  <CartIconSvg
+                    clickHandler={cartClickHandler}
+                    className="h-7 w-7"
+                  />
+                  {cartItemsLength ? (
+                    <>
+                      <div className="flex h-[1.25rem] w-[1.25rem] items-center justify-center rounded-[100%] bg-red-600 text-sm text-white">
+                        {cartItemsLength}
+                      </div>
+                    </>
+                  ) : (
+                    <></>
+                  )}
+                </button>
+              </div>
+              <p className="text-center font-semibold text-gray-500">
+                {session?.user?.name || profile?.first_name}
               </p>
               <p className="text-center text-gray-500">
-                {session?.user?.email || user?.email}
+                {session?.user?.email || profile?.email}
               </p>
             </div>
             <ul className="space-y-1">

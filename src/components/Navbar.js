@@ -7,9 +7,8 @@ import User from "@/components/User";
 import { togglerMethod } from "@/utils/navMenuToggler";
 import LayoutWidth from "./LayoutWidth";
 
-
 const Navbar = ({ cartItemsLength }) => {
-  console.log("cart item length:", cartItemsLength)
+  console.log("cart item length:", cartItemsLength);
   const [menuOpen, setMenuOpen] = useState(false);
   // const [currentTab, setCurrentTab] = useState("");
   const router = useRouter();
@@ -28,8 +27,8 @@ const Navbar = ({ cartItemsLength }) => {
   // }, [router.events]);
 
   const routeToShoppingCartHandler = () => {
-    router.push('/shoppingcart');
-  }
+    router.push("/shoppingcart");
+  };
 
   return (
     <>
@@ -37,6 +36,10 @@ const Navbar = ({ cartItemsLength }) => {
         <LayoutWidth>
           <div className="flex w-[90%] items-center justify-between">
             <Image src="/logo.svg" width={160} height={160} alt="Logo" />
+
+            <div className="block ml-auto mr-4 lg:hidden">
+              <User cartClickHandler={routeToShoppingCartHandler} />
+            </div>
 
             <div className="lg:hidden">
               <button
@@ -132,7 +135,10 @@ const Navbar = ({ cartItemsLength }) => {
             </div>
 
             <div className="hidden lg:block">
-              <User cartItemsLength={cartItemsLength} cartClickHandler={routeToShoppingCartHandler} />
+              <User
+                cartItemsLength={cartItemsLength}
+                cartClickHandler={routeToShoppingCartHandler}
+              />
             </div>
           </div>
         </LayoutWidth>
@@ -178,9 +184,6 @@ const Navbar = ({ cartItemsLength }) => {
                 Get started
               </button> */}
               {/* USER */}
-              <div className="block lg:hidden">
-                <User cartClickHandler={routeToShoppingCartHandler} />
-              </div>
             </div>
           </div>
         </>
