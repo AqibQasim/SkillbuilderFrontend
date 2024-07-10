@@ -1,13 +1,10 @@
 "use client";
-import Navbar from "./Navbar";
-import Footer from "./Footer";
 import Image from "next/image";
-import EditProfileForm from "./EditProfileForm";
 import { useState } from "react";
-import styles from "../styles/form.module.css";
-import CurrentPath from "./CurrentPath";
-import LayoutWidth from "./LayoutWidth";
 import { useSelector } from "react-redux";
+import EditProfileForm from "./EditProfileForm";
+import Footer from "./Footer";
+import LayoutWidth from "./LayoutWidth";
 
 const Profile = ({ profile_text }) => {
   const [state, setstate] = useState(false);

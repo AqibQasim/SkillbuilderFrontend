@@ -3,6 +3,8 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 export const editProfile = createAsyncThunk(
   "profile/edit",
   async function (profileData, { rejectWithValue }) {
+    console.log("userThunk", profileData);
+
     try {
       const response = await fetch(
         `${process.env.NEXT_PUBLIC_BASE_API}/update-profile`,
@@ -20,6 +22,7 @@ export const editProfile = createAsyncThunk(
       }
 
       const data = await response.json();
+      console.log(data);
 
       return data;
     } catch (error) {

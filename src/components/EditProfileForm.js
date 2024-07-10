@@ -1,8 +1,7 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import styles from "../styles/form.module.css";
 import { editProfile } from "../../redux/thunks/profilethunk";
-import { filterObject } from "@/utils/filterObject";
+import styles from "../styles/form.module.css";
 
 const EditProfileForm = () => {
   const { user, isLoading } = useSelector((state) => state.auth);
@@ -71,9 +70,9 @@ const EditProfileForm = () => {
     dispatch(editProfile(dataToSubmit));
     console.log(dataToSubmit);
   }
-  useEffect(()=>{
-    console.log("this is user : ",first_name);
-  }, [])
+  useEffect(() => {
+    console.log("this is user : ", first_name);
+  }, []);
 
   function handleReset() {
     setFormData(initialState);

@@ -7,7 +7,7 @@ const initialState = {
   first_name: "",
   last_name: "",
   email: "",
-  password: "",
+  // password: "",
   profession: "",
   location: "",
   facebook_profile: "",
@@ -56,6 +56,8 @@ const profileSlice = createSlice({
         state.successMessage = "Profile updated successfully";
         state.error = null;
         Object.assign(state, dataToSet);
+        // Save to localStorage
+        localStorage.setItem("profile", JSON.stringify(state));
       })
       .addCase(editProfile.rejected, (state, action) => {
         state.status = "error";

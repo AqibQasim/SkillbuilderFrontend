@@ -12,7 +12,7 @@ import Avatar from "./Avatar";
 import { remove } from "../../redux/slices/profileSlice";
 
 function User({ cartClickHandler, cartItemsLength }) {
-  console.log("cart item length:", cartItemsLength)
+  console.log("cart item length:", cartItemsLength);
   const [show, setShow] = useState(false);
   const ref = useOutsideClick(handleClose);
   const { user, isLoading } = useSelector((store) => store.auth);
@@ -51,16 +51,15 @@ function User({ cartClickHandler, cartItemsLength }) {
       <div className="relative inline-flex items-center justify-center gap-3 text-dark-svg">
         <button className="flex w-[100%]">
           <CartIconSvg clickHandler={cartClickHandler} className="h-7 w-7" />
-          {
-            cartItemsLength ? (
-              <>
-                <div className="h-[1.25rem] text-sm w-[1.25rem] flex justify-center items-center bg-red-600 text-white rounded-[100%]">
-                  {cartItemsLength}
-                </div>
-              </>
-            ) :
-              <></>
-          }
+          {cartItemsLength ? (
+            <>
+              <div className="flex h-[1.25rem] w-[1.25rem] items-center justify-center rounded-[100%] bg-red-600 text-sm text-white">
+                {cartItemsLength}
+              </div>
+            </>
+          ) : (
+            <></>
+          )}
         </button>
         <button>
           <BellIconSvg className="h-7 w-7" />
@@ -97,7 +96,7 @@ function User({ cartClickHandler, cartItemsLength }) {
                   />
                 ) : (
                   <Avatar
-                    name={user.first_name}
+                    name={profile.first_name || user.first_name}
                     className="mx-auto h-16 w-16"
                   />
                 )}

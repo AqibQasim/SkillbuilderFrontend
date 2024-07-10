@@ -1,9 +1,11 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { setSuccess } from "../slices/authSlice";
+import { editProfile } from "./profilethunk";
+import { filterObject } from "@/utils/filterObject";
 
 export const loginUser = createAsyncThunk(
   "auth/login",
-  async (userData, { rejectWithValue }) => {
+  async (userData, { dispatch, rejectWithValue }) => {
     try {
       const response = await fetch(
         `${process.env.NEXT_PUBLIC_BASE_API}/login`,
@@ -13,18 +15,26 @@ export const loginUser = createAsyncThunk(
             "Content-Type": "application/json",
           },
           body: JSON.stringify(userData),
-        }
+        },
       );
       const data = await response.json();
       console.log("data:", data);
       if (!response.ok) {
         throw new Error(data.message || "Unable to login");
       }
+
+      // Update profile
+      let dataForProfile;
+      if (data.user) {
+        dataForProfile = filterObject(data.user);
+        dispatch(editProfile(dataForProfile));
+      }
+
       return data; // assuming the API returns the user object
     } catch (error) {
       return rejectWithValue(error.message || "Failed to login");
     }
-  }
+  },
 );
 
 export const signupUser = createAsyncThunk(
@@ -42,7 +52,7 @@ export const signupUser = createAsyncThunk(
             "Content-Type": "application/json",
           },
           body: JSON.stringify(userData),
-        }
+        },
       );
       console.log("response tk to phch gya");
       const data = await response.text();
@@ -58,7 +68,7 @@ export const signupUser = createAsyncThunk(
     } catch (error) {
       return rejectWithValue(error.message || "Failed to signup");
     }
-  }
+  },
 );
 
 // export const googleLogin = createAsyncThunk(
@@ -92,14 +102,14 @@ export const signupWithGoogle = createAsyncThunk(
   async (token, { rejectWithValue }) => {
     try {
       const response = await fetch(
-        `${process.env.NEXT_PUBLIC_BASE_API}/auth/google`, 
+        `${process.env.NEXT_PUBLIC_BASE_API}/auth/google`,
         {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({ token }),
-        }
+        },
       );
       const data = await response.json();
       console.log("API Response Data:", data);
@@ -110,7 +120,7 @@ export const signupWithGoogle = createAsyncThunk(
     } catch (error) {
       return rejectWithValue(error.message || "Failed to sign up with Google");
     }
-  }
+  },
 );
 
 export const fetchAllCourses = createAsyncThunk(
@@ -125,7 +135,7 @@ export const fetchAllCourses = createAsyncThunk(
             "Content-Type": "application/json",
           },
           // body: JSON.stringify({ token }),
-        }
+        },
       );
       const data = await response.json();
       console.log("API Response Data:", data?.data);
@@ -136,7 +146,7 @@ export const fetchAllCourses = createAsyncThunk(
     } catch (error) {
       return rejectWithValue(error.message || "Failed to sign up with Google");
     }
-  }
+  },
 );
 
 // =======

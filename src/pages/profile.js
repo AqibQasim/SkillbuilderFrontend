@@ -1,21 +1,10 @@
-import React, { useEffect } from "react";
+import CurrentPath from "@/components/CurrentPath";
+import LayoutWidth from "@/components/LayoutWidth";
+import Navbar from "@/components/Navbar";
 import Profile from "@/components/Profile";
 import withAuth from "@/components/WithAuth";
-import Navbar from "@/components/Navbar";
-import LayoutWidth from "@/components/LayoutWidth";
-import CurrentPath from "@/components/CurrentPath";
-import { useDispatch, useSelector } from "react-redux";
-import { filterObject } from "@/utils/filterObject";
-import { editProfile } from "../../redux/thunks/profilethunk";
-const profile = () => {
-  const { user } = useSelector((state) => state.auth);
-  const dispatch = useDispatch();
-  useEffect(function () {
-    if (!user) return;
 
-    const updateProfile = filterObject(user);
-    dispatch(editProfile(updateProfile));
-  }, []);
+const profile = () => {
   let profile_text = {
     image: "/profileimage.png",
     name: "Usman kareem",
