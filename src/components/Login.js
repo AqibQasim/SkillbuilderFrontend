@@ -122,10 +122,10 @@ const Login = () => {
       <div className="mt-4">
         <div className="flex items-center justify-center">
           <div className="flex-grow border-t border-gray-300"></div>
-          <span className="mx-4 text-gray-600">Or</span>
+          <span className="mx-4 text-gray-300">Or Login With</span>
           <div className="flex-grow border-t border-gray-300"></div>
         </div>
-        <button className="mb-4 mt-4 flex w-full items-center justify-center rounded-lg border border-lightgray bg-white p-2 text-black">
+        <button className="border-google-border mb-4 mt-4 flex w-full items-center justify-center rounded-lg border bg-white p-2 text-black">
           <span className="mr-2">
             <Image src="/googlelogo.png" width={25} height={25} />
           </span>
