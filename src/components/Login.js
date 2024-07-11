@@ -1,17 +1,19 @@
-import React, { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/router";
+import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { loginUser } from "../../redux/thunks/auththunks";
-import { useRouter } from "next/router";
+import ShowPassword from "./ShowPassword";
 
 const Login = () => {
-  const router = useRouter();
-  const dispatch = useDispatch();
-  const { isLoading, error, user } = useSelector((state) => state.auth);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [formError, setFormError] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+  const { isLoading, error, user } = useSelector((state) => state.auth);
+  const router = useRouter();
+  const dispatch = useDispatch();
 
   const SubmitHandler = (e) => {
     e.preventDefault();
@@ -40,7 +42,7 @@ const Login = () => {
     const token = googleUser.getAuthResponse().id_token;
     dispatch(loginWithGoogle(token));
   };
-  if(user){
+  if (user) {
     router.replace("/home");
   }
   return (
@@ -77,15 +79,22 @@ const Login = () => {
           >
             Password<span className="text-lg text-red-500">*</span>
           </label>
-          <input
-            type="password"
-            id="password"
-            name="password"
-            value={password}
-            className="mt-1 w-full rounded-lg border border-gray-300 p-2"
-            required
-            onChange={passwordchangeHandler}
-          />
+          <div className="password-wrapper relative mt-1 flex items-center justify-center">
+            <input
+              type={!showPassword ? "password" : "text"}
+              id="password"
+              name="password"
+              value={password}
+              className="w-full rounded-lg border border-gray-300 p-2"
+              required
+              onChange={passwordchangeHandler}
+            />
+            <ShowPassword
+              pass={showPassword}
+              setPass={setShowPassword}
+              className="absolute right-2 block cursor-pointer"
+            />
+          </div>
         </div>
         {formError && (
           <div className="mb-2 text-center text-red-500">{formError}</div>
