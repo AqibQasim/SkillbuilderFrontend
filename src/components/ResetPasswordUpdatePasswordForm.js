@@ -13,6 +13,7 @@ const ResetPasswordUpdatePasswordForm = () => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const { userId: id } = useSelector((state) => state.loginFlow);
 
   const {
     status,
@@ -53,7 +54,7 @@ const ResetPasswordUpdatePasswordForm = () => {
       return;
     }
     setLocalError(null);
-    dispatch(editProfile({ password, id: 1 }));
+    dispatch(editProfile({ password, id }));
   };
 
   const handleCancel = () => {

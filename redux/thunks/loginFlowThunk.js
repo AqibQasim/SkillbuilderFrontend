@@ -36,6 +36,7 @@ export const sendOtp = createAsyncThunk(
       return {
         message: data.message,
         otpArray,
+        userId: 2
       };
     } catch (error) {
       console.error("Error sending OTP:", error);

@@ -40,17 +40,14 @@ const EditProfileForm = ({ setCloseForm }) => {
 
   function handleSubmit(e) {
     e.preventDefault();
-    // Destructure the form data and initial state for readability
     const { id, ...formValues } = formData;
-    // If all form fields are empty
+
     const areAllFieldsEmpty = (fields) => {
       return Object.values(fields).every((value) => value === "");
     };
-    // If there are no changes
     const hasNoActualChanges = (changes, initial) => {
       return Object.keys(changes).every((key) => changes[key] === initial[key]);
     };
-    // If all fields are empty or no actual changes
     const allFieldsEmpty = areAllFieldsEmpty(formValues);
     const noActualChanges = hasNoActualChanges(changedFields, initialState);
 
@@ -59,20 +56,13 @@ const EditProfileForm = ({ setCloseForm }) => {
       allFieldsEmpty ||
       noActualChanges
     ) {
-      // Exit early if no fields changed, all fields are empty, or no actual changes
       return;
     }
 
-    // Prepare data for submission
     const dataToSubmit = { ...changedFields, id };
 
-    // Log the data to the console (replace this with actual submission logic)
     dispatch(editProfile(dataToSubmit));
-    console.log(dataToSubmit);
   }
-  useEffect(() => {
-    console.log("this is user : ", first_name);
-  }, []);
 
   function handleReset() {
     setFormData(initialState);

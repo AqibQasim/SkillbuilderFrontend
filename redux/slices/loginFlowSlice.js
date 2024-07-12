@@ -2,11 +2,12 @@ import { createSlice } from "@reduxjs/toolkit";
 import { compareOtp, sendOtp } from "../thunks/loginFlowThunk";
 
 const initialState = {
+  userId: null,
   error: null,
   loading: false,
   email: "Test@example.com",
   otp: ["", "", "", "", "", ""],
-  index: 2,
+  index: 0,
   headings: ["forgot password", "enter code", "reset password"],
   paragraphs: [
     "We’ll email you a link so you can reset your password.",
@@ -42,6 +43,7 @@ const loginFlowSlice = createSlice({
         state.successMessage = action.payload.message;
         state.error = null;
         state.otp = action.payload.otpArray;
+        state.userId = action.payload.userId;
         state.index += 1;
       })
       .addCase(sendOtp.rejected, (state, action) => {
