@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from "react";
+import { signIn, useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { signupUser, signupWithGoogle } from "../../redux/thunks/auththunks";
-import { useSession, signIn, signOut } from "next-auth/react";
+import { signupUser } from "../../redux/thunks/auththunks";
 import ShowPassword from "./ShowPassword";
 // import { signupUser } from "../../redux/thunks/auththunks";
 
@@ -58,6 +58,8 @@ const Signup = () => {
     e.preventDefault();
     const passwordCriteria =
       /^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+{}\[\]:;<>,.?~\\/-])[A-Za-z\d!@#$%^&*()_+{}\[\]:;<>,.?~\\/-]{8,}$/;
+
+    const nameregex = /^[a-zA-Z\s]*$/;
     if (password !== confirmPassword) {
       setFormError("Passwords do not match");
       return;
@@ -66,6 +68,14 @@ const Signup = () => {
       setFormError(
         "Password must contain at least one capital letter, one number, and one special character.",
       );
+      return;
+    }
+    if (!nameregex.test(first_name)) {
+      setFormError("First name must contain only characters ");
+      return;
+    }
+    if (!nameregex.test(last_name)) {
+      setFormError("Last name must contain only characters ");
       return;
     }
     setFormError("");
@@ -253,7 +263,7 @@ const Signup = () => {
         <button
           // onClick={handleGoogleSignIn}
           onClick={() => signIn("google")}
-          className="border-google-border mb-4 mt-4 flex w-full items-center justify-center rounded-lg border bg-white p-2 text-black"
+          className="mb-4 mt-4 flex w-full items-center justify-center rounded-lg border border-google-border bg-white p-2 text-black"
         >
           <span className="mr-2">
             <Image src="/googlelogo.png" width={25} height={25} alt="" />

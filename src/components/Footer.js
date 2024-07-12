@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import Image from "next/image";
 import "../styles/footer.css";
 import LayoutWidth from "./LayoutWidth";
+import Link from "next/link";
 // import logo from "../../../assets/logo.png";
 // import trustpilot from "../../../assets/trustpilot.png";
 // import facebook from "../../../assets/facebook1.png";
@@ -28,7 +29,14 @@ const Footer = () => {
             {/* Left column */}
             {/* <div className="w-[50%] max-sm:flex max-sm:flex-col max-sm:items-center  md:w-1/3 mb-4 md:mb-0 max-sm:w-[100%]"> */}
             <div className="mb-4 w-full md:mb-0 lg:w-auto max-sm:flex max-sm:flex-col max-sm:items-center">
-              <Image src="/logo.svg" className="imba" width={170} height={30} />
+              <div className="mb-8">
+                <Image
+                  src="/logo.svg"
+                  className="imba"
+                  width={170}
+                  height={30}
+                />
+              </div>
               <p className="mt-4 text-black max-sm:w-[100%] max-sm:text-center">
                 Venture your Educational dreams.{" "}
               </p>
@@ -79,33 +87,33 @@ const Footer = () => {
               {/* </div> */}
             </div>
           </div>
-          <div className="flex flex-col items-center">
-            <hr className="my-4 w-[90%] border-t-2 border-bottom_border_gray" />
-            <div className="flex w-[90%] items-center justify-between max-sm:flex-col max-sm:text-center">
+          <div className="mb-8 flex flex-col items-center">
+            <hr className="my-4 w-[100%] border-t-2 border-bottom_border_gray" />
+            <div className="flex w-[100%] items-center justify-between max-sm:flex-col max-sm:text-center">
               <span className="text-gray_footer_text">
                 © 2023 Skill Builder All rights reserved.
               </span>
               <span className="flex items-center gap-2 max-sm:pt-4">
                 <Image
-                  src="/twitter.svg"
+                  src="/twitter (2).png"
                   className="cursor-pointer"
                   width={40}
                   height={40}
                 />
                 <Image
-                  src="/linkedin.svg"
+                  src="/linkedin (2).png"
                   className="cursor-pointer"
                   width={40}
                   height={40}
                 />
                 <Image
-                  src="/facebook.svg"
+                  src="/facebook (2).png"
                   className="cursor-pointer"
                   width={40}
                   height={40}
                 />
                 <Image
-                  src="/instagram.svg"
+                  src="/insta (2).png"
                   className="cursor-pointer"
                   width={40}
                   height={40}
