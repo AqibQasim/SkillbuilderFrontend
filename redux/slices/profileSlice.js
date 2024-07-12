@@ -1,13 +1,13 @@
+import { filterObject } from "@/utils/filterObject";
 import { createSlice } from "@reduxjs/toolkit";
 import { editProfile } from "../thunks/profilethunk";
-import { filterObject } from "@/utils/filterObject";
 
 const initialState = {
   id: null,
   first_name: "",
   last_name: "",
   email: "",
-  // password: "",
+  password: "",
   profession: "",
   location: "",
   facebook_profile: "",
@@ -36,35 +36,37 @@ const profileSlice = createSlice({
       state.error = "";
       state.status = "idle";
       state.successMessage = "Profile removed";
-      // Remove from localStorage
       localStorage.removeItem("profile");
     },
     add: (state, action) => {
       Object.assign(state, action.payload);
+    },
+    clearSuccessMessage: (state) => {
+      state.successMessage = null;
     },
   },
   extraReducers: (builder) => {
     builder
       .addCase(editProfile.pending, (state) => {
         state.status = "loading";
+        state.successMessage = null;
       })
       .addCase(editProfile.fulfilled, (state, action) => {
         let dataToSet;
-        console.log("Payload", action.payload);
         if (action.payload) dataToSet = filterObject(action.payload.data);
         state.status = "idle";
         state.successMessage = "Profile updated successfully";
         state.error = null;
         Object.assign(state, dataToSet);
-        // Save to localStorage
         localStorage.setItem("profile", JSON.stringify(state));
       })
       .addCase(editProfile.rejected, (state, action) => {
         state.status = "error";
-        state.error = action.error.message;
+        state.successMessage = null;
+        state.error = action.payload || action.error.message;
       });
   },
 });
 
-export const { add, remove } = profileSlice.actions;
+export const { add, remove, clearSuccessMessage } = profileSlice.actions;
 export default profileSlice.reducer;

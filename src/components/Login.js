@@ -103,9 +103,12 @@ const Login = () => {
         {!formError && error && (
           <div className="text-center text-red-500">{error}</div>
         )}
-        <span className="ml-2 text-sm font-semibold text-blue">
+        <Link
+          href="/reset-password"
+          className="ml-2 text-sm font-semibold text-blue"
+        >
           Forgot Password?
-        </span>
+        </Link>
 
         {/* Sign Up Button */}
         <div className="mb-4 mt-8">
@@ -125,7 +128,7 @@ const Login = () => {
           <span className="mx-4 text-gray-300">Or Login With</span>
           <div className="flex-grow border-t border-gray-300"></div>
         </div>
-        <button className="border-google-border mb-4 mt-4 flex w-full items-center justify-center rounded-lg border bg-white p-2 text-black">
+        <button className="mb-4 mt-4 flex w-full items-center justify-center rounded-lg border border-google-border bg-white p-2 text-black">
           <span className="mr-2">
             <Image src="/googlelogo.png" width={25} height={25} />
           </span>

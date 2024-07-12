@@ -47,6 +47,10 @@ module.exports = {
         bottom_border_gray: {
           DEFAULT: "#D4D5E7",
         },
+        secondary: {
+          DEFAULT: "#F1F1F5",
+        },
+
         border_gray: {
           DEFAULT: "#BCBCBC",
         },

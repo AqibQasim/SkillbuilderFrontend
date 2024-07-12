@@ -3,6 +3,7 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 export const editProfile = createAsyncThunk(
   "profile/edit",
   async function (profileData, { rejectWithValue }) {
+    console.log("running");
     console.log("userThunk", profileData);
 
     try {
@@ -22,10 +23,11 @@ export const editProfile = createAsyncThunk(
       }
 
       const data = await response.json();
-      console.log(data);
+      console.log("DATA from Profile thunk", data);
 
       return data;
     } catch (error) {
+      console.log(error.message);
       return rejectWithValue(error.message || "Failed to update profile");
     }
 
