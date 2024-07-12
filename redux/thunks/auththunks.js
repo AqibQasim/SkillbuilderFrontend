@@ -62,7 +62,7 @@ export const signupUser = createAsyncThunk(
       console.log("response data", data);
 
       if (!response.ok) {
-        throw new Error(data.message || "User Already exist");
+        throw new Error(data.message || "Email Already Exist");
       }
       return data; // assuming the API returns the user object
     } catch (error) {

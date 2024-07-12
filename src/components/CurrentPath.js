@@ -9,16 +9,16 @@ function CurrentPath({ className }) {
 
   if (currentPath === "contact" || currentPath === "about") {
     currentPath += " us";
-  }else if(currentPath === "shoppingcart"){
-    currentPath = "Shopping Cart"
+  } else if (currentPath === "shoppingcart") {
+    currentPath = "Shopping Cart";
   }
   return (
     <>
       <Link href="/home">
-        <HomeSvg className="h-5 w-5 inline-flex" />
+        <HomeSvg className="inline-flex h-5 w-5" />
       </Link>
-      <RightIconSvg className="ml-[3px] h-4 w-4 inline-flex" />
-      <p className="capitalize inline-flex ml-1">{currentPath}</p>
+      <RightIconSvg className="ml-[3px] inline-flex h-4 w-4" />
+      <p className="ml-1 inline-flex capitalize text-blue">{currentPath}</p>
     </>
   );
 }

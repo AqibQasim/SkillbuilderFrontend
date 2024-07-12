@@ -18,13 +18,12 @@ const Courses = ({ heading, paddingTop }) => {
     isLoading,
     error,
   } = useSelector(
-    (state) => state.courses || { data: [], isLoading: false, error: null }
+    (state) => state.courses || { data: [], isLoading: false, error: null },
   );
 
   useEffect(() => {
     dispatch(fetchAllCourses());
   }, [dispatch]);
-
 
   const cartItems = useSelector((state) => state.cart.items);
 
@@ -40,13 +39,13 @@ const Courses = ({ heading, paddingTop }) => {
   //   dispatch(addItem(course));
   // };
   const handleAddToCart = (course) => {
-    if (!cartItems.some(item => item.id === course.id)) {
+    if (!cartItems.some((item) => item.id === course.id)) {
       dispatch(addItem(course));
     }
   };
 
   const isCourseAddedToCart = (course) => {
-    return cartItems.some(item => item.id === course.id);
+    return cartItems.some((item) => item.id === course.id);
   };
 
   if (isLoading) {
@@ -60,56 +59,57 @@ const Courses = ({ heading, paddingTop }) => {
   return (
     <>
       <div
-        className={`${paddingTop} w-[90%] flex justify-between mt-[-0.5rem] h-auto my-8 max-sm:my-0 max-sm:mb-6 max-sm:mt-[-3rem] `}
+        className={`${paddingTop} my-8 mt-[-0.5rem] flex h-auto w-[90%] justify-between max-sm:my-0 max-sm:mb-6 max-sm:mt-[-3rem]`}
       >
-        <h2 className="text-2xl font-semibold max-sm:text-xl max-sm:mt-4">
+        <h2 className="text-2xl font-semibold max-sm:mt-4 max-sm:text-xl">
           {heading}
         </h2>
         <span
           onClick={() => router.push("/courses")}
-          className="max-sm:mt-4 text-blue font-semibold flex gap-3 items-center cursor-pointer max-sm:text-sm"
+          className="flex cursor-pointer items-center gap-3 font-semibold text-blue max-sm:mt-4 max-sm:text-sm"
         >
           View All
           <Image src="/rightArrow.svg" width={15} height={15} />
         </span>
       </div>
 
-      <div className="w-full flex flex-col justify-center items-center">
-        <div className="h-auto w-[90%] grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 place-items-center">
+      <div className="flex w-full flex-col items-center justify-center">
+        <div className="grid h-auto w-[90%] grid-cols-1 place-items-center gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {courses?.slice(0, 8).map((course) => (
             <div
               key={course?.id}
-              className="img-container border border-cards_gray h-auto w-full max-w-sm mb-4 bg-white rounded-2xl p-2 flex flex-col items-start transform transition transition-shadow duration-300 hover:shadow-lg hover:border-[rgb(152,159,233)]"
+              className="img-container mb-4 flex h-auto w-full max-w-sm transform flex-col items-start rounded-2xl border border-cards_gray bg-white p-2 transition transition-shadow duration-300 hover:border-[rgb(152,159,233)] hover:shadow-lg"
               onClick={() => router.push(`/courses/${course?.id}`)}
             >
               <Image
                 className="w-[100%] pt-1"
-                // src={course?.image}
-                src='/dummyImg.svg'
+                src="/dummyImg.svg"
                 alt={course?.title}
                 width={280}
                 height={260}
               />
-              <div className="p-2 w-[100%]">
-                <div className="w-full flex justify-between items-center   mt-2">
+              <div className="w-[100%] p-2">
+                <div className="mt-2 flex w-full items-center justify-between">
                   <div>
                     <span className="text-sm">{course?.rating}</span>
                     <StarRating rating={Math.round(course?.rating)} />
                   </div>
                   {isCourseAddedToCart(course) && (
-                    <span className="text-blue font-semibold">Added To Cart</span>
+                    <span className="font-semibold text-blue">
+                      Added To Cart
+                    </span>
                   )}
                   {/* <span className="text-blue font-semibold" >Added To Cart</span> */}
                 </div>
-                <h3 className="text-lg font-semibold mt-4">{course?.title}</h3>
+                <h3 className="mt-4 text-lg font-semibold">{course?.title}</h3>
                 <p className="mb-2 text-sm">{course?.learning_outcomes}</p>
 
                 <div className="flex w-[100%] justify-between pb-2 max-md:pb-2">
-                  <div className="w-[50%] flex lg:justify-start lg:items-center lg:gap-1 justify-start items-center gap-2">
-                    <span className="text-blue font-semibold">
+                  <div className="flex w-[50%] items-center justify-start gap-2 lg:items-center lg:justify-start lg:gap-1">
+                    <span className="font-semibold text-blue">
                       ${course?.amount}
                     </span>
-                    <span className="text-[0.5rem] text-bg_text_gray ">
+                    <span className="text-[0.5rem] text-bg_text_gray">
                       <span className="stroke-bg_text_gray line-through">
                         $400
                       </span>{" "}
@@ -121,7 +121,8 @@ const Courses = ({ heading, paddingTop }) => {
                       e.stopPropagation();
                       handleAddToCart(course);
                     }}
-                    className="py-2 px-2 text-white bg-blue rounded-lg text-xs">
+                    className="rounded-lg bg-blue px-2 py-2 text-xs text-white"
+                  >
                     Add To Cart
                   </button>
                 </div>
