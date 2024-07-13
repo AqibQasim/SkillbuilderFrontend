@@ -56,7 +56,10 @@ const loginFlowSlice = createSlice({
       })
       .addCase(sendOtp.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.payload;
+        state.error =
+          action.payload === "Request canceled"
+            ? "Request canceled"
+            : action.payload;
       })
       .addCase(compareOtp.pending, (state) => {
         state.loading = true;
@@ -75,6 +78,6 @@ const loginFlowSlice = createSlice({
   },
 });
 
-export const { setEmail, setIndex, clearEmail, resetState, index } =
+export const { setEmail, setIndex, clearEmail, resetState } =
   loginFlowSlice.actions;
 export default loginFlowSlice.reducer;

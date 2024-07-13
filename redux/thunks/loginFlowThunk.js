@@ -2,7 +2,7 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 
 export const sendOtp = createAsyncThunk(
   "loginFlow/sendOtp",
-  async (email, { rejectWithValue }) => {
+  async ({ email, abortController }, { rejectWithValue }) => {
     try {
       // Generate a 6-digit OTP
       const otp = Math.floor(100000 + Math.random() * 900000);
@@ -22,6 +22,7 @@ export const sendOtp = createAsyncThunk(
             "Content-Type": "application/json",
           },
           body: JSON.stringify(dataToSend),
+          signal: abortController.signal,
         },
       );
 
@@ -36,9 +37,12 @@ export const sendOtp = createAsyncThunk(
       return {
         message: data.message,
         otpArray,
-        userId: 2
+        userId: 2,
       };
     } catch (error) {
+      if (abortController.signal.aborted) {
+        return rejectWithValue("Request canceled");
+      }
       console.error("Error sending OTP:", error);
       return rejectWithValue(error.message || "Failed to send OTP");
     }
@@ -52,7 +56,6 @@ export const compareOtp = createAsyncThunk(
       const state = getState();
       const storedOtp = state.loginFlow.otp;
 
-      // Compare the OTP arrays
       const isEqual =
         otp.length === storedOtp.length &&
         otp.every((value, index) => value === storedOtp[index]);

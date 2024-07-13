@@ -1,10 +1,10 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/router";
 import ButtonLarge from "./ButtonLarge";
 import { sendOtp } from "../../redux/thunks/loginFlowThunk";
 
-const EmailForm = () => {
+function ResetPasswordEmailForm() {
   const [localError, setLocalError] = useState("");
   const [localEmail, setLocalEmail] = useState("");
   const {
@@ -14,6 +14,7 @@ const EmailForm = () => {
   } = useSelector((state) => state.loginFlow);
   const dispatch = useDispatch();
   const router = useRouter();
+  const abortControllerRef = useRef();
 
   useEffect(() => {
     if (email) {
@@ -33,10 +34,20 @@ const EmailForm = () => {
       return;
     }
     setLocalError("");
-    dispatch(sendOtp(localEmail));
+
+    abortControllerRef.current = new AbortController();
+    dispatch(
+      sendOtp({
+        email: localEmail,
+        abortController: abortControllerRef.current,
+      }),
+    );
   };
 
   const handleCancel = () => {
+    if (abortControllerRef.current) {
+      abortControllerRef.current.abort();
+    }
     router.push("/login");
   };
 
@@ -77,6 +88,6 @@ const EmailForm = () => {
       </div>
     </form>
   );
-};
+}
 
-export default EmailForm;
+export default ResetPasswordEmailForm;
