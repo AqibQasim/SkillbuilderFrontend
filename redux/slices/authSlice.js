@@ -16,6 +16,9 @@ const authSlice = createSlice({
     successMessage: null,
   },
   reducers: {
+    clearError: (state) => {
+      state.error = null;
+    },
     setSuccess: (state, action) => {
       state.successMessage = action.payload;
     },
@@ -30,13 +33,12 @@ const authSlice = createSlice({
         state.isLoading = true;
       })
       .addCase(loginUser.fulfilled, (state, action) => {
-        console.log("action payload h ye : ",action.payload.user.id);
+        console.log("action payload h ye : ", action.payload.user.id);
         state.user = action.payload.user.id;
         state.isLoading = false;
         state.error = null;
         // Save to localStorage
         localStorage.setItem("auth", JSON.stringify(state.user));
-        
       })
       .addCase(loginUser.rejected, (state, action) => {
         state.error = action.payload;
@@ -70,5 +72,5 @@ const authSlice = createSlice({
       });
   },
 });
-export const { logout, setSuccess } = authSlice.actions;
+export const { logout, setSuccess, clearError } = authSlice.actions;
 export default authSlice.reducer;

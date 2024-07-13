@@ -70,7 +70,7 @@ const EmailForm = () => {
         <ButtonLarge type="submit" disabled={loading} onClick={handleSubmit}>
           Submit
         </ButtonLarge>
-        <ButtonLarge role="secondary" onClick={handleCancel}>
+        <ButtonLarge variant="secondary" onClick={handleCancel}>
           Cancel
         </ButtonLarge>
       </div>

@@ -1,10 +1,11 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { loginUser } from "../../redux/thunks/auththunks";
 import ShowPassword from "./ShowPassword";
+import { clearError } from "../../redux/slices/authSlice";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -14,6 +15,10 @@ const Login = () => {
   const { isLoading, error, user } = useSelector((state) => state.auth);
   const router = useRouter();
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(clearError());
+  }, []);
 
   const SubmitHandler = (e) => {
     e.preventDefault();

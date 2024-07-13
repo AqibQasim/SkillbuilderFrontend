@@ -64,77 +64,75 @@ const ResetPasswordUpdatePasswordForm = () => {
   };
 
   return (
-    <>
-      <form onSubmit={handleSubmit}>
-        <div className="mb-2">
-          <label
-            htmlFor="password"
-            className="block text-sm font-medium text-gray-900"
-          >
-            Password<span className="text-lg text-red-500">*</span>
-          </label>
-          <div className="password-wrapper relative mt-1 flex items-center justify-center">
-            <input
-              type={!showPassword ? "password" : "text"}
-              id="password"
-              name="password"
-              className="w-full rounded-lg border border-gray-300 p-2"
-              required
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              disabled={status === "loading"}
-            />
-            <ShowPassword
-              pass={showPassword}
-              setPass={setShowPassword}
-              className="absolute right-2 block cursor-pointer"
-            />
-          </div>
+    <form onSubmit={handleSubmit}>
+      <div className="mb-2 mt-3">
+        <label
+          htmlFor="password"
+          className="block text-sm font-medium text-gray-900"
+        >
+          Password<span className="text-lg text-red-500">*</span>
+        </label>
+        <div className="password-wrapper relative mt-1 flex items-center justify-center">
+          <input
+            type={!showPassword ? "password" : "text"}
+            id="password"
+            name="password"
+            className="w-full rounded-lg border border-gray-300 p-2"
+            required
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            disabled={status === "loading"}
+          />
+          <ShowPassword
+            pass={showPassword}
+            setPass={setShowPassword}
+            className="absolute right-2 block cursor-pointer"
+          />
         </div>
-        <div className="mb-2">
-          <label
-            htmlFor="confirmPassword"
-            className="block text-sm font-medium text-gray-900"
-          >
-            Confirm Password<span className="text-lg text-red-500">*</span>
-          </label>
-          <div className="password-wrapper relative mt-1 flex items-center justify-center">
-            <input
-              type={!showConfirmPassword ? "password" : "text"}
-              id="confirmPassword"
-              name="confirmPassword"
-              className="w-full rounded-lg border border-gray-300 p-2"
-              required
-              value={confirmPassword}
-              onChange={(e) => setConfirmPassword(e.target.value)}
-              disabled={status === "loading"}
-            />
-            <ShowPassword
-              pass={showConfirmPassword}
-              setPass={setShowConfirmPassword}
-              className="absolute right-2 block cursor-pointer"
-            />
-          </div>
+      </div>
+      <div className="mb-2">
+        <label
+          htmlFor="confirmPassword"
+          className="block text-sm font-medium text-gray-900"
+        >
+          Confirm Password<span className="text-lg text-red-500">*</span>
+        </label>
+        <div className="password-wrapper relative mt-1 flex items-center justify-center">
+          <input
+            type={!showConfirmPassword ? "password" : "text"}
+            id="confirmPassword"
+            name="confirmPassword"
+            className="w-full rounded-lg border border-gray-300 p-2"
+            required
+            value={confirmPassword}
+            onChange={(e) => setConfirmPassword(e.target.value)}
+            disabled={status === "loading"}
+          />
+          <ShowPassword
+            pass={showConfirmPassword}
+            setPass={setShowConfirmPassword}
+            className="absolute right-2 block cursor-pointer"
+          />
         </div>
-        {(localError || profileError) && (
-          <div className="mb-2 text-center text-red-500">
-            {localError || profileError}
-          </div>
-        )}
-        <div className="mt-8 space-y-2">
-          <ButtonLarge type="submit" disabled={status === "loading"}>
-            Change Password
-          </ButtonLarge>
+      </div>
+      {(localError || profileError) && (
+        <div className="mb-2 text-center text-red-500">
+          {localError || profileError}
         </div>
-      </form>
-      <ButtonLarge
-        role="secondary"
-        onClick={handleCancel}
-        disabled={status === "loading"}
-      >
-        Cancel
-      </ButtonLarge>
-    </>
+      )}
+      <div className="mt-8 space-y-2">
+        <ButtonLarge type="submit" disabled={status === "loading"}>
+          Change Password
+        </ButtonLarge>
+        <ButtonLarge
+          variant="secondary"
+          onClick={handleCancel}
+          disabled={status === "loading"}
+        >
+          Cancel
+        </ButtonLarge>
+      </div>
+    </form>
   );
 };
 

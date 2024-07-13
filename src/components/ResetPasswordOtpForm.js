@@ -74,7 +74,7 @@ const ResetPasswordOtpForm = () => {
             Reset Password
           </ButtonLarge>
           <ButtonLarge
-            role="secondary"
+            variant="secondary"
             onClick={handleCancel}
             disabled={loading}
           >
