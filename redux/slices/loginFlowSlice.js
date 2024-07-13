@@ -4,11 +4,10 @@ import { compareOtp, sendOtp } from "../thunks/loginFlowThunk";
 const initialState = {
   userId: null,
   error: null,
-  // loading: false,
-  loading: true,
+  loading: false,
   email: "Test@example.com",
   otp: ["", "", "", "", "", ""],
-  index: 3,
+  index: 0,
   headings: [
     "forgot password",
     "enter code",
