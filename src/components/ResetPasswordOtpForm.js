@@ -8,6 +8,7 @@ import ResendCode from "./ResendCode";
 
 const ResetPasswordOtpForm = () => {
   const [otp, setOtp] = useState(new Array(6).fill(""));
+  const [localError, setLocalError] = useState("");
   const { error, loading, email } = useSelector((state) => state.loginFlow);
   const dispatch = useDispatch();
   const inputsRef = useRef([]);
@@ -66,7 +67,11 @@ const ResetPasswordOtpForm = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(otp);
+    if (otp.some((digit) => digit === "")) {
+      setLocalError("Please fill all the OTP fields.");
+      return;
+    }
+    setLocalError("");
     dispatch(compareOtp(otp));
   };
 
@@ -93,10 +98,15 @@ const ResetPasswordOtpForm = () => {
               onKeyDown={(e) => handleKeyDown(e, index)}
               ref={(el) => (inputsRef.current[index] = el)}
               disabled={loading}
+              required
             />
           ))}
         </div>
-        {error && <div className="mb-2 text-center text-red-500">{error}</div>}
+        {(localError || error) && (
+          <div className="mb-2 text-center text-red-500">
+            {localError || error}
+          </div>
+        )}
 
         <div className="mt-8 space-y-2">
           <ButtonLarge type="submit" disabled={loading}>
