@@ -53,6 +53,7 @@ const EmailForm = () => {
           type="email"
           id="email"
           name="email"
+          placeholder="example@example.com"
           value={localEmail}
           className="mt-1 w-full rounded-lg border border-gray-300 p-2"
           required

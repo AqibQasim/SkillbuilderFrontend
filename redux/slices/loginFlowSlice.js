@@ -5,7 +5,7 @@ const initialState = {
   userId: null,
   error: null,
   loading: false,
-  email: "Test@example.com",
+  email: "",
   otp: ["", "", "", "", "", ""],
   index: 0,
   headings: [
@@ -28,7 +28,6 @@ const loginFlowSlice = createSlice({
   reducers: {
     setEmail: (state, action) => {
       state.email = action.payload;
-      if (state.index === 1) state.index = 2;
     },
     setIndex: (state, action) => {
       state.index = action.payload;

@@ -3,9 +3,10 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { clearError } from "../../redux/slices/authSlice";
+import { setEmail as setLoginFlowEmail } from "../../redux/slices/loginFlowSlice";
 import { loginUser } from "../../redux/thunks/auththunks";
 import ShowPassword from "./ShowPassword";
-import { clearError } from "../../redux/slices/authSlice";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -31,7 +32,7 @@ const Login = () => {
       return;
     }
     setFormError("");
-
+    dispatch(setLoginFlowEmail(email));
     dispatch(loginUser({ email, password }));
   };
 
