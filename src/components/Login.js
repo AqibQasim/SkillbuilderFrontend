@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { clearError } from "../../redux/slices/authSlice";
-import { setEmail as setLoginFlowEmail } from "../../redux/slices/loginFlowSlice";
+import { setEmail as setLoginFlowEmail, clearEmail as clearLoginFlowEmail } from "../../redux/slices/loginFlowSlice";
 import { loginUser } from "../../redux/thunks/auththunks";
 import ShowPassword from "./ShowPassword";
 
@@ -19,6 +19,7 @@ const Login = () => {
 
   useEffect(() => {
     dispatch(clearError());
+    dispatch(clearLoginFlowEmail());
   }, []);
 
   const SubmitHandler = (e) => {

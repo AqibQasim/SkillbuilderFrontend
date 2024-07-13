@@ -26,6 +26,9 @@ const loginFlowSlice = createSlice({
   name: "loginFlow",
   initialState,
   reducers: {
+    clearEmail: (state) => {
+      state.email = "";
+    },
     setEmail: (state, action) => {
       state.email = action.payload;
     },
@@ -72,5 +75,6 @@ const loginFlowSlice = createSlice({
   },
 });
 
-export const { setEmail, setIndex, resetState, index } = loginFlowSlice.actions;
+export const { setEmail, setIndex, clearEmail, resetState, index } =
+  loginFlowSlice.actions;
 export default loginFlowSlice.reducer;
