@@ -10,6 +10,9 @@ module.exports = {
       container: {
         padding: "25px",
       },
+      boxShadow: {
+        "custom-input": "0 4px 6px rgba(56, 71, 255, 0.11)",
+      },
       borderRadius: {
         "tl-br": "var(--tw-border-radius-tl-br)",
       },
