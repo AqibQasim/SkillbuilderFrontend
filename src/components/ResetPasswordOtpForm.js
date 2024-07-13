@@ -1,13 +1,14 @@
 import { useRouter } from "next/router";
 import { useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { compareOtp } from "../../redux/thunks/loginFlowThunk";
 import { setIndex } from "../../redux/slices/loginFlowSlice";
+import { compareOtp } from "../../redux/thunks/loginFlowThunk";
 import ButtonLarge from "./ButtonLarge";
+import ResendCode from "./ResendCode";
 
 const ResetPasswordOtpForm = () => {
   const [otp, setOtp] = useState(new Array(6).fill(""));
-  const { error, loading } = useSelector((state) => state.loginFlow);
+  const { error, loading, email } = useSelector((state) => state.loginFlow);
   const dispatch = useDispatch();
   const inputsRef = useRef([]);
   const router = useRouter();
@@ -110,10 +111,7 @@ const ResetPasswordOtpForm = () => {
           </ButtonLarge>
         </div>
       </form>
-      <p className="mt-14 text-lightgray">
-        Haven’t received code yet?{" "}
-        <span className="text-blue">Resend code</span>
-      </p>
+      <ResendCode email={email} />
     </>
   );
 };

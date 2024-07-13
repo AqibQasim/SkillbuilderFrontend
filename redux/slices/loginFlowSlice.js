@@ -8,6 +8,7 @@ const initialState = {
   email: "",
   otp: ["", "", "", "", "", ""],
   index: 0,
+  resendCodeTimer: 0,
   headings: [
     "forgot password",
     "enter code",
@@ -35,6 +36,9 @@ const loginFlowSlice = createSlice({
     setIndex: (state, action) => {
       state.index = action.payload;
     },
+    setResendCodeTimer: (state, action) => {
+      state.resendCodeTimer = action.payload;
+    },
     resetState: (state) => {
       return initialState;
     },
@@ -56,10 +60,7 @@ const loginFlowSlice = createSlice({
       })
       .addCase(sendOtp.rejected, (state, action) => {
         state.loading = false;
-        state.error =
-          action.payload === "Request canceled"
-            ? "Request canceled"
-            : action.payload;
+        state.error = action.payload;
       })
       .addCase(compareOtp.pending, (state) => {
         state.loading = true;
@@ -78,6 +79,11 @@ const loginFlowSlice = createSlice({
   },
 });
 
-export const { setEmail, setIndex, clearEmail, resetState } =
-  loginFlowSlice.actions;
+export const {
+  setEmail,
+  setIndex,
+  clearEmail,
+  resetState,
+  setResendCodeTimer,
+} = loginFlowSlice.actions;
 export default loginFlowSlice.reducer;
