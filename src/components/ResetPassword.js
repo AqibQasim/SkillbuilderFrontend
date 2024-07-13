@@ -1,13 +1,31 @@
-import ResetPasswordEmailForm from "@/components/ResetPasswordEmailForm";
+// ResetPassword.js
+import React from "react";
 import { useSelector } from "react-redux";
-import ResetPasswordOtpForm from "./ResetPasswordOtpForm";
-import ResetPasswordUpdatePasswordForm from "./ResetPasswordUpdatePasswordForm";
-import ResetPasswordSuccessMsg from "./ResetPasswordSuccessMsg";
+import ResetPasswordEmailForm from "@/components/ResetPasswordEmailForm";
+import ResetPasswordOtpForm from "@/components/ResetPasswordOtpForm";
+import ResetPasswordUpdatePasswordForm from "@/components/ResetPasswordUpdatePasswordForm";
+import { maskEmail } from "@/utils/maskEmail";
 
-function ResetPassword() {
-  const { index, headings, paragraphs } = useSelector(
-    (state) => state.loginFlow,
-  );
+// Function to get dynamic paragraphs
+// We use a function to dynamically insert the email into the paragraphs
+const getParagraphs = (email) => {
+  const maskedEmail = maskEmail(email);
+  return [
+    "We’ll email you a link so you can reset your password.",
+    <span>
+      Enter the code that we sent to your email{" "}
+      <span className="font-bold text-blue">{maskedEmail}</span> and reset your
+      password.
+    </span>,
+    "Set a strong password.",
+    "Your Password has been reset click on continue to get started",
+  ];
+};
+
+const ResetPassword = () => {
+  const { index, email, headings } = useSelector((state) => state.loginFlow);
+
+  const paragraphs = getParagraphs(email);
 
   return (
     <div className="w-full max-w-md rounded-md bg-white p-6 shadow-md">
@@ -18,9 +36,8 @@ function ResetPassword() {
       {index === 0 && <ResetPasswordEmailForm />}
       {index === 1 && <ResetPasswordOtpForm />}
       {index === 2 && <ResetPasswordUpdatePasswordForm />}
-      {index === 3 && <ResetPasswordSuccessMsg />}
     </div>
   );
-}
+};
 
 export default ResetPassword;

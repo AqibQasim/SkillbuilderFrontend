@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/router";
 import ButtonLarge from "./ButtonLarge";
 import { sendOtp } from "../../redux/thunks/loginFlowThunk";
+import { setEmail } from "../../redux/slices/loginFlowSlice";
 
 function ResetPasswordEmailForm() {
   const [localError, setLocalError] = useState("");
@@ -36,6 +37,7 @@ function ResetPasswordEmailForm() {
     setLocalError("");
 
     abortControllerRef.current = new AbortController();
+    dispatch(setEmail(localEmail));
     dispatch(
       sendOtp({
         email: localEmail,

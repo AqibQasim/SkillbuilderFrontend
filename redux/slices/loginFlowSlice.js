@@ -1,3 +1,4 @@
+// loginFlowSlice.js
 import { createSlice } from "@reduxjs/toolkit";
 import { compareOtp, sendOtp } from "../thunks/loginFlowThunk";
 
@@ -7,21 +8,23 @@ const initialState = {
   loading: false,
   email: "",
   otp: ["", "", "", "", "", ""],
-  index: 0,
-  resendCodeTimer: 0,
   headings: [
     "forgot password",
     "enter code",
     "reset password",
     "verification successful",
   ],
-  paragraphs: [
-    "We’ll email you a link so you can reset your password.",
-    "Enter the code that we sent to your email and reset your password.",
-    "Set a strong password.",
-    "Your Password has been reset click on continue to get started",
-  ],
+  index: 0,
+  resendCodeTimer: 0,
 };
+
+// Function to get dynamic paragraphs
+const getParagraphs = (email) => [
+  "We’ll email you a link so you can reset your password.",
+  `Enter the code that we sent to your email ${email} and reset your password.`,
+  "Set a strong password.",
+  "Your Password has been reset click on continue to get started",
+];
 
 const loginFlowSlice = createSlice({
   name: "loginFlow",
