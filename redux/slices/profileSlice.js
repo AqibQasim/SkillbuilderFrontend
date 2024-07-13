@@ -44,14 +44,19 @@ const profileSlice = createSlice({
     clearSuccessMessage: (state) => {
       state.successMessage = null;
     },
+    clearErrorMessage: (state) => {
+      state.error = null;
+    },
   },
   extraReducers: (builder) => {
     builder
       .addCase(editProfile.pending, (state) => {
+        console.log("editProfile.pending");
         state.status = "loading";
         state.successMessage = null;
       })
       .addCase(editProfile.fulfilled, (state, action) => {
+        console.log("editProfile.fulfilled", action.payload);
         let dataToSet;
         if (action.payload) dataToSet = filterObject(action.payload.data);
         state.status = "idle";
@@ -61,6 +66,7 @@ const profileSlice = createSlice({
         localStorage.setItem("profile", JSON.stringify(state));
       })
       .addCase(editProfile.rejected, (state, action) => {
+        console.log("editProfile.rejected", action.error.message);
         state.status = "error";
         state.successMessage = null;
         state.error = action.payload || action.error.message;
@@ -68,5 +74,6 @@ const profileSlice = createSlice({
   },
 });
 
-export const { add, remove, clearSuccessMessage } = profileSlice.actions;
+export const { add, remove, clearSuccessMessage, clearErrorMessage } =
+  profileSlice.actions;
 export default profileSlice.reducer;

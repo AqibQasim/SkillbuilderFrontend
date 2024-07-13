@@ -8,11 +8,17 @@ const initialState = {
   email: "Test@example.com",
   otp: ["", "", "", "", "", ""],
   index: 0,
-  headings: ["forgot password", "enter code", "reset password"],
+  headings: [
+    "forgot password",
+    "enter code",
+    "reset password",
+    "verification successful",
+  ],
   paragraphs: [
     "We’ll email you a link so you can reset your password.",
     "Enter the code that we sent to your email and reset your password.",
     "Set a strong password.",
+    "Your Password has been reset click on continue to get started",
   ],
 };
 
@@ -67,5 +73,5 @@ const loginFlowSlice = createSlice({
   },
 });
 
-export const { setEmail, setIndex, resetState } = loginFlowSlice.actions;
+export const { setEmail, setIndex, resetState, index } = loginFlowSlice.actions;
 export default loginFlowSlice.reducer;

@@ -1,12 +1,8 @@
 import ResetPasswordEmailForm from "@/components/ResetPasswordEmailForm";
-import { useRouter } from "next/router";
-import { useRef, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { setIndex } from "../../redux/slices/loginFlowSlice";
-import { compareOtp } from "../../redux/thunks/loginFlowThunk";
-import ShowPassword from "./ShowPassword";
+import { useSelector } from "react-redux";
 import ResetPasswordOtpForm from "./ResetPasswordOtpForm";
 import ResetPasswordUpdatePasswordForm from "./ResetPasswordUpdatePasswordForm";
+import ResetPasswordSuccessMsg from "./ResetPasswordSuccessMsg";
 
 function ResetPassword() {
   const { index, headings, paragraphs } = useSelector(
@@ -22,6 +18,7 @@ function ResetPassword() {
       {index === 0 && <ResetPasswordEmailForm />}
       {index === 1 && <ResetPasswordOtpForm />}
       {index === 2 && <ResetPasswordUpdatePasswordForm />}
+      {index === 3 && <ResetPasswordSuccessMsg />}
     </div>
   );
 }

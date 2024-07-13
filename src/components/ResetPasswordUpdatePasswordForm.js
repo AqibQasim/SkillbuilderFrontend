@@ -2,10 +2,13 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setIndex } from "../../redux/slices/loginFlowSlice";
+import {
+  clearErrorMessage,
+  clearSuccessMessage,
+} from "../../redux/slices/profileSlice";
+import { editProfile } from "../../redux/thunks/profilethunk";
 import ButtonLarge from "./ButtonLarge";
 import ShowPassword from "./ShowPassword";
-import { clearSuccessMessage } from "../../redux/slices/profileSlice";
-import { editProfile } from "../../redux/thunks/profilethunk";
 
 const ResetPasswordUpdatePasswordForm = () => {
   const [localError, setLocalError] = useState(null);
@@ -13,7 +16,7 @@ const ResetPasswordUpdatePasswordForm = () => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-  const { userId: id } = useSelector((state) => state.loginFlow);
+  const { userId: id, index } = useSelector((state) => state.loginFlow);
 
   const {
     status,
@@ -24,21 +27,19 @@ const ResetPasswordUpdatePasswordForm = () => {
   const router = useRouter();
 
   useEffect(() => {
-    // Clear success message on component mount
+    // Clear success and error messages on component mount
     dispatch(clearSuccessMessage());
+    dispatch(clearErrorMessage());
   }, [dispatch]);
 
   useEffect(() => {
     if (successMessage === "Profile updated successfully") {
-      dispatch(setIndex(0));
-      router.push("/login");
+      dispatch(setIndex(index + 1));
     }
-  }, [successMessage, router, dispatch]);
+  }, [successMessage, dispatch, index]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(`Pass: ${password}`);
-    console.log(`Confirm pass: ${confirmPassword}`);
     const passwordCriteria =
       /^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+{}\[\]:;<>,.?~\\/-])[A-Za-z\d!@#$%^&*()_+{}\[\]:;<>,.?~\\/-]{8,}$/;
 
