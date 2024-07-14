@@ -5,6 +5,7 @@ import ResetPasswordEmailForm from "@/components/ResetPasswordEmailForm";
 import ResetPasswordOtpForm from "@/components/ResetPasswordOtpForm";
 import ResetPasswordUpdatePasswordForm from "@/components/ResetPasswordUpdatePasswordForm";
 import { maskEmail } from "@/utils/maskEmail";
+import ResetPasswordSuccessMsg from "./ResetPasswordSuccessMsg";
 
 // Function to get dynamic paragraphs
 // We use a function to dynamically insert the email into the paragraphs
@@ -36,6 +37,7 @@ const ResetPassword = () => {
       {index === 0 && <ResetPasswordEmailForm />}
       {index === 1 && <ResetPasswordOtpForm />}
       {index === 2 && <ResetPasswordUpdatePasswordForm />}
+      {index === 3 && <ResetPasswordSuccessMsg />}
     </div>
   );
 };

@@ -1,14 +1,14 @@
 import { useDispatch } from "react-redux";
 import ButtonLarge from "./ButtonLarge";
-import { setIndex } from "../../redux/slices/loginFlowSlice";
+import { resetState } from "../../redux/slices/loginFlowSlice";
 import { useRouter } from "next/router";
 
 function ResetPasswordSuccessMsg() {
   const dispatch = useDispatch();
   const router = useRouter();
   function handleContinue() {
+    dispatch(resetState());
     router.push("/login");
-    dispatch(setIndex(0));
   }
   return (
     <div className="mt-8">

@@ -2,9 +2,8 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 
 export const sendOtp = createAsyncThunk(
   "loginFlow/sendOtp",
-  async ({ email, abortController }, { rejectWithValue }) => {
+  async ({ email, signal, isResend = false }, { rejectWithValue }) => {
     try {
-      // Generate a 6-digit OTP
       const otp = Math.floor(100000 + Math.random() * 900000);
 
       const dataToSend = {
@@ -13,17 +12,22 @@ export const sendOtp = createAsyncThunk(
         subject: "OTP for sending the email",
       };
 
-      // Make the API request to send the email
+      const fetchOptions = {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(dataToSend),
+      };
+
+      // Attach signal if exists
+      if (signal) {
+        fetchOptions.signal = signal;
+      }
+
       const response = await fetch(
         `${process.env.NEXT_PUBLIC_BASE_API}/send-email`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(dataToSend),
-          signal: abortController.signal,
-        },
+        fetchOptions,
       );
 
       const data = await response.text();
@@ -38,9 +42,10 @@ export const sendOtp = createAsyncThunk(
         message: data.message,
         otpArray,
         userId: 2,
+        isResend,
       };
     } catch (error) {
-      if (abortController.signal.aborted) {
+      if (signal && signal.aborted) {
         return rejectWithValue("Request canceled");
       }
       console.error("Error sending OTP:", error);
@@ -68,6 +73,19 @@ export const compareOtp = createAsyncThunk(
     } catch (error) {
       console.error("Error comparing OTP:", error);
       return rejectWithValue(error.message || "Failed to compare OTP");
+    }
+  },
+);
+
+export const resendOtp = createAsyncThunk(
+  "loginFlow/resendOtp",
+  async (email, { getState, dispatch, rejectWithValue }) => {
+    try {
+      await dispatch(sendOtp({ email, isResend: true })).unwrap();
+      return { message: "The code has been sent successfully" };
+    } catch (error) {
+      console.error("Error resending OTP:", error);
+      return rejectWithValue(error.message || "Failed to resend OTP");
     }
   },
 );

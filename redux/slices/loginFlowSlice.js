@@ -1,6 +1,5 @@
-// loginFlowSlice.js
 import { createSlice } from "@reduxjs/toolkit";
-import { compareOtp, sendOtp } from "../thunks/loginFlowThunk";
+import { compareOtp, sendOtp, resendOtp } from "../thunks/loginFlowThunk";
 
 const initialState = {
   userId: null,
@@ -16,6 +15,8 @@ const initialState = {
   ],
   index: 0,
   resendCodeTimer: 0,
+  resendCodeTimeBase: 60,
+  successMessage: null,
 };
 
 // Function to get dynamic paragraphs
@@ -39,8 +40,8 @@ const loginFlowSlice = createSlice({
     setIndex: (state, action) => {
       state.index = action.payload;
     },
-    setResendCodeTimer: (state, action) => {
-      state.resendCodeTimer = action.payload;
+    setResendCodeTimer: (state) => {
+      state.resendCodeTimer = state.resendCodeTimeBase;
     },
     resetState: (state) => {
       return initialState;
@@ -51,6 +52,7 @@ const loginFlowSlice = createSlice({
       .addCase(sendOtp.pending, (state) => {
         state.loading = true;
         state.error = null;
+        state.successMessage = null;
       })
       .addCase(sendOtp.fulfilled, (state, action) => {
         console.log("Payload", action.payload);
@@ -59,7 +61,10 @@ const loginFlowSlice = createSlice({
         state.error = null;
         state.otp = action.payload.otpArray;
         state.userId = action.payload.userId;
-        state.index += 1;
+        if (!action.payload.isResend) {
+          console.log("Not a resend thus increasing the index by 1");
+          state.index += 1;
+        }
       })
       .addCase(sendOtp.rejected, (state, action) => {
         state.loading = false;
@@ -78,6 +83,21 @@ const loginFlowSlice = createSlice({
       .addCase(compareOtp.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload || "Invalid OTP";
+      })
+      .addCase(resendOtp.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+        state.successMessage = null;
+      })
+      .addCase(resendOtp.fulfilled, (state, action) => {
+        state.loading = false;
+        state.resendCodeTimer = state.resendCodeTimeBase;
+        state.successMessage = action.payload.message;
+        state.error = null;
+      })
+      .addCase(resendOtp.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
       });
   },
 });

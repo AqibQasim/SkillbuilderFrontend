@@ -1,15 +1,16 @@
 import { useRouter } from "next/router";
 import { useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setIndex } from "../../redux/slices/loginFlowSlice";
+import { resetState } from "../../redux/slices/loginFlowSlice";
 import { compareOtp } from "../../redux/thunks/loginFlowThunk";
 import ButtonLarge from "./ButtonLarge";
 import ResendCode from "./ResendCode";
 
 const ResetPasswordOtpForm = () => {
   const [otp, setOtp] = useState(new Array(6).fill(""));
-  const [localError, setLocalError] = useState("");
-  const { error, loading, email } = useSelector((state) => state.loginFlow);
+  const { error, loading, email, successMessage } = useSelector(
+    (state) => state.loginFlow,
+  );
   const dispatch = useDispatch();
   const inputsRef = useRef([]);
   const router = useRouter();
@@ -68,15 +69,15 @@ const ResetPasswordOtpForm = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (otp.some((digit) => digit === "")) {
-      setLocalError("Please fill all the OTP fields.");
+      // Handle error: show custom error message
+      console.error("All OTP fields must be filled.");
       return;
     }
-    setLocalError("");
     dispatch(compareOtp(otp));
   };
 
   const handleCancel = () => {
-    dispatch(setIndex(0));
+    dispatch(resetState());
     router.push("/login");
   };
 
@@ -102,9 +103,10 @@ const ResetPasswordOtpForm = () => {
             />
           ))}
         </div>
-        {(localError || error) && (
-          <div className="mb-2 text-center text-red-500">
-            {localError || error}
+        {error && <div className="mb-2 text-center text-red-500">{error}</div>}
+        {successMessage && (
+          <div className="mb-2 text-center text-green-500">
+            {successMessage}
           </div>
         )}
 

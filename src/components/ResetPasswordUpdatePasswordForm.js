@@ -1,7 +1,7 @@
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setIndex } from "../../redux/slices/loginFlowSlice";
+import { resetState, setIndex } from "../../redux/slices/loginFlowSlice";
 import {
   clearErrorMessage,
   clearSuccessMessage,
@@ -34,6 +34,7 @@ const ResetPasswordUpdatePasswordForm = () => {
 
   useEffect(() => {
     if (successMessage === "Profile updated successfully") {
+      console.log("index from updatePassword", index);
       dispatch(setIndex(index + 1));
     }
   }, [successMessage, dispatch, index]);
@@ -59,7 +60,7 @@ const ResetPasswordUpdatePasswordForm = () => {
   };
 
   const handleCancel = () => {
-    dispatch(setIndex(0));
+    dispatch(resetState());
     router.push("/login");
   };
 
