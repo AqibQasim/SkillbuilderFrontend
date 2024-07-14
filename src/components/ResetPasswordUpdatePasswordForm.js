@@ -1,12 +1,8 @@
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { resetState, setIndex } from "../../redux/slices/loginFlowSlice";
-import {
-  clearErrorMessage,
-  clearSuccessMessage,
-} from "../../redux/slices/profileSlice";
-import { editProfile } from "../../redux/thunks/profilethunk";
+import { resetPassword } from "../../redux/thunks/loginFlowThunk";
 import ButtonLarge from "./ButtonLarge";
 import ShowPassword from "./ShowPassword";
 
@@ -16,28 +12,11 @@ const ResetPasswordUpdatePasswordForm = () => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-  const { userId: id, index } = useSelector((state) => state.loginFlow);
-
-  const {
-    status,
-    error: profileError,
-    successMessage,
-  } = useSelector((state) => state.profile);
+  const { index, loading, error, successMessage } = useSelector(
+    (state) => state.loginFlow,
+  );
   const dispatch = useDispatch();
   const router = useRouter();
-
-  useEffect(() => {
-    // Clear success and error messages on component mount
-    dispatch(clearSuccessMessage());
-    dispatch(clearErrorMessage());
-  }, [dispatch]);
-
-  useEffect(() => {
-    if (successMessage === "Profile updated successfully") {
-      console.log("index from updatePassword", index);
-      dispatch(setIndex(index + 1));
-    }
-  }, [successMessage, dispatch, index]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -56,7 +35,7 @@ const ResetPasswordUpdatePasswordForm = () => {
       return;
     }
     setLocalError(null);
-    dispatch(editProfile({ password, id }));
+    dispatch(resetPassword(password));
   };
 
   const handleCancel = () => {
@@ -82,7 +61,7 @@ const ResetPasswordUpdatePasswordForm = () => {
             required
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            disabled={status === "loading"}
+            disabled={loading}
           />
           <ShowPassword
             pass={showPassword}
@@ -107,7 +86,7 @@ const ResetPasswordUpdatePasswordForm = () => {
             required
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
-            disabled={status === "loading"}
+            disabled={loading}
           />
           <ShowPassword
             pass={showConfirmPassword}
@@ -116,19 +95,22 @@ const ResetPasswordUpdatePasswordForm = () => {
           />
         </div>
       </div>
-      {(localError || profileError) && (
+      {(localError || error) && (
         <div className="mb-2 text-center text-red-500">
-          {localError || profileError}
+          {localError || error}
         </div>
       )}
+      {successMessage && (
+        <div className="mb-2 text-center text-green-500">{successMessage}</div>
+      )}
       <div className="mt-8 space-y-2">
-        <ButtonLarge type="submit" disabled={status === "loading"}>
+        <ButtonLarge type="submit" disabled={loading}>
           Change Password
         </ButtonLarge>
         <ButtonLarge
           variant="secondary"
           onClick={handleCancel}
-          disabled={status === "loading"}
+          disabled={loading}
         >
           Cancel
         </ButtonLarge>

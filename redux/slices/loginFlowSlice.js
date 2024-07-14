@@ -1,5 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { compareOtp, sendOtp, resendOtp } from "../thunks/loginFlowThunk";
+import {
+  compareOtp,
+  sendOtp,
+  resendOtp,
+  resetPassword,
+} from "../thunks/loginFlowThunk";
 
 const initialState = {
   userId: null,
@@ -70,6 +75,22 @@ const loginFlowSlice = createSlice({
         state.loading = false;
         state.error = action.payload;
       })
+
+      .addCase(resendOtp.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+        state.successMessage = null;
+      })
+      .addCase(resendOtp.fulfilled, (state, action) => {
+        state.loading = false;
+        state.resendCodeTimer = state.resendCodeTimeBase;
+        state.successMessage = action.payload.message;
+        state.error = null;
+      })
+      .addCase(resendOtp.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      })
       .addCase(compareOtp.pending, (state) => {
         state.loading = true;
         state.error = null;
@@ -84,18 +105,18 @@ const loginFlowSlice = createSlice({
         state.loading = false;
         state.error = action.payload || "Invalid OTP";
       })
-      .addCase(resendOtp.pending, (state) => {
+      .addCase(resetPassword.pending, (state) => {
         state.loading = true;
         state.error = null;
         state.successMessage = null;
       })
-      .addCase(resendOtp.fulfilled, (state, action) => {
+      .addCase(resetPassword.fulfilled, (state, action) => {
         state.loading = false;
-        state.resendCodeTimer = state.resendCodeTimeBase;
         state.successMessage = action.payload.message;
+        state.index += 1;
         state.error = null;
       })
-      .addCase(resendOtp.rejected, (state, action) => {
+      .addCase(resetPassword.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
       });

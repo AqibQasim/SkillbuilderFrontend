@@ -1,4 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
+import { editProfile } from "./profilethunk";
 
 export const sendOtp = createAsyncThunk(
   "loginFlow/sendOtp",
@@ -54,6 +55,19 @@ export const sendOtp = createAsyncThunk(
   },
 );
 
+export const resendOtp = createAsyncThunk(
+  "loginFlow/resendOtp",
+  async (email, { getState, dispatch, rejectWithValue }) => {
+    try {
+      await dispatch(sendOtp({ email, isResend: true })).unwrap();
+      return { message: "The code has been sent successfully" };
+    } catch (error) {
+      console.error("Error resending OTP:", error);
+      return rejectWithValue(error.message || "Failed to resend OTP");
+    }
+  },
+);
+
 export const compareOtp = createAsyncThunk(
   "loginFlow/compareOtp",
   async (otp, { getState, rejectWithValue }) => {
@@ -77,15 +91,17 @@ export const compareOtp = createAsyncThunk(
   },
 );
 
-export const resendOtp = createAsyncThunk(
-  "loginFlow/resendOtp",
-  async (email, { getState, dispatch, rejectWithValue }) => {
+export const resetPassword = createAsyncThunk(
+  "loginFlow/resetPassword",
+  async (password, { getState, dispatch, rejectWithValue }) => {
     try {
-      await dispatch(sendOtp({ email, isResend: true })).unwrap();
-      return { message: "The code has been sent successfully" };
+      const id = getState().loginFlow.userId;
+
+      await dispatch(editProfile({ password, id })).unwrap();
+      return { message: "The password has been reset successfully" };
     } catch (error) {
-      console.error("Error resending OTP:", error);
-      return rejectWithValue(error.message || "Failed to resend OTP");
+      console.error("Error updating Password:", error);
+      return rejectWithValue(error.message || "Failed to reset Password");
     }
   },
 );
