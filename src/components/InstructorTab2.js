@@ -1,5 +1,5 @@
 import React from 'react'
-import profilesvg from "../../public/profile.svg";
+import profilesvg from '../../public/profile_blue.svg'
 
 const InstructorTab = (props) => {
   return (
@@ -13,7 +13,7 @@ const InstructorTab = (props) => {
             <path fillRule="evenodd" d="M10 2a8 8 0 100 16 8 8 0 000-16zM8.293 9.293a1 1 0 011.414 0L10 9.586l.293-.293a1 1 0 011.414 1.414L10.414 12l.293.293a1 1 0 01-1.414 1.414L10 12.414l-.293.293a1 1 0 01-1.414-1.414L9.586 10l-.293-.293a1 1 0 010-1.414z" clipRule="evenodd" />
           </svg> */}
           <img
-          src='/profile.svg'
+          src='/profile_blue.svg'
           className='h-5 w-5'/>
         </div>
         <div className='w-full h-[1px] rounded-md max-w-10 bg-blue-700'></div>
