@@ -1,6 +1,6 @@
 import DashboardLayout from "../../components/DashboardLayout";
 
-const Students = () => {
+function Students() {
   return (
     <DashboardLayout>
       <div className="text-center">
@@ -9,6 +9,6 @@ const Students = () => {
       </div>
     </DashboardLayout>
   );
-};
+}
 
 export default Students;

@@ -1,6 +1,6 @@
 import DashboardLayout from "../../components/DashboardLayout";
 
-const Assignment = () => {
+function Assignment() {
   return (
     <DashboardLayout>
       <div className="text-center">
@@ -9,6 +9,6 @@ const Assignment = () => {
       </div>
     </DashboardLayout>
   );
-};
+}
 
 export default Assignment;
