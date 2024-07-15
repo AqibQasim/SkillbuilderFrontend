@@ -112,7 +112,7 @@ const ResetPasswordOtpForm = () => {
 
         <div className="mt-8 space-y-2">
           <ButtonLarge type="submit" disabled={loading}>
-            Reset Password
+            Verify
           </ButtonLarge>
           <ButtonLarge
             variant="secondary"

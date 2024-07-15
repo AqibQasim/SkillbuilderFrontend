@@ -63,6 +63,7 @@ const loginFlowSlice = createSlice({
         console.log("Payload", action.payload);
         state.loading = false;
         state.successMessage = action.payload.message;
+        state.userId = action.payload.userId;
         state.error = null;
         state.otp = action.payload.otpArray;
         state.userId = action.payload.userId;

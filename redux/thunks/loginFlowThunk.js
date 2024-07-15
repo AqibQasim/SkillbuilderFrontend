@@ -31,7 +31,7 @@ export const sendOtp = createAsyncThunk(
         fetchOptions,
       );
 
-      const data = await response.text();
+      const data = await response.json();
 
       if (!response.ok) {
         throw new Error(data.message || "Could not send the OTP");
@@ -42,7 +42,7 @@ export const sendOtp = createAsyncThunk(
       return {
         message: data.message,
         otpArray,
-        userId: 2,
+        userId: data.userId,
         isResend,
       };
     } catch (error) {
