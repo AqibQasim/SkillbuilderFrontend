@@ -90,6 +90,13 @@ const VideoUpload = () => {
         else return (bytes / 1073741824).toFixed(2) + ' GB';
       };
   
+      const handleRemoveVideo = () => {
+        setVideoFile(null);
+        setshowVideo(false);
+        setVideoUrl('');
+        fileInputRef.current.value = null;
+      };
+      
     return (
       <div className="flex flex-col items-center w-full">
         <div
@@ -138,8 +145,16 @@ const VideoUpload = () => {
                         </div>
                     </div>
                 </div>
-                <div>
-                    {/*Cancel */}
+                <div className='cancelUploadedVideo flex items-center'>
+                  <button
+                    className="text-red-500"
+                    onClick={handleRemoveVideo}>
+                    <Image
+                    height={30}
+                    width={30}
+                    alt="cross"
+                    src="/Cross.png"/>
+                  </button>
                 </div>
             </div>
         )}

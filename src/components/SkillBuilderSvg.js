@@ -1,8 +1,8 @@
 const SkillBuilderSvg = () => {
   return (
     <svg
-      width="207"
-      height="37"
+      width="157"
+      height="27"
       viewBox="0 0 207 37"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
@@ -73,8 +73,8 @@ const SkillBuilderSvg = () => {
           y2="38.1366"
           gradientUnits="userSpaceOnUse"
         >
-          <stop stop-color="#0038FF" />
-          <stop offset="1" stop-color="#0088FF" />
+          <stop stopColor="#0038FF" />
+          <stop offset="1" stopColor="#0088FF" />
         </linearGradient>
         <linearGradient
           id="paint1_linear_10721_6949"
@@ -84,8 +84,8 @@ const SkillBuilderSvg = () => {
           y2="48.5139"
           gradientUnits="userSpaceOnUse"
         >
-          <stop stop-color="#0038FF" />
-          <stop offset="1" stop-color="#0088FF" />
+          <stop stopColor="#0038FF" />
+          <stop offset="1" stopColor="#0088FF" />
         </linearGradient>
       </defs>
     </svg>

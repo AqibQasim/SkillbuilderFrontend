@@ -3,15 +3,23 @@ import SkillBuilderSvg from "@/components/SkillBuilderSvg";
 import InstructorTab from "@/components/InstructorTab2";
 
 const InstructorDetails = () => {
-  const [educationDetails, setEducationDetails] = useState([{ id: 1, value: "" }, {id:2, value: ""}]);
-  const [skills, setSkills] = useState([{ id: 1, value: "" }, {id:2, value: ""}]);
+  const [educationDetails, setEducationDetails] = useState([{ id: 1, value: "", placeholder:"Percentage %" }, {id:2, value: "", placeholder:""}]);
+  const [skills, setSkills] = useState([{ id: 1, value: "", placeholder:"Percentage %" }, {id:2, value: "", placeholder:""}]);
 
   const addEducationDetail = () => {
-    setEducationDetails([...educationDetails, { id: educationDetails.length + 1, value: "" }]);
+    setEducationDetails(prevDetails => [
+      ...prevDetails, 
+      { id: prevDetails.length + 1, value: "", placeholder: "Percentage %" },
+      { id: prevDetails.length + 2, value: "", placeholder: "" }
+    ]);
   };
 
   const addSkill = () => {
-    setSkills([...skills, { id: skills.length + 1, value: "" }]);
+    setSkills(prevSkills => [
+      ...prevSkills, 
+      { id: prevSkills.length + 1, value: "", placeholder: "Percentage %" },
+      { id: prevSkills.length + 2, value: "", placeholder: "" }
+    ]);
   };
 
   const handleEducationChange = (id, value) => {
@@ -29,7 +37,7 @@ const InstructorDetails = () => {
   };
 
   return (
-    <div className="h-screen w-full p-5 bg-bg_gray overflow-auto">
+    <div className="h-screen w-full p-8 bg-bg_gray overflow-auto">
       <div className="mb-5 ">
         <SkillBuilderSvg />
       </div>
@@ -37,14 +45,14 @@ const InstructorDetails = () => {
       <div className="flex justify-between flex-row max-plg:flex-col bg-bg_gray mt-5">
         <div className="flex flex-col gap-y-5">
           <div>
-            <h3 className="text-lg font-medium mb-3 me-16">
+            <h3 className="text-lg font-medium mb-3 me-40">
               What is your educational background?
             </h3>
             {educationDetails.map((detail) => (
               <div className="mb-2" key={detail.id}>
                 <input
                   type="text"
-                  placeholder="Percentage"
+                  placeholder={detail.placeholder}
                   className="bg-bg_gray h-12 p-3 border-2 rounded w-full"
                   value={detail.value}
                   onChange={(e) => handleEducationChange(detail.id, e.target.value)}
@@ -61,7 +69,7 @@ const InstructorDetails = () => {
               <div className="mb-2" key={skill.id}>
                 <input
                   type="text"
-                  placeholder="Percentage"
+                  placeholder={skill.placeholder}
                   className="bg-bg_gray h-12 p-3 border-2 rounded w-full"
                   value={skill.value}
                   onChange={(e) => handleSkillChange(skill.id, e.target.value)}
@@ -80,30 +88,30 @@ const InstructorDetails = () => {
             </h3>
             <input
               type="text"
-              placeholder="Percentage"
+              placeholder="Percentage %"
               className="bg-bg_gray h-12 p-3 border-2 rounded w-full"
             />
           </div>
           <div>
-            <h3 className="text-lg font-medium mb-2 me-10">
+            <h3 className="text-lg font-medium mb-2 me-5">
               Who is your intended target audience for this course?
             </h3>
             <input
               type="text"
-              placeholder="Percentage"
+              placeholder="Percentage %"
               className="bg-bg_gray h-12 p-3 border-2 rounded w-full"
             />
           </div>
         </div>
       </div>
       <div className="flex justify-end ">
-            <button
-              type="submit"
-              className=" justify-end bg-blue-700 text-white p-2 rounded px-5 max-sm:w-full mt-5"
-            >
-            Continue
-            </button>
-          </div>
+        <button
+          type="submit"
+          className=" justify-end bg-blue-700 text-white p-2 rounded px-5 max-sm:w-full mt-5"
+        >
+          Continue
+        </button>
+      </div>
     </div>
   );
 };
