@@ -1,8 +1,10 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { clearError } from "../../redux/slices/authSlice";
+import { setEmail as setLoginFlowEmail, clearEmail as clearLoginFlowEmail } from "../../redux/slices/loginFlowSlice";
 import { loginUser } from "../../redux/thunks/auththunks";
 import ShowPassword from "./ShowPassword";
 
@@ -15,6 +17,11 @@ const Login = () => {
   const router = useRouter();
   const dispatch = useDispatch();
 
+  useEffect(() => {
+    dispatch(clearError());
+    dispatch(clearLoginFlowEmail());
+  }, []);
+
   const SubmitHandler = (e) => {
     e.preventDefault();
     const passwordCriteria =
@@ -26,7 +33,7 @@ const Login = () => {
       return;
     }
     setFormError("");
-
+    dispatch(setLoginFlowEmail(email));
     dispatch(loginUser({ email, password }));
   };
 
@@ -103,9 +110,12 @@ const Login = () => {
         {!formError && error && (
           <div className="text-center text-red-500">{error}</div>
         )}
-        <span className="ml-2 text-sm font-semibold text-blue">
+        <Link
+          href="/reset-password"
+          className="ml-2 text-sm font-semibold text-blue"
+        >
           Forgot Password?
-        </span>
+        </Link>
 
         {/* Sign Up Button */}
         <div className="mb-4 mt-8">
@@ -125,7 +135,7 @@ const Login = () => {
           <span className="mx-4 text-gray-300">Or Login With</span>
           <div className="flex-grow border-t border-gray-300"></div>
         </div>
-        <button className="border-google-border mb-4 mt-4 flex w-full items-center justify-center rounded-lg border bg-white p-2 text-black">
+        <button className="mb-4 mt-4 flex w-full items-center justify-center rounded-lg border border-google-border bg-white p-2 text-black">
           <span className="mr-2">
             <Image src="/googlelogo.png" width={25} height={25} />
           </span>

@@ -10,6 +10,9 @@ module.exports = {
       container: {
         padding: "25px",
       },
+      boxShadow: {
+        "custom-input": "0 4px 6px rgba(56, 71, 255, 0.11)",
+      },
       borderRadius: {
         "tl-br": "var(--tw-border-radius-tl-br)",
       },
@@ -38,6 +41,12 @@ module.exports = {
       },
 
       colors: {
+        "dashboard-border": {
+          DEFAULT: "#E0E3F0",
+        },
+        "dashboard-sidenav-bg": {
+          DEFAULT: "#EBECF0",
+        },
         "dark-svg": {
           DEFAULT: "#15161B",
         },
@@ -47,6 +56,10 @@ module.exports = {
         bottom_border_gray: {
           DEFAULT: "#D4D5E7",
         },
+        secondary: {
+          DEFAULT: "#F1F1F5",
+        },
+
         border_gray: {
           DEFAULT: "#BCBCBC",
         },

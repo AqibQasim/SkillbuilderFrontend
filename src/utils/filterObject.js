@@ -9,6 +9,7 @@ export function filterObject(obj) {
     "facebook_profile",
     "twitter_profile",
     "linkedin_profile",
+    "password",
   ];
 
   return Object.keys(obj).reduce((acc, key) => {
