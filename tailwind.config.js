@@ -41,6 +41,12 @@ module.exports = {
       },
 
       colors: {
+        "dashboard-border": {
+          DEFAULT: "#E0E3F0",
+        },
+        "dashboard-sidenav-bg": {
+          DEFAULT: "#EBECF0",
+        },
         "dark-svg": {
           DEFAULT: "#15161B",
         },
