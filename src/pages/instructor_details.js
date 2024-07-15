@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import SkillBuilderSvg from "@/components/SkillBuilderSvg";
-import InstructorTab from "@/components/InstructorTab";
+import InstructorTab from "@/components/InstructorTab2";
 
 const InstructorDetails = () => {
   const [educationDetails, setEducationDetails] = useState([{ id: 1, value: "" }, {id:2, value: ""}]);
@@ -30,11 +30,11 @@ const InstructorDetails = () => {
 
   return (
     <div className="h-screen w-full p-5 bg-bg_gray overflow-auto">
-      <div className="mb-10 ">
+      <div className="mb-5 ">
         <SkillBuilderSvg />
       </div>
       <InstructorTab Tab1={"Basic Info"} Tab2={"Videos"}  />
-      <div className="flex justify-between flex-row max-plg:flex-col bg-bg_gray">
+      <div className="flex justify-between flex-row max-plg:flex-col bg-bg_gray mt-5">
         <div className="flex flex-col gap-y-5">
           <div>
             <h3 className="text-lg font-medium mb-3 me-16">
@@ -99,7 +99,7 @@ const InstructorDetails = () => {
       <div className="flex justify-end ">
             <button
               type="submit"
-              className=" justify-end bg-blue-700 text-white p-2 rounded  px-5 max-sm:w-full"
+              className=" justify-end bg-blue-700 text-white p-2 rounded px-5 max-sm:w-full mt-5"
             >
             Continue
             </button>
