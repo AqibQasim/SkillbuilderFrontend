@@ -22,7 +22,7 @@ function Button({
     },
   };
 
-  const classes = `rounded-lg border px-6 py-2 transition-colors duration-300 disabled:cursor-not-allowed ${className} ${
+  const classes = `rounded-lg border text-nowrap px-6 py-2 transition-colors duration-300 disabled:cursor-not-allowed ${className} ${
     variants[fill][variant]
   }`;
 
