@@ -41,6 +41,9 @@ module.exports = {
         "dark-svg": {
           DEFAULT: "#15161B",
         },
+        "google-border": {
+          DEFAULT: "#D5D5D5",
+        },
         bottom_border_gray: {
           DEFAULT: "#D4D5E7",
         },

@@ -1,19 +1,17 @@
-import React, { useState, useEffect } from "react";
+import { signIn, useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { signupUser, signupWithGoogle } from "../../redux/thunks/auththunks";
 import { useSession, signIn, signOut } from "next-auth/react";
-import { handleGoogleCallback } from "../../redux/thunks/googlethunk";
+// import { handleGoogleCallback } from "../../redux/thunks/googlethunk";
 
+import { signupUser } from "../../redux/thunks/auththunks";
+import ShowPassword from "./ShowPassword";
 // import { signupUser } from "../../redux/thunks/auththunks";
 
 const Signup = () => {
-  const dispatch = useDispatch();
-  const { isLoading, error, successMessage } = useSelector(
-    (state) => state.auth,
-  );
-
   const [first_name, setfirst_name] = useState("");
   const [last_name, setlast_name] = useState("");
   const [email, setEmail] = useState("");
@@ -22,76 +20,14 @@ const Signup = () => {
   const [formError, setFormError] = useState("");
   const [gmailData, setGmailData] = useState();
   const [gstatus, setgStatus] = useState();
-
-  // const createGoogleUser = async () => {
-  //   try {
-  //     const reqBody = {
-  //       email: data?.user?.email,
-  //       image: data?.user?.image,
-  //       name: data?.user?.name,
-  //       status: status
-  //     }
-
-  //     const response = await fetch(`${base_Api}/api/createGoogleUser`, {
-  //       method: "POST",
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //       },
-  //       body: JSON.stringify(reqBody),
-  //     });
-  //     const data = await response.json();
-  //     console.log("data:",data);
-  //   } catch (e) {
-  //     console.log('ERR:', err);
-  //   }
-  // }
-
-  // const handleSubmit = (e) => {
-  //   e.preventDefault();
-  //   const passwordCriteria =
-  //     /^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+{}\[\]:;<>,.?~\\/-])[A-Za-z\d!@#$%^&*()_+{}\[\]:;<>,.?~\\/-]{8,}$/;
-  //   if (password !== confirmPassword) {
-  //     setFormError("Passwords do not match");
-  //     return;
-  //   }
-  //   if (!passwordCriteria.test(password)) {
-  //     setFormError(
-  //       "Password must contain at least one capital letter, one number, and one special character."
-  //     );
-  //     return;
-  //   }
-  //   setFormError("");
-  //   if (password)
-  //     dispatch(signupUser({ first_name, last_name, email, password }));
-  // };
-
-  // const { data, status } = useSession();
-  // console.log("data:", data, "status:", status);
-  // if (status === 'loading') return <h1> loading... please wait</h1>;
-  // if (status === 'authenticated') {
-  //   console.log("AUTHENTICATED SUCCESSFULLY!");
-  //   setGmailData(data);
-  //   setgStatus(status);
-  //   if(gmailData && gstatus){
-  //     createGoogleUser();
-  //   }
-  // }
-
-  // const base_Api = "http://localhost:3000";
-
-  // // export const loginUser = createAsyncThunk(
-  // //   "auth/login",
-  // //   async (userData, { rejectWithValue }) => {
-  // //     try {
-  // //       const response = await fetch(`${base_Api}/login`, {
-  // //         method: "POST",
-  // //         headers: {
-  // //           "Content-Type": "application/json",
-  // //         },
-  // //         body: JSON.stringify(userData),
-  // //       });
-
   const { data, status } = useSession();
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const dispatch = useDispatch();
+
+  const { isLoading, error, successMessage } = useSelector(
+    (state) => state.auth,
+  );
 
   const handleGoogleSignIn = async () => {
     console.log("calling signup");
@@ -242,15 +178,22 @@ const Signup = () => {
           >
             Password<span className="text-lg text-red-500">*</span>
           </label>
-          <input
-            type="password"
-            id="password"
-            name="password"
-            className="mt-1 w-full rounded-lg border border-gray-300 p-2"
-            required
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
+          <div className="password-wrapper relative mt-1 flex items-center justify-center">
+            <input
+              type={!showPassword ? "password" : "text"}
+              id="password"
+              name="password"
+              className="w-full rounded-lg border border-gray-300 p-2"
+              required
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+            <ShowPassword
+              pass={showPassword}
+              setPass={setShowPassword}
+              className="absolute right-2 block cursor-pointer"
+            />
+          </div>
         </div>
 
         {/* Confirm Password */}
@@ -261,15 +204,22 @@ const Signup = () => {
           >
             Confirm Password<span className="text-lg text-red-500">*</span>
           </label>
-          <input
-            type="password"
-            id="confirmPassword"
-            name="confirmPassword"
-            className="mt-1 w-full rounded-lg border border-gray-300 p-2"
-            required
-            value={confirmPassword}
-            onChange={(e) => setConfirmPassword(e.target.value)}
-          />
+          <div className="password-wrapper relative mt-1 flex items-center justify-center">
+            <input
+              type={!showConfirmPassword ? "password" : "text"}
+              id="confirmPassword"
+              name="confirmPassword"
+              className="w-full rounded-lg border border-gray-300 p-2"
+              required
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
+            />
+            <ShowPassword
+              pass={showConfirmPassword}
+              setPass={setShowConfirmPassword}
+              className="absolute right-2 block cursor-pointer"
+            />
+          </div>
         </div>
         {formError && (
           <div className="mb-2 text-center text-red-500">{formError}</div>
@@ -324,7 +274,7 @@ const Signup = () => {
       <div className="mt-4">
         <div className="flex items-center justify-center">
           <div className="flex-grow border-t border-gray-300"></div>
-          <span className="mx-4 text-gray-600">Or</span>
+          <span className="mx-4 text-gray-300">Or</span>
           <div className="flex-grow border-t border-gray-300"></div>
         </div>
         <button

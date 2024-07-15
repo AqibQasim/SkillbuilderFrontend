@@ -47,10 +47,7 @@ const ContactForm = () => {
   return (
     <LayoutWidth>
       <div className="flex items-center justify-center">
-        <form
-          className="w-full space-y-6 p-6 xlg:max-w-screen-xlg"
-          onSubmit={handleSubmit}
-        >
+        <form className="w-full space-y-6" onSubmit={handleSubmit}>
           <div className="flex flex-col gap-4 space-x-0 md:flex-row md:gap-0 md:space-x-4">
             <div className="flex-1">
               <label

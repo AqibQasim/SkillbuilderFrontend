@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { editProfile } from "../../redux/thunks/profilethunk";
 import styles from "../styles/form.module.css";
 
-const EditProfileForm = () => {
+const EditProfileForm = ({ setCloseForm }) => {
   const { user, isLoading } = useSelector((state) => state.auth);
   const profile = useSelector((state) => state.profile);
   const dispatch = useDispatch();
@@ -77,6 +77,7 @@ const EditProfileForm = () => {
   function handleReset() {
     setFormData(initialState);
     setChangedFields({});
+    setCloseForm(false);
   }
 
   return (
