@@ -37,12 +37,14 @@ const InstructorDetails = () => {
   };
 
   return (
-    <div className="h-screen w-full p-8 bg-bg_gray overflow-auto">
-      <div className="mb-5 ">
+    <>    
+     <div className=" w-full p-8 overflow-auto">
+      {/* <div className="mb-5 ">
         <SkillBuilderSvg />
-      </div>
-      <InstructorTab Tab1={"Basic Info"} Tab2={"Videos"}  />
-      <div className="flex justify-between flex-row max-plg:flex-col bg-bg_gray mt-5">
+      </div> */}
+      {/* <InstructorTab Tab1={"Basic Info"} Tab2={"Videos"}  /> */}
+      
+      <div className="flex justify-between flex-row max-plg:flex-col mt-5">
         <div className="flex flex-col gap-y-5">
           <div>
             <h3 className="text-lg font-medium mb-3 me-40">
@@ -64,7 +66,7 @@ const InstructorDetails = () => {
             </button>
           </div>
           <div>
-            <h3 className="text-lg font-medium mb-3">Add Your Skills</h3>
+            <h3 className="text-lg font-medium">Add Your Skills</h3>
             {skills.map((skill) => (
               <div className="mb-2" key={skill.id}>
                 <input
@@ -93,7 +95,7 @@ const InstructorDetails = () => {
             />
           </div>
           <div>
-            <h3 className="text-lg font-medium mb-2 me-5">
+            <h3 className="text-lg font-medium me-5">
               Who is your intended target audience for this course?
             </h3>
             <input
@@ -104,15 +106,17 @@ const InstructorDetails = () => {
           </div>
         </div>
       </div>
-      <div className="flex justify-end ">
-        <button
+       {/* <div className="flex justify-end "> */}
+        {/* <button
           type="submit"
           className=" justify-end bg-blue-700 text-white p-2 rounded px-5 max-sm:w-full mt-5"
         >
           Continue
-        </button>
+        </button> */}
       </div>
-    </div>
+    {/* </div> */}
+    </>
+
   );
 };
 

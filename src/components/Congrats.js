@@ -3,19 +3,19 @@ import Image from 'next/image'
 import React from 'react'
 
 
-const congrats = () => {
+const Congrats = () => {
   return (
     <div className='w-full flex flex-col h-[100vh] p-4 bg-white'>
-        <div className='w-[20%] h-[5em]'>
+        {/* <div className='w-[20%] h-[5em]'>
             <div className='aspect-auto'>
-            {/* <div></div> */}
+             <div></div>
                 <Image
                 src="/skillbuilder_logo.png"
                 height={80}
                 width={150}
                 alt="logo"/>
             </div>
-        </div>
+        </div>  */}
         <div className='flex self-center justify-center h-fit'>
             <div className='aspect-auto'>
                 <Image 
@@ -25,7 +25,7 @@ const congrats = () => {
                 src="/congratz.png"/>
             </div>
         </div>
-        <div className='w-full flex self-end justify-center items-center md:items-end lg:items-end h-[9em] 
+        {/* <div className='w-full flex self-end justify-center items-center md:items-end lg:items-end h-[9em] 
                         md:justify-end 
                         lg:justify-end'>
             <div className='bg-blue rounded-lg w-full flex justify-center h-fit
@@ -36,9 +36,9 @@ const congrats = () => {
                     </p>
                 </button>
             </div>
-        </div>
+        </div> */}
     </div>
   )
 }
 
-export default congrats
+export default Congrats
