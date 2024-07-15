@@ -32,7 +32,7 @@ module.exports = {
         "max-lsm": { max: "792px" },
         "max-md": { max: "854px" }, // Styles for devices smaller than 768px
         // for footer
-        "max-plg": { max: "980" },
+        "max-plg": { max: "980px" },
         "max-lg": { max: "1250px" }, // Styles for devices smaller than 1024px
         "max-xlg": { max: "1422px" },
       },
