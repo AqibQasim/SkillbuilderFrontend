@@ -11,7 +11,7 @@ import CartIconSvg from "./CartIconSvg";
 import ChatIconSvg from "./ChatIconSvg";
 import ChevronRightIconSvg from "./ChevronRightIconSvg";
 
-// DOTO make it dry
+// TODO make it dry
 function User({ cartClickHandler, cartItemsLength }) {
   console.log("cart item length:", cartItemsLength);
   const [show, setShow] = useState(false);

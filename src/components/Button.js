@@ -1,30 +1,40 @@
 import Link from "next/link";
 
-function Button({ href, children, className, variant = "primary" }) {
-  if (href)
+function Button({
+  href,
+  children,
+  className = "",
+  variant = "primary",
+  fill = "fill",
+}) {
+  const variants = {
+    fill: {
+      primary:
+        "border-blue bg-blue text-white hover:border-blue-600 hover:bg-blue-600 disabled:bg-blue-400 disabled:text-gray-400",
+      secondary:
+        "hover:bg-secondary-600 disabled:bg-secondary-400 border-secondary bg-secondary text-blue disabled:text-gray-400",
+    },
+    unfill: {
+      primary:
+        "border-blue bg-transparent text-blue hover:text-white hover:bg-blue",
+      secondary:
+        "border-secondary bg-transparent text-secondary hover:text-blue",
+    },
+  };
+
+  const classes = `rounded-lg border px-6 py-2 transition-colors duration-300 disabled:cursor-not-allowed ${className} ${
+    variants[fill][variant]
+  }`;
+
+  if (href) {
     return (
-      <Link
-        href={href}
-        className={` ${className} rounded-lg px-6 py-2 disabled:cursor-not-allowed ${
-          variant === "primary"
-            ? "bg-blue text-white hover:bg-blue-600 disabled:bg-blue-400 disabled:text-gray-400"
-            : "hover:bg-secondary-600 disabled:bg-secondary-400 bg-secondary text-blue disabled:text-gray-400"
-        }`}
-      >
+      <Link href={href} className={classes}>
         {children}
       </Link>
     );
-  return (
-    <button
-      className={` ${className} rounded-lg px-6 py-2 disabled:cursor-not-allowed ${
-        variant === "primary"
-          ? "bg-blue text-white hover:bg-blue-600 disabled:bg-blue-400 disabled:text-gray-400"
-          : "hover:bg-secondary-600 disabled:bg-secondary-400 bg-secondary text-blue disabled:text-gray-400"
-      }`}
-    >
-      {children}
-    </button>
-  );
+  }
+
+  return <button className={classes}>{children}</button>;
 }
 
 export default Button;

@@ -18,7 +18,7 @@ const DashboardSidebar = () => {
   const { pathname } = router;
   return (
     <aside className="border-r-dashboard-border row-[1/-1] border">
-      <div className="logo border-dashboard-border flex h-[74px] items-center justify-start border-b p-3 md:justify-center md:p-5">
+      <div className="logo border-dashboard-border flex h-[74.5px] items-center justify-start border-b p-3 md:justify-center md:p-5">
         <Image
           src="/logo.svg"
           className="mr-2 hidden md:block"
