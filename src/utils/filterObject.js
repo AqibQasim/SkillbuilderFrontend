@@ -1,4 +1,4 @@
-export function filterObject(obj) {
+export function filterObject(obj, includePassword = false) {
   const allowedKeys = [
     "id",
     "first_name",
@@ -9,8 +9,11 @@ export function filterObject(obj) {
     "facebook_profile",
     "twitter_profile",
     "linkedin_profile",
-    "password",
   ];
+
+  if (includePassword) {
+    allowedKeys.push("password");
+  }
 
   return Object.keys(obj).reduce((acc, key) => {
     if (allowedKeys.includes(key) && obj[key]) {

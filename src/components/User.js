@@ -10,6 +10,7 @@ import BellIconSvg from "./BellIconSvg";
 import CartIconSvg from "./CartIconSvg";
 import ChatIconSvg from "./ChatIconSvg";
 import ChevronRightIconSvg from "./ChevronRightIconSvg";
+import Button from "./Button";
 
 // TODO make it dry
 function User({ cartClickHandler, cartItemsLength }) {
@@ -33,12 +34,12 @@ function User({ cartClickHandler, cartItemsLength }) {
   // Handle logout
   function handleLogout() {
     if (session) {
-      signOut();
       dispatch(remove());
+      signOut();
     }
     if (user) {
-      dispatch(logout());
       dispatch(remove());
+      dispatch(logout());
     }
   }
   useEffect(() => {
@@ -195,13 +196,13 @@ function User({ cartClickHandler, cartItemsLength }) {
                   <ChevronRightIconSvg className="h-4 w-4" />
                 </Link>
               </li>
-              <li>
-                <button
-                  onClick={handleLogout}
-                  className="mx-5 mt-5 hidden w-full items-center justify-between rounded-lg bg-blue px-4 py-2 text-white lg:flex lg:w-auto"
+              <li className="!mt-5 px-5">
+                {/* <button
+                  className="mx-5 mt-5 w-full items-center justify-between rounded-lg bg-blue px-4 py-2 text-white"
                 >
                   Log Out
-                </button>
+                </button> */}
+                <Button onClick={handleLogout}>Logout</Button>
               </li>
             </ul>
           </div>

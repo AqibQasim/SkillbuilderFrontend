@@ -1,5 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { editProfile } from "./profilethunk";
+import { filterObject } from "@/utils/filterObject";
 
 export const sendOtp = createAsyncThunk(
   "loginFlow/sendOtp",
@@ -96,8 +97,9 @@ export const resetPassword = createAsyncThunk(
   async (password, { getState, dispatch, rejectWithValue }) => {
     try {
       const id = getState().loginFlow.userId;
+      const dataForProfile = filterObject({ password, id });
 
-      await dispatch(editProfile({ password, id })).unwrap();
+      await dispatch(editProfile(dataForProfile)).unwrap();
       return { message: "The password has been reset successfully" };
     } catch (error) {
       console.error("Error updating Password:", error);
