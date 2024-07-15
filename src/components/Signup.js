@@ -4,6 +4,8 @@ import Link from "next/link";
 import { useDispatch, useSelector } from "react-redux";
 import { signupUser, signupWithGoogle } from "../../redux/thunks/auththunks";
 import { useSession, signIn, signOut } from "next-auth/react";
+import { handleGoogleCallback } from "../../redux/thunks/googlethunk";
+
 // import { signupUser } from "../../redux/thunks/auththunks";
 
 const Signup = () => {
@@ -90,6 +92,19 @@ const Signup = () => {
   // //       });
 
   const { data, status } = useSession();
+
+  const handleGoogleSignIn = async () => {
+    console.log("calling signup");
+    window.location.href = "http://localhost:4000/auth/google";
+    // const response = await fetch(`https://localhost:4000/auth/google`, {
+    //   method: "GET",
+    //   // credentials: "include",
+    //   // headers: {
+    //   //   "Content-Type": "application/json",
+    //   // },
+    // });
+    // dispatch(handleGoogleCallback());
+  };
 
   useEffect(() => {
     if (status === "authenticated") {
@@ -313,8 +328,8 @@ const Signup = () => {
           <div className="flex-grow border-t border-gray-300"></div>
         </div>
         <button
-          // onClick={handleGoogleSignIn}
-          onClick={() => signIn("google")}
+          onClick={handleGoogleSignIn}
+          // onClick={() => signIn("google")}
           className="mb-4 mt-4 flex w-full items-center justify-center rounded-lg border border-black bg-white p-2 text-black"
         >
           <span className="mr-2">
