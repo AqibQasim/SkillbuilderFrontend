@@ -15,7 +15,7 @@ const Footer = () => {
     script.src = "https://www.glassdoor.com/static/js/api/widget/v1.js";
     script.async = true;
     document.body.appendChild(script);
-    return () => {
+    return () => {  
       document.body.removeChild(script);
     };
   }, []);
