@@ -1,7 +1,6 @@
 import { fetchOneCourse } from "../thunks/coursesThunks";
 import { createSlice } from "@reduxjs/toolkit";
-import { fetchOneUser } from '../thunks/userInfoThunk';
-
+import { fetchOneUser } from "../thunks/userInfoThunk";
 
 const singleUserSlice = createSlice({
   name: "user",
@@ -13,7 +12,7 @@ const singleUserSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(fetchOneUser.pending, (state) => {    
+      .addCase(fetchOneUser.pending, (state) => {
         state.isUserLoading = true;
         state.userFetchError = null;
       })

@@ -1,6 +1,7 @@
 import InstructorTab from "@/components/InstructorTab";
 import withAuth from "@/components/WithAuth";
 import { useState } from "react";
+
 function courseUpload() {
   const steps = ["Intended learners", "Videos", "Pricing"];
   const [currentStep, setCurrentStep] = useState(0);
@@ -10,6 +11,7 @@ function courseUpload() {
       prevStep < steps.length - 1 ? prevStep + 1 : prevStep,
     );
   };
+
   return (
     <div className="container mx-auto p-4">
       <InstructorTab
