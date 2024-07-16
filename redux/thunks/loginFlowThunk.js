@@ -97,7 +97,9 @@ export const resetPassword = createAsyncThunk(
   async (password, { getState, dispatch, rejectWithValue }) => {
     try {
       const id = getState().loginFlow.userId;
-      const dataForProfile = filterObject({ password, id });
+      const dataForProfile = filterObject({ password, id }, true);
+
+      console.log("From thunk do we have password?", dataForProfile);
 
       await dispatch(editProfile(dataForProfile)).unwrap();
       return { message: "The password has been reset successfully" };
