@@ -14,15 +14,15 @@ function Courses() {
             you haven’t posted any course yet, please click the button to get
             started
           </p>
-          <Button href="courseUpload" className="px-14">
+          <Button href="courseUpload" className="!px-14">
             Upload course +
           </Button>
         </div>
       ) : (
-        <div className="text-center">
+        <>
           <h1 className="text-2xl font-bold">Courses</h1>
           <p>This is the Courses page.</p>
-        </div>
+        </>
       )}
     </DashboardLayout>
   );
