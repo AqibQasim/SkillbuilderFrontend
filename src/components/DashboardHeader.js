@@ -22,7 +22,7 @@ export default DashboardHeader;
 
 function Search() {
   return (
-    <div className="group mr-auto hidden w-full rounded-lg border-[1px] border-bg_text_gray px-4 focus-within:border-blue md:flex md:items-center md:justify-between md:gap-2 lg:flex lg:w-[25%]">
+    <div className="group mr-auto hidden w-full rounded-lg border-[1px] border-bg_text_gray pl-4 focus-within:border-blue md:flex md:items-center md:justify-between md:gap-2 lg:flex lg:w-[25%]">
       <label
         htmlFor="search"
         className="flex cursor-pointer items-center text-bg_text_gray group-focus-within:text-black"
@@ -33,7 +33,7 @@ function Search() {
         id="search"
         type="text"
         placeholder="Search"
-        className="w-full py-2 outline-none"
+        className="w-full rounded-r-lg bg-transparent py-2 outline-none"
       />
     </div>
   );
