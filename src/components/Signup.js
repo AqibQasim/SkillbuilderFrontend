@@ -4,10 +4,9 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { signupUser, signupWithGoogle } from "../../redux/thunks/auththunks";
-import { useSession, signIn, signOut } from "next-auth/react";
+import { useSession, signOut } from "next-auth/react";
 // import { handleGoogleCallback } from "../../redux/thunks/googlethunk";
 
-import { signupUser } from "../../redux/thunks/auththunks";
 import ShowPassword from "./ShowPassword";
 // import { signupUser } from "../../redux/thunks/auththunks";
 

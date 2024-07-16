@@ -1,6 +1,10 @@
 import React from "react";
-
-const InstructorPricing = ({ onNext }) => {
+import { useRouter } from "next/router";
+const InstructorPricing = ({ onPrev }) => {
+  const router = useRouter();
+  const continueHandler = () => {
+    router.push("/course-uploaded");
+  };
   return (
     <div className="container mt-20">
       <form className="relative space-y-4">
@@ -40,13 +44,26 @@ const InstructorPricing = ({ onNext }) => {
         </div>
         <br /> <br />
         <div className="mt-4 flex justify-end">
-          <button
-            type="button"
-            className="rounded-md bg-blue px-10 py-2 font-normal text-white hover:bg-blue-600 max-lsm:w-full"
-            onClick={onNext}
-          >
-            Continue
-          </button>
+          <div className="grid grid-cols-1 md:grid-cols-2">
+            <div>
+              <button
+                type="button"
+                className="rounded-md bg-bg_gray px-10 py-2 font-normal text-blue max-lsm:w-full"
+                onClick={onPrev}
+              >
+                Previous
+              </button>
+            </div>
+            <div>
+              <button
+                type="button"
+                className="rounded-md bg-blue px-10 py-2 font-normal text-white hover:bg-blue-600 max-lsm:mt-4 max-lsm:w-full"
+                onClick={continueHandler}
+              >
+                Submit For Review
+              </button>
+            </div>
+          </div>
         </div>
       </form>
     </div>

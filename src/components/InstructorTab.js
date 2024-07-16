@@ -4,7 +4,7 @@ import SkillBuilderSvg from "./SkillBuilderSvg";
 import InstructorVideos from "./InstructorVideos";
 import InstructorPricing from "./InstructorPricing";
 
-const InstructorTab = ({ steps, currentStep, onNext, onselect }) => {
+const InstructorTab = ({ steps, currentStep, onNext, onPrev }) => {
   return (
     <div>
       <div className="container mb-10">
@@ -14,7 +14,7 @@ const InstructorTab = ({ steps, currentStep, onNext, onselect }) => {
         {steps.map((step, index) => (
           <div key={index} className="flex items-center justify-center">
             <div
-              className={`flex h-10 items-center justify-center rounded-full border-2 px-4 ${
+              className={`flex h-10 items-center justify-center rounded-full border-2 px-8 ${
                 currentStep === index
                   ? "border-blue text-blue"
                   : currentStep > index
@@ -25,21 +25,21 @@ const InstructorTab = ({ steps, currentStep, onNext, onselect }) => {
               <span className="max-lsm:hidden"> {step} </span>
               {index === 0 && (
                 <span
-                  className={`ml-8 ${currentStep >= index ? "text-white" : "text-gray-400"}`}
+                  className={`ml-2 ${currentStep >= index ? "text-white" : "text-gray-400"}`}
                 >
                   👤
                 </span>
               )}
               {index === 1 && (
                 <span
-                  className={`ml-8 ${currentStep >= index ? "text-blue-600" : "text-gray-400"}`}
+                  className={`ml-2 ${currentStep >= index ? "text-blue-600" : "text-gray-400"}`}
                 >
                   🎥
                 </span>
               )}
               {index === 2 && (
                 <span
-                  className={`ml-8 ${currentStep >= index ? "text-blue-600" : "text-gray-400"}`}
+                  className={`ml-2 ${currentStep >= index ? "text-blue-600" : "text-gray-400"}`}
                 >
                   💲
                 </span>
@@ -61,12 +61,12 @@ const InstructorTab = ({ steps, currentStep, onNext, onselect }) => {
         )}
         {currentStep === 1 && (
           <div>
-            <InstructorVideos onNext={onNext} />
+            <InstructorVideos onNext={onNext} onPrev={onPrev} />
           </div>
         )}
         {currentStep === 2 && (
           <div>
-            <InstructorPricing onNext={onNext} />
+            <InstructorPricing onNext={onNext} onPrev={onPrev} />
           </div>
         )}
       </div>
