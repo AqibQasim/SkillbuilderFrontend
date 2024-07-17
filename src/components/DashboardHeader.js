@@ -6,10 +6,10 @@ import MagnifierSvg from "./MagnifierSvg";
 
 function DashboardHeader() {
   return (
-    <header className="border-dashboard-border flex h-[75px] w-full items-center justify-end gap-6 border-b px-5">
+    <header className="flex h-[75px] w-full items-center justify-end gap-6 border-b border-dashboard-border px-5">
       <Search />
       <Button fill="unfill">Student</Button>
-      <Button className="hidden md:block" href="courseUpload">
+      <Button className="hidden md:block" href="/course-upload">
         {" "}
         Upload course +
       </Button>

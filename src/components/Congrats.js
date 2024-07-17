@@ -2,6 +2,7 @@
 import Image from "next/image";
 import React from "react";
 import SkillBuilderSvg from "./SkillBuilderSvg";
+import Button from "./Button";
 
 const Congrats = () => {
   return (
@@ -24,11 +25,12 @@ const Congrats = () => {
         </div>
       </div>
       <div className="flex h-[9em] w-full items-center justify-center self-end md:items-end md:justify-end lg:items-end lg:justify-end">
-        <div className="flex h-fit w-full justify-center rounded-lg bg-blue md:w-fit lg:w-fit">
+        {/* <div className="flex h-fit w-full justify-center rounded-lg bg-blue md:w-fit lg:w-fit">
           <button className="">
             <p className="self-center px-8 py-3 text-white">Go To Dashboard</p>
           </button>
-        </div>
+        </div> */}
+        <Button href="/dashboard">Go To Dashboard</Button>
       </div>
     </div>
   );
