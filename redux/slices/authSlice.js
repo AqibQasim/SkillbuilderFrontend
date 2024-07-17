@@ -57,19 +57,19 @@ const authSlice = createSlice({
       .addCase(signupUser.rejected, (state, action) => {
         state.error = action.payload;
         state.isLoading = false;
-      })
-      .addCase(signupWithGoogle.pending, (state) => {
-        state.isLoading = true;
-      })
-      .addCase(signupWithGoogle.fulfilled, (state, action) => {
-        state.user = action.payload.user;
-        state.isLoading = false;
-        state.error = null;
-      })
-      .addCase(signupWithGoogle.rejected, (state, action) => {
-        state.error = action.payload;
-        state.isLoading = false;
       });
+    // .addCase(signupWithGoogle.pending, (state) => {
+    //   state.isLoading = true;
+    // })
+    // .addCase(signupWithGoogle.fulfilled, (state, action) => {
+    //   state.user = action.payload.user;
+    //   state.isLoading = false;
+    //   state.error = null;
+    // })
+    // .addCase(signupWithGoogle.rejected, (state, action) => {
+    //   state.error = action.payload;
+    //   state.isLoading = false;
+    // });
   },
 });
 export const { logout, setSuccess, clearError } = authSlice.actions;
