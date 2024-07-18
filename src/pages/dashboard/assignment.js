@@ -1,14 +1,16 @@
 import DashboardLayout from "../../components/DashboardLayout";
 
-const Assignment = () => {
+function Assignment() {
   return (
     <DashboardLayout>
-      <div className="text-center">
-        <h1 className="text-2xl font-bold">Assignment</h1>
-        <p>This is the Assignment page.</p>
-      </div>
+      <>
+        <div className="text-center">
+          <h1 className="text-2xl font-bold">Assignment</h1>
+          <p>This is the Assignment page.</p>
+        </div>
+      </>
     </DashboardLayout>
   );
-};
+}
 
 export default Assignment;
