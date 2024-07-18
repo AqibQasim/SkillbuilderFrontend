@@ -4,7 +4,7 @@ import React from "react";
 import SkillBuilderSvg from "./SkillBuilderSvg";
 import Button from "./Button";
 
-const Congrats = () => {
+const Congrats = ({ source }) => {
   return (
     <div className="flex h-[100vh] w-full flex-col bg-white p-4">
       <div className="h-[5em] w-[20%]">
@@ -15,12 +15,24 @@ const Congrats = () => {
       </div>
       <div className="flex h-fit justify-center self-center">
         <div className="aspect-auto">
-          <Image height={351} width={596} alt="Congratz" src="/congrats.png" />
+          <Image
+            height={351}
+            width={596}
+            alt="Congratulations"
+            quality={90}
+            src={
+              !source || source === "courseUpload"
+                ? "/congrats.png"
+                : "/happy-group-of-people-celebrating-together-1.png"
+            }
+          />
           <h1 className="mt-4 text-center text-5xl font-medium max-lsm:text-2xl">
             Congralutions
           </h1>
           <p className="mt-4 text-center">
-            Your course has been submitted for review kindly wait for approval
+            {!source || source === "courseUpload"
+              ? "Your course has been submitted for review kindly wait for approval"
+              : "on achieving the milestone of becoming a professional tutor on our Skill Builder"}
           </p>
         </div>
       </div>

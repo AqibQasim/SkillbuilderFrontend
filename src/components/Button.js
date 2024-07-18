@@ -2,6 +2,7 @@ import Link from "next/link";
 
 function Button({
   onClick,
+  type = "button",
   href,
   children,
   className = "",
@@ -36,7 +37,7 @@ function Button({
   }
 
   return (
-    <button onClick={onClick} className={classes}>
+    <button type={type} onClick={onClick} className={classes}>
       {children}
     </button>
   );

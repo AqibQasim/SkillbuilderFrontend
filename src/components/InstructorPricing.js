@@ -2,8 +2,9 @@ import React from "react";
 import { useRouter } from "next/router";
 const InstructorPricing = ({ onPrev }) => {
   const router = useRouter();
+
   const continueHandler = () => {
-    router.push("/course-uploaded");
+    router.push("/congratulations?source=courseUpload");
   };
   return (
     <div className="container mt-20">
