@@ -23,7 +23,8 @@ const Congrats = ({ source }) => {
             src={
               !source || source === "courseUpload"
                 ? "/congrats.png"
-                : "/happy-group-of-people-celebrating-together-1.png"
+                : // : "/happy-group-of-people-celebrating-together-1.png"
+                  "/congrats.png"
             }
           />
           <h1 className="mt-4 text-center text-5xl font-medium max-lsm:text-2xl">
