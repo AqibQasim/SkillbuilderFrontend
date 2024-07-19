@@ -26,4 +26,5 @@ function courseUpload() {
   );
 }
 
-export default withAuth(courseUpload);
+// export default withAuth(courseUpload);
+export default courseUpload;

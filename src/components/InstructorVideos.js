@@ -1,8 +1,14 @@
 import React from "react";
+import CourseUpload from "./CourseUpload";
 
 const InstructorVideos = ({ onNext, onPrev }) => {
   return (
     <div>
+      <div>
+        {/*Sanjay is div me drop down bana do,
+          aur CourseUpload component ko replicate krwado */}
+        <CourseUpload/>
+      </div>
       <h1>Content of videos</h1>
       <div className="mt-4 flex justify-end">
         <div className="grid grid-cols-1 md:grid-cols-2">
