@@ -39,7 +39,7 @@ function TableRow({ course }) {
         <CoursStatusIconSvg className="h-5 w-5" status={status.toLowerCase()} />
         <span className="capitalize">{status}</span>
       </div>
-      <div className="flex h-7 w-7 items-center justify-center rounded-full">
+      <div className="bg-arrow-link-bg text-arrow-link-text flex h-7 w-7 items-center justify-center rounded-full group-hover:text-black">
         <ChevronRightIconSvg
           className="relative -right-[1.5px] h-4 w-4 transition-transform duration-300 group-hover:-rotate-45"
           currentColor
