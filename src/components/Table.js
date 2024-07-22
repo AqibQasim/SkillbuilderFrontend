@@ -13,15 +13,7 @@ function Table({ courses }) {
       </div>
       <div className="divide-y-[1px] divide-dashboard-border">
         {courses.map((course, index) => (
-          <TableRow
-            key={index}
-            title={course.title}
-            image={course.image}
-            instructor={course.instructor}
-            price={course.price}
-            skills={course.skills}
-            status={course.status}
-          />
+          <TableRow key={index} course={course} />
         ))}
       </div>
     </div>

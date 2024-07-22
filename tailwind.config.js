@@ -53,6 +53,10 @@ module.exports = {
           green: "#18B100",
           "green-bg": "#EDFFEB",
         },
+        "arrow-link": {
+          text: "#8B888F",
+          bg: "#EDF0F5",
+        },
         "dashboard-sidenav-bg": {
           DEFAULT: "#EBECF0",
         },

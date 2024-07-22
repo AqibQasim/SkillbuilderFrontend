@@ -2,7 +2,7 @@ import Button from "@/components/Button";
 import Filter from "@/components/Filter";
 import Table from "@/components/Table";
 import { useRouter } from "next/router";
-import DashboardLayout from "../../components/DashboardLayout";
+import DashboardLayout from "@/components/DashboardLayout";
 
 const filterOptions = [
   { label: "All", value: "all" },
@@ -11,7 +11,7 @@ const filterOptions = [
   { label: "Declined", value: "declined" },
 ];
 
-const dummyCourses = [
+export const dummyCourses = [
   {
     image: "/courseImg.png",
     title: "UI/UX Designning",
@@ -19,6 +19,7 @@ const dummyCourses = [
     price: 4500,
     skills: "Figma +5",
     status: "pending",
+    id: 1,
   },
   {
     image: "/courseImg.png",
@@ -27,6 +28,7 @@ const dummyCourses = [
     price: 5000,
     skills: "HTML +5",
     status: "pending",
+    id: 2,
   },
   {
     image: "/courseImg.png",
@@ -35,6 +37,7 @@ const dummyCourses = [
     price: 4000,
     skills: "SEO +5",
     status: "pending",
+    id: 3,
   },
   {
     image: "/courseImg.png",
@@ -43,6 +46,7 @@ const dummyCourses = [
     price: 6000,
     skills: "Python +5",
     status: "approved",
+    id: 4,
   },
   {
     image: "/courseImg.png",
@@ -51,6 +55,7 @@ const dummyCourses = [
     price: 7000,
     skills: "TensorFlow +5",
     status: "approved",
+    id: 5,
   },
   {
     image: "/courseImg.png",
@@ -59,6 +64,7 @@ const dummyCourses = [
     price: 5500,
     skills: "Network Security +5",
     status: "approved",
+    id: 6,
   },
   {
     image: "/courseImg.png",
@@ -67,6 +73,7 @@ const dummyCourses = [
     price: 7000,
     skills: "TensorFlow +5",
     status: "declined",
+    id: 7,
   },
   {
     image: "/courseImg.png",
@@ -75,6 +82,7 @@ const dummyCourses = [
     price: 5500,
     skills: "Network Security +5",
     status: "declined",
+    id: 8,
   },
   {
     image: "/courseImg.png",
@@ -83,6 +91,7 @@ const dummyCourses = [
     price: 7000,
     skills: "TensorFlow +5",
     status: "declined",
+    id: 9,
   },
   {
     image: "/courseImg.png",
@@ -91,6 +100,7 @@ const dummyCourses = [
     price: 4500,
     skills: "Figma +5",
     status: "pending",
+    id: 10,
   },
   {
     image: "/courseImg.png",
@@ -99,6 +109,7 @@ const dummyCourses = [
     price: 5000,
     skills: "HTML +5",
     status: "pending",
+    id: 11,
   },
   {
     image: "/courseImg.png",
@@ -107,6 +118,7 @@ const dummyCourses = [
     price: 4000,
     skills: "SEO +5",
     status: "pending",
+    id: 12,
   },
   {
     image: "/courseImg.png",
@@ -115,6 +127,7 @@ const dummyCourses = [
     price: 6000,
     skills: "Python +5",
     status: "approved",
+    id: 13,
   },
   {
     image: "/courseImg.png",
@@ -123,6 +136,7 @@ const dummyCourses = [
     price: 7000,
     skills: "TensorFlow +5",
     status: "approved",
+    id: 14,
   },
   {
     image: "/courseImg.png",
@@ -131,6 +145,7 @@ const dummyCourses = [
     price: 5500,
     skills: "Network Security +5",
     status: "approved",
+    id: 15,
   },
   {
     image: "/courseImg.png",
@@ -139,6 +154,7 @@ const dummyCourses = [
     price: 7000,
     skills: "TensorFlow +5",
     status: "declined",
+    id: 16,
   },
   {
     image: "/courseImg.png",
@@ -147,6 +163,7 @@ const dummyCourses = [
     price: 5500,
     skills: "Network Security +5",
     status: "declined",
+    id: 17,
   },
   {
     image: "/courseImg.png",
@@ -155,6 +172,7 @@ const dummyCourses = [
     price: 7000,
     skills: "TensorFlow +5",
     status: "declined",
+    id: 18,
   },
 ];
 
