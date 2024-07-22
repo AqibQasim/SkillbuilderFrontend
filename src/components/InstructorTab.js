@@ -1,11 +1,10 @@
 import React from "react";
 import InstructorIntendedLearner from "./InstructorIntendedLearner";
 import SkillBuilderSvg from "./SkillBuilderSvg";
-import InstructorDetails from "./InstructorDetails";
-import TakeIntro from "@/components/TakeIntro";
-import Congrats from "@/components/Congrats"
+import InstructorVideos from "./InstructorVideos";
+import InstructorPricing from "./InstructorPricing";
 
-const InstructorTab = ({ steps, currentStep, onNext }) => {
+const InstructorTab = ({ steps, currentStep, onNext, onPrev }) => {
   return (
     <div>
       <div className="container mb-10">
@@ -17,17 +16,39 @@ const InstructorTab = ({ steps, currentStep, onNext }) => {
             <div
               className={`flex h-10 items-center justify-center rounded-full border-2 px-8 ${
                 currentStep === index
-                  ? "border-blue-600 text-blue-600"
-                  : "border-gray-300 text-gray-400"
+                  ? "border-blue text-blue"
+                  : currentStep > index
+                    ? "border-blue bg-blue text-white"
+                    : "border-gray-300 text-gray-400"
               }`}
             >
-              {step}
-              {index === 0 && <span className="ml-2 text-blue-600">👤</span>}
-              {index === 1 && <span className="ml-2 text-gray-400">🎥</span>}
-              {index === 2 && <span className="ml-2 text-gray-400">💲</span>}
+              <span className="max-lsm:hidden"> {step} </span>
+              {index === 0 && (
+                <span
+                  className={`ml-2 ${currentStep >= index ? "text-white" : "text-gray-400"}`}
+                >
+                  👤
+                </span>
+              )}
+              {index === 1 && (
+                <span
+                  className={`ml-2 ${currentStep >= index ? "text-blue-600" : "text-gray-400"}`}
+                >
+                  🎥
+                </span>
+              )}
+              {index === 2 && (
+                <span
+                  className={`ml-2 ${currentStep >= index ? "text-blue-600" : "text-gray-400"}`}
+                >
+                  💲
+                </span>
+              )}
             </div>
             {index < steps.length - 1 && (
-              <div className="h-[1px] w-10 bg-gray-300"></div>
+              <div
+                className={`h-[1px] w-10 ${currentStep > index ? "bg-blue-300" : "bg-gray-300"}`}
+              ></div>
             )}
           </div>
         ))}
@@ -35,21 +56,18 @@ const InstructorTab = ({ steps, currentStep, onNext }) => {
       <div className="mb-4">
         {currentStep === 0 && (
           <div>
-            <InstructorDetails />
+            <InstructorIntendedLearner onNext={onNext} />
           </div>
         )}
-        {currentStep === 1 && <div><TakeIntro/></div>}
-        {currentStep === 2 && <div><Congrats/></div>}
-        
-      </div>
-      <div className="flex w-[90%] justify-end">
-        {currentStep < steps.length - 1 && (
-          <button
-            onClick={onNext}
-            className="flex justify-end rounded-md bg-blue-600 px-4 py-2 text-white"
-          >
-            Continue
-          </button>
+        {currentStep === 1 && (
+          <div>
+            <InstructorVideos onNext={onNext} onPrev={onPrev} />
+          </div>
+        )}
+        {currentStep === 2 && (
+          <div>
+            <InstructorPricing onNext={onNext} onPrev={onPrev} />
+          </div>
         )}
       </div>
     </div>

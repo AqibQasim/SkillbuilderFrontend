@@ -1,9 +1,9 @@
 import React from "react";
 
-const InstructorIntendedLearner = () => {
+const InstructorIntendedLearner = ({ onNext }) => {
   return (
     <div className="container mt-20">
-      <form className="space-y-4">
+      <form className="relative space-y-4">
         <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
           <div>
             <label
@@ -17,7 +17,7 @@ const InstructorIntendedLearner = () => {
               id="course-name"
               name="course-name"
               required
-              className="border-darkgrey mt-1 block w-[80%] rounded-md border bg-transparent p-3 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+              className="border-darkgrey mt-1 block w-full rounded-md border bg-transparent p-3 shadow-sm focus:border-blue-500 focus:ring-blue-500"
               placeholder="Development"
             />
           </div>
@@ -26,20 +26,20 @@ const InstructorIntendedLearner = () => {
               htmlFor="category"
               className="text-md mb-4 block font-semibold text-gray-700"
             >
-              What Category Best Fits The Knowledge You'll Share?
+              Field:
             </label>
             <select
               id="category"
               name="category"
               required
-              className="border-darkgrey mt-1 block w-[80%] rounded-md border bg-transparent p-3 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+              className="border-darkgrey mt-1 block w-full rounded-md border bg-transparent p-3 shadow-sm focus:border-blue-500 focus:ring-blue-500"
             >
               <option value="">Select category</option>
               <option value="development">Development</option>
               <option value="design">Design</option>
               <option value="marketing">Marketing</option>
               <option value="business">Business</option>
-              <option value="business">Others</option>
+              <option value="others">Others</option>
             </select>
           </div>
         </div>
@@ -51,14 +51,14 @@ const InstructorIntendedLearner = () => {
               htmlFor="time"
               className="text-md mb-4 block font-semibold text-gray-700"
             >
-              How Much Time Can You Spend Creating Your Course?
+              Time:
             </label>
             <input
               type="number"
               id="time"
               name="time"
               required
-              className="border-darkgrey focus:border-darkgrey mt-1 block w-[80%] rounded-md border bg-transparent p-3 shadow-sm"
+              className="border-darkgrey mt-1 block w-full rounded-md border bg-transparent p-3 shadow-sm focus:border-blue-500 focus:ring-blue-500"
               placeholder="hours"
             />
           </div>
@@ -67,17 +67,27 @@ const InstructorIntendedLearner = () => {
               htmlFor="learning"
               className="text-md mb-4 block font-semibold text-gray-700"
             >
-              What Will Students Learn In Your Course?
+              Outcome of this Course:
             </label>
             <input
               type="text"
               id="learning"
               name="learning"
               required
-              className="border-darkgrey mt-1 block w-[80%] rounded-md border bg-transparent p-3 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+              className="border-darkgrey mt-1 block w-full rounded-md border bg-transparent p-3 shadow-sm focus:border-blue-500 focus:ring-blue-500"
               placeholder="Learning"
             />
           </div>
+        </div>
+        <br /> <br />
+        <div className="mt-4 flex justify-end">
+          <button
+            type="button"
+            className="rounded-md bg-blue px-10 py-2 font-normal text-white hover:bg-blue-600 max-lsm:w-full"
+            onClick={onNext}
+          >
+            Continue
+          </button>
         </div>
       </form>
     </div>

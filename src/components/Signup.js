@@ -1,13 +1,12 @@
-import { signIn, useSession } from "next-auth/react";
+import { signIn } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { signupWithGoogle } from "../../redux/thunks/auththunks";
-import { signOut } from "next-auth/react";
+import { signupUser, signupWithGoogle } from "../../redux/thunks/auththunks";
+import { useSession, signOut } from "next-auth/react";
 // import { handleGoogleCallback } from "../../redux/thunks/googlethunk";
 
-import { signupUser } from "../../redux/thunks/auththunks";
 import ShowPassword from "./ShowPassword";
 // import { signupUser } from "../../redux/thunks/auththunks";
 

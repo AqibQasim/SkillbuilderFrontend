@@ -5,6 +5,7 @@ import { useSelector } from "react-redux";
 import EditProfileForm from "./EditProfileForm";
 import Footer from "./Footer";
 import LayoutWidth from "./LayoutWidth";
+import { setSuccess } from "../../redux/slices/authSlice";
 
 const Profile = ({ profile_text }) => {
   const [state, setstate] = useState(false);
@@ -216,7 +217,7 @@ const Profile = ({ profile_text }) => {
         {state && (
           <LayoutWidth>
             <div className="md:pl-10 lg:pl-0 max-xsm:pl-10 max-sm:pl-10">
-              <EditProfileForm />
+              <EditProfileForm setCloseForm={setstate} />
             </div>
           </LayoutWidth>
         )}

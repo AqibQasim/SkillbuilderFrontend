@@ -1,44 +1,51 @@
 //in src/pages/
-import Image from 'next/image'
-import React from 'react'
+import Image from "next/image";
+import React from "react";
+import SkillBuilderSvg from "./SkillBuilderSvg";
+import Button from "./Button";
 
-
-const Congrats = () => {
+const Congrats = ({ source }) => {
   return (
-    <div className='w-full flex flex-col h-[100vh] p-4 bg-white'>
-        {/* <div className='w-[20%] h-[5em]'>
-            <div className='aspect-auto'>
-             <div></div>
-                <Image
-                src="/skillbuilder_logo.png"
-                height={80}
-                width={150}
-                alt="logo"/>
-            </div>
-        </div>  */}
-        <div className='flex self-center justify-center h-fit'>
-            <div className='aspect-auto'>
-                <Image 
-                height={500}
-                width={500}
-                alt="Congratz"
-                src="/congratz.png"/>
-            </div>
+    <div className="flex h-[100vh] w-full flex-col bg-white p-4">
+      <div className="h-[5em] w-[20%]">
+        <div className="aspect-auto">
+          <div></div>
+          <SkillBuilderSvg />
         </div>
-        {/* <div className='w-full flex self-end justify-center items-center md:items-end lg:items-end h-[9em] 
-                        md:justify-end 
-                        lg:justify-end'>
-            <div className='bg-blue rounded-lg w-full flex justify-center h-fit
-                            md:w-fit lg:w-fit'>
-                <button className=''>
-                    <p className='px-8 py-3 self-center text-white'>
-                        Go To Dashboard
-                    </p>
-                </button>
-            </div>
+      </div>
+      <div className="flex h-fit justify-center self-center">
+        <div className="aspect-auto">
+          <Image
+            height={351}
+            width={596}
+            alt="Congratulations"
+            quality={90}
+            src={
+              !source || source === "courseUpload"
+                ? "/congrats.png"
+                : "/happy-group-of-people-celebrating-together-1.png"
+            }
+          />
+          <h1 className="mt-4 text-center text-5xl font-medium max-lsm:text-2xl">
+            Congralutions
+          </h1>
+          <p className="mt-4 text-center">
+            {!source || source === "courseUpload"
+              ? "Your course has been submitted for review kindly wait for approval"
+              : "on achieving the milestone of becoming a professional tutor on our Skill Builder"}
+          </p>
+        </div>
+      </div>
+      <div className="flex h-[9em] w-full items-center justify-center self-end md:items-end md:justify-end lg:items-end lg:justify-end">
+        {/* <div className="flex h-fit w-full justify-center rounded-lg bg-blue md:w-fit lg:w-fit">
+          <button className="">
+            <p className="self-center px-8 py-3 text-white">Go To Dashboard</p>
+          </button>
         </div> */}
+        <Button href="/dashboard">Go To Dashboard</Button>
+      </div>
     </div>
-  )
-}
+  );
+};
 
-export default Congrats
+export default Congrats;

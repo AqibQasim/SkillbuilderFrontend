@@ -10,6 +10,9 @@ module.exports = {
       container: {
         padding: "25px",
       },
+      boxShadow: {
+        "custom-input": "0 4px 6px rgba(56, 71, 255, 0.11)",
+      },
       borderRadius: {
         "tl-br": "var(--tw-border-radius-tl-br)",
       },
@@ -29,7 +32,7 @@ module.exports = {
         xlg: "1280px", // Extra large devices (large desktops, 1200px and up)
         "max-xsm": { max: "319px" }, // Styles for devices smaller than 320px
         "max-sm": { max: "540px" }, // Styles for devices smaller than 640px
-        "max-lsm": { max: "792px" },
+        "max-lsm": { max: "767px" },
         "max-md": { max: "854px" }, // Styles for devices smaller than 768px
         // for footer
         "max-plg": { max: "980px" },
@@ -38,6 +41,12 @@ module.exports = {
       },
 
       colors: {
+        "dashboard-border": {
+          DEFAULT: "#E0E3F0",
+        },
+        "dashboard-sidenav-bg": {
+          DEFAULT: "#EBECF0",
+        },
         "dark-svg": {
           DEFAULT: "#15161B",
         },
@@ -47,6 +56,10 @@ module.exports = {
         bottom_border_gray: {
           DEFAULT: "#D4D5E7",
         },
+        secondary: {
+          DEFAULT: "#F1F1F5",
+        },
+
         border_gray: {
           DEFAULT: "#BCBCBC",
         },

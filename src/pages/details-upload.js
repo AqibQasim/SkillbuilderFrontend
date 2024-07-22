@@ -1,8 +1,8 @@
-import InstructorTab from "@/components/InstructorTab";
+import InstructorTab2 from "@/components/InstructorTab2";
 import withAuth from "@/components/WithAuth";
 import { useState } from "react";
-function courseUpload() {
-  const steps = ["Intended learners", "Videos"];
+function detailsUpload() {
+  const steps = ["Basic Info", "Videos"];
   const [currentStep, setCurrentStep] = useState(0);
 
   const handleNext = () => {
@@ -10,15 +10,20 @@ function courseUpload() {
       prevStep < steps.length - 1 ? prevStep + 1 : prevStep,
     );
   };
+  const prevHandler = () => {
+    setCurrentStep((prevStep) => prevStep - 1);
+  };
+
   return (
-    <div className="p-4">
-      <InstructorTab
+    <div className="container mx-auto p-4">
+      <InstructorTab2
         steps={steps}
         currentStep={currentStep}
         onNext={handleNext}
+        onPrev={prevHandler}
       />
     </div>
   );
 }
 
-export default courseUpload;
+export default detailsUpload;
