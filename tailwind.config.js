@@ -44,6 +44,9 @@ module.exports = {
         "dashboard-border": {
           DEFAULT: "#E0E3F0",
         },
+        "status-text": {
+          DEFAULT: "#535353",
+        },
         "dashboard-sidenav-bg": {
           DEFAULT: "#EBECF0",
         },
