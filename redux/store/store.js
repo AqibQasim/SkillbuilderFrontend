@@ -9,6 +9,7 @@ import singleUserSlice from "../slices/singleUserSlice";
 import getAllReviewsSlice from "../slices/getAllReviewsSlice";
 import cartReducer from "../slices/addToCart";
 import loginFlowSlice from "../slices/loginFlowSlice";
+import instructorCoursesSliceReducer from "../slices/instructorCoursesSlice";
 
 // Function to load state from localStorage
 function loadState() {
@@ -65,6 +66,7 @@ export const store = configureStore({
     allReviews: getAllReviewsSlice,
     cart: cartReducer,
     loginFlow: loginFlowSlice,
+    instructorCourses: instructorCoursesSliceReducer,
   },
   preloadedState,
 });
