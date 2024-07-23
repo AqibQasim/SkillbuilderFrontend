@@ -9,8 +9,8 @@ import Image from "next/image";
 const links = [
   { href: "/dashboard", icon: <MenuSvg />, name: "Overview" },
   { href: "/dashboard/courses", icon: <CourseSvg />, name: "Courses" },
-  { href: "/dashboard/assignment", icon: <ClipboardSvg />, name: "Assignment" },
   { href: "/dashboard/students", icon: <PersonSvg />, name: "Students" },
+  { href: "/dashboard/assignment", icon: <ClipboardSvg />, name: "Assignment" },
 ];
 
 const isActiveLink = (pathname, linkHref) => {
