@@ -1,12 +1,18 @@
 import DashboardLayout from "../../components/DashboardLayout";
 
+const dummyStudents = [];
+
 function Students() {
   return (
     <DashboardLayout>
-      <>
-        <h1 className="text-2xl font-bold">Students</h1>
-        <p>This is the Students page.</p>
-      </>
+      {!dummyStudents || dummyStudents.length === 0 ? (
+        <p>No students have enrolled in your courses yet.</p>
+      ) : (
+        <>
+          <h1 className="text-2xl font-bold">Students</h1>
+          <p>This is the Students page.</p>
+        </>
+      )}
     </DashboardLayout>
   );
 }

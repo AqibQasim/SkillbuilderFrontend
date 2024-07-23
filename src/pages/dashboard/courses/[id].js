@@ -1,7 +1,10 @@
-import { dummyCourses } from "@/components/DashboardCourseTable";
+import ButtonCircle from "@/components/ButtonCircle";
+import CoursStatusIconSvg from "@/components/CoursStatusIconSvg";
+import { statusClass } from "@/components/DashboardCourseRow";
 import DashboardLayout from "@/components/DashboardLayout";
 import { formatCurrency } from "@/utils/formatCurrency";
 import { useRouter } from "next/router";
+import { FaChevronLeft } from "react-icons/fa6";
 import { useSelector } from "react-redux";
 
 function CourseDetail() {
@@ -25,8 +28,34 @@ function CourseDetail() {
     );
   }
 
+  function handleBack() {
+    router.back();
+  }
+
   return (
     <DashboardLayout>
+      <ButtonCircle onClick={handleBack} clasName="">
+        <FaChevronLeft />
+      </ButtonCircle>
+      {/* Course-overview */}
+      <div className="course-overview relative mt-2 flex items-center justify-start">
+        <div className="image">
+          <img src={course.image} alt={`${course.title}'s Image`} />
+        </div>
+
+        {/* course status */}
+        <div
+          className={`flex w-max items-center justify-center gap-3 rounded-md px-3 py-2 ${statusClass[course.status]}`}
+        >
+          <CoursStatusIconSvg
+            className="h-5 w-5"
+            status={course.status.toLowerCase()}
+          />
+          <span className="capitalize">{course.status}</span>
+        </div>
+        {/* course status */}
+      </div>
+      {/* Course-overview */}
       <div className="course-detail">
         <h1 className="text-4xl font-semibold">{course.title}</h1>
         <p>
