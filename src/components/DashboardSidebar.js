@@ -13,12 +13,19 @@ const links = [
   { href: "/dashboard/students", icon: <PersonSvg />, name: "Students" },
 ];
 
+const isActiveLink = (pathname, linkHref) => {
+  if (linkHref === "/dashboard/courses") {
+    return pathname.startsWith(linkHref);
+  }
+  return pathname === linkHref;
+};
+
 const DashboardSidebar = () => {
   const router = useRouter();
   const { pathname } = router;
   return (
-    <aside className="border-r-dashboard-border row-[1/-1] border">
-      <div className="logo border-dashboard-border flex h-[74.5px] items-center justify-start border-b p-5 lg:justify-center">
+    <aside className="row-[1/-1] border border-r-dashboard-border">
+      <div className="logo flex h-[74.5px] items-center justify-start border-b border-dashboard-border p-5 lg:justify-center">
         <Image
           src="/logo.svg"
           className="mr-2 hidden lg:block"
@@ -37,9 +44,13 @@ const DashboardSidebar = () => {
       <nav className="px-3 py-5 lg:p-5">
         <ul className="space-y-1">
           {links.map((link) => (
-            <li>
+            <li key={link.href}>
               <Link
-                className={`hover:bg-dashboard-sidenav-bg flex w-full cursor-pointer items-center justify-start gap-3 rounded-lg px-4 py-3 text-bg_text_gray transition-colors duration-300 hover:text-black lg:px-5 lg:py-3 ${link.href === pathname ? "bg-dashboard-sidenav-bg text-black" : ""}`}
+                className={`flex w-full cursor-pointer items-center justify-start gap-3 rounded-lg px-4 py-3 text-bg_text_gray transition-colors duration-300 hover:bg-dashboard-sidenav-bg hover:text-black lg:px-5 lg:py-3 ${
+                  isActiveLink(pathname, link.href)
+                    ? "bg-dashboard-sidenav-bg text-black"
+                    : ""
+                }`}
                 href={link.href}
               >
                 {link.icon}

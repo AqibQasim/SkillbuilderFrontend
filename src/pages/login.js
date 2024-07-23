@@ -8,4 +8,4 @@ function login() {
   );
 }
 
-export default redirectIfAuthenticated(login);
+export default redirectIfAuthenticated(login, "/profession");
