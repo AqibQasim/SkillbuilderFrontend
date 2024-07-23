@@ -25,7 +25,7 @@ function Row({ children, onClick }) {
   return (
     <div
       onClick={onClick}
-      className={`grid items-center uppercase tracking-wider grid-cols-[${columns}] ${columns} group cursor-pointer items-center gap-4 p-4 tracking-tight text-black transition-all duration-200 hover:bg-white`}
+      className={`grid items-center capitalize tracking-wider grid-cols-[${columns}] ${columns} group cursor-pointer items-center gap-4 p-4 tracking-tight text-black transition-all duration-200 hover:bg-white`}
     >
       {children}
     </div>

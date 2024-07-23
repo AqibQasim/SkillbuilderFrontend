@@ -3,6 +3,7 @@ import Button from "./Button";
 import Filter from "./Filter";
 import Table from "./Table";
 import DashboardCourseRow from "./DashboardCourseRow";
+import { useDispatch, useSelector } from "react-redux";
 const filterOptions = [
   { label: "All", value: "all" },
   { label: "Approved", value: "approved" },
@@ -176,12 +177,18 @@ export const dummyCourses = [
 ];
 
 function DashboardCourseTable() {
+  const dispatch = useDispatch();
+  const instructorId = useSelector((state) => state.profile.id);
+  const {
+    courses: instructorCourses,
+    isLoading,
+    error,
+  } = useSelector((state) => state.instructorCourses);
   const router = useRouter();
   const status = router.query.status || "all";
-  let isLoading = false;
 
   if (isLoading) return <p>Loading...</p>;
-  if (!dummyCourses.length)
+  if (!instructorCourses.length)
     return (
       <div className="flex size-full flex-col items-center justify-center gap-4 text-center">
         <h2 className="text-2xl font-medium">No Courses posted yet... </h2>
@@ -195,18 +202,18 @@ function DashboardCourseTable() {
       </div>
     );
 
-  let filteredDummyCourses;
-  if (status === "all") filteredDummyCourses = dummyCourses;
+  let filteredinstructorCourses;
+  if (status === "all") filteredinstructorCourses = instructorCourses;
   if (status === "approved")
-    filteredDummyCourses = dummyCourses.filter(
+    filteredinstructorCourses = instructorCourses.filter(
       (course) => course.status === "approved",
     );
   if (status === "pending")
-    filteredDummyCourses = dummyCourses.filter(
+    filteredinstructorCourses = instructorCourses.filter(
       (course) => course.status === "pending",
     );
   if (status === "declined")
-    filteredDummyCourses = dummyCourses.filter(
+    filteredinstructorCourses = instructorCourses.filter(
       (course) => course.status === "declined",
     );
 
@@ -226,13 +233,16 @@ function DashboardCourseTable() {
           <div>Course</div>
           <div>Instructor</div>
           <div>Price</div>
-          {/* <div>Discount</div> */}
-          <div>Skills</div>
+          <div>Discount</div>
           <div>Status</div>
           <div></div>
         </Table.Header>
-        <Table.Body
+        {/* <Table.Body
           data={filteredDummyCourses}
+          render={(course, i) => <DashboardCourseRow course={course} key={i} />}
+        /> */}
+        <Table.Body
+          data={instructorCourses}
           render={(course, i) => <DashboardCourseRow course={course} key={i} />}
         />
       </Table>

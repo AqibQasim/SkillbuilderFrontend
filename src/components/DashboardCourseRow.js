@@ -1,13 +1,16 @@
 import Table from "@/components/Table";
 import { formatCurrency } from "@/utils/formatCurrency";
-import Image from "next/image";
 import { useRouter } from "next/router";
-import CoursStatusIconSvg from "./CoursStatusIconSvg";
+import { useSelector } from "react-redux";
 import ChevronRightIconSvg from "./ChevronRightIconSvg";
+import CoursStatusIconSvg from "./CoursStatusIconSvg";
 
 function DashboardCourseRow({ course }) {
-  const { image, title, instructor, price, skills, status, id } = course;
   const router = useRouter();
+  const { image, title, amount, discount, status, id } = course;
+  const { first_name, last_name } = useSelector((state) => state.profile);
+
+  console.log(course);
 
   const statusClass = {
     approved: "bg-status-green-bg text-status-green",
@@ -23,17 +26,19 @@ function DashboardCourseRow({ course }) {
 
   return (
     <Table.Row onClick={handleRowClick}>
-      <Image
-        className="h-10 w-10 rounded-full"
-        alt={title}
-        src={image}
-        height={40}
-        width={40}
-      />
+      <div className="image-wrapper relative aspect-square h-10 w-10 overflow-hidden rounded-full">
+        <img
+          src={image}
+          alt={title}
+          className="h-full w-full rounded-full object-cover"
+        />
+      </div>
       <div className="title">{title}</div>
-      <div>{instructor}</div>
-      <div>{formatCurrency(price)}</div>
-      <div>{skills}</div>
+      <div>
+        {first_name} {last_name}
+      </div>
+      <div>{formatCurrency(Number(amount))}</div>
+      <div>{formatCurrency(Number(discount))}</div>
       <div
         className={`flex w-max items-center justify-center gap-3 rounded-md px-3 py-2 ${statusClass[status]}`}
       >
