@@ -1,23 +1,49 @@
-import React from "react";
-import TableRow from "./TableRow";
+import { createContext, useContext } from "react";
+const TableContext = createContext();
 
-function Table({ courses }) {
+function Table({ columns, children }) {
   return (
-    <div className="w-full">
-      <div className="grid grid-cols-[minmax(14rem,1fr)_repeat(4,1fr)] p-4 text-bg_text_gray">
-        <div>Course</div>
-        <div>Instructor</div>
-        <div>Price</div>
-        <div>Skills</div>
-        <div>Status</div>
-      </div>
-      <div className="divide-y-[1px] divide-dashboard-border">
-        {courses.map((course, index) => (
-          <TableRow key={index} course={course} />
-        ))}
-      </div>
+    <TableContext.Provider value={{ columns }}>
+      <div className="overflow-hidden">{children}</div>
+    </TableContext.Provider>
+  );
+}
+
+function Header({ children }) {
+  const { columns } = useContext(TableContext);
+  return (
+    <div
+      className={`grid items-center uppercase tracking-wider grid-cols-[${columns}] ${columns} gap-4 p-4 text-bg_text_gray`}
+    >
+      {children}
     </div>
   );
 }
+
+function Row({ children, onClick }) {
+  const { columns } = useContext(TableContext);
+  return (
+    <div
+      onClick={onClick}
+      className={`grid items-center uppercase tracking-wider grid-cols-[${columns}] ${columns} group cursor-pointer items-center gap-4 p-4 tracking-tight text-black transition-all duration-200 hover:bg-white`}
+    >
+      {children}
+    </div>
+  );
+}
+
+function Body({ data, render }) {
+  if (!data.length) return <p>No data to show at the moment</p>;
+
+  return (
+    <div className="divide-y-[1px] divide-dashboard-border">
+      {data.map(render)}
+    </div>
+  );
+}
+
+Table.Header = Header;
+Table.Body = Body;
+Table.Row = Row;
 
 export default Table;

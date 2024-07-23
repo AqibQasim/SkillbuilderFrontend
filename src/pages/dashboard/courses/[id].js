@@ -1,7 +1,6 @@
-import React from "react";
-import { useRouter } from "next/router";
+import { dummyCourses } from "@/components/DashboardCourseTable";
 import DashboardLayout from "@/components/DashboardLayout";
-import { dummyCourses } from ".";
+import { useRouter } from "next/router";
 
 function CourseDetail() {
   const router = useRouter();

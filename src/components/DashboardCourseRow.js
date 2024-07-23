@@ -1,12 +1,13 @@
+import Table from "@/components/Table";
 import { formatCurrency } from "@/utils/formatCurrency";
-import React from "react";
+import Image from "next/image";
+import { useRouter } from "next/router";
 import CoursStatusIconSvg from "./CoursStatusIconSvg";
-import { useRouter } from "next/router"; // Import useRouter
 import ChevronRightIconSvg from "./ChevronRightIconSvg";
 
-function TableRow({ course }) {
+function DashboardCourseRow({ course }) {
   const { image, title, instructor, price, skills, status, id } = course;
-  const router = useRouter(); // Initialize useRouter
+  const router = useRouter();
 
   const statusClass = {
     approved: "bg-status-green-bg text-status-green",
@@ -14,7 +15,6 @@ function TableRow({ course }) {
     declined: "bg-status-red-bg text-status-red",
   };
 
-  // Function to handle row click
   const handleRowClick = () => {
     // router.push(`/courses/${id}`);
     // router.push(`/dashboard/courses/${id}`);
@@ -22,14 +22,15 @@ function TableRow({ course }) {
   };
 
   return (
-    <div
-      onClick={handleRowClick}
-      className="group grid cursor-pointer grid-cols-[minmax(14rem,1fr)_repeat(4,1fr)_max-content] items-center p-4 transition-all duration-200 hover:bg-white"
-    >
-      <div className="flex items-center">
-        <img src={image} alt={title} className="mr-4 h-10 w-10 rounded-full" />
-        <span>{title}</span>
-      </div>
+    <Table.Row onClick={handleRowClick}>
+      <Image
+        className="h-10 w-10 rounded-full"
+        alt={title}
+        src={image}
+        height={40}
+        width={40}
+      />
+      <div className="title">{title}</div>
       <div>{instructor}</div>
       <div>{formatCurrency(price)}</div>
       <div>{skills}</div>
@@ -39,14 +40,14 @@ function TableRow({ course }) {
         <CoursStatusIconSvg className="h-5 w-5" status={status.toLowerCase()} />
         <span className="capitalize">{status}</span>
       </div>
-      <div className="bg-arrow-link-bg text-arrow-link-text flex h-7 w-7 items-center justify-center rounded-full group-hover:text-black">
+      <div className="flex h-7 w-7 items-center justify-center rounded-full bg-arrow-link-bg text-arrow-link-text group-hover:text-black">
         <ChevronRightIconSvg
           className="relative -right-[1.5px] h-4 w-4 transition-transform duration-300 group-hover:-rotate-45"
           currentColor
         />
       </div>
-    </div>
+    </Table.Row>
   );
 }
 
-export default TableRow;
+export default DashboardCourseRow;

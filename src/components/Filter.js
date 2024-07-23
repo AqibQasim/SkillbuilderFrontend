@@ -21,7 +21,7 @@ function Filter({ filterField, options }) {
     <div className="relative inline-block text-black">
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="text-status-text flex w-full min-w-28 items-center justify-between gap-4 border border-dashboard-border px-5 py-2 font-medium capitalize shadow-sm transition-colors duration-300"
+        className="flex w-full min-w-28 items-center justify-between gap-4 border border-dashboard-border px-5 py-2 font-medium capitalize text-status-text shadow-sm transition-colors duration-300"
       >
         {options.find((option) => option.value === currentFilter)?.label ||
           "Select an option"}
