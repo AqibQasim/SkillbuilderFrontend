@@ -222,7 +222,6 @@ const Profile = ({ profile_text }) => {
           </LayoutWidth>
         )}
       </div>
-
       <Footer />
     </div>
   );
