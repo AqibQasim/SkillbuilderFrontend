@@ -2,7 +2,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { fetchAllReviews } from "../thunks/reviewsThunk";
 
-
 const courseRevSlice = createSlice({
   name: "allReviews",
   initialState: {
@@ -13,7 +12,7 @@ const courseRevSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(fetchAllReviews.pending, (state) => {    
+      .addCase(fetchAllReviews.pending, (state) => {
         state.isReviewsLoading = true;
         state.reviewsError = null;
       })

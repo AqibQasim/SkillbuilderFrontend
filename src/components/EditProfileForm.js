@@ -6,6 +6,7 @@ import styles from "../styles/form.module.css";
 const EditProfileForm = ({ setCloseForm }) => {
   const { user, isLoading } = useSelector((state) => state.auth);
   const profile = useSelector((state) => state.profile);
+  console.log("starting line of user id", profile?.id);
   const dispatch = useDispatch();
   const [formData, setFormData] = useState(initialState());
   const [changedFields, setChangedFields] = useState({});
@@ -39,6 +40,7 @@ const EditProfileForm = ({ setCloseForm }) => {
   };
 
   function handleSubmit(e) {
+    console.log("line submit handle", profile?.id);
     e.preventDefault();
     const { id, ...formValues } = formData;
 
