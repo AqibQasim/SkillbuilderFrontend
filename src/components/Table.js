@@ -13,7 +13,7 @@ function Header({ children }) {
   const { columns } = useContext(TableContext);
   return (
     <div
-      className={`grid items-center uppercase tracking-wider grid-cols-[${columns}] ${columns} gap-4 p-4 text-bg_text_gray`}
+      className={`grid items-center uppercase tracking-wider grid-cols-[${columns}] ${columns} text-gray-shade-1 gap-4 p-4`}
     >
       {children}
     </div>
