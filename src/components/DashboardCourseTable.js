@@ -4,6 +4,7 @@ import Filter from "./Filter";
 import Table from "./Table";
 import DashboardCourseRow from "./DashboardCourseRow";
 import { useDispatch, useSelector } from "react-redux";
+import Loader from "./Loader";
 const filterOptions = [
   { label: "All", value: "all" },
   { label: "Approved", value: "approved" },
@@ -187,7 +188,7 @@ function DashboardCourseTable() {
   const router = useRouter();
   const status = router.query.status || "all";
 
-  if (isLoading) return <p>Loading...</p>;
+  if (isLoading) return <Loader />;
   if (!instructorCourses.length)
     return (
       <div className="flex size-full flex-col items-center justify-center gap-4 text-center">

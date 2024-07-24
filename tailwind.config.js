@@ -112,7 +112,7 @@ module.exports = {
         gray: {
           "shade-1": "#878A99",
           "shade-2": "shade 2 goes here",
-          "shade-3": "shade 3 goes here",
+          "shade-3": "#F0F1F5",
           // this is max ignore other shades if exists use one of these instead!.
         },
       },
@@ -129,5 +129,10 @@ module.exports = {
       },
     },
   },
-  plugins: [],
+  variants: {
+    scrollbar: ['rounded'],
+  },
+  plugins: [
+    require('tailwind-scrollbar'),
+  ],
 };
