@@ -1,13 +1,13 @@
-import { dummyCourses } from "@/components/DashboardCourseTable";
+import ButtonCircle from "@/components/ButtonCircle";
+import DashboardCourseCard from "@/components/DashboardCourseCard";
 import DashboardLayout from "@/components/DashboardLayout";
-import { formatCurrency } from "@/utils/formatCurrency";
 import { useRouter } from "next/router";
+import { FaChevronLeft } from "react-icons/fa6";
 import { useSelector } from "react-redux";
 
 function CourseDetail() {
   const router = useRouter();
   const { id } = router.query;
-
   const course = useSelector((state) =>
     state.instructorCourses.courses.find((cour) => Number(id) === cour.id),
   );
@@ -25,18 +25,21 @@ function CourseDetail() {
     );
   }
 
+  function handleBack() {
+    router.back();
+  }
+
   return (
     <DashboardLayout>
-      <div className="course-detail">
-        <h1 className="text-4xl font-semibold">{course.title}</h1>
-        <p>
-          Instructor: {first_name} {last_name}{" "}
-        </p>
-        <p>Price: {formatCurrency(Number(course.amount))}</p>
-        <p>Skills: {course.skills}</p>
-        <p>Status: {course.status}</p>
-        <img src={course.image} alt={course.title} />
-      </div>
+      <ButtonCircle onClick={handleBack} clasName="">
+        <FaChevronLeft />
+      </ButtonCircle>
+
+      <DashboardCourseCard
+        className="mt-5"
+        course={course}
+        createdBy={`${first_name} ${last_name}`}
+      />
     </DashboardLayout>
   );
 }

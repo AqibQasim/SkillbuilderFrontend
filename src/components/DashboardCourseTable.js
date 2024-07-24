@@ -242,7 +242,7 @@ function DashboardCourseTable() {
           render={(course, i) => <DashboardCourseRow course={course} key={i} />}
         /> */}
         <Table.Body
-          data={instructorCourses}
+          data={filteredinstructorCourses}
           render={(course, i) => <DashboardCourseRow course={course} key={i} />}
         />
       </Table>
