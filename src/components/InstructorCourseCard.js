@@ -1,8 +1,8 @@
 import { formatDateAndTime } from "@/utils/formatDateAndTime";
-import DashboardCourseStatus from "./DashboardCourseStatus";
+import InstructorCourseStatus from "./InstructorCourseStatus";
 import { formatCurrency } from "@/utils/formatCurrency";
 
-function DashboardCourseCard({ course, createdBy, className }) {
+function InstructorCourseCard({ course, createdBy, className }) {
   return (
     <div
       className={`grid grid-cols-[16.875rem_1fr_max-content] grid-rows-[12.5rem] gap-8 xlg:gap-14 ${className}`}
@@ -46,10 +46,10 @@ function DashboardCourseCard({ course, createdBy, className }) {
         </div>
       </div>
       <div className="status-icon status-icon">
-        <DashboardCourseStatus status={course?.status} />
+        <InstructorCourseStatus status={course?.status} />
       </div>
     </div>
   );
 }
 
-export default DashboardCourseCard;
+export default InstructorCourseCard;

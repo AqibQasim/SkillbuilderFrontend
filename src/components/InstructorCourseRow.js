@@ -4,9 +4,9 @@ import { useRouter } from "next/router";
 import { useSelector } from "react-redux";
 import ButtonCircle from "./ButtonCircle";
 import ChevronRightIconSvg from "./ChevronRightIconSvg";
-import DashboardCourseStatus from "./DashboardCourseStatus";
+import InstructorCourseStatus from "./InstructorCourseStatus";
 
-function DashboardCourseRow({ course }) {
+function InstructorCourseRow({ course }) {
   const router = useRouter();
   const { image, title, amount, discount, status, id } = course;
   const { first_name, last_name } = useSelector((state) => state.profile);
@@ -16,7 +16,7 @@ function DashboardCourseRow({ course }) {
   const handleRowClick = () => {
     // router.push(`/courses/${id}`);
     // router.push(`/dashboard/courses/${id}`);
-    router.push(`courses/${id}`);
+    router.push(`instructor-courses/${id}`);
   };
 
   return (
@@ -34,7 +34,7 @@ function DashboardCourseRow({ course }) {
       </div>
       <div>{formatCurrency(Number(amount))}</div>
       <div>{formatCurrency(Number(discount))}</div>
-      <DashboardCourseStatus status={status} />
+      <InstructorCourseStatus status={status} />
       <ButtonCircle>
         <ChevronRightIconSvg
           className="relative -right-[1.5px] h-4 w-4 transition-transform duration-300 group-hover:-rotate-45"
@@ -45,4 +45,4 @@ function DashboardCourseRow({ course }) {
   );
 }
 
-export default DashboardCourseRow;
+export default InstructorCourseRow;

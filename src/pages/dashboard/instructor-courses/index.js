@@ -1,9 +1,9 @@
-import DashboardCourseTable from "@/components/DashboardCourseTable";
 import DashboardLayout from "@/components/DashboardLayout";
+import InstructorCourseTable from "@/components/InstructorCourseTable";
+import withAuth from "@/components/WithAuth";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchCoursesByInstructorId } from "../../../../redux/thunks/instructorCoursesThunk";
-import withAuth from "@/components/WithAuth";
 
 function Courses() {
   const dispatch = useDispatch();
@@ -25,7 +25,7 @@ function Courses() {
 
   return (
     <DashboardLayout>
-      <DashboardCourseTable />
+      <InstructorCourseTable />
     </DashboardLayout>
   );
 }

@@ -6,7 +6,7 @@ export const statusClass = {
   declined: "bg-status-red-bg text-status-red",
 };
 
-function DashboardCourseStatus({ status }) {
+function InstructorCourseStatus({ status }) {
   return (
     <div
       className={`flex w-max items-center justify-center gap-3 rounded-md px-3 py-2 ${statusClass[status]}`}
@@ -17,4 +17,4 @@ function DashboardCourseStatus({ status }) {
   );
 }
 
-export default DashboardCourseStatus;
+export default InstructorCourseStatus;

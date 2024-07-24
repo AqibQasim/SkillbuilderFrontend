@@ -1,16 +1,16 @@
 import ButtonCircle from "@/components/ButtonCircle";
 import CourseModules from "@/components/CourseModule";
-import DashboardCourseCard from "@/components/DashboardCourseCard";
+import InstructorCourseCard from "@/components/InstructorCourseCard";
 import DashboardCourseSkills from "@/components/DashboardCourseSkills";
 import DashboardLayout from "@/components/DashboardLayout";
+import Loader from "@/components/Loader";
+import withAuth from "@/components/WithAuth";
 import { useRouter } from "next/router";
+import { useEffect } from "react";
 import { FaChevronLeft } from "react-icons/fa6";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchOneCourse } from "../../../../redux/thunks/coursesThunks";
-import { useEffect } from "react";
-import DashboardStudentsOverview from "@/components/DashboardStudentsOverview";
-import Loader from "@/components/Loader";
-import withAuth from "@/components/WithAuth";
+import InstructorCourseRow from "@/components/InstructorCourseRow";
 
 function CourseDetail() {
   const router = useRouter();
@@ -54,7 +54,7 @@ function CourseDetail() {
           <FaChevronLeft />
         </ButtonCircle>
 
-        <DashboardCourseCard
+        <InstructorCourseCard
           course={course}
           createdBy={`${first_name} ${last_name}`}
         />

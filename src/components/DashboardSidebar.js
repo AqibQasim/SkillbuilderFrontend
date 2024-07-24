@@ -8,13 +8,17 @@ import Image from "next/image";
 
 const links = [
   { href: "/dashboard", icon: <MenuSvg />, name: "Overview" },
-  { href: "/dashboard/courses", icon: <CourseSvg />, name: "Courses" },
+  {
+    href: "/dashboard/instructor-courses",
+    icon: <CourseSvg />,
+    name: "Courses",
+  },
   { href: "/dashboard/students", icon: <PersonSvg />, name: "Students" },
   { href: "/dashboard/assignment", icon: <ClipboardSvg />, name: "Assignment" },
 ];
 
 const isActiveLink = (pathname, linkHref) => {
-  if (linkHref === "/dashboard/courses") {
+  if (linkHref === "/dashboard/instructor-courses") {
     return pathname.startsWith(linkHref);
   }
   return pathname === linkHref;
