@@ -154,7 +154,7 @@ const VideoUpload = () => {
       )}
 
       {showVideo && videoFile && (
-        <video className="w-full" controls>
+        <video className="h-2/6 w-6/12" controls>
           <source src={videoUrl} type={videoFile.type} />
           Your browser does not support the video tag.
         </video>
