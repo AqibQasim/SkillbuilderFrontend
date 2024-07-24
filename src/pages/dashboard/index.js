@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import DashboardLayout from "@/components/DashboardLayout";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchCoursesByInstructorId } from "../../../redux/thunks/instructorCoursesThunk";
+import withAuth from "@/components/WithAuth";
 
 function Dashboard() {
   const dispatch = useDispatch();
@@ -54,116 +55,4 @@ function Dashboard() {
   );
 }
 
-export default Dashboard;
-
-// import React, { useEffect } from "react";
-// import DashboardLayout from "@/components/DashboardLayout";
-// import { useDispatch, useSelector } from "react-redux";
-// import { fetchCoursesByInstructorId } from "../../../redux/thunks/instructorCoursesThunk";
-
-// function Dashboard() {
-//   const dispatch = useDispatch();
-//   const instructorId = useSelector((state) => state.profile.id);
-//   console.log(instructorId);
-//   const instructorCourses = useSelector(
-//     (state) => state.instructorCourses.courses,
-//   );
-
-//   useEffect(() => {
-//     if (instructorId) {
-//       dispatch(fetchCoursesByInstructorId(instructorId));
-//     }
-//     console.log("courses of instructor", instructorCourses);
-//   }, [instructorId]);
-
-//   return (
-//     <DashboardLayout>
-//       <>
-//         <h1 className="text-2xl font-bold">Welcome to the Dashboard</h1>
-//         <p>Select an option from the side navigation to get started.</p>
-//         <div className="my-9">
-//           <p>
-//             Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas ea
-//             blanditiis, fuga officiis ipsum voluptatibus ad asperiores accusamus
-//             numquam quasi repellendus minima in officia impedit rerum iusto
-//             atque incidunt natus.
-//           </p>
-//         </div>
-//         <div className="my-9">
-//           <p>
-//             Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas ea
-//             blanditiis, fuga officiis ipsum voluptatibus ad asperiores accusamus
-//             numquam quasi repellendus minima in officia impedit rerum iusto
-//             atque incidunt natus.
-//           </p>
-//         </div>
-//         <div className="my-9">
-//           <p>
-//             Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas ea
-//             blanditiis, fuga officiis ipsum voluptatibus ad asperiores accusamus
-//             numquam quasi repellendus minima in officia impedit rerum iusto
-//             atque incidunt natus.
-//           </p>
-//         </div>
-//         <div className="my-9">
-//           <p>
-//             Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas ea
-//             blanditiis, fuga officiis ipsum voluptatibus ad asperiores accusamus
-//             numquam quasi repellendus minima in officia impedit rerum iusto
-//             atque incidunt natus.
-//           </p>
-//         </div>
-//         <div className="my-9">
-//           <p>
-//             Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas ea
-//             blanditiis, fuga officiis ipsum voluptatibus ad asperiores accusamus
-//             numquam quasi repellendus minima in officia impedit rerum iusto
-//             atque incidunt natus.
-//           </p>
-//         </div>
-//         <div className="my-9">
-//           <p>
-//             Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas ea
-//             blanditiis, fuga officiis ipsum voluptatibus ad asperiores accusamus
-//             numquam quasi repellendus minima in officia impedit rerum iusto
-//             atque incidunt natus.
-//           </p>
-//         </div>
-//         <div className="my-9">
-//           <p>
-//             Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas ea
-//             blanditiis, fuga officiis ipsum voluptatibus ad asperiores accusamus
-//             numquam quasi repellendus minima in officia impedit rerum iusto
-//             atque incidunt natus.
-//           </p>
-//         </div>
-//         <div className="my-9">
-//           <p>
-//             Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas ea
-//             blanditiis, fuga officiis ipsum voluptatibus ad asperiores accusamus
-//             numquam quasi repellendus minima in officia impedit rerum iusto
-//             atque incidunt natus.
-//           </p>
-//         </div>
-//         <div className="my-9">
-//           <p>
-//             Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas ea
-//             blanditiis, fuga officiis ipsum voluptatibus ad asperiores accusamus
-//             numquam quasi repellendus minima in officia impedit rerum iusto
-//             atque incidunt natus.
-//           </p>
-//         </div>
-//         <div className="my-9">
-//           <p>
-//             Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas ea
-//             blanditiis, fuga officiis ipsum voluptatibus ad asperiores accusamus
-//             numquam quasi repellendus minima in officia impedit rerum iusto
-//             atque incidunt natus.
-//           </p>
-//         </div>
-//       </>
-//     </DashboardLayout>
-//   );
-// }
-
-// export default Dashboard;
+export default withAuth(Dashboard);

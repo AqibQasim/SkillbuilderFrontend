@@ -10,6 +10,7 @@ import { fetchOneCourse } from "../../../../redux/thunks/coursesThunks";
 import { useEffect } from "react";
 import DashboardStudentsOverview from "@/components/DashboardStudentsOverview";
 import Loader from "@/components/Loader";
+import withAuth from "@/components/WithAuth";
 
 function CourseDetail() {
   const router = useRouter();
@@ -75,7 +76,7 @@ function CourseDetail() {
   );
 }
 
-export default CourseDetail;
+export default withAuth(CourseDetail);
 
 function StudentsList() {
   const imageUrl1 =

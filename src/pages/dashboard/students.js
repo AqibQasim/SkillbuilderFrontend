@@ -1,3 +1,4 @@
+import withAuth from "@/components/WithAuth";
 import DashboardLayout from "../../components/DashboardLayout";
 
 const dummyStudents = [];
@@ -17,4 +18,4 @@ function Students() {
   );
 }
 
-export default Students;
+export default withAuth(Students);

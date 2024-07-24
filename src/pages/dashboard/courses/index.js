@@ -3,6 +3,7 @@ import DashboardLayout from "@/components/DashboardLayout";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchCoursesByInstructorId } from "../../../../redux/thunks/instructorCoursesThunk";
+import withAuth from "@/components/WithAuth";
 
 function Courses() {
   const dispatch = useDispatch();
@@ -29,4 +30,4 @@ function Courses() {
   );
 }
 
-export default Courses;
+export default withAuth(Courses);

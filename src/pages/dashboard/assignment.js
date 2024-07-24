@@ -1,3 +1,4 @@
+import withAuth from "@/components/WithAuth";
 import DashboardLayout from "../../components/DashboardLayout";
 
 function Assignment() {
@@ -13,4 +14,4 @@ function Assignment() {
   );
 }
 
-export default Assignment;
+export default withAuth(Assignment);
