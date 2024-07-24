@@ -27,8 +27,9 @@ function DashboardCourseCard({ course, createdBy, className }) {
           amet dolorum! Nemo, eveniet?]
         </p>
         <div className="text-gray-shade-1 mt-2 text-sm">
-          <p>
-            Technology • {course?.creation_duration_hours} Hours • 8 Assignments
+          <p className="capitalize">
+            Technology • {course?.creation_duration_hours} Hours •{" "}
+            {course.modulesCount} Modules
           </p>
           <p>
             Uploaded by:{" "}
