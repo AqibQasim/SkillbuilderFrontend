@@ -14,7 +14,7 @@ const links = [
     name: "Courses",
   },
   { href: "/dashboard/students", icon: <PersonSvg />, name: "Students" },
-  { href: "/dashboard/assignment", icon: <ClipboardSvg />, name: "Assignment" },
+  { href: "/dashboard/payments", icon: <ClipboardSvg />, name: "Payments" },
 ];
 
 const isActiveLink = (pathname, linkHref) => {

@@ -6,8 +6,8 @@ function Assignment() {
     <DashboardLayout>
       <>
         <div className="text-center">
-          <h1 className="text-2xl font-bold">Assignment</h1>
-          <p>This is the Assignment page.</p>
+          <h1 className="text-2xl font-bold">Payments</h1>
+          <p>This is the Payments page.</p>
         </div>
       </>
     </DashboardLayout>

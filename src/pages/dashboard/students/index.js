@@ -1,5 +1,5 @@
 import withAuth from "@/components/WithAuth";
-import DashboardLayout from "../../components/DashboardLayout";
+import DashboardLayout from "@/components/DashboardLayout";
 
 const dummyStudents = [];
 

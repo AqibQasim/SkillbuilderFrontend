@@ -1,8 +1,8 @@
-import React, { useEffect } from "react";
 import DashboardLayout from "@/components/DashboardLayout";
+import withAuth from "@/components/WithAuth";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchCoursesByInstructorId } from "../../../redux/thunks/instructorCoursesThunk";
-import withAuth from "@/components/WithAuth";
 
 function Dashboard() {
   const dispatch = useDispatch();
