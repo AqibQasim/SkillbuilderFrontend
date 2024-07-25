@@ -37,7 +37,7 @@ const Navbar = ({ cartItemsLength }) => {
           <div className="flex w-[90%] items-center justify-between">
             <Image src="/logo.svg" width={160} height={160} alt="Logo" />
 
-            <div className="block ml-auto mr-4 lg:hidden">
+            <div className="ml-auto mr-4 block lg:hidden">
               <User cartClickHandler={routeToShoppingCartHandler} />
             </div>
 
@@ -69,7 +69,7 @@ const Navbar = ({ cartItemsLength }) => {
               </button>
             </div>
 
-            <div className="flex hidden w-full items-center justify-center gap-3 text-bg_text_gray lg:flex lg:w-auto lg:text-sm">
+            <div className="text-gray-shade-1 flex hidden w-full items-center justify-center gap-3 lg:flex lg:w-auto lg:text-sm">
               <Link
                 // className={
                 //   // currentTab === "home"

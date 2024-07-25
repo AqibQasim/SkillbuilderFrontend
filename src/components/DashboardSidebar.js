@@ -8,13 +8,17 @@ import Image from "next/image";
 
 const links = [
   { href: "/dashboard", icon: <MenuSvg />, name: "Overview" },
-  { href: "/dashboard/courses", icon: <CourseSvg />, name: "Courses" },
-  { href: "/dashboard/assignment", icon: <ClipboardSvg />, name: "Assignment" },
+  {
+    href: "/dashboard/instructor-courses",
+    icon: <CourseSvg />,
+    name: "Courses",
+  },
   { href: "/dashboard/students", icon: <PersonSvg />, name: "Students" },
+  { href: "/dashboard/assignment", icon: <ClipboardSvg />, name: "Assignment" },
 ];
 
 const isActiveLink = (pathname, linkHref) => {
-  if (linkHref === "/dashboard/courses") {
+  if (linkHref === "/dashboard/instructor-courses") {
     return pathname.startsWith(linkHref);
   }
   return pathname === linkHref;
@@ -46,7 +50,7 @@ const DashboardSidebar = () => {
           {links.map((link) => (
             <li key={link.href}>
               <Link
-                className={`flex w-full cursor-pointer items-center justify-start gap-3 rounded-lg px-4 py-3 text-bg_text_gray transition-colors duration-300 hover:bg-dashboard-sidenav-bg hover:text-black lg:px-5 lg:py-3 ${
+                className={`text-red text-gray-shade-1 flex w-full cursor-pointer items-center justify-start gap-3 rounded-lg px-4 py-3 transition-colors duration-300 hover:bg-dashboard-sidenav-bg hover:text-black lg:px-5 lg:py-3 ${
                   isActiveLink(pathname, link.href)
                     ? "bg-dashboard-sidenav-bg text-black"
                     : ""

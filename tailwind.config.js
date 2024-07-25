@@ -103,6 +103,18 @@ module.exports = {
         span: {
           DEFAULT: "#767676",
         },
+        black: {
+          "shade-1": "#0E0F0F",
+          "shade-2": "shade 2 goes here",
+          "shade-3": "shade 3 goes here",
+          // this is max ignore other shades if exists use one of these instead!.
+        },
+        gray: {
+          "shade-1": "#878A99",
+          "shade-2": "shade 2 goes here",
+          "shade-3": "#F0F1F5",
+          // this is max ignore other shades if exists use one of these instead!.
+        },
       },
       spacing: {
         layout: "2rem",
@@ -117,5 +129,10 @@ module.exports = {
       },
     },
   },
-  plugins: [],
+  variants: {
+    scrollbar: ['rounded'],
+  },
+  plugins: [
+    require('tailwind-scrollbar'),
+  ],
 };
