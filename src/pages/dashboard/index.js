@@ -48,6 +48,30 @@ function Dashboard() {
             numquam quasi repellendus minima in officia impedit rerum iusto
             atque incidunt natus.
           </p>
+          <p>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas ea
+            blanditiis, fuga officiis ipsum voluptatibus ad asperiores accusamus
+            numquam quasi repellendus minima in officia impedit rerum iusto
+            atque incidunt natus.
+          </p>
+          <p>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas ea
+            blanditiis, fuga officiis ipsum voluptatibus ad asperiores accusamus
+            numquam quasi repellendus minima in officia impedit rerum iusto
+            atque incidunt natus.
+          </p>
+          <p>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas ea
+            blanditiis, fuga officiis ipsum voluptatibus ad asperiores accusamus
+            numquam quasi repellendus minima in officia impedit rerum iusto
+            atque incidunt natus.
+          </p>
+          <p>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas ea
+            blanditiis, fuga officiis ipsum voluptatibus ad asperiores accusamus
+            numquam quasi repellendus minima in officia impedit rerum iusto
+            atque incidunt natus.
+          </p>
         </div>
         {/* Repeat the above block as needed */}
       </>
