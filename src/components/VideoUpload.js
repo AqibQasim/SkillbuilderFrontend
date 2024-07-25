@@ -49,7 +49,7 @@ import { useState, useRef } from "react";
 //   );
 // };
 
-const VideoUpload = () => {
+const VideoUpload = ({ setSelectedVideo }) => {
   const [videoFile, setVideoFile] = useState(null);
   const [showVideo, setshowVideo] = useState(null);
   const [videoUrl, setVideoUrl] = useState("");
@@ -60,6 +60,7 @@ const VideoUpload = () => {
     if (file) {
       setVideoFile(file);
       setVideoUrl(URL.createObjectURL(file));
+      setSelectedVideo(file);
     }
   };
   const handlePlayVideo = () => {

@@ -114,12 +114,13 @@ const InstructorDetails = ({ onNext }) => {
         .filter(Boolean), // Remove null values
     };
 
-    const resultAction = await dispatch(createInstructor(updatedFormData));
-    if (createInstructor.fulfilled.match(resultAction)) {
-      onNext();
-    } else {
-      console.error("Failed to create instructor:", resultAction.payload);
-    }
+    // const resultAction = await dispatch(createInstructor(updatedFormData));
+    // if (createInstructor.fulfilled.match(resultAction)) {
+    //   onNext();
+    // } else {
+    //   console.error("Failed to create instructor:", resultAction.payload);
+    // }
+    onNext();
   };
 
   return (

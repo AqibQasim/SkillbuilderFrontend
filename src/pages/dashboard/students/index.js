@@ -1,4 +1,5 @@
-import DashboardLayout from "../../components/DashboardLayout";
+import DashboardLayout from "@/components/DashboardLayout";
+import withAuth from "@/components/WithAuth";
 
 function Students() {
   return (

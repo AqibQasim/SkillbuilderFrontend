@@ -1,4 +1,5 @@
 import DashboardLayout from "@/components/DashboardLayout";
+import withAuth from "@/components/WithAuth";
 
 function Dashboard() {
   return (
@@ -83,4 +84,4 @@ function Dashboard() {
   );
 }
 
-export default Dashboard;
+export default withAuth(Dashboard);

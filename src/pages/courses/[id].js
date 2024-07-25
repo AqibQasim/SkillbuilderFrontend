@@ -16,7 +16,6 @@
 // import { fetchOneUser } from "../../../redux/thunks/userInfoThunk";
 // import { fetchAllReviews } from "../../../redux/thunks/reviewsThunk";
 
-
 // const CourseDetails = () => {
 //   const router = useRouter();
 //   const { id } = router?.query;
@@ -52,8 +51,6 @@
 //     return null; // Or loading indicator
 //   }
 
-
-
 //   useEffect(() => {
 //     if(user){
 //       dispatch(fetchOneInstructor(user?.id));
@@ -81,7 +78,6 @@
 //       dispatch(fetchAllReviews(course?.id));
 //     }
 //   },[router?.isReady,course]);
-
 
 //   return (
 //     <>
@@ -124,19 +120,20 @@ const CourseDetails = () => {
   const dispatch = useDispatch();
 
   const { data: course, isLoading: courseLoading } = useSelector(
-    (state) => state.singleCourse || { data: {}, isLoading: true }
+    (state) => state.singleCourse || { data: {}, isLoading: true },
   );
 
   const { userData: user, isUserLoading } = useSelector(
-    (state) => state.singleUser || { userData: {}, isUserLoading: true }
+    (state) => state.singleUser || { userData: {}, isUserLoading: true },
   );
 
   const { instructorData: instructor, isInstLoading } = useSelector(
-    (state) => state.singleInstructor || { instructorData: {}, isInstLoading: true }
+    (state) =>
+      state.singleInstructor || { instructorData: {}, isInstLoading: true },
   );
 
   const { reviewsData: reviews, isReviewsLoading } = useSelector(
-    (state) => state.allReviews || { reviewsData: [], isReviewsLoading: true }
+    (state) => state.allReviews || { reviewsData: [], isReviewsLoading: true },
   );
 
   const courses = useSelector((state) => state.cart.items);
@@ -170,14 +167,20 @@ const CourseDetails = () => {
     }
   }, [course]);
 
-  if (!isClient || courseLoading || isUserLoading || isInstLoading || isReviewsLoading) {
+  if (
+    !isClient ||
+    courseLoading ||
+    isUserLoading ||
+    isInstLoading ||
+    isReviewsLoading
+  ) {
     return null; // Or loading indicator
   }
 
   return (
     <div className="h-full w-full bg-bg_gray">
       <Navbar cartItemsLength={courses?.length} />
-      <div className="path-wrapper w-[90%] max-w-screen-2xl mx-auto mt-16 mb-8">
+      <div className="path-wrapper mx-auto mb-8 mt-16 w-[90%] max-w-screen-2xl">
         <CurrentPath />
       </div>
       <CourseHero course={course} />
@@ -190,4 +193,3 @@ const CourseDetails = () => {
 };
 
 export default CourseDetails;
-
