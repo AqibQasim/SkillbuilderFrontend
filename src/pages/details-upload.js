@@ -1,4 +1,5 @@
 import InstructorTab2 from "@/components/InstructorTab2";
+import withAuth from "@/components/WithAuth";
 // import withAuth from "@/components/WithAuth";
 import { useState } from "react";
 function detailsUpload() {
@@ -26,4 +27,4 @@ function detailsUpload() {
   );
 }
 
-export default detailsUpload;
+export default withAuth(detailsUpload);
