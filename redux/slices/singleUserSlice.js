@@ -6,24 +6,24 @@ const singleUserSlice = createSlice({
   name: "user",
   initialState: {
     userData: {},
-    isUserLoading: false,
-    userFetchError: null,
+    loading: false,
+    error: null,
   },
   reducers: {},
   extraReducers: (builder) => {
     builder
       .addCase(fetchOneUser.pending, (state) => {
-        state.isUserLoading = true;
-        state.userFetchError = null;
+        state.loading = true;
+        state.error = null;
       })
       .addCase(fetchOneUser.fulfilled, (state, action) => {
         console.log("action:", action);
         state.userData = action.payload;
-        state.isUserLoading = false;
+        state.loading = false;
       })
       .addCase(fetchOneUser.rejected, (state, action) => {
-        state.userFetchError = action.payload;
-        state.isUserLoading = false;
+        state.error = action.payload;
+        state.loading = false;
       });
   },
 });
