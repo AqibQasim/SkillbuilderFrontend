@@ -35,7 +35,7 @@ function InstructorCourseRow({ course }) {
       <div>{formatCurrency(Number(amount))}</div>
       <div>{formatCurrency(Number(discount))}</div>
       <InstructorCourseStatus status={status} />
-      <ButtonCircle>
+      <ButtonCircle role="link">
         <ChevronRightIconSvg
           className="relative -right-[1.5px] h-4 w-4 transition-transform duration-300 group-hover:-rotate-45"
           currentColor

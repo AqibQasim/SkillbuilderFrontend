@@ -25,7 +25,7 @@ function InstructorsStudentsRow({ student }) {
       <div className="email">{email}</div>
       <div className="purchase-date text-center">{purchaseDate}</div>
       <div className="course-progress text-center">{courseProgress}%</div>
-      <ButtonCircle>
+      <ButtonCircle role="link">
         <ChevronRightIconSvg
           className="relative -right-[1.5px] h-4 w-4 transition-transform duration-300 group-hover:-rotate-45"
           currentColor
