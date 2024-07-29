@@ -3,6 +3,7 @@ import MenuSvg from "./MenuSvg";
 import CourseSvg from "./CourseSvg";
 import PersonSvg from "./PersonSvg";
 import ClipboardSvg from "./ClipboardSvg";
+import WalletSvg from "./WalletSvg";
 import { useRouter } from "next/router";
 import Image from "next/image";
 
@@ -15,6 +16,8 @@ const links = [
   },
   { href: "/dashboard/students", icon: <PersonSvg />, name: "Students" },
   { href: "/dashboard/assignment", icon: <ClipboardSvg />, name: "Assignment" },
+  { href: "/dashboard/payments", icon: <WalletSvg />, name: "Payments" },
+  
 ];
 
 const isActiveLink = (pathname, linkHref) => {

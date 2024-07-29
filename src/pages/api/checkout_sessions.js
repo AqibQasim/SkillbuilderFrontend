@@ -26,6 +26,12 @@ export default async function handler(req, res) {
           }
         }),
         mode: 'payment',
+        payment_intent_data: {
+          application_fee_amount: 1000,
+          transfer_data: {
+            destination: 'acct_1PhsqfCaBZI977Uj',
+          },
+        },
         success_url: `${req.headers.origin}/shoppingcart`,
         cancel_url: `${req.headers.origin}/shoppingcart`,
       });
