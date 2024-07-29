@@ -33,9 +33,9 @@ const TakeIntro = ({ onPrev }) => {
             <VideoUpload setSelectedVideo={setSelectedVideo} />
           </div>
         </div>
-        <div
+        {/* <div
           className={`flex w-full flex-wrap items-center justify-center gap-4 p-4 ${videoUploaded ? "mt-6" : "mt-0"}`}
-        ></div>
+        ></div> */}
       </div>
       <div className="mt-4 flex justify-end gap-4">
         <Button variant="secondary" onClick={onPrev}>
