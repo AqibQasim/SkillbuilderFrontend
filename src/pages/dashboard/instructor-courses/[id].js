@@ -87,7 +87,7 @@ function CourseDetail() {
             <DashboardStudentsOverview />
           </>
         ) : (
-          <InstructorsStudentsTable isFor="specific" />
+          <InstructorsStudentsTable isSpecific />
         )}
       </div>
     </DashboardLayout>
