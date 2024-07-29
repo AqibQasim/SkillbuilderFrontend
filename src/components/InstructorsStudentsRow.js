@@ -3,7 +3,7 @@ import Table from "./Table";
 import ButtonCircle from "./ButtonCircle";
 import ChevronRightIconSvg from "./ChevronRightIconSvg";
 
-function InstructorsStudentsRow({ student }) {
+function InstructorsStudentsRow({isFor , student }) {
   const router = useRouter();
   const { id, image, name, email, purchaseDate, courseProgress } = student;
 
