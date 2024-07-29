@@ -1,4 +1,5 @@
 import Fields from "@/components/Fields";
+import withAuth from "@/components/WithAuth";
 
 function profession() {
   return (
@@ -8,4 +9,4 @@ function profession() {
   );
 }
 
-export default profession;
+export default withAuth(profession);

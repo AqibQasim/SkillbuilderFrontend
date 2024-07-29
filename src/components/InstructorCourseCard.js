@@ -21,12 +21,10 @@ function InstructorCourseCard({ course, createdBy, className }) {
           {formatCurrency(Number(course?.amount))}
         </p>
         <p className="description mt-1 text-gray-700">
-          [Description: Lorem ipsum dolor sit amet consectetur adipisicing elit.
-          Dignissimos sit voluptate dolore officiis sequi beatae obcaecati
-          eveniet consectetur sed cupiditate quasi pariatur, quod officia nemo a
-          amet dolorum! Nemo, eveniet?]
+          {course.description || "No description provided for this course yet."}
         </p>
-        <div className="text-gray-shade-1 mt-2 text-sm">
+
+        <div className="mt-2 text-sm text-gray-shade-1">
           <p className="capitalize">
             Technology • {course?.creation_duration_hours} Hours •{" "}
             {course.modulesCount} Modules
@@ -37,7 +35,7 @@ function InstructorCourseCard({ course, createdBy, className }) {
               {course?.updated_by || createdBy || "John Doe"}
             </span>{" "}
             • Date:{" "}
-            <span className="text-black-shade-1 uppercase">
+            <span className="uppercase text-black-shade-1">
               {" "}
               {formatDateAndTime(course?.created_at) ||
                 "24 July 2017 – 5:02pm"}{" "}

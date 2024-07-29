@@ -1,8 +1,8 @@
-import React, { useEffect } from "react";
 import DashboardLayout from "@/components/DashboardLayout";
+import withAuth from "@/components/WithAuth";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchCoursesByInstructorId } from "../../../redux/thunks/instructorCoursesThunk";
-import withAuth from "@/components/WithAuth";
 
 function Dashboard() {
   const dispatch = useDispatch();
@@ -42,6 +42,30 @@ function Dashboard() {
         )}
 
         <div className="my-9">
+          <p>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas ea
+            blanditiis, fuga officiis ipsum voluptatibus ad asperiores accusamus
+            numquam quasi repellendus minima in officia impedit rerum iusto
+            atque incidunt natus.
+          </p>
+          <p>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas ea
+            blanditiis, fuga officiis ipsum voluptatibus ad asperiores accusamus
+            numquam quasi repellendus minima in officia impedit rerum iusto
+            atque incidunt natus.
+          </p>
+          <p>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas ea
+            blanditiis, fuga officiis ipsum voluptatibus ad asperiores accusamus
+            numquam quasi repellendus minima in officia impedit rerum iusto
+            atque incidunt natus.
+          </p>
+          <p>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas ea
+            blanditiis, fuga officiis ipsum voluptatibus ad asperiores accusamus
+            numquam quasi repellendus minima in officia impedit rerum iusto
+            atque incidunt natus.
+          </p>
           <p>
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas ea
             blanditiis, fuga officiis ipsum voluptatibus ad asperiores accusamus
