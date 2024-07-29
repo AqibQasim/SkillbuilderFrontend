@@ -5,6 +5,9 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { fetchCoursesByInstructorId } from "../../../redux/thunks/instructorCoursesThunk";
+import DashboardStudentsOverview from "@/components/DashboardStudentsOverview";
+import AdminInstructorOverview from "@/components/AdminInstructorOverview";
+import AdminDashboardLayout from "@/components/AdminDashboardLayout";
 
 const admin = () => {
   const dispatch = useDispatch();
@@ -24,12 +27,16 @@ const admin = () => {
     }
   }, [dispatch, instructorId]);
   return (
-    <DashboardLayout>
+    <AdminDashboardLayout>
       <AdminRevenueStatistics />
       <br />
       <br />
       <InstructorCourseTable />
-    </DashboardLayout>
+      <br /> <br />
+      <DashboardStudentsOverview />
+      <br /> <br />
+      <AdminInstructorOverview />
+    </AdminDashboardLayout>
   );
 };
 
