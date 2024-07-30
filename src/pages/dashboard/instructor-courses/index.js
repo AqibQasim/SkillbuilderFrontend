@@ -20,13 +20,19 @@ function Courses() {
   console.log("instructor Courses length", instructorCourses.length);
 
   useEffect(() => {
-    if (!instructorId) {
-      dispatch(fetchOneInstructor(userId));
-    }
     if (instructorId) {
       dispatch(fetchCoursesByInstructorId(instructorId));
     }
-  }, [dispatch, instructorId, userId]);
+  }, [dispatch, instructorId]);
+
+  useEffect(
+    function () {
+      if (userId) {
+        dispatch(fetchOneInstructor(userId));
+      }
+    },
+    [userId],
+  );
 
   return (
     <DashboardLayout>
