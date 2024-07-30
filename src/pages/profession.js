@@ -7,23 +7,24 @@ import { fetchOneInstructor } from "../../redux/thunks/instructorThunk";
 
 function profession() {
   const userId = useSelector((state) => state.auth.user);
-  const { user_id: instructorId, isInstLoading } = useSelector(
-    (state) => state.singleInstructor,
-  );
+  const id = useSelector((state) => state.singleInstructor.id);
+  console.log("fetched instructor id in profession.js is:", id);
   const dispatch = useDispatch();
+  console.log("Inst id", id);
 
   useEffect(
     function () {
-      if (!userId) return;
-      if (userId && instructorId) return;
-      dispatch(fetchOneInstructor(userId));
+      if (userId) {
+        dispatch(fetchOneInstructor(userId));
+      }
     },
-    [userId, instructorId],
+    [userId],
   );
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-gray-100">
-      {isInstLoading ? <Loader /> : <Fields />}
+      {/* {isInstLoading ? <Loader /> : <Fields />} */}
+      <Fields />
     </div>
   );
 }

@@ -13,6 +13,7 @@ export const fetchOneInstructor = createAsyncThunk(
         },
       });
       const data = await response.json();
+      console.log('isntructor data:', data);
       if (!response.ok) {
         throw new Error(data.message || "Unable to get instructor");
       }
