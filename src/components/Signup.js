@@ -5,6 +5,10 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { signupUser, signupWithGoogle } from "../../redux/thunks/auththunks";
 import { useSession, signOut } from "next-auth/react";
+import { handleGoogleCallback } from "../../redux/thunks/googlethunk";
+import { GoogleLogin } from '@react-oauth/google';
+import { jwtDecode } from "jwt-decode";
+import axios from "axios";
 // import { handleGoogleCallback } from "../../redux/thunks/googlethunk";
 
 import ShowPassword from "./ShowPassword";
@@ -30,15 +34,29 @@ const Signup = () => {
 
   const handleGoogleSignIn = async () => {
     console.log("calling signup");
+    try{
+      
     window.location.href = "http://localhost:4000/auth/google";
-    // const response = await fetch(`https://localhost:4000/auth/google`, {
+    // const response = await fetch(`http://localhost:4000/auth/google`, {
     //   method: "GET",
-    //   // credentials: "include",
-    //   // headers: {
-    //   //   "Content-Type": "application/json",
-    //   // },
+    //   credentials: "include",
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //   },
     // });
-    // dispatch(handleGoogleCallback());
+    // const config = {
+    //     credentials: "include",
+    //     headers: {
+    //       "Content-Type": "application/json",
+    //     }
+    //   }
+    // const response = await axios.get(`http://localhost:4000/auth/google`, config);
+    // window.location.href = response.data.url;
+    console.log(`response.body: ${response.body}`);
+    dispatch(handleGoogleCallback);
+  } catch (error) {
+    console.error("Google Sign-In error:", error);
+  }
   };
 
   useEffect(() => {
@@ -276,7 +294,8 @@ const Signup = () => {
           <span className="mx-4 text-gray-300">Or</span>
           <div className="flex-grow border-t border-gray-300"></div>
         </div>
-        <button
+        
+        {/* <button
           onClick={handleGoogleSignIn}
           // onClick={() => signIn("google")}
           className="mb-4 mt-4 flex w-full items-center justify-center rounded-lg border border-black bg-white p-2 text-black"
@@ -284,9 +303,21 @@ const Signup = () => {
           <span className="mr-2">
             <Image src="/googlelogo.png" width={25} height={25} alt="" />
             {/* <img src={googleicon} width={24} height={24} alt="Google Icon" /> */}
-          </span>
+          {/*</span>
           <span className="text-sm font-semibold">Continue with Google</span>
-        </button>
+        </button> */}
+        <GoogleLogin
+          onSuccess={credentialResponse => {
+            const decoded = jwtDecode(credentialResponse?.credential);
+            console.log(decoded);
+            console.log(typeof(decoded));
+            // console.log(decoded.keys);
+            console.log(Object.keys(decoded));
+          }}
+          onError={() => {
+            console.log('Login Failed');
+          }}
+        />
       </div>
     </div>
   );

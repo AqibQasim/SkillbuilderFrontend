@@ -9,12 +9,7 @@ const initialState = {
 };
 const authSlice = createSlice({
   name: "auth",
-  initialState: {
-    user: null,
-    error: null,
-    isLoading: false,
-    successMessage: null,
-  },
+  initialState,
   reducers: {
     clearError: (state) => {
       state.error = null;
