@@ -1,7 +1,6 @@
 import { fetchOneCourse } from "../thunks/coursesThunks";
 import { createSlice } from "@reduxjs/toolkit";
 
-
 const singleCourseSlice = createSlice({
   name: "course",
   initialState: {
@@ -12,7 +11,7 @@ const singleCourseSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(fetchOneCourse.pending, (state) => {    
+      .addCase(fetchOneCourse.pending, (state) => {
         state.isLoading = true;
         state.error = null;
       })
@@ -20,6 +19,7 @@ const singleCourseSlice = createSlice({
         console.log("action:", action);
         state.data = action.payload;
         state.isLoading = false;
+        state.error = null;
       })
       .addCase(fetchOneCourse.rejected, (state, action) => {
         state.error = action.payload;

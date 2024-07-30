@@ -11,7 +11,7 @@ function InstructorCourseStatus({ status }) {
     <div
       className={`flex w-max items-center justify-center gap-3 rounded-md px-3 py-2 ${statusClass[status]}`}
     >
-      <CoursStatusIconSvg className="h-5 w-5" status={status.toLowerCase()} />
+      <CoursStatusIconSvg className="h-5 w-5" status={status?.toLowerCase()} />
       <span className="capitalize">{status}</span>
     </div>
   );
