@@ -25,7 +25,7 @@ function Courses() {
 
   return (
     <DashboardLayout>
-      <InstructorCourseTable />
+      <InstructorCourseTable filter_courses="All Courses" />
     </DashboardLayout>
   );
 }
