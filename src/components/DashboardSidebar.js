@@ -18,10 +18,10 @@ const links = [
 ];
 
 const isActiveLink = (pathname, linkHref) => {
-  if (linkHref === "/dashboard/instructor-courses") {
-    return pathname.startsWith(linkHref);
+  if (linkHref === "/dashboard") {
+    return pathname === linkHref;
   }
-  return pathname === linkHref;
+  return pathname.startsWith(linkHref);
 };
 
 const DashboardSidebar = () => {
