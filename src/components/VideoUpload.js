@@ -93,6 +93,7 @@ const VideoUpload = ({ setSelectedVideo }) => {
 
   const handleRemoveVideo = () => {
     setVideoFile(null);
+    setSelectedVideo(null);
     setshowVideo(false);
     setVideoUrl("");
     fileInputRef.current.value = null;
