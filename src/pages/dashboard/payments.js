@@ -2,6 +2,10 @@ import { useState, useEffect } from "react";
 import withAuth from "@/components/WithAuth";
 import DashboardLayout from "../../components/DashboardLayout";
 import Button from '../../components/Button';
+import Connect from "@/components/Connect";
+import ConnectHistory from "@/components/ConnectHistory";
+
+const StripeAccID = 'acct_1PhsqfCaBZI977Uj'
 
 const createAccount = async (setAccountCreatePending, setError, setConnectedAccountId) => {
     setAccountCreatePending(true);
@@ -69,13 +73,18 @@ function Payments() {
 
     return (
         <DashboardLayout>
-            <div className="text-center">
+            <div className="text-center ">
                 <h1 className="text-2xl font-bold">Payment</h1>
                 {connectedAccountId && !accountLinkCreatePending && (
                     <p>Your Stripe Account ID is: {connectedAccountId}</p>
                 )}
+                <div className=""></div>
+                <h1 className="text-2xl font-bold my-3 text-start">Payouts</h1>
+                < Connect stripe_account_id={StripeAccID}/>
+                <h1 className="text-2xl font-bold my-3 text-start">Payment History</h1>
+                < ConnectHistory stripe_account_id={StripeAccID}/>
                 <div className="flex justify-end">
-                    <Button className="md:block mt-32" onClick={handleAccountLink}>
+                    <Button className="md:block mt-10" onClick={handleAccountLink}>
                         Add Payment Details
                     </Button>
                 </div>

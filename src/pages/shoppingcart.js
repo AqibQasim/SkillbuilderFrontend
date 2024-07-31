@@ -19,6 +19,7 @@ const ShoppingCart = () => {
   const router = useRouter();
   const [isClient, setIsClient] = useState(false);
   const courses = useSelector((state) => state.cart.items);
+  
   console.log("length in root file:", courses?.length)
 
   useEffect(() => {
