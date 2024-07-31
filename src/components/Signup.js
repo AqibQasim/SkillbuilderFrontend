@@ -31,11 +31,12 @@ const Signup = () => {
   const handleGoogleSignIn = async () => {
     console.log("calling signup");
     window.location.href = "http://localhost:4000/auth/google";
+
     // const response = await fetch(`https://localhost:4000/auth/google`, {
     //   method: "GET",
     //   // credentials: "include",
     //   // headers: {
-    //   //   "Content-Type": "application/json",
+    //   //   "Content-Type": "a  pplication/json",
     //   // },
     // });
     // dispatch(handleGoogleCallback());
@@ -237,7 +238,7 @@ const Signup = () => {
               className="form-checkbox h-4 w-4 text-blue-500"
               required
             />
-            <span className="ml-2 text-sm font-semibold text-black">
+            <span className="text-black ml-2 text-sm font-semibold">
               I agree to all our{" "}
               <a href="/login" className="text-blue-600 hover:underline">
                 Terms & Conditions
@@ -279,7 +280,7 @@ const Signup = () => {
         <button
           onClick={handleGoogleSignIn}
           // onClick={() => signIn("google")}
-          className="mb-4 mt-4 flex w-full items-center justify-center rounded-lg border border-black bg-white p-2 text-black"
+          className="border-black text-black mb-4 mt-4 flex w-full items-center justify-center rounded-lg border bg-white p-2"
         >
           <span className="mr-2">
             <Image src="/googlelogo.png" width={25} height={25} alt="" />
