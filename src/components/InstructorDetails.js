@@ -6,19 +6,18 @@ import Button from "./Button";
 const InstructorDetails = ({ onNext }) => {
   const profile = useSelector((state) => state.profile);
   const [formData, setFormData] = useState({
-    id: profile.id,
+    user_id: profile.id,
     experience: ["Web-Development", "Beginner-level Devops"],
     specialization: "Web-Development",
     qualifications: [
-      { degree: "BSSE", percentage: 90.0, instructor_id: profile?.id },
+      { degree: "BSSE", percentage: 90.0 },
     ],
     skills: [
-      { title: "Next JS", percentage: "90%", instructor_id: profile?.id },
-      { title: "Express JS", percentage: "90%", instructor_id: profile?.id },
+      { title: "Next JS", percentage: "90%"},
+      { title: "Express JS", percentage: "90%" },
     ],
     video_url: "temporary video url",
   });
-
   const dispatch = useDispatch();
   const { loading, error } = useSelector((state) => state.instructor || {});
 
@@ -98,7 +97,6 @@ const InstructorDetails = ({ onNext }) => {
           return {
             degree: educationDetails[index + 1].value,
             percentage: parseFloat(detail.value),
-            instructor_id: profile.id,
           };
         })
         .filter(Boolean), // Remove null values
@@ -108,19 +106,18 @@ const InstructorDetails = ({ onNext }) => {
           return {
             title: skills[index + 1].value,
             percentage: detail.value,
-            instructor_id: profile.id,
           };
         })
         .filter(Boolean), // Remove null values
     };
 
-    // const resultAction = await dispatch(createInstructor(updatedFormData));
-    // if (createInstructor.fulfilled.match(resultAction)) {
-    //   onNext();
-    // } else {
-    //   console.error("Failed to create instructor:", resultAction.payload);
-    // }
-    onNext();
+    const resultAction = await dispatch(createInstructor(updatedFormData));
+    if (createInstructor.fulfilled.match(resultAction)) {
+      onNext();
+    } else {
+      console.error("Failed to create instructor:", resultAction.payload);
+    }
+    // onNext();
   };
 
   return (
