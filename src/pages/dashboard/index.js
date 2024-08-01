@@ -20,7 +20,7 @@ function Dashboard() {
 
   console.log("instructor Courses", instructorCourses);
   console.log("instructor Courses length", instructorCourses.length);
-
+  3;
   useEffect(() => {
     if (instructorId) {
       dispatch(fetchCoursesByInstructorId(instructorId));
