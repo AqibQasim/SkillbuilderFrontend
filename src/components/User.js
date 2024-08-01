@@ -206,7 +206,7 @@ function User({ cartClickHandler, cartItemsLength }) {
 
   return (
     <Link
-      href="/signup"
+      href="/login"
       className="hidden w-full items-center justify-between rounded-lg bg-blue px-4 py-2 text-white lg:flex lg:w-auto"
     >
       Get started
