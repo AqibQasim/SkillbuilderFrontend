@@ -37,8 +37,8 @@ function Payments() {
     const [error, setError] = useState(false);
     const [connectedAccountId, setConnectedAccountId] = useState();
     const [accountLinkUrl, setAccountLinkUrl] = useState(null); // State to hold the URL
-    // const { id } = useSelector(state => state.profile)
-    const id = useSelector((state) => state.singleInstructor.id);
+    const { id } = useSelector(state => state.profile)
+    // const id = useSelector((state) => state.singleInstructor.id);
 
     console.log(`id is ${id}`)
 
