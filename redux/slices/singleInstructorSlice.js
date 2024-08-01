@@ -1,32 +1,45 @@
-import { fetchOneCourse } from "../thunks/coursesThunks";
 import { createSlice } from "@reduxjs/toolkit";
 import { fetchOneInstructor } from "../thunks/instructorThunk";
 
+const initialState = {
+  id: null,
+  user_id: null,
+  experience: "",
+  specialization: "",
+  video_url: "",
+  status: "",
+  created_at: "",
+  skills: [],
+  reviews: [],
+  education: [],
+  isInstLoading: false,
+  InstructorError: null,
+  successMessage: null,
+};
 
-const singleCourseSlice = createSlice({
+const singleInstructorSlice = createSlice({
   name: "instructor",
-  initialState: {
-    instructorData: {},
-    isInstLoading: false,
-    InstructorError: null,
-  },
+  initialState,
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(fetchOneInstructor.pending, (state) => {    
+      .addCase(fetchOneInstructor.pending, (state) => {
         state.isInstLoading = true;
         state.InstructorError = null;
+        state.successMessage = null;
       })
       .addCase(fetchOneInstructor.fulfilled, (state, action) => {
-        console.log("action:", action);
-        state.instructorData = action.payload;
+        Object.assign(state, action.payload);
         state.isInstLoading = false;
+        state.InstructorError = null;
+        state.successMessage = "Instructor fetched successfully";
       })
       .addCase(fetchOneInstructor.rejected, (state, action) => {
-        state.InstructorError = action.payload;
+        state.InstructorError = action.payload || action.error.message;
         state.isInstLoading = false;
+        state.successMessage = null;
       });
   },
 });
 
-export default singleCourseSlice.reducer;
+export default singleInstructorSlice.reducer;

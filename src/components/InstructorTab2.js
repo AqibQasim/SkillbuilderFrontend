@@ -1,9 +1,6 @@
-import React from "react";
-import InstructorIntendedLearner from "./InstructorIntendedLearner";
-import SkillBuilderSvg from "./SkillBuilderSvg";
 import InstructorDetails from "./InstructorDetails";
+import SkillBuilderSvg from "./SkillBuilderSvg";
 import TakeIntro from "./TakeIntro";
-import Congrats from "./Congrats";
 
 const InstructorTab2 = ({ steps, currentStep, onNext, onPrev }) => {
   return (

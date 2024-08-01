@@ -3,6 +3,7 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 export const createInstructor = createAsyncThunk(
   "instructor/createInstructor",
   async (instructorData, { rejectWithValue }) => {
+    console.log("Instructor data in thunk :", instructorData);
     try {
       const response = await fetch(
         `${process.env.NEXT_PUBLIC_BASE_API}/create-instructor`,

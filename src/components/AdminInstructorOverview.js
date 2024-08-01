@@ -1,13 +1,12 @@
-import withAuth from "@/components/WithAuth";
-import DashboardLayout from "@/components/DashboardLayout";
-import InstructorsStudentsTable from "@/components/InstructorsStudentsTable";
+import { useRouter } from "next/router";
+import ViewAll from "./ViewAll";
 
 const imageUrl1 =
   "https://img.freepik.com/premium-photo/cute-middle-school-teacher-3d-isolated-flat-color-background_1022901-80438.jpg?w=740";
 const imageUrl2 =
   "https://img.freepik.com/premium-photo/3d-cartoon-style-illustration-young-vietnamese-female-character-finance-educational-game_1283595-3459.jpg?w=740";
 
-export const dummyStudents = [
+export const dummyinstructors = [
   {
     id: 1,
     name: "Adriana Charlotte",
@@ -106,32 +105,51 @@ export const dummyStudents = [
   },
 ];
 
-const enrolledCourses = ["UI/UX Designing", "Java Programming", "Data Science"];
+function AdminInstructorOverview() {
+  const isLoading = false;
+  const router = useRouter();
 
-export const courseStudentsdummyData = dummyStudents.map((student) => ({
-  id: student.id,
-  image: student.image,
-  name: student.name,
-  enrolledCourses: [...enrolledCourses],
-  email: student.email,
-  joiningDate: student.purchaseDate,
-}));
+  const handleViewAllClick = () => {
+    router.push({
+      pathname: router.pathname,
+      query: { ...router.query, view: "Instructors" },
+    });
+  };
 
-export const specificCourseStudentsDummydata = dummyStudents.map((student) => ({
-  id: student.id,
-  image: student.image,
-  name: student.name,
-  email: student.email,
-  purchaseDate: student.purchaseDate,
-  courseProgress: student.courseProgress,
-}));
-
-function Students() {
   return (
-    <DashboardLayout>
-      <InstructorsStudentsTable />
-    </DashboardLayout>
+    <div className="">
+      <div className="header flex items-center justify-between">
+        <h2 className="text-2xl font-medium">Instructors</h2>
+        <ViewAll onClick={handleViewAllClick} />
+      </div>
+      <div className="scrollbar-custom mt-4 flex min-h-12 w-full space-x-4 overflow-x-scroll bg-white px-7 py-8">
+        {isLoading && <p>Loading...</p>}
+        {!isLoading && !dummyinstructors?.length ? (
+          <p>No students enrolled for the current course.</p>
+        ) : null}
+        {!isLoading && dummyinstructors?.length
+          ? dummyinstructors.map((instructor, index) => (
+              <AdminInstructor key={index} instructor={instructor} />
+            ))
+          : null}
+      </div>
+    </div>
   );
 }
 
-export default withAuth(Students);
+export default AdminInstructorOverview;
+
+function AdminInstructor({ instructor }) {
+  return (
+    <div className="flex flex-col items-center">
+      <img
+        src={instructor.image}
+        alt={instructor.name}
+        className="h-20 w-20 rounded-full object-cover"
+      />
+      <p className="mt-2 text-nowrap text-center capitalize">
+        {instructor.name}
+      </p>
+    </div>
+  );
+}

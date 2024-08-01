@@ -21,10 +21,10 @@ const links = [
 ];
 
 const isActiveLink = (pathname, linkHref) => {
-  if (linkHref === "/dashboard/instructor-courses") {
-    return pathname.startsWith(linkHref);
+  if (linkHref === "/dashboard") {
+    return pathname === linkHref;
   }
-  return pathname === linkHref;
+  return pathname.startsWith(linkHref);
 };
 
 const DashboardSidebar = () => {
@@ -53,9 +53,9 @@ const DashboardSidebar = () => {
           {links.map((link) => (
             <li key={link.href}>
               <Link
-                className={`text-red text-gray-shade-1 flex w-full cursor-pointer items-center justify-start gap-3 rounded-lg px-4 py-3 transition-colors duration-300 hover:bg-dashboard-sidenav-bg hover:text-black lg:px-5 lg:py-3 ${
+                className={`text-red hover:text-black flex w-full cursor-pointer items-center justify-start gap-3 rounded-lg px-4 py-3 text-gray-shade-1 transition-colors duration-300 hover:bg-dashboard-sidenav-bg lg:px-5 lg:py-3 ${
                   isActiveLink(pathname, link.href)
-                    ? "bg-dashboard-sidenav-bg text-black"
+                    ? "text-black bg-dashboard-sidenav-bg"
                     : ""
                 }`}
                 href={link.href}

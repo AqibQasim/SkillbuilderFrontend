@@ -5,6 +5,8 @@ import Button from "./Button";
 import Link from "next/link";
 import { useSelector, useDispatch } from "react-redux";
 import { uploadVideo } from "../../redux/thunks/instructorvideothunk";
+import { decrementIndex as instructorDecrementIndex } from "../../redux/slices/createInstructorSlice";
+import { createInstructor } from "../../redux/thunks/createInstructorthunk";
 
 const TakeIntro = ({ onPrev }) => {
   const [selectedVideo, setSelectedVideo] = useState(null);
@@ -12,13 +14,21 @@ const TakeIntro = ({ onPrev }) => {
   const dispatch = useDispatch();
   const { loading, success, error } = useSelector((state) => state.videoUpload);
 
+  const {
+    instructorDetails,
+    loading: createInstructorLoading,
+    error: createInstructorError,
+    successMessage: createInstructorSuccessMessage,
+  } = useSelector((state) => state.instructor);
+
   // const continueHandler = () => {
   //   router.push("/congratulations");
   // };
 
   const uploadvideoHandler = () => {
     if (selectedVideo) {
-      dispatch(uploadVideo(selectedVideo));
+      dispatch(createInstructor(instructorDetails));
+      // dispatch(uploadVideo(selectedVideo));
     }
   };
 
@@ -33,12 +43,16 @@ const TakeIntro = ({ onPrev }) => {
             <VideoUpload setSelectedVideo={setSelectedVideo} />
           </div>
         </div>
-        <div
+        {/* <div
           className={`flex w-full flex-wrap items-center justify-center gap-4 p-4 ${videoUploaded ? "mt-6" : "mt-0"}`}
-        ></div>
+        ></div> */}
       </div>
       <div className="mt-4 flex justify-end gap-4">
-        <Button variant="secondary" onClick={onPrev}>
+        {/* <Button variant="secondary" onClick={onPrev}> */}
+        <Button
+          variant="secondary"
+          onClick={() => dispatch(instructorDecrementIndex())}
+        >
           Previous
         </Button>
 
@@ -51,9 +65,14 @@ const TakeIntro = ({ onPrev }) => {
           Continue
         </Button>
 
-        {loading && <p>Uploading...</p>}
+        {(createInstructorLoading || loading) && <p>Uploading...</p>}
+        {createInstructorSuccessMessage && (
+          <p>{createInstructorSuccessMessage}!</p>
+        )}
         {success && <p>Video uploaded successfully!</p>}
-        {error && <p>Error: {error}</p>}
+        {(createInstructorError || error) && (
+          <p>Error: {createInstructorError || error}</p>
+        )}
       </div>
     </>
   );

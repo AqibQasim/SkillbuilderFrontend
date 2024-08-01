@@ -1,17 +1,21 @@
-import React, { useEffect } from "react";
 import DashboardLayout from "@/components/DashboardLayout";
+import withAuth from "@/components/WithAuth";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchCoursesByInstructorId } from "../../../redux/thunks/instructorCoursesThunk";
-import withAuth from "@/components/WithAuth";
+import { fetchOneInstructor } from "../../../redux/thunks/instructorThunk";
 
 function Dashboard() {
-  const dispatch = useDispatch();
-  const instructorId = useSelector((state) => state.profile.id);
+  const userId = useSelector((state) => state.auth.user);
+  const instructorId = useSelector((state) => state.singleInstructor.id);
   const {
     courses: instructorCourses,
     isLoading,
     error,
   } = useSelector((state) => state.instructorCourses);
+  const dispatch = useDispatch();
+
+  console.log("id for course payload", instructorId);
 
   console.log("instructor Courses", instructorCourses);
   console.log("instructor Courses length", instructorCourses.length);
@@ -21,6 +25,15 @@ function Dashboard() {
       dispatch(fetchCoursesByInstructorId(instructorId));
     }
   }, [dispatch, instructorId]);
+
+  useEffect(
+    function () {
+      if (userId) {
+        dispatch(fetchOneInstructor(userId));
+      }
+    },
+    [userId],
+  );
 
   return (
     <DashboardLayout>
@@ -42,6 +55,30 @@ function Dashboard() {
         )}
 
         <div className="my-9">
+          <p>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas ea
+            blanditiis, fuga officiis ipsum voluptatibus ad asperiores accusamus
+            numquam quasi repellendus minima in officia impedit rerum iusto
+            atque incidunt natus.
+          </p>
+          <p>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas ea
+            blanditiis, fuga officiis ipsum voluptatibus ad asperiores accusamus
+            numquam quasi repellendus minima in officia impedit rerum iusto
+            atque incidunt natus.
+          </p>
+          <p>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas ea
+            blanditiis, fuga officiis ipsum voluptatibus ad asperiores accusamus
+            numquam quasi repellendus minima in officia impedit rerum iusto
+            atque incidunt natus.
+          </p>
+          <p>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas ea
+            blanditiis, fuga officiis ipsum voluptatibus ad asperiores accusamus
+            numquam quasi repellendus minima in officia impedit rerum iusto
+            atque incidunt natus.
+          </p>
           <p>
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas ea
             blanditiis, fuga officiis ipsum voluptatibus ad asperiores accusamus

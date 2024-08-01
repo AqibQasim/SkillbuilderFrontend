@@ -37,13 +37,13 @@ function Payments() {
     const [error, setError] = useState(false);
     const [connectedAccountId, setConnectedAccountId] = useState();
     const [accountLinkUrl, setAccountLinkUrl] = useState(null); // State to hold the URL
-    const { id } = useSelector(state => state.profile)
-    // const id = useSelector((state) => state.singleInstructor.id);
+    // const { id } = useSelector(state => state.profile)
+    const id = useSelector((state) => state.singleInstructor.id);
 
-    
+    console.log(`id is ${id}`)
 
     useEffect(() => {
-        console.log(`id is ${id}`)
+        
         const fetchPaymentDetails = async () => {
             try {
                 const stripe_acc_details = await fetch(`http://127.0.0.1:4000/check-payment-rec?instructor_id=${id}`, {
