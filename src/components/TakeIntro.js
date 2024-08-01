@@ -32,7 +32,7 @@ const TakeIntro = ({ onPrev }) => {
         return result.message;
       },
       {
-        pending: "Uploading video...",
+        pending: "Loading...",
         success: {
           render({ data }) {
             return data.message;
