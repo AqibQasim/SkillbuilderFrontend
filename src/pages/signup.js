@@ -6,7 +6,7 @@ dotenv.config({ path: '../../.env' });
 
 function signup() {
   return (
-    <GoogleOAuthProvider clientId='1004575378288-drg77ff0g4521st4kvlfck9na4h4pnos.apps.googleusercontent.com'>
+    <GoogleOAuthProvider clientId={process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID}>
       <div className="flex min-h-screen items-center justify-center bg-gray-100 py-4">
         <Signup />
       </div>

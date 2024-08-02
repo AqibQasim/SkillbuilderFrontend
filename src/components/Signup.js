@@ -8,13 +8,21 @@ import { useSession, signOut } from "next-auth/react";
 import { handleGoogleCallback } from "../../redux/thunks/googlethunk";
 import { GoogleLogin } from '@react-oauth/google';
 import { jwtDecode } from "jwt-decode";
+import { useRouter } from "next/router";
+import { clearError } from "../../redux/slices/authSlice";
+import {
+  clearEmail as clearLoginFlowEmail,
+  setEmail as setLoginFlowEmail,
+} from "../../redux/slices/loginFlowSlice";
 import axios from "axios";
 // import { handleGoogleCallback } from "../../redux/thunks/googlethunk";
 
 import ShowPassword from "./ShowPassword";
+import ApiService from "../../redux/ApiService";
 // import { signupUser } from "../../redux/thunks/auththunks";
 
 const Signup = () => {
+  const router = useRouter();
   const [first_name, setfirst_name] = useState("");
   const [last_name, setlast_name] = useState("");
   const [email, setEmail] = useState("");
@@ -65,6 +73,70 @@ const Signup = () => {
       createGoogleUser(data);
     }
   }, [status, data]);
+  
+  useEffect(() => {
+    dispatch(clearError());
+    dispatch(clearLoginFlowEmail());
+  }, []);
+
+  const SignUpSSOUser = async (credentialResponse) => {
+    const decoded = jwtDecode(credentialResponse?.credential);
+    console.log(decoded);
+    // console.log(typeof(decoded));
+    // console.log(decoded.keys);
+    console.log(Object.keys(decoded));
+    // const result = await axios.post(`${process.env.NEXT_PUBLIC_BASE_API}/signup-googleSSO`,decoded);
+    const fullName = decoded.name;
+    const nameParts = fullName.split(" ");
+    const fname = nameParts.splice(0, 1)[0];
+    const lname = nameParts.join(" ");
+    const dataSend = {
+      email:decoded.email,
+      fname:fname,
+      lname:lname
+    }
+
+    // const response = await ApiService({ 
+    //   body:JSON.stringify(dataSend),
+    //   endpoint: "signup-googleSSO",
+    //   method:"POST"
+    // })
+
+    //console.log("###################",response);
+    const response = await fetch(
+      `http://localhost:4000/signup-googleSSO`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(dataSend),
+      },
+    );
+    const data = await response.json();
+      // console.log("response: ",response.json());
+    console.log("data:", data.token);
+    if (!response.ok) {
+      throw new Error(data.message || "Unable to Signup");
+    } else {
+      //response.token me token hai
+      // console.log("response: ",response);
+      // console.log(Object.keys(response));
+      const decoded = jwtDecode(data.token.token);
+      console.log(decoded);
+      console.log(Object.keys(decoded));
+
+      const id = decoded.id;
+      const email = decoded.email;
+      console.log();
+      //State management variables update kren 
+      dispatch(setLoginFlowEmail(email));
+
+
+      //User ko Home pr redirect kren
+      router.replace("/home");
+    }
+  }
 
   const createGoogleUser = async (data) => {
     try {
@@ -306,18 +378,14 @@ const Signup = () => {
           {/*</span>
           <span className="text-sm font-semibold">Continue with Google</span>
         </button> */}
-        <GoogleLogin
-          onSuccess={credentialResponse => {
-            const decoded = jwtDecode(credentialResponse?.credential);
-            console.log(decoded);
-            console.log(typeof(decoded));
-            // console.log(decoded.keys);
-            console.log(Object.keys(decoded));
-          }}
-          onError={() => {
-            console.log('Login Failed');
-          }}
-        />
+        <div className="w-full">
+          <GoogleLogin
+            onSuccess={SignUpSSOUser}
+            onError={() => {
+              console.log('Login Failed');
+            }}
+          />
+        </div>
       </div>
     </div>
   );

@@ -27,6 +27,7 @@ export const loginUser = createAsyncThunk(
       let dataForProfile;
       if (data.user) {
         dataForProfile = filterObject(data.user);
+        console.log(`dataForProfile: ${dataForProfile}`);
         dispatch(editProfile(dataForProfile));
       }
 
@@ -100,6 +101,32 @@ export const signupUser = createAsyncThunk(
 export const signupWithGoogle = createAsyncThunk(
   "auth/googleSignup",
   async (token, { rejectWithValue }) => {
+    try {
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_BASE_API}/auth/google`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ token }),
+        },
+      );
+      const data = await response.json();
+      console.log("API Response Data:", data);
+      if (!response.ok) {
+        throw new Error(data.message || "Unable to sign up with Google");
+      }
+      return data; // assuming the API returns the user object
+    } catch (error) {
+      return rejectWithValue(error.message || "Failed to sign up with Google");
+    }
+  },
+);
+
+export const HandleSignUpSSOUser = createAsyncThunk(
+  "auth/SignUpSSOUser",
+  async (decodedResponse) => {
     try {
       const response = await fetch(
         `${process.env.NEXT_PUBLIC_BASE_API}/auth/google`,
