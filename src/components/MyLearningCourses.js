@@ -1,8 +1,9 @@
+import { useRouter } from "next/router";
 import LayoutWidth from "./LayoutWidth";
 
-const enrolledDummyCourses = [
+export const enrolledDummyCourses = [
   {
-    id: Date.now(),
+    id: 0,
     image:
       "https://www.tatvasoft.com/outsourcing/wp-content/uploads/2023/06/Types-of-Web-Development-for-your-Project-768x389.jpg",
     title: "Introduction to Web Development",
@@ -10,7 +11,7 @@ const enrolledDummyCourses = [
     progress: 25,
   },
   {
-    id: Date.now() + 1,
+    id: 1,
     image:
       "https://miro.medium.com/v2/resize:fit:1100/format:webp/1*YclJ1hp8CgncNJiFmZCCmg.jpeg",
     title: "Advanced JavaScript Techniques",
@@ -18,7 +19,7 @@ const enrolledDummyCourses = [
     progress: 50,
   },
   {
-    id: Date.now() + 2,
+    id: 2,
     image:
       "https://media.licdn.com/dms/image/D4D12AQHLOphoHIjmoA/article-cover_image-shrink_720_1280/0/1680313616595?e=2147483647&v=beta&t=MDjk4m7S2o2GJeVZGRSsA8WkmumgdYuQiTZfQ2bRkBk",
     title: "React for Beginners",
@@ -26,35 +27,35 @@ const enrolledDummyCourses = [
     progress: 75,
   },
   {
-    id: Date.now() + 3,
+    id: 3,
     image: "/abouthero.png",
     title: "Mastering Node.js",
     instructor: "James Williams",
     progress: 90,
   },
   {
-    id: Date.now() + 4,
+    id: 4,
     image: "/contact-us.png",
     title: "CSS Grid and Flexbox",
     instructor: "Patricia Brown",
     progress: 10,
   },
   {
-    id: Date.now() + 5,
+    id: 5,
     image: "/my-learning.png",
     title: "Full-Stack Development",
     instructor: "Michael Davis",
     progress: 35,
   },
   {
-    id: Date.now() + 6,
+    id: 6,
     image: "/courseImg.png",
     title: "Intro to Python Programming",
     instructor: "Linda Miller",
     progress: 60,
   },
   {
-    id: Date.now() + 7,
+    id: 7,
     image: "/goal4.png",
     title: "Database Design and SQL",
     instructor: "Robert Wilson",
@@ -71,7 +72,7 @@ function MyLearningCourses() {
     <LayoutWidth>
       <div className="grid grid-cols-[repeat(auto-fill,minmax(320px,1fr))] justify-items-center gap-4">
         {enrolledDummyCourses.map((course) => (
-          <MyLearningCourseCard course={course} />
+          <MyLearningCourseCard course={course} key={course.id} />
         ))}
       </div>
     </LayoutWidth>
@@ -82,9 +83,17 @@ export default MyLearningCourses;
 
 function MyLearningCourseCard({ course }) {
   const { id, image, title, instructor, progress } = course;
+  const router = useRouter();
+
+  function handleClick() {
+    router.push(`/my-learning/${id}`);
+  }
 
   return (
-    <div className="course-card img-container border- mb-4 flex h-auto w-full max-w-sm transform cursor-pointer flex-col items-start rounded-2xl border border-gray-shade-2 bg-white px-3 py-4 transition duration-300 hover:border-[rgb(152,159,233)] hover:shadow-lg">
+    <div
+      onClick={handleClick}
+      className="course-card img-container border- mb-4 flex h-auto w-full max-w-sm transform cursor-pointer flex-col items-start rounded-2xl border border-gray-shade-2 bg-white px-3 py-4 transition duration-300 hover:border-[rgb(152,159,233)] hover:shadow-lg"
+    >
       <div className="image-wrapper relative max-h-36 w-full">
         <img
           className="!m-0 block size-full rounded-2xl object-cover"
