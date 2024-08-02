@@ -3,20 +3,22 @@ import HomeSvg from "./HomeSvg";
 import RightIconSvg from "./RightIconSvg";
 import Link from "next/link";
 
+function formatPath(pathSegments, dynamicPath) {
+  return pathSegments.map((segment, index, array) => {
+    const formattedSegment = segment.replace(/-/g, " ");
+    if (formattedSegment === "[id]") {
+      return dynamicPath;
+    }
+    return formattedSegment;
+  });
+}
+
 function CurrentPath({ className, dynamicPath = "Dynamic title for id path" }) {
   const router = useRouter();
   const pathSegments = router.pathname.replace("/", "").split("/");
   const { id } = router.query;
 
-  // Add hyphen replacement logic
-  const formattedSegments = pathSegments.map((segment) =>
-    segment.replace(/-/g, " "),
-  );
-
-  // Replace the last segment if it matches [id]
-  if (formattedSegments[formattedSegments.length - 1] === "[id]") {
-    formattedSegments[formattedSegments.length - 1] = dynamicPath;
-  }
+  const formattedSegments = formatPath(pathSegments, dynamicPath);
 
   const createPath = (index) =>
     `/${pathSegments.slice(0, index + 1).join("/")}`;
