@@ -27,7 +27,7 @@ function MyLearning() {
       <div className="h-[100%] w-[100%] bg-bg_gray">
         <Navbar cartItemsLength={courses?.length} />
         <LayoutWidth>
-          <div className="path-wrapper mx-auto mb-8 mt-16 w-[90%] max-w-screen-2xl">
+          <div className="path-wrapper mb-8 mt-16">
             <CurrentPath />
           </div>
         </LayoutWidth>

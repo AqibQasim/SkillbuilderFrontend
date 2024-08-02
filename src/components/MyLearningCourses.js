@@ -9,6 +9,10 @@ export const enrolledDummyCourses = [
     title: "Introduction to Web Development",
     instructor: "Jane Smith",
     progress: 25,
+    purchaseDate: new Date(2023, 0, 15), // January 15, 2023
+    description:
+      "Learn the basics of web development, including HTML, CSS, and JavaScript. This course will guide you through the foundational concepts, best practices, and practical skills needed to start building modern websites.",
+    skills: ["HTML", "CSS", "JavaScript", "Responsive Design"],
   },
   {
     id: 1,
@@ -17,6 +21,10 @@ export const enrolledDummyCourses = [
     title: "Advanced JavaScript Techniques",
     instructor: "John Doe",
     progress: 50,
+    purchaseDate: new Date(2023, 1, 20), // February 20, 2023
+    description:
+      "Deep dive into advanced JavaScript concepts and techniques. This course covers asynchronous programming, closures, prototypes, and other advanced topics to help you write more efficient and maintainable code.",
+    skills: ["ES6+", "Asynchronous Programming", "Closures", "Prototypes"],
   },
   {
     id: 2,
@@ -25,6 +33,15 @@ export const enrolledDummyCourses = [
     title: "React for Beginners",
     instructor: "Mary Johnson",
     progress: 75,
+    purchaseDate: new Date(2023, 2, 10), // March 10, 2023
+    description:
+      "Learn the fundamentals of React and how to build interactive UIs. This course will introduce you to components, state management, lifecycle methods, and hooks, enabling you to create dynamic web applications.",
+    skills: [
+      "React Basics",
+      "Component Lifecycle",
+      "State Management",
+      "Hooks",
+    ],
   },
   {
     id: 3,
@@ -32,6 +49,10 @@ export const enrolledDummyCourses = [
     title: "Mastering Node.js",
     instructor: "James Williams",
     progress: 90,
+    purchaseDate: new Date(2023, 3, 5), // April 5, 2023
+    description:
+      "Become proficient in Node.js and build scalable server-side applications. This comprehensive course covers everything from setting up your environment to creating RESTful APIs, working with databases, and deploying your applications.",
+    skills: ["Node.js", "Express.js", "REST APIs", "Middleware"],
   },
   {
     id: 4,
@@ -39,6 +60,10 @@ export const enrolledDummyCourses = [
     title: "CSS Grid and Flexbox",
     instructor: "Patricia Brown",
     progress: 10,
+    purchaseDate: new Date(2023, 4, 15), // May 15, 2023
+    description:
+      "Master CSS Grid and Flexbox to create complex and responsive layouts.",
+    skills: ["CSS Grid", "Flexbox", "Responsive Design", "Layout Techniques"],
   },
   {
     id: 5,
@@ -46,6 +71,15 @@ export const enrolledDummyCourses = [
     title: "Full-Stack Development",
     instructor: "Michael Davis",
     progress: 35,
+    purchaseDate: new Date(2023, 5, 25), // June 25, 2023
+    description:
+      "Learn to build full-stack applications with modern web technologies.",
+    skills: [
+      "Frontend Development",
+      "Backend Development",
+      "Databases",
+      "APIs",
+    ],
   },
   {
     id: 6,
@@ -53,6 +87,9 @@ export const enrolledDummyCourses = [
     title: "Intro to Python Programming",
     instructor: "Linda Miller",
     progress: 60,
+    purchaseDate: new Date(2023, 6, 5), // July 5, 2023
+    description: "Get started with Python programming and learn the basics.",
+    skills: ["Python Basics", "Data Types", "Control Structures", "Functions"],
   },
   {
     id: 7,
@@ -60,6 +97,9 @@ export const enrolledDummyCourses = [
     title: "Database Design and SQL",
     instructor: "Robert Wilson",
     progress: 80,
+    purchaseDate: new Date(2023, 7, 15), // August 15, 2023
+    description: "Learn to design databases and write efficient SQL queries.",
+    skills: ["Database Design", "SQL Basics", "Joins", "Normalization"],
   },
 ];
 
