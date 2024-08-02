@@ -80,63 +80,50 @@ const Signup = () => {
   }, []);
 
   const SignUpSSOUser = async (credentialResponse) => {
-    const decoded = jwtDecode(credentialResponse?.credential);
-    console.log(decoded);
-    // console.log(typeof(decoded));
-    // console.log(decoded.keys);
-    console.log(Object.keys(decoded));
-    // const result = await axios.post(`${process.env.NEXT_PUBLIC_BASE_API}/signup-googleSSO`,decoded);
-    const fullName = decoded.name;
-    const nameParts = fullName.split(" ");
-    const fname = nameParts.splice(0, 1)[0];
-    const lname = nameParts.join(" ");
-    const dataSend = {
-      email:decoded.email,
-      fname:fname,
-      lname:lname
-    }
-
-    // const response = await ApiService({ 
-    //   body:JSON.stringify(dataSend),
-    //   endpoint: "signup-googleSSO",
-    //   method:"POST"
-    // })
-
-    //console.log("###################",response);
-    const response = await fetch(
-      `http://localhost:4000/signup-googleSSO`,
-      {
+  
+    try {
+      const decoded = jwtDecode(credentialResponse?.credential);
+      console.log(decoded);
+  
+      const fullName = decoded.name;
+      const nameParts = fullName.split(" ");
+      const fname = nameParts.splice(0, 1)[0];
+      const lname = nameParts.join(" ");
+      const dataSend = {
+        email: decoded.email,
+        fname: fname,
+        lname: lname,
+      };
+      const response = await fetch(`http://localhost:4000/signup-googleSSO`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(dataSend),
-      },
-    );
-    const data = await response.json();
-      // console.log("response: ",response.json());
-    console.log("data:", data.token);
-    if (!response.ok) {
-      throw new Error(data.message || "Unable to Signup");
-    } else {
-      //response.token me token hai
-      // console.log("response: ",response);
-      // console.log(Object.keys(response));
-      const decoded = jwtDecode(data.token.token);
-      console.log(decoded);
-      console.log(Object.keys(decoded));
-
-      const id = decoded.id;
-      const email = decoded.email;
-      console.log();
-      //State management variables update kren 
-      dispatch(setLoginFlowEmail(email));
-
-
-      //User ko Home pr redirect kren
-      router.replace("/home");
+      });
+      const data = await response.json();
+      console.log("response: ", data);
+  
+      if (!response.ok) {
+        throw new Error(data.message || "Unable to Signup");
+      } else {
+        const token = data.message;
+        console.log("Token: ", token);
+  
+        const decodedToken = jwtDecode(token);
+        console.log(decodedToken);
+  
+        const id = decodedToken.id;
+        const email = decodedToken.email;
+  
+        dispatch(setLoginFlowEmail(email));
+  
+        router.replace("/home");
+      }
+    } catch (error) {
+      console.error("Signup error:", error.message);
     }
-  }
+  };
 
   const createGoogleUser = async (data) => {
     try {
