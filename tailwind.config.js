@@ -133,4 +133,11 @@ module.exports = {
     scrollbar: ["rounded"],
   },
   plugins: [require("tailwind-scrollbar")],
+  safelist: [
+    "text-yellow-500",
+    "text-yellow-300",
+    "text-blue-500",
+    "text-blue-300",
+    // Add other color variations you plan to use
+  ],
 };

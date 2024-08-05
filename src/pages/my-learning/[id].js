@@ -1,3 +1,4 @@
+import CourseModules from "@/components/CourseModule";
 import CourseReviews from "@/components/CourseReviews";
 import CurrentPath from "@/components/CurrentPath";
 import EnrolledCourseDetailsHero from "@/components/EnrolledCourseDetailsHero";
@@ -7,14 +8,13 @@ import H2 from "@/components/H2";
 import LayoutWidth from "@/components/LayoutWidth";
 import { enrolledDummyCourses } from "@/components/MyLearningCourses";
 import Navbar from "@/components/Navbar";
+import ReviewsOverview from "@/components/ReviewsOverview";
 import Skill from "@/components/Skill";
-import SkillsList from "@/components/SkillsList";
 import formatDate from "@/utils/formatDate";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchAllReviews } from "../../../redux/thunks/reviewsThunk";
-import CourseModules from "@/components/CourseModule";
 
 const enrolledCourseDummyReviews = [
   {
@@ -162,14 +162,13 @@ function EnrolledCourseSkills({ enrolledCourse }) {
 }
 
 function EnrolledCourseRatingAndReviews({ reviews }) {
-  console.log(reviews);
   return (
     <LayoutWidth>
       <div className="rating-&-reviews">
         <H2 className="mb-4">Rating & Review</H2>
 
-        <div className="flex flex-wrap items-center justify-center bg-white">
-          <div className="min-w-max"></div>
+        <div className="flex flex-wrap items-center justify-start bg-white p-10">
+          <ReviewsOverview reviews={reviews} />
           <div className="min-w-max">
             <progress
               className="h-1 w-full rounded-full bg-gray-shade-1 text-blue"
