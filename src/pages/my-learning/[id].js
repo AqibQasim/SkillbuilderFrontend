@@ -1,3 +1,4 @@
+import CourseReviews from "@/components/CourseReviews";
 import CurrentPath from "@/components/CurrentPath";
 import EnrolledCourseDetailsHero from "@/components/EnrolledCourseDetailsHero";
 import Footer from "@/components/Footer";
@@ -11,7 +12,39 @@ import SkillsList from "@/components/SkillsList";
 import formatDate from "@/utils/formatDate";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchAllReviews } from "../../../redux/thunks/reviewsThunk";
+
+const enrolledCourseDummyReviews = [
+  {
+    name: "name",
+    image: "image",
+    rating: 4.5,
+    review:
+      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Aperiam excepturi quod error similique eaque vero qui blanditiis deleniti ducimus consequuntur.",
+  },
+  {
+    name: "name",
+    image: "image",
+    rating: 4.5,
+    review:
+      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Aperiam excepturi quod error similique eaque vero qui blanditiis deleniti ducimus consequuntur.",
+  },
+  {
+    name: "name",
+    image: "image",
+    rating: 4.5,
+    review:
+      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Aperiam excepturi quod error similique eaque vero qui blanditiis deleniti ducimus consequuntur.",
+  },
+  {
+    name: "name",
+    image: "image",
+    rating: 4.5,
+    review:
+      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Aperiam excepturi quod error similique eaque vero qui blanditiis deleniti ducimus consequuntur.",
+  },
+];
 
 function EnrolledCourseDetails() {
   const router = useRouter();
@@ -19,6 +52,19 @@ function EnrolledCourseDetails() {
   const enrolledCourseId = router.query.id;
   const courses = useSelector((state) => state.cart.items);
   console.log("length in root file:", courses?.length);
+  const { reviewsData: reviews, isReviewsLoading } = useSelector(
+    (state) => state.allReviews || { reviewsData: [], isReviewsLoading: true },
+  );
+  const dispatch = useDispatch();
+  console.log("Revviews", reviews);
+  console.log("Revviews Loader", isReviewsLoading);
+
+  useEffect(() => {
+    if (enrolledCourseId) {
+      dispatch(fetchAllReviews(enrolledCourseId));
+      // dispatch(fetchAllReviews(1));
+    }
+  }, [enrolledCourseId]);
 
   useEffect(() => {
     setIsClient(true);
@@ -49,6 +95,8 @@ function EnrolledCourseDetails() {
           <EnrolledCourseDetailsHero enrolledCourse={enrolledCourse} />
           <EnrolledCourseAbout enrolledCourse={enrolledCourse} />
           <EnrolledCourseSkills enrolledCourse={enrolledCourse} />
+          {/* <CourseReviews reviews={enrolledCourseDummyReviews} /> */}
+          <CourseReviews reviews={reviews} />
         </div>
         <Footer />
       </div>
@@ -62,6 +110,7 @@ function EnrolledCourseAbout({ enrolledCourse }) {
   const [readMore, setReadMore] = useState(false);
   const words = enrolledCourse?.description.split(" ");
   const shortDescription = words?.slice(0, 15).join(" ");
+
   const isLongDescription = words?.length > 15;
 
   const description = readMore ? enrolledCourse?.description : shortDescription;
