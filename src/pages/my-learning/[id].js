@@ -14,6 +14,7 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchAllReviews } from "../../../redux/thunks/reviewsThunk";
+import CourseModules from "@/components/CourseModule";
 
 const enrolledCourseDummyReviews = [
   {
@@ -94,6 +95,8 @@ function EnrolledCourseDetails() {
           <EnrolledCourseDetailsHero enrolledCourse={enrolledCourse} />
           <EnrolledCourseAbout enrolledCourse={enrolledCourse} />
           <EnrolledCourseSkills enrolledCourse={enrolledCourse} />
+          <CourseModules course={enrolledCourse} heading="Videos" />
+          <EnrolledCourseRatingAndReviews reviews={reviews} />
           <CourseReviews reviews={reviews} />
         </div>
         <Footer />
@@ -152,6 +155,32 @@ function EnrolledCourseSkills({ enrolledCourse }) {
               <GalleryIconSvg className="size-7" /> {skill}{" "}
             </Skill>
           ))}
+        </div>
+      </div>
+    </LayoutWidth>
+  );
+}
+
+function EnrolledCourseRatingAndReviews({ reviews }) {
+  console.log(reviews);
+  return (
+    <LayoutWidth>
+      <div className="rating-&-reviews">
+        <H2 className="mb-4">Rating & Review</H2>
+
+        <div className="flex flex-wrap items-center justify-center bg-white">
+          <div className="min-w-max"></div>
+          <div className="min-w-max">
+            <progress
+              className="h-1 w-full rounded-full bg-gray-shade-1 text-blue"
+              id="enrolled-course-progress"
+              value={2}
+              max="5"
+            >
+              {" "}
+              {/* {progress}{" "} */}2{" "}
+            </progress>
+          </div>
         </div>
       </div>
     </LayoutWidth>
