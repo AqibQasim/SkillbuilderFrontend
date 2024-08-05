@@ -62,7 +62,6 @@ function EnrolledCourseDetails() {
   useEffect(() => {
     if (enrolledCourseId) {
       dispatch(fetchAllReviews(enrolledCourseId));
-      // dispatch(fetchAllReviews(1));
     }
   }, [enrolledCourseId]);
 
@@ -95,7 +94,6 @@ function EnrolledCourseDetails() {
           <EnrolledCourseDetailsHero enrolledCourse={enrolledCourse} />
           <EnrolledCourseAbout enrolledCourse={enrolledCourse} />
           <EnrolledCourseSkills enrolledCourse={enrolledCourse} />
-          {/* <CourseReviews reviews={enrolledCourseDummyReviews} /> */}
           <CourseReviews reviews={reviews} />
         </div>
         <Footer />
