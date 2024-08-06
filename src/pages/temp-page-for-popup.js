@@ -1,3 +1,4 @@
+import H2 from "@/components/H2";
 import Modal from "@/components/Modal";
 import { HiEllipsisHorizontal } from "react-icons/hi2";
 
@@ -24,8 +25,10 @@ export default tempPageForPopup;
 function ModalContent({ onClose }) {
   return (
     <div>
-      <h1>Modal Title</h1>
-      <p>This is the modal content.</p>
+      <H2>Declining course</H2>
+      <p>
+        You’re about to decline [UI UX Course] Are you sure you wanna do this?.
+      </p>
       <button onClick={onClose}>Close Modal</button>
     </div>
   );
