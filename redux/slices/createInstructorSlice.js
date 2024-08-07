@@ -11,6 +11,7 @@ const initialState = {
     video_url: "",
   },
   index: 0,
+  // index: 1,
   successMessage: null,
   loading: false,
   error: null,
