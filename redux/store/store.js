@@ -12,6 +12,7 @@ import loginFlowSlice from "../slices/loginFlowSlice";
 import instructorCoursesSliceReducer from "../slices/instructorCoursesSlice";
 import InstructorReducer from "../slices/createInstructorSlice";
 import instructorvideoReducer from "../slices/instructorvideoslice";
+import courseStatusSlice from "../slices/courseStatusSlice";
 // Function to load state from localStorage
 function loadState() {
   try {
@@ -70,6 +71,7 @@ export const store = configureStore({
     loginFlow: loginFlowSlice,
     videoUpload: instructorvideoReducer,
     instructorCourses: instructorCoursesSliceReducer,
+    courseStatus: courseStatusSlice,
   },
   preloadedState,
 });

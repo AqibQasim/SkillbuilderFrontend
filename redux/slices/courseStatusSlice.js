@@ -1,17 +1,13 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { declineCourse } from "./thunks"; // Assuming the thunk is in the same directory
+import { declineCourse } from "../thunks/courseStatusThunk";
 
 const initialState = {
-  course_id: null,
-  reason: "",
-  status: "",
-  status_desc: [
-    {
-      module_id: null,
-      content_id: null,
-      desc: "",
-    },
-  ],
+  statusData: {
+    course_id: null,
+    reason: "",
+    status: "",
+    status_desc: [],
+  },
   index: 0,
   successMessage: null,
   error: null,
@@ -24,6 +20,14 @@ const courseStatusSlice = createSlice({
   reducers: {
     resetState: (state) => {
       return initialState;
+    },
+    setReason: (state, action) => {
+      console.log("Payload on set reason", action.payload);
+      state.statusData.reason = action.payload;
+      state.index += 1;
+    },
+    setModuleAndLectures: (state, action) => {
+      state.statusData.status_desc = action.payload;
     },
   },
   extraReducers: (builder) => {
@@ -48,6 +52,7 @@ const courseStatusSlice = createSlice({
   },
 });
 
-export const { resetState } = courseStatusSlice.actions;
+export const { resetState, setReason, setModuleAndLectures } =
+  courseStatusSlice.actions;
 
 export default courseStatusSlice.reducer;

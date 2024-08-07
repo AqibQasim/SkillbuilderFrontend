@@ -7,7 +7,7 @@ export const declineCourse = createAsyncThunk(
       const response = await fetch(
         `${process.env.NEXT_PUBLIC_BASE_API}/set-course-status`,
         {
-          method: "POST",
+          method: "PUT",
           headers: {
             "Content-Type": "application/json",
           },
