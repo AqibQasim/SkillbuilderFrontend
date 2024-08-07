@@ -8,7 +8,6 @@ const initialState = {
     status: "",
     status_desc: [],
   },
-  index: 0,
   successMessage: null,
   error: null,
   loading: false,
@@ -18,15 +17,14 @@ const courseStatusSlice = createSlice({
   name: "courseStatus",
   initialState,
   reducers: {
-    resetState: (state) => {
-      return initialState;
+    resetState: (state) => initialState,
+    setCourseId: (state, action) => {
+      state.statusData.course_id = action.payload;
     },
     setReason: (state, action) => {
-      console.log("Payload on set reason", action.payload);
       state.statusData.reason = action.payload;
-      state.index += 1;
     },
-    setModuleAndLectures: (state, action) => {
+    setCourseStatusModuleAndLectures: (state, action) => {
       state.statusData.status_desc = action.payload;
     },
   },
@@ -42,7 +40,6 @@ const courseStatusSlice = createSlice({
         state.error = null;
         state.successMessage =
           action.payload.message || "Course declined successfully";
-        console.log(action.payload);
       })
       .addCase(declineCourse.rejected, (state, action) => {
         state.loading = false;
@@ -52,7 +49,11 @@ const courseStatusSlice = createSlice({
   },
 });
 
-export const { resetState, setReason, setModuleAndLectures } =
-  courseStatusSlice.actions;
+export const {
+  resetState,
+  setReason,
+  setCourseId,
+  setCourseStatusModuleAndLectures,
+} = courseStatusSlice.actions;
 
 export default courseStatusSlice.reducer;

@@ -12,7 +12,8 @@ function DropdownSelector({
   const [isOpen, setIsOpen] = useState(false);
   const [selectedValue, setSelectedValue] = useState(defaultValue);
 
-  function handleClick(value) {
+  function handleClick(event, value) {
+    event.preventDefault(); // Prevent form submission
     setSelectedValue(value);
     onChange(value);
     setIsOpen(false);
@@ -30,7 +31,11 @@ function DropdownSelector({
         </label>
       ) : null}
       <button
-        onClick={() => setIsOpen((prevIsOpen) => !prevIsOpen)}
+        type="button" // Ensure button doesn't trigger form submission
+        onClick={(event) => {
+          event.preventDefault(); // Prevent form submission
+          setIsOpen((prevIsOpen) => !prevIsOpen);
+        }}
         className="flex w-full min-w-28 items-center justify-between gap-4 rounded-md border border-dashboard-border px-5 py-4 font-medium capitalize text-status-text shadow-sm transition-colors duration-300"
       >
         {options.find((option) => option.value === selectedValue)?.label ||
@@ -41,8 +46,13 @@ function DropdownSelector({
           {options.map((option) => (
             <li key={option.value} className="space-y-2">
               <button
-                onClick={() => handleClick(option.value)}
-                className={`hover:text-black w-full cursor-pointer px-4 py-3 text-left capitalize text-bg_text_gray transition-colors duration-300 hover:bg-dashboard-sidenav-bg lg:px-5 lg:py-3 ${option.value === selectedValue ? "text-black bg-dashboard-sidenav-bg" : ""}`}
+                type="button" // Ensure button doesn't trigger form submission
+                onClick={(event) => handleClick(event, option.value)}
+                className={`hover:text-black w-full cursor-pointer px-4 py-3 text-left capitalize text-bg_text_gray transition-colors duration-300 hover:bg-dashboard-sidenav-bg lg:px-5 lg:py-3 ${
+                  option.value === selectedValue
+                    ? "text-black bg-dashboard-sidenav-bg"
+                    : ""
+                }`}
                 disabled={option.value === selectedValue}
               >
                 {option.label}
@@ -59,12 +69,15 @@ DropdownSelector.propTypes = {
   label: PropTypes.string,
   options: PropTypes.arrayOf(
     PropTypes.shape({
-      value: PropTypes.string.isRequired,
+      value: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
+        .isRequired,
       label: PropTypes.string.isRequired,
     }),
   ),
   onChange: PropTypes.func,
-  defaultValue: PropTypes.string,
+  defaultValue: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  defaultLabel: PropTypes.string,
+  className: PropTypes.string,
 };
 
 export default DropdownSelector;
