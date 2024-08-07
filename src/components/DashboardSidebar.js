@@ -17,6 +17,9 @@ const links = [
   { href: "/dashboard/students", icon: <PersonSvg />, name: "Students" },
   { href: "/dashboard/assignment", icon: <ClipboardSvg />, name: "Assignment" },
   { href: "/dashboard/payments", icon: <WalletSvg />, name: "Payments" },
+  { href: "/dashboard/payments", icon: null, name: "Transaction Method" },
+  { href: "/dashboard/payments_history", icon: null, name: "Transaction History" },
+  
   
 ];
 

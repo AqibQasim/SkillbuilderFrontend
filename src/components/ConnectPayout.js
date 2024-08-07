@@ -1,6 +1,9 @@
 import { useState, useEffect } from 'react';
 import { loadConnectAndInitialize } from '@stripe/connect-js';
-import { ConnectComponentsProvider, ConnectBalances } from "@stripe/react-connect-js";
+import {
+    ConnectPayoutsList,
+    ConnectComponentsProvider,
+  } from "@stripe/react-connect-js";
 
 export default function Connect({stripe_account_id}) {
   const [stripeConnectInstance, setStripeConnectInstance] = useState(null);
@@ -11,7 +14,7 @@ export default function Connect({stripe_account_id}) {
     try {
       // Fetch the AccountSession client secret
       console.log(`Stripe Acc id is:  ${stripe_account_id}`)
-      const response = await fetch('/api/account_session', { method: "POST",
+      const response = await fetch('/api/account_payout_history', { method: "POST",
         headers: {
           'Content-Type': 'application/json',
         },
@@ -72,7 +75,7 @@ export default function Connect({stripe_account_id}) {
       {stripeConnectInstance && (
         <>
         <ConnectComponentsProvider connectInstance={stripeConnectInstance}>
-          <ConnectBalances  />
+          <ConnectPayoutsList  />
         </ConnectComponentsProvider>
         </>
       )}
