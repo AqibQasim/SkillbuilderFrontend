@@ -1,23 +1,37 @@
+import Menus from "@/components/Menus"; // Make sure this is correct
 import Modal from "@/components/Modal";
 import SuspendCourse from "@/components/SuspendCourse";
-import { HiEllipsisHorizontal } from "react-icons/hi2";
+import { HiPencil, HiSquare2Stack } from "react-icons/hi2";
 
-function tempPageForPopup() {
+function TempPageForPopup() {
   return (
     <div className="flex min-h-screen items-center justify-center">
       <Modal>
-        <Modal.Open opens="actions-popup">
-          <button className="popup">
-            {" "}
-            <HiEllipsisHorizontal className="size-6" />{" "}
-          </button>
-        </Modal.Open>
-        <Modal.Window name="actions-popup">
-          <SuspendCourse courseId={1} />
-        </Modal.Window>
+        <Menus>
+          <Menus.Menu>
+            <Menus.Toggle id={1} />
+            <Menus.List id={1}>
+              <Menus.Button
+                icon={<HiSquare2Stack />}
+                onClick={() => console.log("Approving")}
+                disabled={false}
+              >
+                Approve
+              </Menus.Button>
+
+              <Modal.Open opens="decline">
+                <Menus.Button icon={<HiPencil />}>Decline</Menus.Button>
+              </Modal.Open>
+            </Menus.List>
+
+            <Modal.Window name="decline">
+              <SuspendCourse courseId={1} />
+            </Modal.Window>
+          </Menus.Menu>
+        </Menus>
       </Modal>
     </div>
   );
 }
 
-export default tempPageForPopup;
+export default TempPageForPopup;
