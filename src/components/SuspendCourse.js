@@ -2,13 +2,12 @@ import Button from "@/components/Button";
 import H2 from "@/components/H2";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  resetState as courseStatusResetState,
-  setCourseId as courseStatusSetCourseId,
-} from "../../redux/slices/courseStatusSlice";
+import { resetState as courseStatusResetState } from "../../redux/slices/courseStatusSlice";
 import { declineCourse } from "../../redux/thunks/courseStatusThunk";
 import SuspendCourseDeclineModuleAndLecture from "./SuspendCourseDeclineModuleAndLecture";
 import SuspendCourseDeclineReason from "./SuspendCourseDeclineReason";
+import { statusConstants } from "../../redux/slices/courseStatusSlice";
+import { fetchOneCourse } from "../../redux/thunks/coursesThunks";
 
 function SuspendCourse({ onClose, courseId: course_id }) {
   const [validationError, setValidationError] = useState("");
@@ -16,16 +15,30 @@ function SuspendCourse({ onClose, courseId: course_id }) {
   const { statusData, loading, error, successMessage } = useSelector(
     (state) => state.courseStatus,
   );
+  const course = useSelector((state) => state.singleCourse.data);
+  const courseModules = useSelector((state) => state.singleCourse.data.modules);
+  console.log(course);
+  // Selector to transform modules into desired structure
+  const moduleOptions = useSelector((state) => {
+    const modules = state.singleCourse.data.modules;
+
+    return modules?.map((module) => ({
+      value: module.id,
+      label: module.title,
+    }));
+  });
+  console.log(`modules Options`, moduleOptions);
   const {
     reason,
     course_id: courseId,
     status_desc: statusDescription,
   } = statusData;
 
-  useEffect(() => {
-    if (courseId) return;
-    dispatch(courseStatusSetCourseId(course_id));
-  }, [course_id, courseId, dispatch]);
+  // will recieve the course as prop later
+  // wont need this
+  useEffect(function () {
+    dispatch(fetchOneCourse(course_id));
+  }, []);
 
   const handleContinue = async (event) => {
     event.preventDefault();
@@ -53,15 +66,19 @@ function SuspendCourse({ onClose, courseId: course_id }) {
 
     console.log("status data to dispatch", statusData);
 
-    // try {
-    //   await dispatch(declineCourse(statusData)).unwrap();
-    //   setValidationError("");
-    //   console.log("Course declined successfully");
-    //   // Handle successful submission if necessary
-    // } catch (err) {
-    //   console.error("Failed to decline course", err);
-    //   // Handle error if necessary
-    // }
+    // prepare to dispatch
+    const dataToDispatch = {
+      ...statusData,
+      course_id: course_id,
+      status: statusConstants.DECLINED,
+    };
+    try {
+      await dispatch(declineCourse(dataToDispatch)).unwrap();
+      setValidationError("");
+      console.log("Course declined successfully");
+    } catch (err) {
+      console.error("Failed to decline course", err);
+    }
   };
 
   const handleCancel = () => {
@@ -76,17 +93,16 @@ function SuspendCourse({ onClose, courseId: course_id }) {
         You’re about to decline [UI UX Course]. Are you sure you want to do
         this?
       </p>
-
       {/* Decline Reason */}
       <SuspendCourseDeclineReason />
-
       {/* Decline Module and Lecture, Status description */}
-      {reason && <SuspendCourseDeclineModuleAndLecture />}
-
+      {reason && (
+        <SuspendCourseDeclineModuleAndLecture modules={courseModules} />
+      )}
       {validationError && <p className="text-red-500">{validationError}</p>}
+      courseModules
       {error && <p className="text-red-500">{error}</p>}
       {successMessage && <p className="text-green-500">{successMessage}</p>}
-
       <div className="buttons flex items-center justify-center gap-4">
         <Button
           type="button"

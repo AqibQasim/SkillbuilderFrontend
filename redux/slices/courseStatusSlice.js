@@ -5,6 +5,7 @@ const initialState = {
   statusData: {
     course_id: null,
     reason: "",
+    // declined, suspended,  approved
     status: "",
     status_desc: [],
   },
@@ -38,16 +39,24 @@ const courseStatusSlice = createSlice({
       .addCase(declineCourse.fulfilled, (state, action) => {
         state.loading = false;
         state.error = null;
+        console.log("running?");
         state.successMessage =
           action.payload.message || "Course declined successfully";
       })
       .addCase(declineCourse.rejected, (state, action) => {
+        console.log("rejected", action.payload);
         state.loading = false;
         state.error = action.payload || "Failed to decline course";
         state.successMessage = null;
       });
   },
 });
+
+const statusConstants = {
+  DECLINED: "declined",
+  SUSPENDED: "suspended",
+  APPROVED: "approved",
+};
 
 export const {
   resetState,
@@ -57,3 +66,4 @@ export const {
 } = courseStatusSlice.actions;
 
 export default courseStatusSlice.reducer;
+export { statusConstants };
