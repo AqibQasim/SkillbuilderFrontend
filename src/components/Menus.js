@@ -50,7 +50,7 @@ function List({ id, children }) {
   );
 }
 
-function Button({ className, children, icon, onClick }) {
+function Button({ className, children, icon, onClick, disabled }) {
   const { close } = useContext(MenusContext);
 
   function handleClick() {
@@ -62,7 +62,8 @@ function Button({ className, children, icon, onClick }) {
     <li>
       <button
         onClick={handleClick}
-        className={`${className} flex w-full items-center justify-between gap-4 rounded-md border-none bg-none p-3 text-left text-lg transition-all hover:bg-slate-500`}
+        disabled={disabled}
+        className={`${className} flex w-full items-center justify-between gap-4 rounded-md border-none bg-none p-3 text-left text-lg transition-all hover:bg-slate-500 disabled:!cursor-not-allowed`}
       >
         <span>{children}</span>
         {icon}

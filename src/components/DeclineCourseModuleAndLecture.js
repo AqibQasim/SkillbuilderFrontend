@@ -1,5 +1,4 @@
 import DropdownSelector from "@/components/DropdownSelector";
-import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setCourseStatusModuleAndLectures } from "../../redux/slices/courseStatusSlice";
 
@@ -8,16 +7,12 @@ function DeclineCourseModuleAndLecture({ modules }) {
     (state) => state.courseStatus.statusData.status_desc,
   );
   const dispatch = useDispatch();
-  const [modulesAndLectures, setModulesAndLectures] =
-    useState(statusDescription);
 
-  // Generate module options
   const moduleOptions = modules?.map((module) => ({
     value: module.id,
     label: module.title,
   }));
 
-  // Generate lecture options for each module
   const lectureOptionsByModule = modules.reduce((acc, module) => {
     acc[module.id] = module.content.map((lecture) => ({
       value: lecture.id,
@@ -27,24 +22,25 @@ function DeclineCourseModuleAndLecture({ modules }) {
   }, {});
 
   const handleAddModuleAndLecture = () => {
-    setModulesAndLectures((prev) => [
-      ...prev,
-      { module_id: null, content_id: null, description: "" },
-    ]);
+    dispatch(
+      setCourseStatusModuleAndLectures([
+        ...statusDescription,
+        { module_id: null, content_id: null, description: "" },
+      ]),
+    );
   };
 
   const handleChange = (index, field, value) => {
-    const updatedModulesAndLectures = modulesAndLectures.map((item, i) =>
+    const updatedModulesAndLectures = statusDescription.map((item, i) =>
       i === index ? { ...item, [field]: value } : item,
     );
 
-    setModulesAndLectures(updatedModulesAndLectures);
     dispatch(setCourseStatusModuleAndLectures(updatedModulesAndLectures));
   };
 
   return (
     <div className="scrollbar-custom max-h-[17rem] space-y-4 overflow-y-auto overflow-x-hidden">
-      {modulesAndLectures.map((item, index) => {
+      {statusDescription.map((item, index) => {
         const lectureOptions = lectureOptionsByModule[item.module_id] || [];
 
         return (
@@ -91,7 +87,7 @@ function DeclineCourseModuleAndLecture({ modules }) {
         className="text-sm text-blue"
         onClick={handleAddModuleAndLecture}
       >
-        Add {modulesAndLectures.length > 0 ? "another" : "specific"}{" "}
+        Add {statusDescription.length > 0 ? "another" : "specific"}{" "}
         module/lecture +
       </button>
     </div>

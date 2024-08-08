@@ -4,80 +4,59 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   resetState as courseStatusResetState,
+  resetState,
   statusConstants,
 } from "../../redux/slices/courseStatusSlice";
 import { declineCourse } from "../../redux/thunks/courseStatusThunk";
-import { fetchOneCourse } from "../../redux/thunks/coursesThunks";
 import DeclineCourseModuleAndLecture from "./DeclineCourseModuleAndLecture";
 import DeclineCourseReason from "./DeclineCourseReason";
 
-function DeclineCourse({ onClose, courseId: course_id }) {
+function DeclineCourse({ onClose, courseToDecline }) {
   const [validationError, setValidationError] = useState("");
   const dispatch = useDispatch();
   const { statusData, loading, error, successMessage } = useSelector(
     (state) => state.courseStatus,
   );
-  const course = useSelector((state) => state.singleCourse.data);
-  const courseModules = useSelector((state) => state.singleCourse.data.modules);
-  console.log(course);
-  // Selector to transform modules into desired structure
-  const moduleOptions = useSelector((state) => {
-    const modules = state.singleCourse.data.modules;
 
-    return modules?.map((module) => ({
-      value: module.id,
-      label: module.title,
-    }));
-  });
-  console.log(`modules Options`, moduleOptions);
-  const {
-    reason,
-    course_id: courseId,
-    status_desc: statusDescription,
-  } = statusData;
-
-  // will recieve the course as prop later
-  // wont need this
-  useEffect(function () {
-    dispatch(fetchOneCourse(course_id));
+  useEffect(() => {
+    console.log("running?");
+    dispatch(resetState());
   }, []);
+
+  const { title, id, modules } = courseToDecline;
+
+  const validateDescription = () => {
+    return statusData.status_desc.every(
+      (item) =>
+        item.module_id &&
+        item.content_id &&
+        item.description.trim().length >= 15,
+    );
+  };
 
   const handleContinue = async (event) => {
     event.preventDefault();
-
-    if (!reason) {
+    if (!statusData.reason) {
       setValidationError("Please select a reason for declining.");
       return;
     }
 
-    if (statusDescription.length > 0) {
-      const isValid = statusDescription.every(
-        (item) =>
-          item.module_id &&
-          item.content_id &&
-          item.description.trim().length >= 15,
+    if (statusData.status_desc.length > 0 && !validateDescription()) {
+      setValidationError(
+        "Please fill out module, lecture and description with at least 15 characters.",
       );
-
-      if (!isValid) {
-        setValidationError(
-          "Please fill out module, lecture and description with at least 15 characters.",
-        );
-        return;
-      }
+      return;
     }
 
-    console.log("status data to dispatch", statusData);
-
-    // prepare to dispatch
     const dataToDispatch = {
       ...statusData,
-      course_id: course_id,
+      course_id: id,
       status: statusConstants.DECLINED,
     };
+
     try {
       await dispatch(declineCourse(dataToDispatch)).unwrap();
       setValidationError("");
-      console.log("Course declined successfully");
     } catch (err) {
       console.error("Failed to decline course", err);
     }
@@ -92,15 +71,12 @@ function DeclineCourse({ onClose, courseId: course_id }) {
     <form onSubmit={handleContinue} className="space-y-4">
       <H2>Declining course</H2>
       <p>
-        You’re about to decline [UI UX Course]. Are you sure you want to do
-        this?
+        You’re about to decline <span className="font-medium">{title}</span>.
+        Are you sure you want to do this?
       </p>
-      {/* Decline Reason */}
       <DeclineCourseReason />
-      {/* Decline Module and Lecture, Status description */}
-      {reason && <DeclineCourseModuleAndLecture modules={courseModules} />}
+      {statusData.reason && <DeclineCourseModuleAndLecture modules={modules} />}
       {validationError && <p className="text-red-500">{validationError}</p>}
-      courseModules
       {error && <p className="text-red-500">{error}</p>}
       {successMessage && <p className="text-green-500">{successMessage}</p>}
       <div className="buttons flex items-center justify-center gap-4">
