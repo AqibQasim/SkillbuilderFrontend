@@ -1,4 +1,5 @@
 import CurrentPath from "@/components/CurrentPath";
+import Footer from "@/components/Footer";
 import LayoutWidth from "@/components/LayoutWidth";
 import Navbar from "@/components/Navbar";
 import Profile from "@/components/Profile";
@@ -24,9 +25,10 @@ const profile = () => {
         <main className="w-full">
           <Profile profile_text={profile_text} />
         </main>
+        <Footer/>
       </div>
     </>
   );
 };
 
-export default withAuth(profile);
+export default profile;

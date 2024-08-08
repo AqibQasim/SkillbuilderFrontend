@@ -54,7 +54,7 @@ const Courses = ({ heading, paddingTop }) => {
   }
 
   if (error) {
-    return <div>Error: {error}</div>;
+    return null;
   }
 
   return (
@@ -102,8 +102,7 @@ const Courses = ({ heading, paddingTop }) => {
                         Added To Cart
                       </span>
                     )}
-                    {/* <span className="text-blue font-semibold" >Added To Cart</span> */}
-                  </div>
+                    </div>
                   <h3 className="mt-4 text-lg font-semibold">
                     {course?.title}
                   </h3>
