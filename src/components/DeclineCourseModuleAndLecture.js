@@ -3,7 +3,7 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setCourseStatusModuleAndLectures } from "../../redux/slices/courseStatusSlice";
 
-function SuspendCourseDeclineModuleAndLecture({ modules }) {
+function DeclineCourseModuleAndLecture({ modules }) {
   const statusDescription = useSelector(
     (state) => state.courseStatus.statusData.status_desc,
   );
@@ -98,4 +98,4 @@ function SuspendCourseDeclineModuleAndLecture({ modules }) {
   );
 }
 
-export default SuspendCourseDeclineModuleAndLecture;
+export default DeclineCourseModuleAndLecture;

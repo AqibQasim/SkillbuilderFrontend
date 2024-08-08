@@ -1,11 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { declineCourse } from "../thunks/courseStatusThunk";
+import { declineCourse, approveCourse } from "../thunks/courseStatusThunk";
 
 const initialState = {
   statusData: {
     course_id: null,
     reason: "",
-    // declined, suspended,  approved
+    // declined, suspended, approved
     status: "",
     status_desc: [],
   },
@@ -39,14 +39,28 @@ const courseStatusSlice = createSlice({
       .addCase(declineCourse.fulfilled, (state, action) => {
         state.loading = false;
         state.error = null;
-        console.log("running?");
         state.successMessage =
           action.payload.message || "Course declined successfully";
       })
       .addCase(declineCourse.rejected, (state, action) => {
-        console.log("rejected", action.payload);
         state.loading = false;
         state.error = action.payload || "Failed to decline course";
+        state.successMessage = null;
+      })
+      .addCase(approveCourse.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+        state.successMessage = null;
+      })
+      .addCase(approveCourse.fulfilled, (state, action) => {
+        state.loading = false;
+        state.error = null;
+        state.successMessage =
+          action.payload.message || "Course approved successfully";
+      })
+      .addCase(approveCourse.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload || "Failed to approve course";
         state.successMessage = null;
       });
   },

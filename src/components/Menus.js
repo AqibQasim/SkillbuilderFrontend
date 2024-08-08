@@ -40,7 +40,7 @@ function List({ id, children }) {
 
   return createPortal(
     <ul
-      className="fixed rounded-md bg-white shadow-md"
+      className="fixed min-w-44 rounded-md bg-white shadow-md"
       style={{ top: position?.y, right: position?.x }}
       ref={ref}
     >
@@ -50,7 +50,7 @@ function List({ id, children }) {
   );
 }
 
-function Button({ children, icon, onClick }) {
+function Button({ className, children, icon, onClick }) {
   const { close } = useContext(MenusContext);
 
   function handleClick() {
@@ -62,10 +62,10 @@ function Button({ children, icon, onClick }) {
     <li>
       <button
         onClick={handleClick}
-        className="flex w-full items-center gap-4 border-none bg-none p-3 text-left text-lg transition-all hover:bg-gray-50"
+        className={`${className} flex w-full items-center justify-between gap-4 rounded-md border-none bg-none p-3 text-left text-lg transition-all hover:bg-slate-500`}
       >
-        {icon}
         <span>{children}</span>
+        {icon}
       </button>
     </li>
   );

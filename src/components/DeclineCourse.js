@@ -2,14 +2,16 @@ import Button from "@/components/Button";
 import H2 from "@/components/H2";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { resetState as courseStatusResetState } from "../../redux/slices/courseStatusSlice";
+import {
+  resetState as courseStatusResetState,
+  statusConstants,
+} from "../../redux/slices/courseStatusSlice";
 import { declineCourse } from "../../redux/thunks/courseStatusThunk";
-import SuspendCourseDeclineModuleAndLecture from "./SuspendCourseDeclineModuleAndLecture";
-import SuspendCourseDeclineReason from "./SuspendCourseDeclineReason";
-import { statusConstants } from "../../redux/slices/courseStatusSlice";
 import { fetchOneCourse } from "../../redux/thunks/coursesThunks";
+import DeclineCourseModuleAndLecture from "./DeclineCourseModuleAndLecture";
+import DeclineCourseReason from "./DeclineCourseReason";
 
-function SuspendCourse({ onClose, courseId: course_id }) {
+function DeclineCourse({ onClose, courseId: course_id }) {
   const [validationError, setValidationError] = useState("");
   const dispatch = useDispatch();
   const { statusData, loading, error, successMessage } = useSelector(
@@ -94,11 +96,9 @@ function SuspendCourse({ onClose, courseId: course_id }) {
         this?
       </p>
       {/* Decline Reason */}
-      <SuspendCourseDeclineReason />
+      <DeclineCourseReason />
       {/* Decline Module and Lecture, Status description */}
-      {reason && (
-        <SuspendCourseDeclineModuleAndLecture modules={courseModules} />
-      )}
+      {reason && <DeclineCourseModuleAndLecture modules={courseModules} />}
       {validationError && <p className="text-red-500">{validationError}</p>}
       courseModules
       {error && <p className="text-red-500">{error}</p>}
@@ -124,4 +124,4 @@ function SuspendCourse({ onClose, courseId: course_id }) {
   );
 }
 
-export default SuspendCourse;
+export default DeclineCourse;

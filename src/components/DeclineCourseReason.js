@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { setReason } from "../../redux/slices/courseStatusSlice";
 import DropdownSelector from "./DropdownSelector";
 
-function SuspendCourseDeclineReason() {
+function DeclineCourseReason() {
   const dispatch = useDispatch();
   const instructorDeclineReason = useSelector(
     (state) => state.courseStatus.statusData.reason,
@@ -32,4 +32,4 @@ function SuspendCourseDeclineReason() {
   );
 }
 
-export default SuspendCourseDeclineReason;
+export default DeclineCourseReason;
