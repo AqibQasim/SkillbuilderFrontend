@@ -1,8 +1,8 @@
 import AdminDashboardLayout from "@/components/AdminDashboardLayout";
-import AdminPendingCourseTable from "@/components/AdminPendingCoursesTable";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchCourses } from "../../../../redux/thunks/allCoursesThunk";
+import AdminCoursesTable from "@/components/AdminCoursesTable";
 
 const pending = () => {
   const dispatch = useDispatch();
@@ -22,7 +22,7 @@ const pending = () => {
 
   return (
     <AdminDashboardLayout>
-      <AdminPendingCourseTable pendingCourses={pendingCourses} />
+      <AdminCoursesTable courses={pendingCourses} courseStatus="pending" />
     </AdminDashboardLayout>
   );
 };

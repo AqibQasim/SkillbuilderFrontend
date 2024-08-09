@@ -26,6 +26,7 @@ export const fetchCourses = createAsyncThunk(
       const declinedCourses = data?.data?.filter(
         (course) => course.status === "declined",
       );
+      console.log()
       const approvedCourses = data?.data?.filter(
         (course) => course.status === "approved",
       );

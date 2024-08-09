@@ -1,12 +1,11 @@
 import Table from "@/components/Table";
 import { formatCurrency } from "@/utils/formatCurrency";
 import { useRouter } from "next/router";
-import { useSelector } from "react-redux";
 import ButtonCircle from "./ButtonCircle";
 import ChevronRightIconSvg from "./ChevronRightIconSvg";
 import InstructorCourseStatus from "./InstructorCourseStatus";
 
-function AdminPendingCourseRow({ course }) {
+function AdminCourseRow({ course }) {
   const router = useRouter();
   const { image, title, amount, discount, status, id } = course;
   //   const { first_name, last_name } = useSelector((state) => state.profile);
@@ -46,4 +45,4 @@ function AdminPendingCourseRow({ course }) {
   );
 }
 
-export default AdminPendingCourseRow;
+export default AdminCourseRow;
