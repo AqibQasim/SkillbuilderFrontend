@@ -1,14 +1,24 @@
 import DashboardLayout from "@/components/DashboardLayout";
+import DashboardStudentsOverview from "@/components/DashboardStudentsOverview";
+import InstructorCourseTable from "@/components/InstructorCourseTable";
 import withAuth from "@/components/WithAuth";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { fetchStudentsByInstructor } from "../../../redux/thunks/fetchStudentsByInstructorthunk";
 import { fetchCoursesByInstructorId } from "../../../redux/thunks/instructorCoursesThunk";
 import { fetchOneInstructor } from "../../../redux/thunks/instructorThunk";
-import InstructorCourseTable from "@/components/InstructorCourseTable";
-import DashboardStudentsOverview from "@/components/DashboardStudentsOverview";
+import { useRouter } from "next/router";
+// import students from "./students";
 function Dashboard() {
+  const router = useRouter();
   const userId = useSelector((state) => state.auth.user);
+  const students = useSelector((state) => state.students.students);
+  const studentsStatus = useSelector((state) => state.students.status);
+  const studentsError = useSelector((state) => state.students.error);
   const instructorId = useSelector((state) => state.singleInstructor.id);
+  // const state = useSelector((state) => state);
+  // console.log("store", state);
+  console.log("store students", students);
   const {
     courses: instructorCourses,
     isLoading,
@@ -36,11 +46,28 @@ function Dashboard() {
     [userId],
   );
 
+  useEffect(
+    function () {
+      console.log("inside effect");
+      if (instructorId) {
+        console.log("run this effect");
+        dispatch(fetchStudentsByInstructor(instructorId));
+        console.log("students are :", students);
+      }
+    },
+    [instructorId],
+  );
+
   return (
     <DashboardLayout>
       <InstructorCourseTable filter_courses="Pending Courses" />
       <div className="mt-16">
-        <DashboardStudentsOverview />
+        <DashboardStudentsOverview
+          students={students}
+          error={studentsError}
+          status={studentsStatus}
+          isLoading={studentsStatus === "loading"}
+        />
       </div>
     </DashboardLayout>
   );
