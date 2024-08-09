@@ -3,8 +3,7 @@ import ViewAll from "./ViewAll";
 import { dummyStudents } from "@/pages/dashboard/students";
 import Avatar from "./Avatar";
 
-function DashboardStudentsOverview({ studentsLoading, students, href }) {
-  const isLoading = studentsLoading ? studentsLoading : false;
+function DashboardStudentsOverview({ students, href }) {
   const router = useRouter();
   console.log("students?", students);
 
@@ -25,11 +24,10 @@ function DashboardStudentsOverview({ studentsLoading, students, href }) {
         <ViewAll onClick={handleViewAllClick} />
       </div>
       <div className="scrollbar-custom mt-4 flex min-h-12 w-full space-x-4 overflow-x-scroll bg-white px-7 py-8">
-        {isLoading && <p>Loading...</p>}
-        {!isLoading && !tempStudents?.length ? (
+        {!tempStudents?.length ? (
           <p>No students enrolled for the current course.</p>
         ) : null}
-        {!isLoading && tempStudents?.length
+        {tempStudents?.length
           ? tempStudents.map((student, index) => (
               <Student key={index} student={student} />
             ))

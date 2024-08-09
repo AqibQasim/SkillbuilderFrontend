@@ -29,7 +29,6 @@ const admin = () => {
     dispatch(fetchStudents());
   }, [dispatch, students]);
 
-  // Filter out duplicate students
   const uniqueStudents = students.reduce((acc, student) => {
     if (!acc.some((s) => s.studentId === student.studentId)) {
       acc.push(student);
@@ -45,7 +44,6 @@ const admin = () => {
       <AdminCoursesTable courses={pendingCourses} courseStatus="pending" />
       <br /> <br />
       <DashboardStudentsOverview
-        studentsLoading={studentsStatus === "loading"}
         students={uniqueStudents}
         href="admin/students"
       />
