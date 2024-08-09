@@ -28,13 +28,13 @@ function ModuleAccordion({ title, lectures, duration, children }) {
   );
 }
 
-export default function CourseModules({ course }) {
+export default function CourseModules({ course, heading = "Course outline" }) {
   return (
     <LayoutWidth>
       {/* <div className="container mt-12"> */}
       <div className="mt-12">
         <h1 className="mb-12 text-2xl font-semibold max-sm:mb-[1rem] max-sm:mt-[1rem] max-sm:w-[100%] max-sm:text-center max-sm:text-xl">
-          Course outline
+          {heading}
         </h1>
         <div className="w-full">
           {course?.modules?.map((module) => {

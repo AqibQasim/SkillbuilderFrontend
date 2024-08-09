@@ -1,22 +1,15 @@
-import ContactForm from "@/components/ContactForm";
-import ContactHero from "@/components/ContactHero";
 import CurrentPath from "@/components/CurrentPath";
 import Footer from "@/components/Footer";
-import HomeSvg from "@/components/HomeSvg";
 import LayoutWidth from "@/components/LayoutWidth";
+import MyLearningCourses from "@/components/MyLearningCourses";
+import MyLearningHero from "@/components/MyLearningHero";
 import Navbar from "@/components/Navbar";
-import RightIconSvg from "@/components/RightIconSvg";
-// import { setCurrentTab } from "@/utils/currentTabMethods";
-import Image from "next/image";
-import { useEffect, useState } from "react";
+import withAuth from "@/components/WithAuth";
 import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 
-const contact = () => {
-  // useEffect(() => {
-  //   setCurrentTab("contact");
-  // }, []);
-
+function MyLearning() {
   const router = useRouter();
   const [isClient, setIsClient] = useState(false);
   const courses = useSelector((state) => state.cart.items);
@@ -29,22 +22,21 @@ const contact = () => {
   if (!isClient) {
     return null;
   }
-
   return (
     <>
       <div className="h-[100%] w-[100%] bg-bg_gray">
         <Navbar cartItemsLength={courses?.length} />
         <LayoutWidth>
-          <div className="path-wrapper mx-auto mb-8 mt-16 w-[90%] max-w-screen-2xl">
+          <div className="path-wrapper mb-8 mt-16">
             <CurrentPath />
           </div>
         </LayoutWidth>
-        <ContactHero />
-        <ContactForm />
+        <MyLearningHero />
+        <MyLearningCourses />
         <Footer />
       </div>
     </>
   );
-};
+}
 
-export default contact;
+export default withAuth(MyLearning);

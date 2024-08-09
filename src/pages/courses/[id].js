@@ -181,7 +181,7 @@ const CourseDetails = () => {
     <div className="h-full w-full bg-bg_gray">
       <Navbar cartItemsLength={courses?.length} />
       <div className="path-wrapper mx-auto mb-8 mt-16 w-[90%] max-w-screen-2xl">
-        <CurrentPath />
+        <CurrentPath dynamicPath={course.title} />
       </div>
       <CourseHero course={course} />
       <CourseInstructor course={course} user={user} instructor={instructor} />
