@@ -1,37 +1,28 @@
-import AdminRevenueStatistics from "@/components/AdminRevenueStatistics";
-import DashboardLayout from "@/components/DashboardLayout";
-import InstructorCourseTable from "@/components/InstructorCourseTable";
-import React from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useEffect } from "react";
-import { fetchCoursesByInstructorId } from "../../../redux/thunks/instructorCoursesThunk";
-import DashboardStudentsOverview from "@/components/DashboardStudentsOverview";
-import AdminInstructorOverview from "@/components/AdminInstructorOverview";
 import AdminDashboardLayout from "@/components/AdminDashboardLayout";
+import AdminInstructorOverview from "@/components/AdminInstructorOverview";
+import AdminPendingCourseTable from "@/components/AdminPendingCoursesTable";
+import AdminRevenueStatistics from "@/components/AdminRevenueStatistics";
+import DashboardStudentsOverview from "@/components/DashboardStudentsOverview";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchCourses } from "../../../redux/thunks/allCoursesThunk";
 
 const admin = () => {
   const dispatch = useDispatch();
-  const instructorId = useSelector((state) => state.profile.id);
-  const {
-    courses: instructorCourses,
-    isLoading,
-    error,
-  } = useSelector((state) => state.instructorCourses);
+  const { pendingCourses, status, error } = useSelector(
+    (state) => state.courses,
+  );
 
-  console.log("instructor Courses", instructorCourses);
-  console.log("instructor Courses length", instructorCourses.length);
+  useEffect(function () {
+    dispatch(fetchCourses());
+  }, []);
 
-  useEffect(() => {
-    if (instructorId) {
-      dispatch(fetchCoursesByInstructorId(instructorId));
-    }
-  }, [dispatch, instructorId]);
   return (
     <AdminDashboardLayout>
       <AdminRevenueStatistics />
       <br />
       <br />
-      <InstructorCourseTable />
+      <AdminPendingCourseTable pendingCourses={pendingCourses} />
       <br /> <br />
       <DashboardStudentsOverview />
       <br /> <br />
