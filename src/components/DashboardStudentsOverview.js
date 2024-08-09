@@ -1,12 +1,17 @@
 import { useRouter } from "next/router";
 import ViewAll from "./ViewAll";
 import { dummyStudents } from "@/pages/dashboard/students";
+import Avatar from "./Avatar";
 
-function DashboardStudentsOverview() {
-  const isLoading = false;
+function DashboardStudentsOverview({ studentsLoading, students, href }) {
+  const isLoading = studentsLoading ? studentsLoading : false;
   const router = useRouter();
+  console.log("students?", students);
+
+  const tempStudents = students ? students : dummyStudents;
 
   const handleViewAllClick = () => {
+    if (href) router.push(href);
     router.push({
       pathname: router.pathname,
       query: { ...router.query, view: "students" },
@@ -21,11 +26,11 @@ function DashboardStudentsOverview() {
       </div>
       <div className="scrollbar-custom mt-4 flex min-h-12 w-full space-x-4 overflow-x-scroll bg-white px-7 py-8">
         {isLoading && <p>Loading...</p>}
-        {!isLoading && !dummyStudents?.length ? (
+        {!isLoading && !tempStudents?.length ? (
           <p>No students enrolled for the current course.</p>
         ) : null}
-        {!isLoading && dummyStudents?.length
-          ? dummyStudents.map((student, index) => (
+        {!isLoading && tempStudents?.length
+          ? tempStudents.map((student, index) => (
               <Student key={index} student={student} />
             ))
           : null}
@@ -39,12 +44,13 @@ export default DashboardStudentsOverview;
 function Student({ student }) {
   return (
     <div className="flex flex-col items-center">
-      <img
+      {/* <img
         src={student.image}
         alt={student.name}
         className="h-20 w-20 rounded-full object-cover"
-      />
-      <p className="mt-2 text-nowrap text-center capitalize">{student.name}</p>
+      /> */}
+      <Avatar name={student.first_name} className="!size-20" />
+      <p className="mt-2 text-nowrap text-center capitalize">{`${student.first_name} ${student.last_name}`}</p>
     </div>
   );
 }
