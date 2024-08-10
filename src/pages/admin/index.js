@@ -6,9 +6,9 @@ import DashboardStudentsOverview from "@/components/DashboardStudentsOverview";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchCourses } from "../../../redux/thunks/allCoursesThunk";
-import { fetchAllInstructors } from "../../../redux/thunks/allInstructorsThunk";
 import { fetchStudents } from "../../../redux/thunks/allstudentsThunk";
 import { filterRepeatedStudents } from "@/utils/filterRepeatedStudents";
+import { fetchAllInstructors } from "../../../redux/thunks/allInstructorsThunk";
 
 const admin = () => {
   const dispatch = useDispatch();
@@ -28,19 +28,20 @@ const admin = () => {
   } = useSelector((state) => state.allInstructors);
 
   useEffect(() => {
+    console.log("running instructors Effect");
+    if (instructors?.length > 0) return;
+    dispatch(fetchAllInstructors());
+  }, [instructors]);
+
+  useEffect(() => {
     if (courses?.length > 0) return;
     dispatch(fetchCourses());
-  }, [dispatch, courses]);
+  }, [courses]);
 
   useEffect(() => {
     if (students?.length > 0) return;
     dispatch(fetchStudents());
-  }, [dispatch, students]);
-
-  useEffect(() => {
-    if (instructors?.length > 0) return;
-    dispatch(fetchAllInstructors());
-  }, [instructors]);
+  }, [students]);
 
   const uniqueStudents = filterRepeatedStudents(students);
 
@@ -51,16 +52,23 @@ const admin = () => {
       <br />
       <AdminCoursesTable courses={pendingCourses} courseStatus="pending" />
       <br /> <br />
-      <DashboardStudentsOverview
-        students={uniqueStudents}
-        href="admin/students"
-      />
+      {studentsStatus === "loading" ? (
+        "Loading..."
+      ) : (
+        <DashboardStudentsOverview
+          students={uniqueStudents}
+          href="admin/students"
+        />
+      )}
       <br /> <br />
-      <DashboardStudentsOverview
-        students={uniqueStudents}
-        href="admin/students"
-      />
-      {/* <AdminInstructorOverview /> */}
+      {instructorsStatus === "loading" ? (
+        "Loading..."
+      ) : (
+        <AdminInstructorOverview
+          instructors={instructors}
+          href="admin/instructors"
+        />
+      )}
     </AdminDashboardLayout>
   );
 };
