@@ -6,6 +6,7 @@ import DashboardStudentsOverview from "@/components/DashboardStudentsOverview";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchCourses } from "../../../redux/thunks/allCoursesThunk";
+import { fetchAllInstructors } from "../../../redux/thunks/allInstructorsThunk";
 import { fetchStudents } from "../../../redux/thunks/allstudentsThunk";
 
 const admin = () => {
@@ -19,6 +20,12 @@ const admin = () => {
     error: studentsError,
   } = useSelector((state) => state.students);
 
+  const {
+    instructors,
+    status: instructorsStatus,
+    error: instructorsError,
+  } = useSelector((state) => state.allInstructors);
+
   useEffect(() => {
     if (courses?.length > 0) return;
     dispatch(fetchCourses());
@@ -28,6 +35,11 @@ const admin = () => {
     if (students?.length > 0) return;
     dispatch(fetchStudents());
   }, [dispatch, students]);
+
+  useEffect(() => {
+    if (instructors?.length > 0) return;
+    dispatch(fetchAllInstructors());
+  }, [instructors]);
 
   const uniqueStudents = students.reduce((acc, student) => {
     if (!acc.some((s) => s.studentId === student.studentId)) {
@@ -48,7 +60,11 @@ const admin = () => {
         href="admin/students"
       />
       <br /> <br />
-      <AdminInstructorOverview />
+      <DashboardStudentsOverview
+        students={uniqueStudents}
+        href="admin/students"
+      />
+      {/* <AdminInstructorOverview /> */}
     </AdminDashboardLayout>
   );
 };
