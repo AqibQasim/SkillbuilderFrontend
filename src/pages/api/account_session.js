@@ -17,7 +17,7 @@ export default async function handler(req, res) {
           balances: {
             enabled: true,
             features: {
-              instant_payouts: true,
+              instant_payouts: false,
               standard_payouts: true,
               edit_payout_schedule: false,
             },
