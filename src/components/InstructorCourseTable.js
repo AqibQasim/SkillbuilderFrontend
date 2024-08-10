@@ -13,7 +13,7 @@ const filterOptions = [
   { label: "Declined", value: "declined" },
 ];
 
-function InstructorCourseTable() {
+function InstructorCourseTable({ filter_courses }) {
   const {
     courses: instructorCourses,
     isLoading,
@@ -54,8 +54,8 @@ function InstructorCourseTable() {
 
   return (
     <>
-      <div className="component-header flex items-center justify-between">
-        <h1 className="text-4xl font-semibold">All Courses</h1>
+      <div className="component-header mt-4 flex items-center justify-between">
+        <h1 className="text-4xl font-semibold">{filter_courses}</h1>
         <Filter filterField="status" options={filterOptions} />
       </div>
 

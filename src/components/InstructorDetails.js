@@ -5,15 +5,15 @@ import Button from "./Button";
 
 const InstructorDetails = ({ onNext }) => {
   const profile = useSelector((state) => state.profile);
+  const userId = profile?.id;
   const instructorDetails = useSelector(
     (state) => state.instructor.instructorDetails,
   );
-  console.log("I  D;", instructorDetails);
   const dispatch = useDispatch();
   const { loading, error } = useSelector((state) => state.instructor || {});
 
   const initialFormData = {
-    user_id: profile.id,
+    user_id: "",
     experience: [""],
     specialization: "",
     qualifications: [{ percentage: "", degree: "" }],
@@ -21,39 +21,53 @@ const InstructorDetails = ({ onNext }) => {
     video_url: "",
   };
 
-  const [formData, setFormData] = useState(initialFormData);
+  const [formData, setFormData] = useState({
+    ...initialFormData,
+    user_id: userId,
+  });
+
+  console.log("FD: ", formData);
 
   useEffect(() => {
     if (Object.keys(instructorDetails).length > 0) {
-      setFormData(instructorDetails);
+      setFormData({ ...instructorDetails, user_id: userId });
     }
   }, [instructorDetails]);
 
   const handleChange = (field, value) => {
-    const updatedFormData = { ...formData, [field]: value };
-    setFormData(updatedFormData);
+    setFormData((prevFormData) => ({ ...prevFormData, [field]: value }));
   };
 
   const handleNestedChange = (section, index, key, value) => {
-    const updatedSection = formData[section].map((item, i) =>
-      i === index ? { ...item, [key]: value } : item,
-    );
-    handleChange(section, updatedSection);
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      [section]: prevFormData[section].map((item, i) =>
+        i === index ? { ...item, [key]: value } : item,
+      ),
+    }));
   };
 
   const handleExperienceChange = (index, value) => {
-    const updatedExperience = formData.experience.map((item, i) =>
-      i === index ? value : item,
-    );
-    handleChange("experience", updatedExperience);
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      experience: prevFormData.experience.map((item, i) =>
+        i === index ? value : item,
+      ),
+    }));
   };
 
   const addField = (section, emptyField) => {
-    handleChange(section, [...formData[section], emptyField]);
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      [section]: [...prevFormData[section], emptyField],
+    }));
   };
 
   const addExperienceField = () => {
-    handleChange("experience", [...formData.experience, ""]);
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      experience: [...prevFormData.experience, ""],
+    }));
   };
 
   const submitHandler = (e) => {
@@ -227,7 +241,7 @@ export default InstructorDetails;
 // const InstructorDetails = ({ onNext }) => {
 //   const profile = useSelector((state) => state.profile);
 //   const [formData, setFormData] = useState({
-//     user_id: profile.id,
+//     user_id: userId,
 //     experience: ["Web-Development", "Beginner-level Devops"],
 //     specialization: "Web-Development",
 //     qualifications: [{ percentage: 90.0, degree: "BSSE" }],

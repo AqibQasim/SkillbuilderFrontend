@@ -36,7 +36,7 @@ const Fields = () => {
         />
         <label
           htmlFor="default-radio-1"
-          className={`ms-2 cursor-pointer text-base font-medium ${
+          className={`ms-2 w-full cursor-pointer text-base font-medium ${
             selected === "student" ? "text-blue-700" : "text-gray-900"
           }`}
         >
@@ -57,7 +57,7 @@ const Fields = () => {
         />
         <label
           htmlFor="default-radio-2"
-          className={`ms-2 cursor-pointer text-base font-medium ${
+          className={`ms-2 w-full cursor-pointer text-base font-medium ${
             selected === "instructor" ? "text-blue-700" : "text-gray-900"
           }`}
         >

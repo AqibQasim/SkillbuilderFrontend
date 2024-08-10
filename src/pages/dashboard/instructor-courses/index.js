@@ -19,6 +19,7 @@ function Courses() {
     isLoading: coursesLoading,
     error: coursesError,
   } = useSelector((state) => state.instructorCourses);
+
   const dispatch = useDispatch();
 
   console.log("userID", userId);
@@ -27,12 +28,13 @@ function Courses() {
   console.log("instructor Courses", instructorCourses);
   console.log("instructor Courses length", instructorCourses.length);
 
-  useEffect(() => {
-    if (instructorId) {
-      console.log("fetch course by instructor id");
-      dispatch(fetchCoursesByInstructorId(instructorId));
-    }
-  }, [dispatch, instructorId]);
+  // useEffect(() => {
+  //   if (instructorId) {
+  //     console.log("fetch course by instructor id");
+  //     dispatch(fetchCoursesByInstructorId(instructorId));
+  //   }
+  // }, [dispatch, instructorId]);
+  
 
   useEffect(
     function () {
@@ -70,7 +72,10 @@ function Courses() {
 
   return (
     <DashboardLayout>
-      <InstructorCourseTable courses={instructorCourses} />
+      <InstructorCourseTable
+        courses={instructorCourses}
+        filter_courses="All Courses"
+      />
     </DashboardLayout>
   );
 }
