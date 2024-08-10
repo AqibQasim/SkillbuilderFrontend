@@ -1,7 +1,7 @@
-import { useRouter } from "next/router";
-import ViewAll from "./ViewAll";
 import { dummyStudents } from "@/pages/dashboard/students";
+import { useRouter } from "next/router";
 import Avatar from "./Avatar";
+import ViewAll from "./ViewAll";
 
 function DashboardStudentsOverview({ students, href }) {
   const router = useRouter();

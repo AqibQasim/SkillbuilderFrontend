@@ -1,13 +1,12 @@
-import withAuth from "@/components/WithAuth";
-import DashboardLayout from "@/components/DashboardLayout";
-import InstructorsStudentsTable from "@/components/InstructorsStudentsTable";
 import AdminDashboardLayout from "@/components/AdminDashboardLayout";
-import { useDispatch, useSelector } from "react-redux";
-import { fetchAllInstructors } from "../../../../redux/thunks/allInstructorsThunk";
-import { fetchStudents } from "../../../../redux/thunks/allstudentsThunk";
+import InstructorsStudentsTable from "@/components/InstructorsStudentsTable";
 import Loader from "@/components/Loader";
-import { useEffect } from "react";
+import withAuth from "@/components/WithAuth";
 import { filterRepeatedStudents } from "@/utils/filterRepeatedStudents";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchStudents } from "../../../../redux/thunks/allstudentsThunk";
+import AdminStudentsTable from "@/components/AdminStudentsTable";
 
 function Students() {
   const dispatch = useDispatch();
@@ -35,7 +34,7 @@ function Students() {
     );
   return (
     <AdminDashboardLayout>
-      <InstructorsStudentsTable students={uniqueStudents} />
+      <AdminStudentsTable students={uniqueStudents} />
     </AdminDashboardLayout>
   );
 }
