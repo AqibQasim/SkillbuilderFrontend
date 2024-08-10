@@ -5,9 +5,7 @@ export default async function handler(req, res) {
     try {
       const { stripeAccountId } = req.body;
 
-      const payouts = await stripe.payouts.list({
-        limit: 1,
-      }, { stripeAccount: stripeAccountId });
+      const payouts = await stripe.payouts.list({ stripeAccount: stripeAccountId });
 
       console.log("Fetched payouts:", payouts); // Log payouts for debugging
       res.status(200).json({ payouts: payouts.data }); // Ensure that the correct data is returned

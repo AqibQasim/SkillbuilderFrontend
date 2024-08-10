@@ -56,10 +56,6 @@ export default function Connect({stripe_account_id}) {
       }
       setLoading(false);
     };
-
-    
-   
-
     initializeStripe();  
 
   }, []);

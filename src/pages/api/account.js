@@ -22,6 +22,14 @@ export default async function handler(req, res) {
         card_payments: {requested: true},
         transfers: {requested: true},
     },
+    settings: {
+      payouts: {
+        schedule: {
+          interval: 'daily', 
+          delay_days: 14
+        }
+      }
+    }
     });
 
     res.json({
