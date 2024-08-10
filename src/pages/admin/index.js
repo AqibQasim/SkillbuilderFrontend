@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchCourses } from "../../../redux/thunks/allCoursesThunk";
 import { fetchAllInstructors } from "../../../redux/thunks/allInstructorsThunk";
 import { fetchStudents } from "../../../redux/thunks/allstudentsThunk";
+import { filterRepeatedStudents } from "@/utils/filterRepeatedStudents";
 
 const admin = () => {
   const dispatch = useDispatch();
@@ -41,12 +42,7 @@ const admin = () => {
     dispatch(fetchAllInstructors());
   }, [instructors]);
 
-  const uniqueStudents = students.reduce((acc, student) => {
-    if (!acc.some((s) => s.studentId === student.studentId)) {
-      acc.push(student);
-    }
-    return acc;
-  }, []);
+  const uniqueStudents = filterRepeatedStudents(students);
 
   return (
     <AdminDashboardLayout>

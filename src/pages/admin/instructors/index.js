@@ -2,6 +2,7 @@ import withAuth from "@/components/WithAuth";
 import DashboardLayout from "@/components/DashboardLayout";
 import InstructorsStudentsTable from "@/components/InstructorsStudentsTable";
 import AdminDashboardLayout from "@/components/AdminDashboardLayout";
+import { instructor } from "@/data/getInstructorById";
 
 const imageUrl1 =
   "https://img.freepik.com/premium-photo/cute-middle-school-teacher-3d-isolated-flat-color-background_1022901-80438.jpg?w=740";
@@ -130,7 +131,7 @@ export const specificCourseStudentsDummydata = dummyStudents.map((student) => ({
 function Students() {
   return (
     <AdminDashboardLayout>
-      <InstructorsStudentsTable />
+      <InstructorsStudentsTable students={[]} />
     </AdminDashboardLayout>
   );
 }

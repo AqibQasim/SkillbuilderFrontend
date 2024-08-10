@@ -13,6 +13,7 @@ import { FaChevronLeft } from "react-icons/fa6";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchOneCourse } from "../../../../redux/thunks/coursesThunks";
 import { fetchStudents } from "../../../../redux/thunks/allstudentsThunk";
+import { filterRepeatedStudents } from "@/utils/filterRepeatedStudents";
 
 function CourseDetail() {
   const { first_name, last_name } = useSelector((state) => state.profile);
@@ -39,12 +40,7 @@ function CourseDetail() {
     }
   }, [id]);
 
-  const uniqueStudents = students.reduce((acc, student) => {
-    if (!acc.some((s) => s.studentId === student.studentId)) {
-      acc.push(student);
-    }
-    return acc;
-  }, []);
+  const uniqueStudents = filterRepeatedStudents(students);
 
   const overview = view || "overview";
 
