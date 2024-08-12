@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 import Avatar from "./Avatar";
 import ViewAll from "./ViewAll";
 
-function DashboardStudentsOverview({ students, href }) {
+function DashboardStudentsOverview({ students, href, expand = true }) {
   const router = useRouter();
   console.log("students?", students);
 
@@ -21,7 +21,7 @@ function DashboardStudentsOverview({ students, href }) {
     <div className="">
       <div className="header flex items-center justify-between">
         <h2 className="text-2xl font-medium">Students</h2>
-        <ViewAll onClick={handleViewAllClick} />
+        {expand && <ViewAll onClick={handleViewAllClick} />}
       </div>
       <div className="scrollbar-custom mt-4 flex min-h-12 w-full space-x-4 overflow-x-scroll bg-white px-7 py-8">
         {!tempStudents?.length ? (

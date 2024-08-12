@@ -12,11 +12,21 @@ import { GiSkills } from "react-icons/gi";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchCoursesByInstructorId } from "../../../../redux/thunks/instructorCoursesThunk";
 import { fetchOneInstructor } from "../../../../redux/thunks/instructorThunk";
+import { fetchStudentsByInstructor } from "../../../../redux/thunks/fetchStudentsByInstructorthunk";
+import { filterRepeatedStudents } from "@/utils/filterRepeatedStudents";
 
 const InstructorDetails = () => {
   const router = useRouter();
   const instructorId = router.query.id;
   const dispatch = useDispatch();
+  const {
+    studentsByInstructor,
+    status: studentsByInstructorStatus,
+    error: studentsByInstructorError,
+  } = useSelector((state) => state.studentsByInstructor);
+  const instructorsUniqueStudents =
+    filterRepeatedStudents(studentsByInstructor) || [];
+  console.log("students of this instructor", studentsByInstructor);
   const {
     courses: instructorCourses,
     isInstLoading: instructorCoursesLoading,
@@ -55,21 +65,19 @@ const InstructorDetails = () => {
     }
   }, [instructorId]);
 
-  useEffect(
-    function () {
-      if (!instructorId && instructorCourses.length > 0) return;
-      dispatch(fetchCoursesByInstructorId(instructorId));
-    },
-    [instructorId],
-  );
+  useEffect(() => {
+    if (!instructorId || instructorCourses.length > 0) return;
+    dispatch(fetchCoursesByInstructorId(instructorId));
+  }, [instructorId]);
 
-  useEffect(
-    function () {
-      if (!id && instructorCourses.length > 0) return;
-      dispatch(fetchCoursesByInstructorId(id));
-    },
-    [id],
-  );
+  console.log("students length", studentsByInstructor.length > 0);
+
+  useEffect(() => {
+    console.log("instructor id changed");
+    if (!instructor || studentsByInstructor.length > 0) return;
+    console.log("dispatching");
+    dispatch(fetchStudentsByInstructor(instructor));
+  }, [instructor, studentsByInstructor]);
 
   console.log("Loading...", isInstLoading);
   console.log("Error...", InstructorError);
@@ -110,7 +118,10 @@ const InstructorDetails = () => {
         <Education education={instructor.education} />
         <RunningCourses courses={instructorCourses} />
         {/* <AdminInstructorOverview instructors={} /> */}
-        <DashboardStudentsOverview students={[]} />
+        <DashboardStudentsOverview
+          students={instructorsUniqueStudents}
+          expand={false}
+        />
       </div>
     </AdminDashboardLayout>
   );
