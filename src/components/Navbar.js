@@ -69,7 +69,7 @@ const Navbar = ({ cartItemsLength }) => {
               </button>
             </div>
 
-            <div className="text-gray-shade-1 flex hidden w-full items-center justify-center gap-3 lg:flex lg:w-auto lg:text-sm">
+            <div className="flex hidden w-full items-center justify-center gap-3 text-gray-shade-1 lg:flex lg:w-auto lg:text-sm">
               <Link
                 // className={
                 //   // currentTab === "home"
