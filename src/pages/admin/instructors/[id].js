@@ -119,6 +119,11 @@ const InstructorDetails = () => {
 export default InstructorDetails;
 
 function Hero({ instructor }) {
+  const fullName = instructor?.first_name
+    ? instructor?.first_name
+    : "first name" + instructor?.last_name
+      ? instructor?.last_name
+      : "last name";
   const icon = (iconName) =>
     `/${iconName.replace(/\s+/g, "").toLowerCase()}.svg`;
 
@@ -135,7 +140,7 @@ function Hero({ instructor }) {
           />
         </div>
         <div className="content relative mt-4 space-y-2">
-          <h1 className="text-4xl font-semibold">{`${instructor.first_name} ${instructor.last_name}`}</h1>
+          <h1 className="text-4xl font-semibold">{fullName}</h1>
           <p className="text-black text-lg font-normal">
             Email:
             <span className="text-span"> &nbsp; {instructor.email}</span>
@@ -211,7 +216,7 @@ function Education({ education = [] }) {
             </li>
           ))
         ) : (
-          <p>No education data available</p>
+          <p className="mr-auto">No education data available</p>
         )}
       </ul>
     </div>
