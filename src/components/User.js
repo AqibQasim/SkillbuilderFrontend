@@ -23,6 +23,12 @@ function User({ cartClickHandler, cartItemsLength }) {
   const { data: session, status } = useSession();
   const router = useRouter();
 
+  const instructorid = useSelector((state) => state.singleInstructor.id);
+
+  console.log("Instructor ki id h ye : ", instructorid);
+
+  const instructorPath = instructorid ? "/dashboard" : "/details-upload";
+
   function handleClose() {
     if (!show) return;
     setShow(false);
@@ -187,7 +193,7 @@ function User({ cartClickHandler, cartItemsLength }) {
               </li>
               <li>
                 <Link
-                  href="/become-a-tutor"
+                  href={instructorPath}
                   className="inline-flex w-full items-center justify-between px-5 py-2 text-gray-700 hover:bg-gray-100"
                 >
                   Become a Tutor
