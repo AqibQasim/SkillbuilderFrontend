@@ -6,7 +6,7 @@ import {
   specificCourseStudentsDummydata,
 } from "@/pages/dashboard/students";
 
-function InstructorsStudentsTable({ isSpecific = false }) {
+function InstructorsStudentsTable({ isSpecific = false, students }) {
   const enrolledStudents = useSelector(
     (state) => state.singleCourse.data.enrolled_customers,
   );
@@ -57,9 +57,9 @@ function InstructorsStudentsTable({ isSpecific = false }) {
 
   return (
     <>
-      <div className="component-header flex items-center justify-between">
+      {/* <div className="component-header flex items-center justify-between">
         <h2 className="text-2xl font-medium capitalize">All Students</h2>
-      </div>
+      </div> */}
       <Table columns="grid-cols-[2.5rem_1.1fr_1.25fr_1fr_1fr_0.25fr]">
         <Table.Header>
           <div></div>
