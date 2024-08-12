@@ -22,7 +22,15 @@ const links = [
   },
   { href: "/admin/students", icon: <PersonSvg />, name: "Students" },
   { href: "/admin/instructors", icon: <InstructorSvg />, name: "Instructors" },
-  { href: "/admin/payments", icon: <ClipboardSvg />, name: "Payments" },
+  {
+    href: "/admin/payments",
+    icon: <ClipboardSvg />,
+    name: "Payments",
+    subLinks: [
+      { href: "/admin/payments/students", name: "Students" },
+      { href: "/admin/payments/instructors", name: "Instructors" },
+    ],
+  },
 ];
 
 const isActiveLink = (pathname, linkHref) => {
@@ -55,10 +63,13 @@ const AdminDashboardSidebar = () => {
   const router = useRouter();
   const { pathname } = router;
 
-  const [dropdownOpen, setDropdownOpen] = useState(true);
+  const [dropdownOpen, setDropdownOpen] = useState({});
 
-  const handleDropdownToggle = () => {
-    setDropdownOpen(!dropdownOpen);
+  const handleDropdownToggle = (href) => {
+    setDropdownOpen((prevState) => ({
+      ...prevState,
+      [href]: !prevState[href],
+    }));
   };
 
   return (
@@ -91,7 +102,7 @@ const AdminDashboardSidebar = () => {
                 }`}
                 onClick={() =>
                   link.subLinks
-                    ? handleDropdownToggle()
+                    ? handleDropdownToggle(link.href)
                     : router.push(link.href)
                 }
               >
@@ -99,9 +110,11 @@ const AdminDashboardSidebar = () => {
                   {link.icon}
                   <span className="hidden lg:block">{link.name}</span>
                 </div>
-                {link.subLinks && <DropdownArrowSvg isOpen={dropdownOpen} />}
+                {link.subLinks && (
+                  <DropdownArrowSvg isOpen={dropdownOpen[link.href]} />
+                )}
               </div>
-              {link.subLinks && dropdownOpen && (
+              {link.subLinks && dropdownOpen[link.href] && (
                 <ul className="ml-5 mt-2 space-y-1">
                   {link.subLinks.map((subLink) => (
                     <li key={subLink.href}>

@@ -59,7 +59,7 @@ export default function ConnectHistory({stripe_account_id}) {
   }, []);
 
   return (
-    <div className="container">
+    <div className="container bg-white rounded-md p-4 shadow-md">
       {loading && <p>Loading...</p>}
       {error && <p id="error" className="text-red-500">{error}</p>}
       {stripeConnectInstance && (

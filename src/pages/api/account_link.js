@@ -7,8 +7,8 @@ export default async function handler(req, res) {
 
       const accountLink = await stripe.accountLinks.create({
         account: connectedAccountId,
-        return_url: `${req.headers.origin}/return/${connectedAccountId}`,
-        refresh_url: `${req.headers.origin}/refresh/${connectedAccountId}`,
+        return_url: `${req.headers.origin}/dashboard/payments`,
+        refresh_url: `${req.headers.origin}/dashboard/payments`,
         type: "account_onboarding",
       });
 

@@ -14,15 +14,10 @@ export default async function handler(req, res) {
       const accountSession = await stripe.accountSessions.create({
         account: stripe_account_id,
         components: {
-          balances: {
-            enabled: true,
-            features: {
-              instant_payouts: false,
-              standard_payouts: true,
-              edit_payout_schedule: false,
+            payouts_list: {
+              enabled: true,
             },
           },
-        },
       });
 
 
