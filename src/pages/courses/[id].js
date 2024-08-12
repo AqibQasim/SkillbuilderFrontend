@@ -125,12 +125,16 @@ const CourseDetails = () => {
 
   const { userData: user, isUserLoading } = useSelector(
     (state) => state.singleUser || { userData: {}, isUserLoading: true },
+
+   
   );
 
   const { instructorData: instructor, isInstLoading } = useSelector(
     (state) =>
       state.singleInstructor || { instructorData: {}, isInstLoading: true },
   );
+
+  console.log("Instructor here: " , instructor)
 
   const { reviewsData: reviews, isReviewsLoading } = useSelector(
     (state) => state.allReviews || { reviewsData: [], isReviewsLoading: true },
@@ -146,6 +150,7 @@ const CourseDetails = () => {
   useEffect(() => {
     if (user && user.id) {
       dispatch(fetchOneInstructor(user.id));
+
     }
   }, [user]);
 
@@ -153,17 +158,24 @@ const CourseDetails = () => {
     if (id) {
       dispatch(fetchOneCourse(id));
     }
+
+    console.log(`course fetched is: ${id}`)
   }, [id]);
 
   useEffect(() => {
     if (course && course.instructor_id) {
       dispatch(fetchOneUser(course.instructor_id));
+
+      console.log()
+
     }
+
+   
   }, [course]);
 
   useEffect(() => {
     if (course && course.id) {
-      dispatch(fetchAllReviews(course.id));
+      dispatch(fetchAllReviews(id));
     }
   }, [course]);
 

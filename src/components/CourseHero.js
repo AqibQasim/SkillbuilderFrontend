@@ -7,6 +7,7 @@ import LayoutWidth from "./LayoutWidth";
 function CourseHero({course}) {
   const router = useRouter();
   const { id } = router.query;
+  console.log("this course is :", id);
   // const course = courses.find((course) => course.id === parseInt(id));
   return (
     <div className="w-full bg-white">
