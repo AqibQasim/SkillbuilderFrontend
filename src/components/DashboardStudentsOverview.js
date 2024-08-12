@@ -1,49 +1,38 @@
+import { dummyStudents } from "@/pages/dashboard/students";
 import { useRouter } from "next/router";
-import ViewAll from "./ViewAll";
 import Avatar from "./Avatar";
-import InstructorsStudentsTable from "./InstructorsStudentsTable";
+import ViewAll from "./ViewAll";
 
-function DashboardStudentsOverview({ students, isLoading, status, error }) {
-  console.log("students in overview", students);
+function DashboardStudentsOverview({ students, href, expand = true }) {
   const router = useRouter();
-  const { id, view } = router.query;
-  const overview = view || "overview";
+  console.log("students?", students);
+
+  const tempStudents = students ? students : dummyStudents;
 
   const handleViewAllClick = () => {
-    if (status !== "loading" && status !== "failed") {
-      console.log("going to thisss normal");
-      router.push({
-        pathname: router.pathname,
-        query: { ...router.query, view: "students" },
-      });
-    }
+    if (href) router.push(href);
+    router.push({
+      pathname: router.pathname,
+      query: { ...router.query, view: "students" },
+    });
   };
 
   return (
     <div className="">
       <div className="header flex items-center justify-between">
         <h2 className="text-2xl font-medium">Students</h2>
-        <ViewAll onClick={handleViewAllClick} />
+        {expand && <ViewAll onClick={handleViewAllClick} />}
       </div>
       <div className="scrollbar-custom mt-4 flex min-h-12 w-full space-x-4 overflow-x-scroll bg-white px-7 py-8">
-        {isLoading && <p>Loading...</p>}
-        {!isLoading && !students?.length ? (
+        {!tempStudents?.length ? (
           <p>No students enrolled for the current course.</p>
         ) : null}
-
-        {overview === "overview" ? (
-          <>
-            {!isLoading && students?.length
-              ? students.map((student, index) => (
-                  <Student key={index} student={student} />
-                ))
-              : null}
-          </>
-        ) : (
-          <InstructorsStudentsTable isSpecific students={students} />
-        )}
+        {tempStudents?.length
+          ? tempStudents.map((student, index) => (
+              <Student key={index} student={student} />
+            ))
+          : null}
       </div>
-      {status === "failed" && <div>Error: {error}</div>}
     </div>
   );
 }
@@ -53,10 +42,13 @@ export default DashboardStudentsOverview;
 function Student({ student }) {
   return (
     <div className="flex flex-col items-center">
-      <Avatar name={student.first_name} />
-      <p className="mt-2 text-nowrap text-center capitalize">
-        {student.first_name} {student.last_name}
-      </p>
+      {/* <img
+        src={student.image}
+        alt={student.name}
+        className="h-20 w-20 rounded-full object-cover"
+      /> */}
+      <Avatar name={student.first_name} className="!size-20" />
+      <p className="mt-2 text-nowrap text-center capitalize">{`${student.first_name} ${student.last_name}`}</p>
     </div>
   );
 }
