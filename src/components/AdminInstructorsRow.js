@@ -9,18 +9,12 @@ function AdminInstructorsRow({ isSpecific, instructor }) {
   const router = useRouter();
   console.log("---------------------------", instructor);
 
-  const {
-    id: instructorId,
-    user_id,
-    first_name,
-    last_name,
-    email,
-    created_at,
-    courseProgress,
-  } = instructor.user;
+  const { user_id, first_name, last_name, email, created_at, courseProgress } =
+    instructor.user;
 
   const handleRowClick = () => {
-    router.push(`/admin/instructors/${user_id}`);
+    // router.push(`/admin/instructors/${user_id}`);
+    router.push(`/admin/instructors/${instructor?.id}`);
   };
 
   return (

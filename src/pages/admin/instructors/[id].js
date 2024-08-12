@@ -26,27 +26,28 @@ const InstructorDetails = () => {
 
   const {
     isInstLoading,
+    specialization,
+    user_id,
+    video_url,
+    status,
+    experience,
     InstructorError,
     id,
-    first_name,
-    last_name,
-    email,
-    location,
-    skills,
-    education,
-    experience,
+    user,
   } = useSelector((state) => state.singleInstructor);
 
   const instructor = {
-    id,
-    first_name,
-    last_name,
-    email,
-    location,
-    skills,
-    education,
+    ...user,
+    user_id,
+    instructorId,
+    specialization,
+    video_url,
+    status,
     experience,
+    skills: [],
   };
+
+  console.log("instructor ?????", instructor);
 
   useEffect(() => {
     if (instructorId) {
@@ -56,10 +57,10 @@ const InstructorDetails = () => {
 
   useEffect(
     function () {
-      if (!id && instructorCourses.length > 0) return;
-      dispatch(fetchCoursesByInstructorId(id));
+      if (!instructorId && instructorCourses.length > 0) return;
+      dispatch(fetchCoursesByInstructorId(instructorId));
     },
-    [id],
+    [instructorId],
   );
 
   useEffect(
