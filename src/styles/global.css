@@ -28,6 +28,27 @@
 }
 */
 
+progress {
+  border-radius: 7px;
+  height: 5px;
+}
+progress::-webkit-progress-bar {
+  background-color: theme(colors.gray.shade-1);
+  border-radius: 7px;
+}
+progress::-webkit-progress-value {
+  background-color: theme(colors.blue.DEFAULT);
+  border-radius: 7px;
+}
+progress::-moz-progress-bar {
+  background-color: theme(colors.gray.shade-2);
+  border-radius: 7px;
+}
+progress::-moz-progress-value {
+  background-color: theme(colors.blue.DEFAULT);
+  border-radius: 7px;
+}
+
 body {
   @apply font-poppins;
 }

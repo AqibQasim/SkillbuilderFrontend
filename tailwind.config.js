@@ -111,7 +111,7 @@ module.exports = {
         },
         gray: {
           "shade-1": "#878A99",
-          "shade-2": "shade 2 goes here",
+          "shade-2": "#D5D5D5",
           "shade-3": "#F0F1F5",
           // this is max ignore other shades if exists use one of these instead!.
         },
@@ -130,9 +130,14 @@ module.exports = {
     },
   },
   variants: {
-    scrollbar: ['rounded'],
+    scrollbar: ["rounded"],
   },
-  plugins: [
-    require('tailwind-scrollbar'),
+  plugins: [require("tailwind-scrollbar")],
+  safelist: [
+    "text-yellow-500",
+    "text-yellow-300",
+    "text-blue-500",
+    "text-blue-300",
+    // Add other color variations you plan to use
   ],
 };

@@ -8,6 +8,7 @@ function Button({
   className = "",
   variant = "primary",
   fill = "fill",
+  ...rest
 }) {
   const variants = {
     fill: {
@@ -37,7 +38,7 @@ function Button({
   }
 
   return (
-    <button type={type} onClick={onClick} className={classes}>
+    <button type={type} onClick={onClick} className={classes} {...rest}>
       {children}
     </button>
   );

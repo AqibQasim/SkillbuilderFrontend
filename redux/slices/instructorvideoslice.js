@@ -16,7 +16,8 @@ const videoUploadSlice = createSlice({
         state.success = false;
         state.error = null;
       })
-      .addCase(uploadVideo.fulfilled, (state) => {
+      .addCase(uploadVideo.fulfilled, (state, action) => {
+        console.log("Payloaaaad :", action.payload);
         state.loading = false;
         state.success = true;
         state.error = null;
