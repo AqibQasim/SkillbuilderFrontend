@@ -1,16 +1,17 @@
 import AdminDashboardLayout from "@/components/AdminDashboardLayout";
 import ButtonCircle from "@/components/ButtonCircle";
+import DashboardStudentsOverview from "@/components/DashboardStudentsOverview";
 import H2 from "@/components/H2";
 import Loader from "@/components/Loader";
+import StarRating from "@/components/StarRating";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
 import { FaChevronLeft, FaGraduationCap } from "react-icons/fa6";
 import { GiSkills } from "react-icons/gi";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchOneInstructor } from "../../../../redux/thunks/instructorThunk";
 import { fetchCoursesByInstructorId } from "../../../../redux/thunks/instructorCoursesThunk";
-import StarRating from "@/components/StarRating";
+import { fetchOneInstructor } from "../../../../redux/thunks/instructorThunk";
 
 const InstructorDetails = () => {
   const router = useRouter();
@@ -61,6 +62,14 @@ const InstructorDetails = () => {
     [id],
   );
 
+  useEffect(
+    function () {
+      if (!id && instructorCourses.length > 0) return;
+      dispatch(fetchCoursesByInstructorId(id));
+    },
+    [id],
+  );
+
   console.log("Loading...", isInstLoading);
   console.log("Error...", InstructorError);
 
@@ -99,6 +108,8 @@ const InstructorDetails = () => {
 
         <Education education={instructor.education} />
         <RunningCourses courses={instructorCourses} />
+        {/* <AdminInstructorOverview instructors={} /> */}
+        <DashboardStudentsOverview students={[]} />
       </div>
     </AdminDashboardLayout>
   );
@@ -211,7 +222,7 @@ function RunningCourses({ courses }) {
   return (
     <div className="running-courses">
       <H2>Running Courses</H2>
-      <div className="grid grid-cols-[repeat(auto-fill,minmax(290px,1fr))] justify-items-center gap-4">
+      <div className="mt-2 grid grid-cols-[repeat(auto-fill,minmax(290px,1fr))] justify-items-center gap-4">
         {courses?.map((course) => (
           <CourseCardOnAdminDashboard course={course} />
         ))}
@@ -224,21 +235,28 @@ function CourseCardOnAdminDashboard({ course }) {
   return (
     <div
       key={course?.id}
-      className="img-container mb-4 flex h-auto w-full max-w-sm transform flex-col items-start rounded-2xl border border-cards_gray bg-white p-2 transition duration-300 hover:border-[rgb(152,159,233)] hover:shadow-lg"
+      className="img-container mb-4 flex h-auto w-full max-w-sm transform flex-col items-start rounded-bl-2xl rounded-tr-2xl border border-cards_gray bg-white p-2 transition duration-300 hover:border-[rgb(152,159,233)] hover:shadow-lg"
       //   onClick={() => router.push(`/courses/${course?.id}`)}
     >
-      <Image
+      {/* <Image
         className="w-[100%] pt-1"
         src={course?.image}
         alt={course?.title}
         width={280}
         height={260}
-      />
-      <div className="w-[100%] p-2">
-        <div className="mt-2 flex w-full items-center justify-between">
+      /> */}
+      <div className="image-wrapper relative max-h-36 w-full">
+        <img
+          className="!m-0 block size-full rounded-tr-2xl object-cover"
+          src={course?.image}
+          alt={`Image for ${course?.title} course`}
+        />
+      </div>
+      <div className="px-2 pb-2 pt-1">
+        <div className="">
           <div>
             <span className="text-sm">{course?.rating}</span>
-            <StarRating rating={Math.round(course?.rating)} />
+            <StarRating rating={course?.rating} />
           </div>
         </div>
         <h3 className="mt-4 text-lg font-semibold">{course?.title}</h3>

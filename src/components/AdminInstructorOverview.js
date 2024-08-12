@@ -1,9 +1,8 @@
-import { dummyStudents } from "@/pages/dashboard/students";
 import { useRouter } from "next/router";
 import Avatar from "./Avatar";
 import ViewAll from "./ViewAll";
 
-function DashboardStudentsOverview({ instructors, href }) {
+function AdminInstructorOverview({ instructors, href }) {
   const router = useRouter();
   console.log("instructors?", instructors);
 
@@ -35,7 +34,7 @@ function DashboardStudentsOverview({ instructors, href }) {
   );
 }
 
-export default DashboardStudentsOverview;
+export default AdminInstructorOverview;
 
 function Instructor({ instructor }) {
   console.log("One Instructor: ", instructor);
