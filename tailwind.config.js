@@ -39,7 +39,6 @@ module.exports = {
         "max-lg": { max: "1250px" }, // Styles for devices smaller than 1024px
         "max-xlg": { max: "1422px" },
       },
-
       colors: {
         "dashboard-border": {
           DEFAULT: "#E0E3F0",
@@ -114,6 +113,22 @@ module.exports = {
           "shade-2": "#D5D5D5",
           "shade-3": "#F0F1F5",
           // this is max ignore other shades if exists use one of these instead!.
+        },
+        approve: {
+          DEFAULT: "#18B100",
+          "hover-bg": "#EDFFEB",
+        },
+        decline: {
+          DEFAULT: "#FF0000",
+          "hover-bg": "#FFF2F2",
+        },
+        suspend: {
+          DEFAULT: "#FF9800",
+          text: "#FFFFFF",
+        },
+        delete: {
+          DEFAULT: "#D32F2F",
+          text: "#FFFFFF",
         },
       },
       spacing: {
