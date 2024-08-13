@@ -9,20 +9,7 @@ import { addItem } from "../../redux/slices/addToCart";
 function CourseHero({ course }) {
   const router = useRouter();
   const { id } = router.query;
-
-  const dispatch = useDispatch();
-  const cartItems = useSelector((state) => state.cart.items);
-
-  const handleAddToCart = (course) => {
-    if (!cartItems.some((item) => item.id === course.id)) {
-      dispatch(addItem(course));
-    }
-  };
-
-  const isCourseAddedToCart = (course) => {
-    return cartItems.some((item) => item.id === course.id);
-  };
-
+  console.log("this course is :", id);
   // const course = courses.find((course) => course.id === parseInt(id));
   return (
     <div className="w-full bg-white">
