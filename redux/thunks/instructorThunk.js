@@ -6,7 +6,7 @@ export const fetchOneInstructor = createAsyncThunk(
   async (id, { rejectWithValue }) => {
     console.log("id in isntructor thunk:", id);
     try {
-      const response = await fetch(`${base_Api}/instructor-detail/${1}`, {
+      const response = await fetch(`${base_Api}/instructor-detail/${id}`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",

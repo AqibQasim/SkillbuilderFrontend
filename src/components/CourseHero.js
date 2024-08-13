@@ -5,11 +5,19 @@ import { useRouter } from "next/router";
 import LayoutWidth from "./LayoutWidth";
 import { useSelector, useDispatch } from "react-redux";
 import { addItem } from "../../redux/slices/addToCart";
-
 function CourseHero({ course }) {
   const router = useRouter();
   const { id } = router.query;
-  console.log("this course is :", id);
+  const dispatch = useDispatch();
+  const cartItems = useSelector((state) => state.cart.items);
+  const handleAddToCart = (course) => {
+    if (!cartItems.some((item) => item.id === course.id)) {
+      dispatch(addItem(course));
+    }
+  };
+  const isCourseAddedToCart = (course) => {
+    return cartItems.some((item) => item.id === course.id);
+  };
   // const course = courses.find((course) => course.id === parseInt(id));
   return (
     <div className="w-full bg-white">
@@ -39,7 +47,6 @@ function CourseHero({ course }) {
                   Add to Cart
                 </button>
               )}
-
               {isCourseAddedToCart(course) && (
                 <button
                   disabled
@@ -57,7 +64,6 @@ function CourseHero({ course }) {
               )}
             </div>
           </div>
-
           {/* Right Section (visible on all screens) */}
           <div className="text-black hidden flex-1 lg:flex lg:items-center lg:justify-center">
             {/* <div className="relative h-[19.5rem] w-[30.5625rem] flex justify-center items-center">

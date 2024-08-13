@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fetchOneUser } from '../../redux/thunks/userInfoThunk';
 import { useRouter } from "next/router";
 import { removeItem } from '../../redux/slices/addToCart';
+import { fetchOneInstructor } from '../../redux/thunks/instructorThunk';
 
 
 const CartItem = ({
@@ -19,9 +20,20 @@ const CartItem = ({
     const router = useRouter();
     const dispatch = useDispatch();
 
-    const { userData: user, isUserLoading, userFetchError } = useSelector(
-        (state) => state.singleUser || { userData: {}, isUserLoading: false, userFetchError: null }
-    );
+    // const { userData: user, isUserLoading, userFetchError } = useSelector(
+    //     (state) => state.singleUser || { userData: {}, isUserLoading: false, userFetchError: null }
+    // );
+
+    const { user, isInstLoading, InstructorError } = useSelector(
+        (state) => state.singleInstructor,
+      );
+
+      useEffect(() => {
+        if (course && course.instructor_id) {
+          console.log("course ki instructor id ", course.instructor_id)
+          dispatch(fetchOneInstructor(course.instructor_id));
+        }
+      }, [dispatch, course]);
 
 
     useEffect(() => {
