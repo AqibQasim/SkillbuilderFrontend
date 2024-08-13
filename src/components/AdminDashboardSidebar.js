@@ -34,9 +34,9 @@ const links = [
 ];
 
 const isActiveLink = (pathname, linkHref) => {
-  if (linkHref.startsWith("/admin/courses")) {
-    return pathname.startsWith(linkHref);
-  }
+  // if (linkHref.startsWith("/admin/courses")) {
+  //   return pathname.startsWith(linkHref);
+  // }
   return pathname === linkHref;
 };
 

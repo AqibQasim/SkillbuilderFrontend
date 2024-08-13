@@ -9,13 +9,14 @@ import { fetchAllCourses } from "../../redux/thunks/auththunks";
 import { addItem } from "../../redux/slices/addToCart";
 import { useEffect, useState } from "react";
 import LayoutWidth from "./LayoutWidth";
+import { fetchCourses } from "../../redux/thunks/allCoursesThunk";
 
 const Courses = ({ heading, paddingTop }) => {
   const [addedToCart, setAddedToCart] = useState(false);
   const router = useRouter();
   const dispatch = useDispatch();
   const {
-    data: courses = [],
+    courses = [],
     isLoading,
     error,
   } = useSelector(
@@ -23,14 +24,10 @@ const Courses = ({ heading, paddingTop }) => {
   );
 
   useEffect(() => {
-    dispatch(fetchAllCourses());
-  }, [dispatch]);
+    dispatch(fetchCourses());
+  }, []);
 
   const cartItems = useSelector((state) => state.cart.items);
-
-  useEffect(() => {
-    dispatch(fetchAllCourses());
-  }, [dispatch]);
 
   useEffect(() => {
     console.log("Updated cart items:", cartItems);

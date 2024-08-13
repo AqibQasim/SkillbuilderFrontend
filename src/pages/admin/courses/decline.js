@@ -1,31 +1,30 @@
 import AdminDashboardLayout from "@/components/AdminDashboardLayout";
-import InstructorCourseTable from "@/components/InstructorCourseTable";
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchCoursesByInstructorId } from "../../../../redux/thunks/instructorCoursesThunk";
+import { fetchCourses } from "../../../../redux/thunks/allCoursesThunk";
+import AdminCoursesTable from "@/components/AdminCoursesTable";
 
-const decline = () => {
+const approved = () => {
   const dispatch = useDispatch();
-  const instructorId = useSelector((state) => state.profile.id);
-  const {
-    courses: instructorCourses,
-    isLoading,
-    error,
-  } = useSelector((state) => state.instructorCourses);
+  const { courses, declinedCourses, status, error } = useSelector(
+    (state) => state.courses,
+  );
 
-  console.log("instructor Courses", instructorCourses);
-  console.log("instructor Courses length", instructorCourses.length);
+  console.log("status", status);
+  console.log(`Error ${error}`);
 
-  useEffect(() => {
-    if (instructorId) {
-      dispatch(fetchCoursesByInstructorId(instructorId));
-    }
-  }, [dispatch, instructorId]);
+  useEffect(function () {
+    if (courses.length > 0) return;
+    dispatch(fetchCourses());
+  }, []);
+
+  console.log("Declined courses dsad", declinedCourses);
+  console.log("courses dsadsa", courses);
 
   return (
     <AdminDashboardLayout>
-      <InstructorCourseTable />
+      <AdminCoursesTable courses={declinedCourses} courseStatus={"declined"} />
     </AdminDashboardLayout>
   );
 };
-export default decline;
+export default approved;

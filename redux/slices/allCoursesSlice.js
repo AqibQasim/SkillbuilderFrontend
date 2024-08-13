@@ -1,31 +1,35 @@
-import { fetchAllCourses } from "../thunks/auththunks";
 import { createSlice } from "@reduxjs/toolkit";
+import { fetchCourses } from "../thunks/allCoursesThunk";
 
-
-const coursesSlice = createSlice({
+const courseSlice = createSlice({
   name: "courses",
   initialState: {
-    data: [],
-    isLoading: false,
+    courses: [],
+    pendingCourses: [],
+    declinedCourses: [],
+    approvedCourses: [],
+    status: "idle",
     error: null,
   },
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(fetchAllCourses.pending, (state) => {    
-        state.isLoading = true;
+      .addCase(fetchCourses.pending, (state) => {
+        state.status = "loading";
         state.error = null;
       })
-      .addCase(fetchAllCourses.fulfilled, (state, action) => {
-        console.log("action:", action);
-        state.data = action.payload;
-        state.isLoading = false;
+      .addCase(fetchCourses.fulfilled, (state, action) => {
+        state.status = "succeeded";
+        state.courses = action.payload.courses;
+        state.pendingCourses = action.payload.pendingCourses;
+        state.declinedCourses = action.payload.declinedCourses;
+        state.approvedCourses = action.payload.approvedCourses;
       })
-      .addCase(fetchAllCourses.rejected, (state, action) => {
+      .addCase(fetchCourses.rejected, (state, action) => {
+        state.status = "failed";
         state.error = action.payload;
-        state.isLoading = false;
       });
   },
 });
 
-export default coursesSlice.reducer;
+export default courseSlice.reducer;
