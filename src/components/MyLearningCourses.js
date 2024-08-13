@@ -1,5 +1,9 @@
 import { useRouter } from "next/router";
 import LayoutWidth from "./LayoutWidth";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect, useState } from "react";
+import { fetchpurchasecourses } from "../../redux/thunks/purchasecoursesThunk";
+import { fetchOneInstructor } from "../../redux/thunks/instructorThunk";
 
 export const enrolledDummyCourses = [
   {
@@ -108,11 +112,42 @@ console.log(enrolledDummyCourses);
 enrolledDummyCourses.map((course) => console.log(course.progress));
 
 function MyLearningCourses() {
+  const [purchasedcourses, setpurchasedcourses] = useState([]);
+  const fetchdata = async () => {
+    await dispatch(fetchpurchasecourses(2));
+  };
+  const dispatch = useDispatch();
+  const { data } = useSelector((state) => state.purchasecourse);
+  useEffect(() => {
+    fetchdata();
+  }, []);
+  useEffect(() => {
+    if (data.length > 0) {
+      console.log("Fetched data", data[0]);
+      setpurchasedcourses(data);
+
+      data.forEach((item, index) => {
+        const { id, course } = item;
+        const { title, description, created_at, instructor_id } = course;
+        console.log(
+          `Course ${index + 1}: ${title} - ${description}, Created At: ${created_at}, Instructor ID: ${instructor_id}`,
+        );
+      });
+    }
+  }, [data]);
+
+  console.log("Purchased Courses outside useEffect:", purchasedcourses);
+
   return (
     <LayoutWidth>
       <div className="grid grid-cols-[repeat(auto-fill,minmax(320px,1fr))] justify-items-center gap-4">
-        {enrolledDummyCourses.map((course) => (
-          <MyLearningCourseCard course={course} key={course.id} />
+        {purchasedcourses.map((item) => (
+          <MyLearningCourseCard
+            key={item.id}
+            id={item.id}
+            title={item.course.title}
+            image={item.course.image}
+          />
         ))}
       </div>
     </LayoutWidth>
@@ -121,8 +156,7 @@ function MyLearningCourses() {
 
 export default MyLearningCourses;
 
-function MyLearningCourseCard({ course }) {
-  const { id, image, title, instructor, progress } = course;
+function MyLearningCourseCard({ id, title, image }) {
   const router = useRouter();
 
   function handleClick() {
@@ -142,8 +176,8 @@ function MyLearningCourseCard({ course }) {
         />
       </div>
       <h2 className="mt-2 text-xl font-semibold">{title}</h2>
-      <p>Instructor: {instructor}</p>
-      <div className="progress mt-auto w-full">
+      {/* <p>Instructor: {instructor}</p> */}
+      {/* <div className="progress mt-auto w-full">
         <p className="float-right ml-auto text-xl">{progress}%</p>
         <progress
           className="h-1 w-full rounded-full bg-gray-shade-1 text-blue"
@@ -154,7 +188,7 @@ function MyLearningCourseCard({ course }) {
           {" "}
           {progress}{" "}
         </progress>
-      </div>
+      </div> */}
     </div>
   );
 }
