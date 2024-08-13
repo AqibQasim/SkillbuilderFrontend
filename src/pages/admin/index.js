@@ -1,41 +1,74 @@
-import AdminRevenueStatistics from "@/components/AdminRevenueStatistics";
-import DashboardLayout from "@/components/DashboardLayout";
-import InstructorCourseTable from "@/components/InstructorCourseTable";
-import React from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useEffect } from "react";
-import { fetchCoursesByInstructorId } from "../../../redux/thunks/instructorCoursesThunk";
-import DashboardStudentsOverview from "@/components/DashboardStudentsOverview";
-import AdminInstructorOverview from "@/components/AdminInstructorOverview";
+import AdminCoursesTable from "@/components/AdminCoursesTable";
 import AdminDashboardLayout from "@/components/AdminDashboardLayout";
+import AdminInstructorOverview from "@/components/AdminInstructorOverview";
+import AdminRevenueStatistics from "@/components/AdminRevenueStatistics";
+import DashboardStudentsOverview from "@/components/DashboardStudentsOverview";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchCourses } from "../../../redux/thunks/allCoursesThunk";
+import { fetchStudents } from "../../../redux/thunks/allstudentsThunk";
+import { filterRepeatedStudents } from "@/utils/filterRepeatedStudents";
+import { fetchAllInstructors } from "../../../redux/thunks/allInstructorsThunk";
 
 const admin = () => {
   const dispatch = useDispatch();
-  const instructorId = useSelector((state) => state.profile.id);
+  const { pendingCourses, courses, status, error } = useSelector(
+    (state) => state.courses,
+  );
   const {
-    courses: instructorCourses,
-    isLoading,
-    error,
-  } = useSelector((state) => state.instructorCourses);
+    students,
+    status: studentsStatus,
+    error: studentsError,
+  } = useSelector((state) => state.students);
 
-  console.log("instructor Courses", instructorCourses);
-  console.log("instructor Courses length", instructorCourses.length);
+  const {
+    instructors,
+    status: instructorsStatus,
+    error: instructorsError,
+  } = useSelector((state) => state.allInstructors);
 
   useEffect(() => {
-    if (instructorId) {
-      dispatch(fetchCoursesByInstructorId(instructorId));
-    }
-  }, [dispatch, instructorId]);
+    console.log("running instructors Effect");
+    if (instructors?.length > 0) return;
+    dispatch(fetchAllInstructors());
+  }, [instructors]);
+
+  useEffect(() => {
+    if (courses?.length > 0) return;
+    dispatch(fetchCourses());
+  }, [courses]);
+
+  useEffect(() => {
+    if (students?.length > 0) return;
+    dispatch(fetchStudents());
+  }, [students]);
+
+  const uniqueStudents = filterRepeatedStudents(students);
+
   return (
     <AdminDashboardLayout>
       <AdminRevenueStatistics />
       <br />
       <br />
-      <InstructorCourseTable />
+      <AdminCoursesTable courses={pendingCourses} courseStatus="pending" />
       <br /> <br />
-      <DashboardStudentsOverview />
+      {studentsStatus === "loading" ? (
+        "Loading..."
+      ) : (
+        <DashboardStudentsOverview
+          students={uniqueStudents}
+          href="admin/students"
+        />
+      )}
       <br /> <br />
-      <AdminInstructorOverview />
+      {instructorsStatus === "loading" ? (
+        "Loading..."
+      ) : (
+        <AdminInstructorOverview
+          instructors={instructors}
+          href="admin/instructors"
+        />
+      )}
     </AdminDashboardLayout>
   );
 };

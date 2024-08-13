@@ -6,9 +6,7 @@ import AdminCoursesTable from "@/components/AdminCoursesTable";
 
 const approved = () => {
   const dispatch = useDispatch();
-  const { courses, approvedCourses, status, error } = useSelector(
-    (state) => state.courses,
-  );
+  const { courses, status, error } = useSelector((state) => state.courses);
 
   console.log("status", status);
   console.log(`Error ${error}`);
@@ -18,11 +16,11 @@ const approved = () => {
     dispatch(fetchCourses());
   }, []);
 
-  console.log(approvedCourses);
+  console.log(courses);
 
   return (
     <AdminDashboardLayout>
-      <AdminCoursesTable courses={approvedCourses} courseStatus={"approved"} />
+      <AdminCoursesTable courses={courses} courseStatus={"all"} />
     </AdminDashboardLayout>
   );
 };

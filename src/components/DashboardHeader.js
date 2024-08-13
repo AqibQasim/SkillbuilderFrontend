@@ -14,7 +14,9 @@ function DashboardHeader() {
       <Search />
       {!isAdminRoute && (
         <>
-          <Button fill="unfill">Student</Button>
+          <Button fill="unfill" href="/home">
+            Student
+          </Button>
           <Button className="hidden md:block" href="/course-upload">
             {" "}
             Upload course +
