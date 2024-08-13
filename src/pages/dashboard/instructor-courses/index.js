@@ -8,74 +8,48 @@ import { fetchOneInstructor } from "../../../../redux/thunks/instructorThunk";
 import Loader from "@/components/Loader";
 
 function Courses() {
-  const userId = useSelector((state) => state.auth.user);
-  const {
-    id: instructorId,
-    isInstLoading: instructorLoading,
-    InstructorError: instructorError,
-  } = useSelector((state) => state.singleInstructor);
-  const {
-    courses: instructorCourses,
-    isLoading: coursesLoading,
-    error: coursesError,
-  } = useSelector((state) => state.instructorCourses);
-
   const dispatch = useDispatch();
+  const userId = useSelector((state) => state.auth.user);
+  // const instructorId = useSelector((state) => state.singleInstructor.id);
+  let instructorId = 4;
+  const courses = useSelector((state) => state.instructorCourses.courses);
+  const loading = useSelector((state) => state.singleInstructor.isLoading);
+  const error = useSelector((state) => state.singleInstructor.error);
+  console.log("instructor courses in instructor-courses page", courses);
 
-  console.log("userID", userId);
-  console.log("instructorId", instructorId);
+  useEffect(() => {
+    if (!instructorId || courses?.length > 0) return;
+    console.log("get instructors?");
+    dispatch(fetchCoursesByInstructorId(instructorId));
+  }, [instructorId, courses?.length]);
 
-  console.log("instructor Courses", instructorCourses);
-  console.log("instructor Courses length", instructorCourses.length);
+  // if (instructorLoading || coursesLoading) {
+  //   return (
+  //     <DashboardLayout>
+  //       <Loader />
+  //     </DashboardLayout>
+  //   );
+  // }
 
-  // useEffect(() => {
-  //   if (instructorId) {
-  //     console.log("fetch course by instructor id");
-  //     dispatch(fetchCoursesByInstructorId(instructorId));
-  //   }
-  // }, [dispatch, instructorId]);
-  
+  // if (instructorError) {
+  //   return (
+  //     <DashboardLayout>
+  //       <h2>{instructorError || "Could not fetch the instructor details."}</h2>
+  //     </DashboardLayout>
+  //   );
+  // }
 
-  useEffect(
-    function () {
-      if (userId) {
-        console.log("fetchOneInstructor");
-        dispatch(fetchOneInstructor(userId));
-      }
-    },
-    [userId],
-  );
-
-  if (instructorLoading || coursesLoading) {
-    return (
-      <DashboardLayout>
-        <Loader />
-      </DashboardLayout>
-    );
-  }
-
-  if (instructorError) {
-    return (
-      <DashboardLayout>
-        <h2>{instructorError || "Could not fetch the instructor details."}</h2>
-      </DashboardLayout>
-    );
-  }
-
-  if (coursesError) {
-    return (
-      <DashboardLayout>
-        <h2>{coursesError || "Could not fetch the courses."}</h2>
-      </DashboardLayout>
-    );
-  }
+  // if (error) {
+  //   return (
+  //     <DashboardLayout>
+  //       <h2>{coursesError || "Could not fetch the courses."}</h2>
+  //     </DashboardLayout>
+  //   );
+  // }
 
   return (
     <DashboardLayout>
-      <InstructorCourseTable
-        courses={instructorCourses}
-        filter_courses="All Courses"
-      />
+      <InstructorCourseTable courses={courses} />
     </DashboardLayout>
   );
 }
