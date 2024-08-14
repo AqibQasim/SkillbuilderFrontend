@@ -4,7 +4,7 @@ import DashboardCourseSkills from "@/components/DashboardCourseSkills";
 import DashboardLayout from "@/components/DashboardLayout";
 import DashboardStudentsOverview from "@/components/DashboardStudentsOverview";
 import InstructorCourseCard from "@/components/InstructorCourseCard";
-import InstructorsStudentsTable from "@/components/InstructorsStudentsTable";
+import InstructorsCourseStudentsTable from "@/components/InstructorsCourseStudentsTable";
 import Loader from "@/components/Loader";
 import withAuth from "@/components/WithAuth";
 import { filterRepeatedStudents } from "@/utils/filterRepeatedStudents";
@@ -98,7 +98,7 @@ function CourseDetail() {
             <DashboardStudentsOverview students={uniqueStudents} />
           </>
         ) : (
-          <InstructorsStudentsTable isSpecific students={[]} />
+          <InstructorsCourseStudentsTable students={uniqueStudents} />
         )}
       </div>
     </DashboardLayout>
