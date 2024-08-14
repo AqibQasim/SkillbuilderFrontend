@@ -123,14 +123,30 @@ const CourseDetails = () => {
     (state) => state.singleCourse || { data: {}, isLoading: true },
   );
 
-  const { userData: user, isUserLoading } = useSelector(
-    (state) => state.singleUser || { userData: {}, isUserLoading: true },
+  // const { userData: user, isUserLoading } = useSelector(
+  //   (state) => state.singleUser || { userData: {}, isUserLoading: true },
+  // );
+
+  // console.log(" complete name would be :", first_name + " " + last_name);
+
+  const { user, isInstLoading, InstructorError } = useSelector(
+    (state) => state.singleInstructor,
   );
 
-  const { instructorData: instructor, isInstLoading } = useSelector(
-    (state) =>
-      state.singleInstructor || { instructorData: {}, isInstLoading: true },
-  );
+  useEffect(() => {
+    if (course && course.instructor_id) {
+      dispatch(fetchOneInstructor(course.instructor_id));
+    }
+  }, [dispatch, course]);
+
+  useEffect(() => {
+    console.log("user it izzz", user);
+  }, [user]);
+
+  // const { instructorData: instructor, isInstLoading } = useSelector(
+  //   (state) =>
+  //     state.singleInstructor || { instructorData: {}, isInstLoading: true },
+  // );
 
   const { reviewsData: reviews, isReviewsLoading } = useSelector(
     (state) => state.allReviews || { reviewsData: [], isReviewsLoading: true },
@@ -143,11 +159,11 @@ const CourseDetails = () => {
     setIsClient(true);
   }, [router?.isReady, courses]);
 
-  useEffect(() => {
-    if (user && user.id) {
-      dispatch(fetchOneInstructor(user.id));
-    }
-  }, [user]);
+  // useEffect(() => {
+  //   if (user && user.id) {
+  //     dispatch(fetchOneInstructor(user.id));
+  //   }
+  // }, [user]);
 
   useEffect(() => {
     if (id) {
@@ -170,7 +186,7 @@ const CourseDetails = () => {
   if (
     !isClient ||
     courseLoading ||
-    isUserLoading ||
+    // isUserLoading ||
     isInstLoading ||
     isReviewsLoading
   ) {
@@ -184,7 +200,7 @@ const CourseDetails = () => {
         <CurrentPath dynamicPath={course.title} />
       </div>
       <CourseHero course={course} />
-      <CourseInstructor course={course} user={user} instructor={instructor} />
+      <CourseInstructor course={course} user={user} />
       <CourseModule course={course} />
       <CourseReviews reviews={reviews} />
       <Footer />

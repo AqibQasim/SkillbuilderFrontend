@@ -46,7 +46,11 @@ function Instructor({ instructor }) {
         alt={student.name}
         className="h-20 w-20 rounded-full object-cover"
       /> */}
-      <Avatar name={first_name} className="!size-20" />
+      <Avatar
+        firstName={first_name}
+        lastName={last_name}
+        className="!size-20"
+      />
       <p className="mt-2 text-nowrap text-center capitalize">{`${first_name} ${last_name}`}</p>
     </div>
   );
