@@ -13,6 +13,7 @@ import instructorCoursesSliceReducer from "../slices/instructorCoursesSlice";
 import InstructorReducer from "../slices/createInstructorSlice";
 import instructorvideoReducer from "../slices/instructorvideoslice";
 import courseStatusSlice from "../slices/courseStatusSlice";
+import studentsReducer from "../slices/fetchStudentsByInstructorSlice";
 import studentsSlice from "../slices/allStudentsSlice";
 import allInstructorsReducer from "../slices/allInstructorsSlice";
 import fetchStudentsByInstructorReducer from "../slices/fetchStudentsByInstructorSlice";
@@ -75,6 +76,7 @@ export const store = configureStore({
     videoUpload: instructorvideoReducer,
     instructorCourses: instructorCoursesSliceReducer,
     courseStatus: courseStatusSlice,
+    students: studentsReducer,
     students: studentsSlice,
     allInstructors: allInstructorsReducer,
     studentsByInstructor: fetchStudentsByInstructorReducer,
