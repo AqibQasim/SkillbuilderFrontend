@@ -1,66 +1,117 @@
-import React, { useState } from "react";
-import SkillBuilderSvg from "@/components/SkillBuilderSvg";
-import InstructorTab from "@/components/InstructorTab2";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { updateInstructorDetails } from "../../redux/slices/createInstructorSlice";
 import Button from "./Button";
 
 const InstructorDetails = ({ onNext }) => {
-  const [educationDetails, setEducationDetails] = useState([
-    { id: 1, value: "", placeholder: "Percentage %" },
-    { id: 2, value: "", placeholder: "" },
-  ]);
-  const [skills, setSkills] = useState([
-    { id: 1, value: "", placeholder: "Percentage %" },
-    { id: 2, value: "", placeholder: "" },
-  ]);
+  const profile = useSelector((state) => state.profile);
+  const userId = profile?.id;
+  const instructorDetails = useSelector(
+    (state) => state.instructor.instructorDetails,
+  );
+  const dispatch = useDispatch();
+  const { loading, error } = useSelector((state) => state.instructor || {});
 
-  const addEducationDetail = () => {
-    setEducationDetails((prevDetails) => [
-      ...prevDetails,
-      { id: prevDetails.length + 1, value: "", placeholder: "Percentage %" },
-      { id: prevDetails.length + 2, value: "", placeholder: "" },
-    ]);
+  const initialFormData = {
+    user_id: "",
+    experience: [""],
+    specialization: "",
+    qualifications: [{ percentage: "", degree: "" }],
+    skills: [{ percentage: "", title: "" }],
+    video_url: "",
   };
 
-  const addSkill = () => {
-    setSkills((prevSkills) => [
-      ...prevSkills,
-      { id: prevSkills.length + 1, value: "", placeholder: "Percentage %" },
-      { id: prevSkills.length + 2, value: "", placeholder: "" },
-    ]);
+  const [formData, setFormData] = useState({
+    ...initialFormData,
+    user_id: userId,
+  });
+
+  useEffect(() => {
+    if (Object.keys(instructorDetails).length > 0) {
+      setFormData({ ...instructorDetails, user_id: userId });
+    }
+  }, [instructorDetails]);
+
+  const handleChange = (field, value) => {
+    setFormData((prevFormData) => ({ ...prevFormData, [field]: value }));
   };
 
-  const handleEducationChange = (id, value) => {
-    const updatedEducationDetails = educationDetails.map((detail) =>
-      detail.id === id ? { ...detail, value } : detail,
-    );
-    setEducationDetails(updatedEducationDetails);
+  const handleNestedChange = (section, index, key, value) => {
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      [section]: prevFormData[section].map((item, i) =>
+        i === index ? { ...item, [key]: value } : item,
+      ),
+    }));
   };
 
-  const handleSkillChange = (id, value) => {
-    const updatedSkills = skills.map((skill) =>
-      skill.id === id ? { ...skill, value } : skill,
-    );
-    setSkills(updatedSkills);
+  const handleExperienceChange = (index, value) => {
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      experience: prevFormData.experience.map((item, i) =>
+        i === index ? value : item,
+      ),
+    }));
+  };
+
+  const addField = (section, emptyField) => {
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      [section]: [...prevFormData[section], emptyField],
+    }));
+  };
+
+  const addExperienceField = () => {
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      experience: [...prevFormData.experience, ""],
+    }));
+  };
+
+  const submitHandler = (e) => {
+    e.preventDefault();
+    dispatch(updateInstructorDetails(formData));
   };
 
   return (
     <div className="w-full overflow-auto p-8">
-      <form>
-        <div className="mt-5 flex flex-row justify-between max-plg:flex-col">
-          <div className="flex flex-col gap-y-5">
+      <form onSubmit={submitHandler}>
+        <div className="mt-5 flex justify-between gap-28 max-lg:flex-col">
+          <div className="flex flex-col gap-y-5 flex-grow">
             <div>
-              <h3 className="mb-3 me-40 text-lg font-medium">
+              <h3 className="mb-3 text-lg font-medium">
                 What is your educational background?
               </h3>
-              {educationDetails.map((detail) => (
-                <div className="mb-2" key={detail.id}>
+              {formData.qualifications.map((detail, i) => (
+                <div className="mb-2 flex flex-col gap-3" key={i}>
                   <input
                     type="text"
-                    placeholder={detail.placeholder}
+                    placeholder="Percentage %"
                     className="h-12 w-full rounded border-2 bg-bg_gray p-3"
-                    value={detail.value}
+                    value={detail.percentage}
+                    required
                     onChange={(e) =>
-                      handleEducationChange(detail.id, e.target.value)
+                      handleNestedChange(
+                        "qualifications",
+                        i,
+                        "percentage",
+                        e.target.value,
+                      )
+                    }
+                  />
+                  <input
+                    type="text"
+                    placeholder="Qualification"
+                    className="h-12 w-full rounded border-2 bg-bg_gray p-3"
+                    value={detail.degree}
+                    required
+                    onChange={(e) =>
+                      handleNestedChange(
+                        "qualifications",
+                        i,
+                        "degree",
+                        e.target.value,
+                      )
                     }
                   />
                 </div>
@@ -68,22 +119,40 @@ const InstructorDetails = ({ onNext }) => {
               <button
                 className="font-medium text-blue"
                 type="button"
-                onClick={addEducationDetail}
+                onClick={() =>
+                  addField("qualifications", { percentage: "", degree: "" })
+                }
               >
                 + Add more Educational detail
               </button>
             </div>
             <div>
               <h3 className="text-lg font-medium">Add Your Skills</h3>
-              {skills.map((skill) => (
-                <div className="mb-2" key={skill.id}>
+              {formData.skills.map((skill, i) => (
+                <div className="mb-2 flex flex-col gap-3" key={i}>
                   <input
                     type="text"
-                    placeholder={skill.placeholder}
+                    placeholder="Percentage %"
                     className="h-12 w-full rounded border-2 bg-bg_gray p-3"
-                    value={skill.value}
+                    value={skill.percentage}
+                    required
                     onChange={(e) =>
-                      handleSkillChange(skill.id, e.target.value)
+                      handleNestedChange(
+                        "skills",
+                        i,
+                        "percentage",
+                        e.target.value,
+                      )
+                    }
+                  />
+                  <input
+                    type="text"
+                    placeholder="Skill"
+                    className="h-12 w-full rounded border-2 bg-bg_gray p-3"
+                    value={skill.title}
+                    required
+                    onChange={(e) =>
+                      handleNestedChange("skills", i, "title", e.target.value)
                     }
                   />
                 </div>
@@ -91,190 +160,77 @@ const InstructorDetails = ({ onNext }) => {
               <button
                 className="font-medium text-blue"
                 type="button"
-                onClick={addSkill}
+                onClick={() =>
+                  addField("skills", { percentage: "", title: "" })
+                }
               >
                 + Add more Skills
               </button>
             </div>
           </div>
-          <div className="flex flex-col gap-y-5">
+          <div className="flex flex-col gap-y-5 flex-grow">
             <div>
-              <h3 className="mb-3 text-lg font-medium max-plg:mt-5">
-                Any professional teaching experience
+              <h3 className="mb-3 text-lg font-medium max-lg:mt-5">
+                What are your experience domains?
               </h3>
-              <input
-                type="text"
-                placeholder="Percentage %"
-                className="h-12 w-full rounded border-2 bg-bg_gray p-3"
-              />
+              {formData.experience.map((domain, i) => (
+                <div className="mb-2 flex flex-col gap-3" key={i}>
+                  <input
+                    type="text"
+                    placeholder="Domain"
+                    className="h-12 w-full rounded border-2 bg-bg_gray p-3"
+                    value={domain}
+                    required
+                    onChange={(e) => handleExperienceChange(i, e.target.value)}
+                  />
+                </div>
+              ))}
+              <button
+                className="font-medium text-blue"
+                type="button"
+                onClick={addExperienceField}
+              >
+                + Add more domains
+              </button>
             </div>
             <div>
-              <h3 className="me-5 text-lg font-medium">
-                Who is your intended target audience for this course?
+              <h3 className="text-lg font-medium">
+                What is your primary area of specialization? Can you provide a
+                specific field?
               </h3>
               <input
                 type="text"
-                placeholder="Percentage %"
+                placeholder="Specialization"
                 className="h-12 w-full rounded border-2 bg-bg_gray p-3"
+                value={formData.specialization}
+                required
+                onChange={(e) => handleChange("specialization", e.target.value)}
               />
             </div>
           </div>
         </div>
         <br />
         <br />
+        {loading && <p className="loading-message">Loading...</p>}
+        {error && <p className="error-message">Error: {error}</p>}
         <div className="flex justify-end">
-          <Button type="button" className="!px-10" onClick={onNext}>
+          <Button type="submit" className="!px-10">
             Continue
           </Button>
         </div>
       </form>
+      <style jsx>{`
+        .loading-message {
+          color: blue;
+          font-weight: bold;
+        }
+        .error-message {
+          color: red;
+          font-weight: bold;
+        }
+      `}</style>
     </div>
   );
 };
 
 export default InstructorDetails;
-
-// import React, { useState } from "react";
-// import SkillBuilderSvg from "@/components/SkillBuilderSvg";
-// import InstructorTab from "@/components/InstructorTab2";
-// import Button from "./Button";
-
-// const InstructorDetails = ({ onNext }) => {
-//   const [educationDetails, setEducationDetails] = useState([
-//     { id: 1, value: "", placeholder: "Percentage %" },
-//     { id: 2, value: "", placeholder: "" },
-//   ]);
-//   const [skills, setSkills] = useState([
-//     { id: 1, value: "", placeholder: "Percentage %" },
-//     { id: 2, value: "", placeholder: "" },
-//   ]);
-
-//   const addEducationDetail = () => {
-//     setEducationDetails((prevDetails) => [
-//       ...prevDetails,
-//       { id: prevDetails.length + 1, value: "", placeholder: "Percentage %" },
-//       { id: prevDetails.length + 2, value: "", placeholder: "" },
-//     ]);
-//   };
-
-//   const addSkill = () => {
-//     setSkills((prevSkills) => [
-//       ...prevSkills,
-//       { id: prevSkills.length + 1, value: "", placeholder: "Percentage %" },
-//       { id: prevSkills.length + 2, value: "", placeholder: "" },
-//     ]);
-//   };
-
-//   const handleEducationChange = (id, value) => {
-//     const updatedEducationDetails = educationDetails.map((detail) =>
-//       detail.id === id ? { ...detail, value } : detail,
-//     );
-//     setEducationDetails(updatedEducationDetails);
-//   };
-
-//   const handleSkillChange = (id, value) => {
-//     const updatedSkills = skills.map((skill) =>
-//       skill.id === id ? { ...skill, value } : skill,
-//     );
-//     setSkills(updatedSkills);
-//   };
-
-//   return (
-//     <>
-//       <div className="w-full overflow-auto p-8">
-//         {/* <div className="mb-5 ">
-//         <SkillBuilderSvg />
-//       </div> */}
-//         {/* <InstructorTab Tab1={"Basic Info"} Tab2={"Videos"}  /> */}
-//         <div className="mt-5 flex flex-row justify-between max-plg:flex-col">
-//           <div className="flex flex-col gap-y-5">
-//             <div>
-//               <h3 className="mb-3 me-40 text-lg font-medium">
-//                 What is your educational background?
-//               </h3>
-//               {educationDetails.map((detail) => (
-//                 <div className="mb-2" key={detail.id}>
-//                   <input
-//                     type="text"
-//                     placeholder={detail.placeholder}
-//                     className="h-12 w-full rounded border-2 bg-bg_gray p-3"
-//                     value={detail.value}
-//                     onChange={(e) =>
-//                       handleEducationChange(detail.id, e.target.value)
-//                     }
-//                   />
-//                 </div>
-//               ))}
-//               <button
-//                 className="font-medium text-blue"
-//                 type="button"
-//                 onClick={addEducationDetail}
-//               >
-//                 + Add more Educational detail
-//               </button>
-//             </div>
-//             <div>
-//               <h3 className="text-lg font-medium">Add Your Skills</h3>
-//               {skills.map((skill) => (
-//                 <div className="mb-2" key={skill.id}>
-//                   <input
-//                     type="text"
-//                     placeholder={skill.placeholder}
-//                     className="h-12 w-full rounded border-2 bg-bg_gray p-3"
-//                     value={skill.value}
-//                     onChange={(e) =>
-//                       handleSkillChange(skill.id, e.target.value)
-//                     }
-//                   />
-//                 </div>
-//               ))}
-//               <button
-//                 className="font-medium text-blue"
-//                 type="button"
-//                 onClick={addSkill}
-//               >
-//                 + Add more Skills
-//               </button>
-//             </div>
-//           </div>
-//           <div className="flex flex-col gap-y-5">
-//             <div>
-//               <h3 className="mb-3 text-lg font-medium max-plg:mt-5">
-//                 Any professional teaching experience
-//               </h3>
-//               <input
-//                 type="text"
-//                 placeholder="Percentage %"
-//                 className="h-12 w-full rounded border-2 bg-bg_gray p-3"
-//               />
-//             </div>
-//             <div>
-//               <h3 className="me-5 text-lg font-medium">
-//                 Who is your intended target audience for this course?
-//               </h3>
-//               <input
-//                 type="text"
-//                 placeholder="Percentage %"
-//                 className="h-12 w-full rounded border-2 bg-bg_gray p-3"
-//               />
-//             </div>
-//           </div>
-//         </div>
-//         <br /> <br />
-//         <div className="flex justify-end">
-//           {/* <button
-//           type="submit"
-//           className=" justify-end bg-blue-700 text-white p-2 rounded px-5 max-sm:w-full mt-5"
-//         >
-//           Continue
-//         </button> */}
-//           <Button className="!px-10" onClick={onNext}>
-//             Continue
-//           </Button>
-//         </div>
-//       </div>
-//     </>
-//   );
-// };
-
-// export default InstructorDetails;
