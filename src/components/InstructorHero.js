@@ -3,7 +3,7 @@ import LayoutPadding from "./LayoutPadding";
 
 const icon = (iconName) => `/${iconName.replace(/\s+/g, "").toLowerCase()}.svg`;
 
-function InstructorHero({ user, instructor }) {
+function InstructorHero({ instructor }) {
   return (
     <div className="bg-white py-14 lg:py-16">
       <div
@@ -16,23 +16,23 @@ function InstructorHero({ user, instructor }) {
             src="/instructor-avatar.png"
             height={190}
             width={190}
-            alt={`${user?.first_name}'s avatar photo`}
+            alt={`${instructor.user?.first_name}'s avatar photo`}
           />
         </div>
         <div className="content relative mt-4 space-y-2">
           <h1 className="font-semibold text-5xl">
-            {user?.first_name} {user?.last_name}
+            {instructor.user?.first_name} {instructor.user?.last_name}
           </h1>
           <p className="text-xl xl:text-2xl font-normal text-black">
             Email:
             <span className="text-[1.375rem] text-span">
-              &nbsp; {user?.email}
+              &nbsp; {instructor.user?.email}
             </span>
           </p>
           <p className="text-xl xl:text-2xl font-normal text-black inline-flex justify-center items-center">
             Location:{" "}
             <span className="text-[1.375rem] text-span">
-              &nbsp; {user?.location}
+              &nbsp; {instructor.user?.location}
             </span>
             <span className="ml-3 mb-1">
               <Image

@@ -10,7 +10,7 @@ const Bill = (props) => {
 
   const userId = useSelector((state) => state.auth.user);
 
-  
+  console.log("COURSES IN THE BILL PAGE", courses)
 
   return (
     <div className="bg-white w-full flex flex-col h-fit gap-8 p-4 md:w-[30%] lg:w-[30%]">

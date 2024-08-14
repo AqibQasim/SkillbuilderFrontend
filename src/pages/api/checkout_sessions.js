@@ -6,8 +6,6 @@ export default async function handler(req, res) {
       const { items, studentId } = req.body;
       const parsedItems = JSON.parse(items); // `items` should be an array
 
-
-
       const totalAmount = parsedItems.reduce((total, item) => total + item.amount * 100, 0);
 
       const stripe_acc_details = await fetch(`http://127.0.0.1:4000/check-payment-rec?instructor_id=${parsedItems[0].instructor_id}`, {
