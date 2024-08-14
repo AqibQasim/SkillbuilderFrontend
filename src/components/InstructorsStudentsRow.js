@@ -3,20 +3,29 @@ import Table from "./Table";
 import ButtonCircle from "./ButtonCircle";
 import ChevronRightIconSvg from "./ChevronRightIconSvg";
 import formatDate from "@/utils/formatDate";
+import Avatar from "./Avatar";
 
 function InstructorsStudentsRow({ isSpecific, student }) {
   const router = useRouter();
+  console.log("student in row", student);
 
   const {
     id,
     image,
-    name,
+    first_name,
+    last_name,
     email,
     purchaseDate,
     courseProgress,
     enrolledCourses,
+    created_at,
     joiningDate,
   } = student;
+  const fullName = first_name
+    ? first_name
+    : "first name" + last_name
+      ? last_name
+      : "last name";
 
   const handleRowClick = () => {
     router.push(`/dashboard/students/${id}`);
@@ -25,24 +34,14 @@ function InstructorsStudentsRow({ isSpecific, student }) {
 
   return (
     <Table.Row onClick={handleRowClick}>
-      <div className="image-wrapper relative aspect-square h-10 w-10 overflow-hidden rounded-full">
-        <img
-          src={image}
-          alt={`${name}'s profile photo`}
-          className="h-full w-full rounded-full object-cover"
-        />
-      </div>
-      <div className="name">{name}</div>
+      <Avatar firstName={first_name} lastName={last_name} />
+      <div className="name"> {fullName} </div>
       <div className="email">{email}</div>
-      <div className="purchase-date">
-        {isSpecific
-          ? purchaseDate
-          : `${enrolledCourses?.at(0)}+${enrolledCourses?.length > 1 ? enrolledCourses?.length - 1 : ""}`}
-      </div>
-      <div className="course-progress">
-        {isSpecific ? `${courseProgress}%` : joiningDate}
-      </div>
-      <ButtonCircle role="link">
+      {/* <div className="joining-date-or-course-progress">
+        {isSpecific ? `${courseProgress}%` : formatDate(created_at)}
+      </div> */}
+      <div className="joining-date">{formatDate(created_at)}</div>
+      <ButtonCircle role="link" clasName="ml-auto">
         <ChevronRightIconSvg
           className="relative -right-[1.5px] h-4 w-4 transition-transform duration-300 group-hover:-rotate-45"
           currentColor

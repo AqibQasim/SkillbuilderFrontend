@@ -2,6 +2,7 @@ import DashboardLayout from "@/components/DashboardLayout";
 import DashboardStudentsOverview from "@/components/DashboardStudentsOverview";
 import InstructorCourseTable from "@/components/InstructorCourseTable";
 import withAuth from "@/components/WithAuth";
+import { filterRepeatedStudents } from "@/utils/filterRepeatedStudents";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -10,10 +11,17 @@ import { fetchCoursesByInstructorId } from "../../../redux/thunks/instructorCour
 // import students from "./students";
 function Dashboard() {
   const router = useRouter();
+  const dispatch = useDispatch();
   const userId = useSelector((state) => state.auth.user);
-  const students = useSelector((state) => state.students.students);
-  const studentsStatus = useSelector((state) => state.students.status);
-  const studentsError = useSelector((state) => state.students.error);
+  const studentsByInstructor = useSelector(
+    (state) => state.studentsByInstructor.students,
+  );
+  const studentsStatus = useSelector(
+    (state) => state.studentsByInstructor.status,
+  );
+  const studentsError = useSelector(
+    (state) => state.studentsByInstructor.error,
+  );
   // const instructorId = useSelector((state) => state.singleInstructor.id);
   const instructorId = 4;
   const courses = useSelector((state) => state.instructorCourses.courses);
@@ -21,15 +29,12 @@ function Dashboard() {
     (state) => state.instructorCourses.isLoading,
   );
   const coursesError = useSelector((state) => state.instructorCourses.error);
+  const uniqueStudents = filterRepeatedStudents(studentsByInstructor);
 
   // ===Logs
-  const state = useSelector((state) => state);
-  console.log("store", state);
   console.log("User Id on dashboard", userId);
-  console.log("Students on dashboard", students);
+  console.log("Students on dashboard", studentsByInstructor);
   console.log("Courses on dashboard", courses);
-
-  const dispatch = useDispatch();
 
   // useEffect(() => {
   //   if (!userId) return;
@@ -42,16 +47,16 @@ function Dashboard() {
   }, [instructorId, courses?.length]);
 
   useEffect(() => {
-    if (!instructorId || students.length > 0) return;
+    if (!instructorId || studentsByInstructor?.length > 0) return;
     dispatch(fetchStudentsByInstructor(instructorId));
-  }, [instructorId, students?.length]);
+  }, [instructorId, studentsByInstructor?.length]);
 
   return (
     <DashboardLayout>
       <InstructorCourseTable courses={courses} courseStatus="pending" />
       <div className="mt-16">
         <DashboardStudentsOverview
-          students={students}
+          students={uniqueStudents}
           href="dashboard/students"
         />
       </div>

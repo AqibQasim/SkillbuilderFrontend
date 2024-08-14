@@ -33,7 +33,7 @@ function InstructorCourseTable({ courses = [], courseStatus }) {
           You haven’t posted any courses yet. Please click the button to get
           started.
         </p>
-        <Button href="courseUpload" className="!px-14">
+        <Button href="/course-upload" className="!px-14">
           Upload Course +
         </Button>
       </div>
