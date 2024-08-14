@@ -19,16 +19,9 @@ function InstructorsStudentsTable({ isSpecific = false, students }) {
       </div>
     );
 
-  const HeadersForOneStudent = [
-    "Name",
-    "Email",
-    "Purchase Date",
-    "Course Progress",
-  ];
-
   return (
     <>
-      <div className="component-header flex items-center justify-between">
+      <div className="component-header mb-2 flex items-center justify-between">
         {/* <h2 className="text-2xl font-medium capitalize">Students:</h2> */}
         <h1 className="text-4xl font-semibold capitalize">All Students</h1>
       </div>
@@ -37,7 +30,6 @@ function InstructorsStudentsTable({ isSpecific = false, students }) {
           <div></div>
           <div className="name">Name</div>
           <div className="email">Email</div>
-          {/* <div className="enrolled-courses">Enrolled courses</div> */}
           <div className="joining-date">Joining date</div>
           <div></div>
         </Table.Header>
