@@ -16,7 +16,7 @@ function InstructorsStudentsTable({ students }) {
 
   return (
     <>
-      <div className="component-header mb-2 flex items-center justify-between">
+      <div className="component-header flex items-center justify-between">
         {/* <h2 className="text-2xl font-medium capitalize">Students:</h2> */}
         <h1 className="text-4xl font-semibold capitalize">All Students</h1>
       </div>

@@ -128,7 +128,7 @@ function StudentEnrollCard({ course }) {
   const router = useRouter();
 
   function handleClick() {
-    router.push(`/dashboard/courses/${id}`);
+    router.push(`/dashboard/instructor-courses/${id}`);
   }
 
   return (

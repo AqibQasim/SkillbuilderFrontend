@@ -42,7 +42,7 @@ function InstructorCourseTable({ courses = [], courseStatus }) {
 
   return (
     <>
-      <div className="component-header mt-4 flex items-center justify-between">
+      <div className="component-header flex items-center justify-between">
         <h1 className="text-4xl font-semibold capitalize">{heading} Courses</h1>
         {!courseStatus && (
           <Filter filterField="status" options={filterOptions} />
