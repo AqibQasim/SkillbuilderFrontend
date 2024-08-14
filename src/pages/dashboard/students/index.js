@@ -6,6 +6,7 @@ import { useRouter } from "next/router";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchStudentsByInstructor } from "../../../../redux/thunks/fetchStudentsByInstructorthunk";
+import Loader from "@/components/Loader";
 
 function Students() {
   const router = useRouter();
@@ -30,6 +31,24 @@ function Students() {
     if (!instructorId || studentsByInstructor?.length > 0) return;
     dispatch(fetchStudentsByInstructor(instructorId));
   }, [instructorId, studentsByInstructor?.length]);
+
+  if (studentsStatus === "loading")
+    return (
+      <DashboardLayout>
+        <div className="flex size-full items-center justify-center">
+          <Loader />
+        </div>
+      </DashboardLayout>
+    );
+
+  if (studentsStatus === "failed")
+    return (
+      <DashboardLayout>
+        <div className="flex size-full items-center justify-center">
+          <p>Error: {studentsError} </p>
+        </div>
+      </DashboardLayout>
+    );
 
   return (
     <DashboardLayout>

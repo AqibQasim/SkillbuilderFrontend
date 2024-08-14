@@ -31,11 +31,7 @@ function InstructorsStudentsTable({ students }) {
         <Table.Body
           data={students}
           render={(student, i) => (
-            <InstructorsStudentsRow
-              isSpecific={isSpecific}
-              student={student}
-              key={i}
-            />
+            <InstructorsStudentsRow student={student} key={i} />
           )}
         />
       </Table>
