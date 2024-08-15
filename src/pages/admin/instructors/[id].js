@@ -65,7 +65,7 @@ const InstructorDetails = () => {
   }, [instructorId]);
 
   useEffect(() => {
-    if (!instructorId || instructorCourses.length > 0) return;
+    if (!instructorId) return;
     dispatch(fetchCoursesByInstructorId(instructorId));
   }, [instructorId]);
 
@@ -232,6 +232,19 @@ function Education({ education = [] }) {
 
 function RunningCourses({ courses }) {
   console.log("Courses in running courses", courses);
+  if (!courses.length)
+    return (
+      <div className="running-courses">
+        <H2>Running Courses</H2>
+        <div className="mt-2">
+          <p>
+            This instructor hasn't posted any courses yet. Encourage them to get
+            started!
+          </p>
+        </div>
+      </div>
+    );
+
   return (
     <div className="running-courses">
       <H2>Running Courses</H2>
