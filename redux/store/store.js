@@ -16,6 +16,7 @@ import courseStatusSlice from "../slices/courseStatusSlice";
 import studentsSlice from "../slices/allStudentsSlice";
 import allInstructorsReducer from "../slices/allInstructorsSlice";
 import fetchStudentsByInstructorReducer from "../slices/fetchStudentsByInstructorSlice";
+import reviewSlice from "../slices/reviewSlice";
 // Function to load state from localStorage
 function loadState() {
   try {
@@ -78,6 +79,7 @@ export const store = configureStore({
     students: studentsSlice,
     allInstructors: allInstructorsReducer,
     studentsByInstructor: fetchStudentsByInstructorReducer,
+    review : reviewSlice,
   },
   preloadedState,
 });
