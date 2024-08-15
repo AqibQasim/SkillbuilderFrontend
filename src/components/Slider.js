@@ -9,10 +9,11 @@ import { FreeMode, Autoplay, Pagination } from "swiper/modules";
 
 import "../styles/slider.css";
 import SliderContent from "./SliderContent.js";
+import LayoutWidth from "./LayoutWidth";
 
 const Slider = () => {
   return (
-    <div className="w-[100%] flex items-center justify-center ">
+    <div className="flex w-[100%] items-center justify-center">
       <Swiper
         spaceBetween={30}
         pagination={{ clickable: true }}
@@ -22,7 +23,7 @@ const Slider = () => {
         initialSlide={0} // Ensure the first slide is initialized correctly
       >
         <SwiperSlide>
-          <div className="w-[100%] flex items-center justify-center">
+          <div className="flex w-[100%] items-center justify-center">
             <SliderContent
               title="Empower Your Journey with"
               subtitle="Skill Builder"
@@ -33,7 +34,7 @@ const Slider = () => {
           </div>
         </SwiperSlide>
         <SwiperSlide>
-          <div className="w-[100%] flex items-center justify-center">
+          <div className="flex w-[100%] items-center justify-center">
             <SliderContent
               title="Learn"
               subtitle="API Automation"
@@ -44,7 +45,7 @@ const Slider = () => {
           </div>
         </SwiperSlide>
         <SwiperSlide>
-          <div className="w-[100%] flex items-center justify-center">
+          <div className="flex w-[100%] items-center justify-center">
             <SliderContent
               title="Boost your career with the "
               subtitle="in-demand skills"
@@ -55,7 +56,7 @@ const Slider = () => {
           </div>
         </SwiperSlide>
         <SwiperSlide>
-          <div className="w-[100%] flex items-center justify-center">
+          <div className="flex w-[100%] items-center justify-center">
             <SliderContent
               title="Boost your career with the "
               subtitle="in-demand skills"

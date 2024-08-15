@@ -10,6 +10,9 @@ module.exports = {
       container: {
         padding: "25px",
       },
+      boxShadow: {
+        "custom-input": "0 4px 6px rgba(56, 71, 255, 0.11)",
+      },
       borderRadius: {
         "tl-br": "var(--tw-border-radius-tl-br)",
       },
@@ -29,20 +32,46 @@ module.exports = {
         xlg: "1280px", // Extra large devices (large desktops, 1200px and up)
         "max-xsm": { max: "319px" }, // Styles for devices smaller than 320px
         "max-sm": { max: "540px" }, // Styles for devices smaller than 640px
-        "max-lsm": { max: "792px" },
+        "max-lsm": { max: "767px" },
         "max-md": { max: "854px" }, // Styles for devices smaller than 768px
-        // 'max-lsm' : { 'max': '792'},
+        // for footer
+        "max-plg": { max: "980px" },
         "max-lg": { max: "1250px" }, // Styles for devices smaller than 1024px
         "max-xlg": { max: "1422px" },
       },
-
       colors: {
+        "dashboard-border": {
+          DEFAULT: "#E0E3F0",
+        },
+        status: {
+          text: "#535353",
+          red: "#FF0000",
+          "red-bg": "#FFF2F2",
+          orange: "#FF7A00",
+          "orange-bg": "#FFF4EB",
+          green: "#18B100",
+          "green-bg": "#EDFFEB",
+        },
+        "arrow-link": {
+          text: "#8B888F",
+          bg: "#EDF0F5",
+        },
+        "dashboard-sidenav-bg": {
+          DEFAULT: "#EBECF0",
+        },
         "dark-svg": {
           DEFAULT: "#15161B",
+        },
+        "google-border": {
+          DEFAULT: "#D5D5D5",
         },
         bottom_border_gray: {
           DEFAULT: "#D4D5E7",
         },
+        secondary: {
+          DEFAULT: "#F1F1F5",
+        },
+
         border_gray: {
           DEFAULT: "#BCBCBC",
         },
@@ -73,6 +102,34 @@ module.exports = {
         span: {
           DEFAULT: "#767676",
         },
+        black: {
+          "shade-1": "#0E0F0F",
+          "shade-2": "shade 2 goes here",
+          "shade-3": "shade 3 goes here",
+          // this is max ignore other shades if exists use one of these instead!.
+        },
+        gray: {
+          "shade-1": "#878A99",
+          "shade-2": "#D5D5D5",
+          "shade-3": "#F0F1F5",
+          // this is max ignore other shades if exists use one of these instead!.
+        },
+        approve: {
+          DEFAULT: "#18B100",
+          "hover-bg": "#EDFFEB",
+        },
+        decline: {
+          DEFAULT: "#FF0000",
+          "hover-bg": "#FFF2F2",
+        },
+        suspend: {
+          DEFAULT: "#FF9800",
+          text: "#FFFFFF",
+        },
+        delete: {
+          DEFAULT: "#D32F2F",
+          text: "#FFFFFF",
+        },
       },
       spacing: {
         layout: "2rem",
@@ -87,27 +144,15 @@ module.exports = {
       },
     },
   },
-  plugins: [
-    function ({ addUtilities }) {
-      const newUtilities = {
-        '.placeholder-xsm::placeholder': {
-          'font-size': '0.6rem',
-        },
-        '.placeholder-sm::placeholder': {
-          'font-size': '0.75rem',
-        },
-        '.placeholder-base::placeholder': {
-          'font-size': '1rem',
-        },
-        '.placeholder-lg::placeholder': {
-          'font-size': '1.25rem',
-        },
-        '.placeholder-xl::placeholder': {
-          'font-size': '1.5rem',
-        },
-      }
-
-      addUtilities(newUtilities, ['responsive', 'hover'])
-    },
+  variants: {
+    scrollbar: ["rounded"],
+  },
+  plugins: [require("tailwind-scrollbar")],
+  safelist: [
+    "text-yellow-500",
+    "text-yellow-300",
+    "text-blue-500",
+    "text-blue-300",
+    // Add other color variations you plan to use
   ],
 };

@@ -26,6 +26,10 @@ export default function Document() {
           `,
           }}
         />
+
+        <title>Skillbuilder</title>
+        <meta name="description" content="Skillbuilder" />
+        <link rel="icon" href="/skillbuilder-logo-icon.svg" sizes="any" />
       </Head>
       <body onLoad="initGoogleSignIn()">
         <Main />

@@ -1,15 +1,15 @@
-import { SubHeading } from "@/pages/instructor/[instructorId]";
+import { SubHeading } from "@/pages/instructor/[id]";
 
 function InstructorIntro({ video }) {
   console.log(video);
   return (
-    <div className="w-[90%] max-w-screen-2xl mx-auto mt-8">
+    <div className="mx-auto mt-8 w-[90%] max-w-screen-2xl">
       <SubHeading>Instructor introduction</SubHeading>
       {/* video */}
-      <div className="flex w-full justify-center items-center mt-10">
+      <div className="mt-10 flex w-full items-center justify-center">
         <video
           controls
-          className="rounded-3xl w-video-w xl:w-video-w-xl h-video-h sm:h-video-h-sm md:h-video-h-md"
+          className="h-video-h w-video-w rounded-3xl sm:h-video-h-sm md:h-video-h-md xl:w-video-w-xl"
         >
           <source src="/path/to/video.mp4" type="video/mp4" />
           <source src="/path/to/video.ogv" type="video/ogg" />
