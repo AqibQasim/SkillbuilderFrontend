@@ -1,8 +1,7 @@
 import LayoutWidth from "./LayoutWidth";
 import VideoElement from "./VideoElement";
-
 function EnrolledCourseDetailsHero({ enrolledCourse }) {
-  console.log(enrolledCourse);
+  console.log("############", enrolledCourse);
   return (
     <div className="w-full bg-white py-4">
       <LayoutWidth>

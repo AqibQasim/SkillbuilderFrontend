@@ -12,7 +12,7 @@ export const fetchOneCourse = createAsyncThunk(
           "Content-Type": "application/json",
         },
       });
-      const data = await response.json();
+      const data = await response.json(); 
 
       if (!response.ok) {
         throw new Error(
@@ -20,7 +20,7 @@ export const fetchOneCourse = createAsyncThunk(
             "Failed to fetch the course details. Please try again.",
         );
       }
-
+      console.log("[date retrieved from backend]:", data);
       return data?.data; // assuming the API returns the course object
     } catch (error) {
       return rejectWithValue(
