@@ -1,13 +1,15 @@
 import AdminCourseRow from "./AdminCourseRow";
 import Table from "./Table";
 
-function AdminCoursesTable({ courses, courseStatus }) {
+function AdminCoursesTable({ courses, courseStatus, emptyStateClasses = "" }) {
   const heading = courseStatus !== "all" ? courseStatus : null;
   console.log(heading);
   console.log(`Courses`, courses);
   if (!courses?.length)
     return (
-      <div className="flex size-full flex-col items-center justify-center gap-4 text-center">
+      <div
+        className={`${emptyStateClasses} text-center" flex size-full flex-col items-center justify-center gap-4`}
+      >
         <h2 className="text-2xl font-medium capitalize">
           No {heading} Courses
         </h2>
