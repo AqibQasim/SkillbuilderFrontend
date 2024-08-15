@@ -1,6 +1,7 @@
-function CartIconSvg({ className }) {
+function CartIconSvg({ className, clickHandler }) {
   return (
     <svg
+      onClick={clickHandler}
       className={className}
       width="34"
       height="34"
