@@ -201,7 +201,7 @@ const CourseDetails = () => {
       </div>
       <CourseHero course={course} />
       <CourseInstructor course={course} user={user} />
-      <CourseModule course={course} />
+      <CourseModule course={course?.modules} />
       <CourseReviews reviews={reviews} />
       <Footer />
     </div>
