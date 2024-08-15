@@ -7,7 +7,8 @@ function AdminInstructorOverview({ instructors, href }) {
   console.log("instructors?", instructors);
 
   const handleViewAllClick = () => {
-    if (href) router.push(href);
+    if (href) return router.push(href);
+
     router.push({
       pathname: router.pathname,
       query: { ...router.query, view: "instructors" },

@@ -8,13 +8,11 @@ function DashboardStudentsOverview({ students, href, expand = true }) {
   console.log("students overview?", students);
 
   const handleViewAllClick = () => {
-    if (href) {
-      router.push(href);
-      return;
-    }
+    if (href) return router.push(href);
+
     router.push({
       pathname: router.pathname,
-      query: { ...router.query, view: "students" },
+      query: { ...router.query, view: "instructors" },
     });
   };
 

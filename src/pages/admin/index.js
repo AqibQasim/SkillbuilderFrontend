@@ -60,8 +60,8 @@ const admin = () => {
         "Loading..."
       ) : (
         <DashboardStudentsOverview
-          students={uniqueStudents}
           href="admin/students"
+          students={uniqueStudents}
         />
       )}
       <br /> <br />
@@ -69,8 +69,8 @@ const admin = () => {
         "Loading..."
       ) : (
         <AdminInstructorOverview
-          instructors={instructors}
           href="admin/instructors"
+          instructors={instructors}
         />
       )}
     </AdminDashboardLayout>

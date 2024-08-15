@@ -60,7 +60,7 @@ const InstructorDetails = () => {
   console.log("instructor ?????", instructor);
 
   useEffect(() => {
-    if (!instructorId || id) return;
+    if (!instructorId) return;
     dispatch(fetchOneInstructor(instructorId));
   }, [instructorId]);
 
@@ -69,10 +69,13 @@ const InstructorDetails = () => {
     dispatch(fetchCoursesByInstructorId(instructorId));
   }, [instructorId]);
 
-  useEffect(function () {
-    if (!instructorId || studentsByInstructor?.length > 0) return;
-    dispatch(fetchStudentsByInstructor(instructorId));
-  }, []);
+  useEffect(
+    function () {
+      if (!instructorId) return;
+      dispatch(fetchStudentsByInstructor(instructorId));
+    },
+    [instructorId],
+  );
 
   console.log("Loading...", isInstLoading);
   console.log("Error...", InstructorError);
