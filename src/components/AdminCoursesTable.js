@@ -23,7 +23,10 @@ function AdminCoursesTable({ courses, courseStatus }) {
       <div className="component-header flex items-center justify-between">
         <h2 className="text-xl font-semibold capitalize">{heading} courses</h2>
       </div>
-      <Table columns="grid-cols-[2.5rem_1.1fr_1.25fr_1fr_1fr_1fr_0.25fr]">
+      <Table
+        className="mb-7"
+        columns="grid-cols-[2.5rem_1.1fr_1.25fr_1fr_1fr_1fr_0.25fr]"
+      >
         <Table.Header>
           <div></div>
           <div>Course</div>
@@ -38,6 +41,7 @@ function AdminCoursesTable({ courses, courseStatus }) {
           render={(course, i) => <AdminCourseRow course={course} key={i} />}
         />
       </Table>
+      <div className="h-10"></div>
     </>
   );
 }
