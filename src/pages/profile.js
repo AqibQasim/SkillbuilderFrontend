@@ -5,11 +5,11 @@ import Profile from "@/components/Profile";
 import withAuth from "@/components/WithAuth";
 
 const profile = () => {
-  let profile_text = {
-    image: "/profileimage.png",
-    course: "UI / UX Designing +2",
-    location: "Chicago, IL",
-  };
+  // let profile_text = {
+  //   image: "/profileimage.png",
+  //   course: "UI / UX Designing +2",
+  //   location: "Chicago, IL",
+  // };
   return (
     <>
       <div className="flex h-[100%] w-[100%] flex-col items-center bg-bg_gray">
@@ -20,7 +20,7 @@ const profile = () => {
           </div>
         </LayoutWidth>
         <main className="w-full">
-          <Profile profile_text={profile_text} />
+          <Profile />
         </main>
       </div>
     </>
