@@ -5,15 +5,14 @@ import ViewAll from "./ViewAll";
 
 function DashboardStudentsOverview({ students, href, expand = true }) {
   const router = useRouter();
-  console.log("students?", students);
-
-  const tempStudents = students ? students : dummyStudents;
+  console.log("students overview?", students);
 
   const handleViewAllClick = () => {
-    if (href) router.push(href);
+    if (href) return router.push(href);
+
     router.push({
       pathname: router.pathname,
-      query: { ...router.query, view: "students" },
+      query: { ...router.query, view: "instructors" },
     });
   };
 
@@ -23,12 +22,12 @@ function DashboardStudentsOverview({ students, href, expand = true }) {
         <h2 className="text-2xl font-medium">Students</h2>
         {expand && <ViewAll onClick={handleViewAllClick} />}
       </div>
-      <div className="scrollbar-custom mt-4 flex min-h-12 w-full space-x-4 overflow-x-scroll bg-white px-7 py-8">
-        {!tempStudents?.length ? (
+      <div className="scrollbar-custom mt-4 flex min-h-12 w-full space-x-4 overflow-x-scroll rounded-sm bg-white px-7 py-8">
+        {!students?.length ? (
           <p>No students enrolled for the current course.</p>
         ) : null}
-        {tempStudents?.length
-          ? tempStudents.map((student, index) => (
+        {students?.length
+          ? students.map((student, index) => (
               <Student key={index} student={student} />
             ))
           : null}
@@ -47,7 +46,11 @@ function Student({ student }) {
         alt={student.name}
         className="h-20 w-20 rounded-full object-cover"
       /> */}
-      <Avatar name={student.first_name} className="!size-20" />
+      <Avatar
+        firstName={student.first_name}
+        lastName={student.last_name}
+        className="!size-20"
+      />
       <p className="mt-2 text-nowrap text-center capitalize">{`${student.first_name} ${student.last_name}`}</p>
     </div>
   );

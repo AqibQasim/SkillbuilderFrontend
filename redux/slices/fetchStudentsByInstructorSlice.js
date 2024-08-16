@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import { fetchStudentsByInstructor } from "../thunks/fetchStudentsByInstructorthunk";
 
 const initialState = {
-  studentsByInstructor: [],
+  students: [],
   status: "idle", // 'idle' | 'loading' | 'succeeded' | 'failed'
   error: null,
 };
@@ -20,7 +20,7 @@ const fetchStudentsByInstructorSlice = createSlice({
       .addCase(fetchStudentsByInstructor.fulfilled, (state, action) => {
         console.log("instructor students in slice", action.payload);
         state.status = "succeeded";
-        state.studentsByInstructor = action.payload;
+        state.students = action.payload;
       })
       .addCase(fetchStudentsByInstructor.rejected, (state, action) => {
         state.status = "failed";

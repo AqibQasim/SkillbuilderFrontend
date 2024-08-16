@@ -9,12 +9,12 @@ function DeclineCourseModuleAndLecture({ modules }) {
   const dispatch = useDispatch();
 
   const moduleOptions = modules?.map((module) => ({
-    value: module.id,
-    label: module.title,
+    value: module?.id,
+    label: module?.title,
   }));
 
-  const lectureOptionsByModule = modules.reduce((acc, module) => {
-    acc[module.id] = module.content.map((lecture) => ({
+  const lectureOptionsByModule = modules?.reduce((acc, module) => {
+    acc[module?.id] = module.content.map((lecture) => ({
       value: lecture.id,
       label: lecture.title,
     }));
@@ -41,7 +41,7 @@ function DeclineCourseModuleAndLecture({ modules }) {
   return (
     <div className="scrollbar-custom max-h-[17rem] space-y-4 overflow-y-auto overflow-x-hidden">
       {statusDescription.map((item, index) => {
-        const lectureOptions = lectureOptionsByModule[item.module_id] || [];
+        const lectureOptions = lectureOptionsByModule[item?.module_id] || [];
 
         return (
           <div key={index} className="space-y-3">

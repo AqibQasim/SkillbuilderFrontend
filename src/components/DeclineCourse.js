@@ -10,20 +10,35 @@ import {
 import { declineCourse } from "../../redux/thunks/courseStatusThunk";
 import DeclineCourseModuleAndLecture from "./DeclineCourseModuleAndLecture";
 import DeclineCourseReason from "./DeclineCourseReason";
+import { fetchOneCourse } from "../../redux/thunks/coursesThunks";
 
-function DeclineCourse({ onClose, courseToDecline }) {
+function DeclineCourse({ onClose, courseToDecline = {} }) {
   const [validationError, setValidationError] = useState("");
   const dispatch = useDispatch();
+  const modules = useSelector((state) => state.singleCourse.data.modules);
+  const singleCourseLoading = useSelector(
+    (state) => state.singleCourse.isLoading,
+  );
+  const singleCourseError = useSelector((state) => state.singleCourse.error);
   const { statusData, loading, error, successMessage } = useSelector(
     (state) => state.courseStatus,
   );
 
-  useEffect(() => {
-    console.log("running?");
-    dispatch(resetState());
-  }, []);
+  // useEffect(() => {
+  //   console.log("running?");
+  //   dispatch(resetState());
+  // }, []);
 
-  const { title, id, modules } = courseToDecline;
+  const { title, id } = courseToDecline;
+
+  useEffect(
+    function () {
+      if (!id) return;
+      console.log("fetch one course");
+      dispatch(fetchOneCourse(id));
+    },
+    [id],
+  );
 
   const validateDescription = () => {
     return statusData.status_desc.every(
@@ -67,6 +82,8 @@ function DeclineCourse({ onClose, courseToDecline }) {
     onClose();
   };
 
+  console.log("Reason", statusData.reason);
+
   return (
     <form onSubmit={handleContinue} className="space-y-4">
       <H2>Declining course</H2>
@@ -75,7 +92,28 @@ function DeclineCourse({ onClose, courseToDecline }) {
         Are you sure you want to do this?
       </p>
       <DeclineCourseReason />
-      {statusData.reason && <DeclineCourseModuleAndLecture modules={modules} />}
+      {statusData.reason
+        ? singleCourseError && (
+            <p>
+              Unable to load modules at the moment. You can try again later or
+              proceed with declining the course without selecting a module or
+              lecture.
+            </p>
+          )
+        : null}
+
+      {statusData.reason ? (
+        modules?.length > 0 ? (
+          <DeclineCourseModuleAndLecture modules={modules} />
+        ) : (
+          <p>
+            The course <span className="font-medium">{title}</span> currently
+            has no modules. You can still proceed with declining the course
+            without selecting a module or lecture.
+          </p>
+        )
+      ) : null}
+
       {validationError && <p className="text-red-500">{validationError}</p>}
       {error && <p className="text-red-500">{error}</p>}
       {successMessage && <p className="text-green-500">{successMessage}</p>}

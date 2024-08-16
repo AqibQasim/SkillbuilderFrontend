@@ -55,9 +55,9 @@ const CourseReviews = ({ reviews }) => {
           <div className="grid h-auto w-[95%] grid-cols-1 place-items-center items-start gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {reviews.slice(0, 3).map((review) => (
               <div className="max-w-sm rounded-bl-3xl rounded-tr-3xl bg-white p-4 shadow-lg">
-                <div className="flex items-center space-x-4">
+                <div className="flex items-center space-x-4 object-contain">
                   <Image
-                    src="/instructor.png" // Add the path to your image
+                    src={review?.user?.profile || "/Avatardisplay.png"}
                     alt="Profile Picture"
                     width={50}
                     height={50}
@@ -66,7 +66,9 @@ const CourseReviews = ({ reviews }) => {
                   <div className="p-2">
                     <div className="flex items-center justify-between">
                       {/* <h3 className="text-lg font-semibold">{review.name}</h3> */}
-                      <h3 className="text-lg font-semibold">Zubair Alam</h3>
+                      <h3 className="text-lg font-semibold">
+                        {`${review?.user?.first_name} ${review?.user?.last_name}`}
+                      </h3>
                       <p></p>
                     </div>
                     <div className="flex items-center">

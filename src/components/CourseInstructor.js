@@ -24,6 +24,7 @@ const CourseInstructor = ({ user, instructor }) => {
       console.error("Error parsing experience JSON:", error);
     }
   }
+  // console.log("first name ius ", user.first_name);
 
   return (
     <>

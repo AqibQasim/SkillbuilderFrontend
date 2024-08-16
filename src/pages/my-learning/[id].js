@@ -15,39 +15,11 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchAllReviews } from "../../../redux/thunks/reviewsThunk";
-
-const enrolledCourseDummyReviews = [
-  {
-    name: "name",
-    image: "image",
-    rating: 4.5,
-    review:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Aperiam excepturi quod error similique eaque vero qui blanditiis deleniti ducimus consequuntur.",
-  },
-  {
-    name: "name",
-    image: "image",
-    rating: 4.5,
-    review:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Aperiam excepturi quod error similique eaque vero qui blanditiis deleniti ducimus consequuntur.",
-  },
-  {
-    name: "name",
-    image: "image",
-    rating: 4.5,
-    review:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Aperiam excepturi quod error similique eaque vero qui blanditiis deleniti ducimus consequuntur.",
-  },
-  {
-    name: "name",
-    image: "image",
-    rating: 4.5,
-    review:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Aperiam excepturi quod error similique eaque vero qui blanditiis deleniti ducimus consequuntur.",
-  },
-];
+import { fetchOneCourse } from "../../../redux/thunks/coursesThunks";
 
 function EnrolledCourseDetails() {
+  const dispatch = useDispatch();
+
   const router = useRouter();
   const [isClient, setIsClient] = useState(false);
   const enrolledCourseId = router.query.id;
@@ -56,16 +28,26 @@ function EnrolledCourseDetails() {
   const { reviewsData: reviews, isReviewsLoading } = useSelector(
     (state) => state.allReviews || { reviewsData: [], isReviewsLoading: true },
   );
-  const dispatch = useDispatch();
+  useEffect(() => {
+    try {
+      if (enrolledCourseId) {
+        dispatch(fetchOneCourse(enrolledCourseId));
+        dispatch(fetchAllReviews(enrolledCourseId));
+      }
+    } catch (e) {
+      console.log("error ###", e);
+    }
+  }, [router?.isReady, enrolledCourseId]);
+
+  const { data: course, courseLoading } = useSelector(
+    (state) => state.singleCourse || { data: [], courseLoading: true },
+  );
+
+  if (course) {
+    console.log("course fetched", course);
+  }
   console.log("Revviews", reviews);
   console.log("Revviews Loader", isReviewsLoading);
-
-  useEffect(() => {
-    if (enrolledCourseId) {
-      dispatch(fetchAllReviews(enrolledCourseId));
-    }
-  }, [enrolledCourseId]);
-
   useEffect(() => {
     setIsClient(true);
   }, [router?.isReady, courses]);
@@ -73,8 +55,6 @@ function EnrolledCourseDetails() {
   if (!isClient) {
     return null;
   }
-
-  console.log("Dummy courses", enrolledDummyCourses);
 
   const enrolledCourse = enrolledDummyCourses.find(
     (enrolledCourse) => enrolledCourse.id === Number(enrolledCourseId),
@@ -88,14 +68,17 @@ function EnrolledCourseDetails() {
         <Navbar cartItemsLength={courses?.length} />
         <LayoutWidth>
           <div className="path-wrapper mb-8 mt-16">
-            <CurrentPath dynamicPath={enrolledCourse?.title} />
+            <CurrentPath dynamicPath={course?.title} />
           </div>
         </LayoutWidth>
         <div className="space-y-7">
-          <EnrolledCourseDetailsHero enrolledCourse={enrolledCourse} />
-          <EnrolledCourseAbout enrolledCourse={enrolledCourse} />
-          <EnrolledCourseSkills enrolledCourse={enrolledCourse} />
-          <CourseModules course={enrolledCourse} heading="Videos" />
+          <EnrolledCourseDetailsHero videolink={course?.video_url} />
+          <EnrolledCourseAbout
+            enrolledCourse={course?.description}
+            purchasedCourses={course?.purchased_course}
+          />
+          <EnrolledCourseSkills enrolledCourse={course?.skills} />
+          <CourseModules course={course?.modules} heading="Videos" />
           <EnrolledCourseRatingAndReviews reviews={reviews} />
           <CourseReviews reviews={reviews} />
         </div>
@@ -107,14 +90,17 @@ function EnrolledCourseDetails() {
 
 export default EnrolledCourseDetails;
 
-function EnrolledCourseAbout({ enrolledCourse }) {
+function EnrolledCourseAbout({ enrolledCourse, purchasedCourses }) {
   const [readMore, setReadMore] = useState(false);
-  const words = enrolledCourse?.description.split(" ");
+  const words = enrolledCourse?.split(" ");
   const shortDescription = words?.slice(0, 15).join(" ");
-
   const isLongDescription = words?.length > 15;
+  const description = readMore ? enrolledCourse : shortDescription;
+  const purchased_courses = purchasedCourses;
 
-  const description = readMore ? enrolledCourse?.description : shortDescription;
+  useEffect(() => {
+    console.log("#######", enrolledCourse);
+  }, []);
 
   return (
     <LayoutWidth>
@@ -122,8 +108,10 @@ function EnrolledCourseAbout({ enrolledCourse }) {
         <H2 className="mb-4">about course:</H2>
         <p className="font-medium">
           Purchase date:{" "}
-          <span className="text-gray-500">
-            {formatDate(enrolledCourse?.purchaseDate)}
+          <span className="text-sm text-gray-500">
+            {purchased_courses?.map((purchased_course) => (
+              <span>{purchased_course.created_at.slice(0, 10)}</span>
+            ))}
           </span>
         </p>
         <p className="text-gray-500 md:max-w-screen-md">
@@ -150,7 +138,7 @@ function EnrolledCourseSkills({ enrolledCourse }) {
       <div className="enrolled-course-skills">
         <H2 className="mb-4">Skills you'll gain</H2>
         <div className="mt-4 flex flex-wrap items-center justify-start gap-4">
-          {enrolledCourse?.skills?.map((skill) => (
+          {enrolledCourse?.map((skill) => (
             <Skill>
               <GalleryIconSvg className="size-7" /> {skill}{" "}
             </Skill>

@@ -34,14 +34,18 @@ function AdminStudentsRow({ isSpecific, student }) {
           alt={`${first_name}'s profile photo`}
           className="h-full w-full rounded-full object-cover"
         /> */}
-        <Avatar className="h-full w-full rounded-full object-cover" />
+        <Avatar
+          firstName={first_name}
+          lastName={last_name}
+          className="h-full w-full rounded-full object-cover"
+        />
       </div>
       <div className="name">{`${first_name} ${last_name}`}</div>
       <div className="email">{email}</div>
       <div className="course-progress">
         {isSpecific ? `${courseProgress}%` : formatDate(created_at)}
       </div>
-      <ButtonCircle role="link">
+      <ButtonCircle role="link" clasName="ml-auto">
         <ChevronRightIconSvg
           className="relative -right-[1.5px] h-4 w-4 transition-transform duration-300 group-hover:-rotate-45"
           currentColor

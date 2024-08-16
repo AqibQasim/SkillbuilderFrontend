@@ -1,5 +1,5 @@
 // components/ModuleAccordion.js
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import LayoutWidth from "./LayoutWidth";
 
@@ -29,6 +29,9 @@ function ModuleAccordion({ title, lectures, duration, children }) {
 }
 
 export default function CourseModules({ course, heading = "Course outline" }) {
+  useEffect(() => {
+    console.log("######### tahta", course);
+  }, []);
   return (
     <LayoutWidth>
       {/* <div className="container mt-12"> */}
@@ -37,12 +40,12 @@ export default function CourseModules({ course, heading = "Course outline" }) {
           {heading}
         </h1>
         <div className="w-full">
-          {course?.modules?.map((module) => {
+          {course?.map((module) => {
             return (
               <>
                 <ModuleAccordion
                   title={module?.title}
-                  lectures={`${module?.content?.length} Lectures`}
+                  lectures={`Lectures`}
                   duration="24 mins"
                 >
                   <div className="space-y-1">

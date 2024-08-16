@@ -93,7 +93,8 @@ function User({ cartClickHandler, cartItemsLength }) {
               />
             ) : (
               <Avatar
-                name={profile.first_name || user.first_name}
+                firstName={profile.first_name || user.first_name}
+                lastName={profile.last_name || user.last_name}
                 className="h-7 w-7"
               />
             )}
@@ -115,7 +116,8 @@ function User({ cartClickHandler, cartItemsLength }) {
                   />
                 ) : (
                   <Avatar
-                    name={profile.first_name || user.first_name}
+                    firstName={profile.first_name || user.first_name}
+                    lastName={profile.last_name || user.last_name}
                     className={`z-[2] h-16 w-16 cursor-pointer transition-all duration-300 ${showIconsOnSmallScreen ? "translate-x-0" : "translate-x-[3.4rem] md:translate-x-0"}`}
                   />
                 )}
