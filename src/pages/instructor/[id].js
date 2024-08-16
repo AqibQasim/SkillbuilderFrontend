@@ -10,6 +10,8 @@ import { fetchOneInstructor } from "../../../redux/thunks/instructorThunk";
 import { fetchCoursesByInstructorId } from "../../../redux/thunks/instructorCoursesThunk";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
+import { fetchAccessToken } from "../../../redux/thunks/ytAccessThunk";
+// import {}
 
 export function SubHeading({ children }) {
   return (
@@ -24,6 +26,16 @@ function instructorDetails() {
   const instructorId = router.query.id;
   const instructors = useSelector((state) => state.singleInstructor);
   const dispatch = useDispatch();
+  const accessToken = useSelector((state) => state.auth.accessToken);
+  const error = useSelector((state) => state.auth.error);
+  
+  useEffect(() => {
+    dispatch(fetchAccessToken());
+    console.log("accessToken:",accessToken);
+    console.log("error while fetching the access token:",error);
+  },[accessToken]);
+
+
   console.log("instructor", instructors);
   useEffect(() => {
     if (instructorId) {
@@ -37,7 +49,7 @@ function instructorDetails() {
         <CurrentPath dynamicPath={instructor.name} />
       </div>
       <InstructorHero instructor={instructor} />
-      <InstructorIntro video="avideosource" />
+      <InstructorIntro video={instructors?.video_url} />
       <InstructorTopCourses courses={instructor.topCourses} />
       <Footer />
     </div>

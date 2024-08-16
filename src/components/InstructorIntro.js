@@ -1,20 +1,27 @@
 import { SubHeading } from "@/pages/instructor/[id]";
+import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 
 function InstructorIntro({ video }) {
-  console.log(video);
+
+  console.log("video_url:", video);
+
+
   return (
     <div className="mx-auto mt-8 w-[90%] max-w-screen-2xl">
       <SubHeading>Instructor introduction</SubHeading>
-      {/* video */}
       <div className="mt-10 flex w-full items-center justify-center">
-        <video
-          controls
+
+        <iframe
+          width="100%"
+          height="auto"
           className="h-video-h w-video-w rounded-3xl sm:h-video-h-sm md:h-video-h-md xl:w-video-w-xl"
-        >
-          <source src="/path/to/video.mp4" type="video/mp4" />
-          <source src="/path/to/video.ogv" type="video/ogg" />
-          Your browser does not support the video tag.
-        </video>
+          src={video}
+          allow="autoplay; encrypted-media"
+          allowFullScreen
+          title="Instructor Video"
+        ></iframe>
+
       </div>
     </div>
   );

@@ -16,6 +16,8 @@ import courseStatusSlice from "../slices/courseStatusSlice";
 import studentsSlice from "../slices/allStudentsSlice";
 import allInstructorsReducer from "../slices/allInstructorsSlice";
 import fetchStudentsByInstructorReducer from "../slices/fetchStudentsByInstructorSlice";
+import ytAuthReducer from '../slices/accessToken.js';
+import courseVideoUploadReducer from '../slices/courseVideoSlice';
 // Function to load state from localStorage
 function loadState() {
   try {
@@ -62,6 +64,7 @@ const preloadedState = loadState();
 export const store = configureStore({
   reducer: {
     auth: authReducer,
+    ytAuth: ytAuthReducer,
     contact: contactReducer,
     profile: profileReducer,
     courses: coursesReducer,
@@ -73,6 +76,7 @@ export const store = configureStore({
     instructor: InstructorReducer,
     loginFlow: loginFlowSlice,
     videoUpload: instructorvideoReducer,
+    courseVideoUpload : courseVideoUploadReducer,
     instructorCourses: instructorCoursesSliceReducer,
     courseStatus: courseStatusSlice,
     students: studentsSlice,
