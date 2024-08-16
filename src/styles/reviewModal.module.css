@@ -1,0 +1,36 @@
+.star {
+    position: relative;
+    width: 0;
+    height: 0;
+}
+
+.star-point {
+    position: absolute;
+    width: 100px; /* Adjust the size as needed */
+    height: 30px; /* Adjust the size as needed */
+    background-color: gold; /* Color of the star */
+    transform-origin: 50% 100%; /* Set the origin point for rotation */
+}
+
+.star-point:nth-child(1) {
+    transform: rotate(0deg) translateY(-50%);
+}
+
+.star-point:nth-child(2) {
+    transform: rotate(72deg) translateY(-50%);
+}
+
+.star-point:nth-child(3) {
+    transform: rotate(144deg) translateY(-50%);
+}
+
+.star-point:nth-child(4) {
+    transform: rotate(216deg) translateY(-50%);
+}
+
+.star-point:nth-child(5) {
+    transform: rotate(288deg) translateY(-50%);
+}
+/* .smallplaceholder::placeholder{
+    
+} */

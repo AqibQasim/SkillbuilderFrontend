@@ -4,16 +4,16 @@ import DashboardCourseSkills from "@/components/DashboardCourseSkills";
 import DashboardLayout from "@/components/DashboardLayout";
 import DashboardStudentsOverview from "@/components/DashboardStudentsOverview";
 import InstructorCourseCard from "@/components/InstructorCourseCard";
-import InstructorsStudentsTable from "@/components/InstructorsStudentsTable";
+import InstructorsCourseStudentsTable from "@/components/InstructorsCourseStudentsTable";
 import Loader from "@/components/Loader";
 import withAuth from "@/components/WithAuth";
+import { filterRepeatedStudents } from "@/utils/filterRepeatedStudents";
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { FaChevronLeft } from "react-icons/fa6";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchOneCourse } from "../../../../redux/thunks/coursesThunks";
 import { fetchStudents } from "../../../../redux/thunks/allstudentsThunk";
-import { filterRepeatedStudents } from "@/utils/filterRepeatedStudents";
+import { fetchOneCourse } from "../../../../redux/thunks/coursesThunks";
 
 function CourseDetail() {
   const { first_name, last_name } = useSelector((state) => state.profile);
@@ -98,7 +98,7 @@ function CourseDetail() {
             <DashboardStudentsOverview students={uniqueStudents} />
           </>
         ) : (
-          <InstructorsStudentsTable isSpecific />
+          <InstructorsCourseStudentsTable students={uniqueStudents} />
         )}
       </div>
     </DashboardLayout>

@@ -45,7 +45,7 @@ function AdminStudentsRow({ isSpecific, student }) {
       <div className="course-progress">
         {isSpecific ? `${courseProgress}%` : formatDate(created_at)}
       </div>
-      <ButtonCircle role="link">
+      <ButtonCircle role="link" clasName="ml-auto">
         <ChevronRightIconSvg
           className="relative -right-[1.5px] h-4 w-4 transition-transform duration-300 group-hover:-rotate-45"
           currentColor

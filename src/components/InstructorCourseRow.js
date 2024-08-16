@@ -14,9 +14,9 @@ function InstructorCourseRow({ course }) {
   console.log(course);
 
   const handleRowClick = () => {
-    // router.push(`/courses/${id}`);
-    // router.push(`/dashboard/courses/${id}`);
-    router.push(`dashboard/instructor-courses/${id}`);
+    // router.push(`/instructor-courses/${id}`);
+    router.push(`/dashboard/instructor-courses/${id}`);
+    // router.push(`instructor-courses/${id}`);
   };
 
   return (

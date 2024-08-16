@@ -50,14 +50,18 @@ const admin = () => {
       <AdminRevenueStatistics />
       <br />
       <br />
-      <AdminCoursesTable courses={pendingCourses} courseStatus="pending" />
+      <AdminCoursesTable
+        emptyStateClasses="!size-[unset] !block"
+        courses={pendingCourses}
+        courseStatus="pending"
+      />
       <br /> <br />
       {studentsStatus === "loading" ? (
         "Loading..."
       ) : (
         <DashboardStudentsOverview
-          students={uniqueStudents}
           href="admin/students"
+          students={uniqueStudents}
         />
       )}
       <br /> <br />
@@ -65,8 +69,8 @@ const admin = () => {
         "Loading..."
       ) : (
         <AdminInstructorOverview
-          instructors={instructors}
           href="admin/instructors"
+          instructors={instructors}
         />
       )}
     </AdminDashboardLayout>

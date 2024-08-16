@@ -20,12 +20,12 @@ const InstructorDetails = () => {
   const instructorId = router.query.id;
   const dispatch = useDispatch();
   const {
-    studentsByInstructor,
+    students: studentsByInstructor,
     status: studentsByInstructorStatus,
     error: studentsByInstructorError,
   } = useSelector((state) => state.studentsByInstructor);
   const instructorsUniqueStudents =
-    filterRepeatedStudents(studentsByInstructor) || [];
+    filterRepeatedStudents(studentsByInstructor);
   console.log("students of this instructor", studentsByInstructor);
   const {
     courses: instructorCourses,
@@ -60,24 +60,22 @@ const InstructorDetails = () => {
   console.log("instructor ?????", instructor);
 
   useEffect(() => {
-    if (instructorId) {
-      dispatch(fetchOneInstructor(instructorId));
-    }
+    if (!instructorId) return;
+    dispatch(fetchOneInstructor(instructorId));
   }, [instructorId]);
 
   useEffect(() => {
-    if (!instructorId || instructorCourses.length > 0) return;
+    if (!instructorId) return;
     dispatch(fetchCoursesByInstructorId(instructorId));
   }, [instructorId]);
 
-  console.log("students length", studentsByInstructor.length > 0);
-
-  useEffect(() => {
-    console.log("instructor id changed");
-    if (!instructor || studentsByInstructor.length > 0) return;
-    console.log("dispatching");
-    dispatch(fetchStudentsByInstructor(instructor));
-  }, [instructor, studentsByInstructor]);
+  useEffect(
+    function () {
+      if (!instructorId) return;
+      dispatch(fetchStudentsByInstructor(instructorId));
+    },
+    [instructorId],
+  );
 
   console.log("Loading...", isInstLoading);
   console.log("Error...", InstructorError);
@@ -147,20 +145,21 @@ function Hero({ instructor }) {
             src="/instructor-avatar.png"
             height={190}
             width={190}
-            alt={`${instructor.image}'s avatar photo`}
+            alt={`${instructor?.image}'s avatar photo`}
           />
         </div>
         <div className="content relative mt-4 space-y-2">
           <h1 className="text-4xl font-semibold">{fullName}</h1>
           <p className="text-black text-lg font-normal">
             Email:
-            <span className="text-span"> &nbsp; {instructor.email}</span>
+            <span className="text-span"> &nbsp; {instructor?.email}</span>
           </p>
           <p className="text-black inline-flex items-center justify-center text-lg font-normal">
             Location:{" "}
             <span className="text-span">
               {" "}
-              &nbsp; {instructor.location ? instructor.location : "Unavailable"}
+              &nbsp;{" "}
+              {instructor?.location ? instructor?.location : "Unavailable"}
             </span>
             <span className="mb-1 ml-3">
               {" "}
@@ -173,14 +172,14 @@ function Hero({ instructor }) {
             </span>
           </p>
           <div className="skills">
-            {instructor.skills.length > 0 ? (
+            {instructor?.skills?.length > 0 ? (
               <>
                 <p className="text-black text-lg font-normal">Super Skills:</p>
                 <ul className="ml-0 mt-4 inline-flex flex-wrap items-center justify-center gap-3 xl:ml-6">
-                  {instructor.skills.map((skill) => (
+                  {instructor?.skills.map((skill) => (
                     <li className="flex min-w-max items-center justify-center gap-4 text-nowrap rounded-lg bg-[#F0F2F9] px-5 py-2 text-xl font-normal text-blue">
                       <GiSkills className="h-[1.4375rem] w-[1.4375rem]" />
-                      {skill.title}{" "}
+                      {skill?.title}{" "}
                     </li>
                   ))}
                 </ul>
@@ -236,6 +235,19 @@ function Education({ education = [] }) {
 
 function RunningCourses({ courses }) {
   console.log("Courses in running courses", courses);
+  if (!courses.length)
+    return (
+      <div className="running-courses">
+        <H2>Running Courses</H2>
+        <div className="mt-2">
+          <p>
+            This instructor hasn't posted any courses yet. Encourage them to get
+            started!
+          </p>
+        </div>
+      </div>
+    );
+
   return (
     <div className="running-courses">
       <H2>Running Courses</H2>

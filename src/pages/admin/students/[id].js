@@ -1,11 +1,11 @@
 import AdminDashboardLayout from "@/components/AdminDashboardLayout";
 import Loader from "@/components/Loader";
-import StrudentEnrollCourses from "@/components/StrudentEnrollCourses";
 import StudentProfile from "@/components/StudentProfile";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchOneUser } from "../../../../redux/thunks/userInfoThunk";
+import StrudentEnrollCourses from "@/components/StrudentEnrollCourses";
 
 const StudentsDetail = () => {
   const router = useRouter();
