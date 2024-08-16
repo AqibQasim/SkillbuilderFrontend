@@ -72,7 +72,7 @@ function EnrolledCourseDetails() {
           </div>
         </LayoutWidth>
         <div className="space-y-7">
-          <EnrolledCourseDetailsHero enrolledCourse={course?.video_url} />
+          <EnrolledCourseDetailsHero videolink={course?.video_url} />
           <EnrolledCourseAbout
             enrolledCourse={course?.description}
             purchasedCourses={course?.purchased_course}
