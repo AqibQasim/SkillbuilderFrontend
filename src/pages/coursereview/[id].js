@@ -1,7 +1,7 @@
 import CourseReview from "@/components/CourseReview";
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
-import React, { useReducer } from "react";
+import React, { useEffect, useReducer } from "react";
 import Writereview from "@/components/Writereview";
 import Reviews from "@/components/Reviews";
 import ReviewModal from "@/components/ReviewModal";
@@ -9,10 +9,27 @@ import StarRating from "@/components/StarRating";
 import ReviewModalContainer from "@/components/ReviewModalContainer";
 import { useState } from "react";
 import { useRouter } from "next/router";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchAllReviews } from "../../../redux/thunks/reviewsThunk";
 
 const coursereviews = () => {
     const router = useRouter();
   const CourseId = router.query.id;
+  const dispatch = useDispatch();
+  const { reviewsData: reviews, isReviewsLoading } = useSelector(
+    (state) => state.allReviews || { reviewsData: [], isReviewsLoading: true },
+  );
+  useEffect(()=>{
+    
+    dispatch(fetchAllReviews(CourseId));
+
+  } ,[CourseId]);
+  useEffect(()=>{
+    console.log("Me HUn CourseID: ",CourseId);
+    console.log("Me HUn typeof(CourseID): ",typeof(CourseId));
+    console.log(reviews)
+
+  },[])
 
   let arrayofobjects = [
     {
@@ -123,8 +140,8 @@ const coursereviews = () => {
           <ReviewModal onClose={closeModal} courseId={CourseId}/>
         </ReviewModalContainer>
         <Writereview openModal={openModal} />
-        {arrayofobjects.map((i) => (
-          <CourseReview key={i.name} {...i} />
+        {reviews.map((review) => (
+          <CourseReview name={`${review?.user?.first_name} ${review?.user?.last_name}`} description={review.review} time={review.date} />
         ))}
 
         <Footer />

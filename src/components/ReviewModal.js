@@ -90,12 +90,15 @@ const ReviewModal = ({ onClose, courseId }) => {
     //     "rating":10,
     //     "review":"this is the best course"
     // }
+    console.log("This is user from Review Modal: ", user);
     const reviewData = {
       course_id: courseId,
       user_id: user,
       rating,
       review,
     };
+    console.log("This is user from Review Modal: ", reviewData.user_id);
+
     
     console.log("FROM REVIEWMODAL:  ", JSON.stringify(reviewData));
     console.log("FROM REVIEWMODAL(2): ", reviewData);
