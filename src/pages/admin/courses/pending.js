@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchCourses } from "../../../../redux/thunks/allCoursesThunk";
 import AdminCoursesTable from "@/components/AdminCoursesTable";
+import withAuth from "@/components/WithAuth";
 
 const pending = () => {
   const dispatch = useDispatch();
@@ -26,4 +27,4 @@ const pending = () => {
     </AdminDashboardLayout>
   );
 };
-export default pending;
+export default withAuth(pending);

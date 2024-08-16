@@ -6,6 +6,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchOneUser } from "../../../../redux/thunks/userInfoThunk";
 import StrudentEnrollCourses from "@/components/StrudentEnrollCourses";
+import withAuth from "@/components/WithAuth";
 
 const StudentsDetail = () => {
   const router = useRouter();
@@ -48,4 +49,4 @@ const StudentsDetail = () => {
   );
 };
 
-export default StudentsDetail;
+export default withAuth(StudentsDetail);

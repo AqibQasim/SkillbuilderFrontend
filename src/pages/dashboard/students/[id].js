@@ -10,6 +10,7 @@ import { useEffect } from "react";
 import { FaChevronLeft, FaGraduationCap } from "react-icons/fa6";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchOneUser } from "../../../../redux/thunks/userInfoThunk";
+import withAuth from "@/components/WithAuth";
 
 const StudentsDetail = () => {
   const router = useRouter();
@@ -58,7 +59,7 @@ const StudentsDetail = () => {
   );
 };
 
-export default StudentsDetail;
+export default withAuth(StudentsDetail);
 
 function StudentEducation() {
   const { userData: studentUser } = useSelector((state) => state.singleUser);
