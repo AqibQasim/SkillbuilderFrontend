@@ -63,7 +63,7 @@ const AdminRevenueStatistics = () => {
           <span className="text-lightgray">
             Current Balance{" "}
             <span className="ml-2 rounded-lg bg-green-200 px-4 py-2 text-lg font-semibold text-green-500">
-              $21,476
+              $3,040
             </span>{" "}
             <span>
               <select
