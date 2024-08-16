@@ -65,7 +65,7 @@ import { postReview } from '../../redux/thunks/postReviewThunk';
 import styles from "@/styles/reviewModal.module.css";
 import ReviewStarRating from './ReviewStarRating';
 
-const ReviewModal = ({ onClose }) => {
+const ReviewModal = ({ onClose, courseId }) => {
   const dispatch = useDispatch();
   const { loading, success, error } = useSelector((state) => state.review);
 
@@ -79,6 +79,8 @@ const ReviewModal = ({ onClose }) => {
     e.preventDefault();
     onClose();
   };
+  
+  const user = useSelector((state) => state.auth.user);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -89,11 +91,14 @@ const ReviewModal = ({ onClose }) => {
     //     "review":"this is the best course"
     // }
     const reviewData = {
+      course_id: courseId,
+      user_id: user,
       rating,
       review,
-      reviewTitle,
     };
-
+    
+    console.log("FROM REVIEWMODAL:  ", JSON.stringify(reviewData));
+    console.log("FROM REVIEWMODAL(2): ", reviewData);
     // Dispatch the thunk to post the review
     dispatch(postReview(reviewData)).then(() => {
       if (success) {

@@ -202,7 +202,7 @@ const CourseDetails = () => {
       <CourseHero course={course} />
       <CourseInstructor course={course} user={user} />
       <CourseModule course={course?.modules} />
-      <CourseReviews reviews={reviews} />
+      <CourseReviews reviews={reviews} CourseId={id} />
       <Footer />
     </div>
   );
