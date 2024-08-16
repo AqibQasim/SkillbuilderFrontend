@@ -117,7 +117,10 @@ const InstructorDetails = () => {
         />
 
         <Education education={instructor.education} />
-        <RunningCourses courses={instructorCourses} />
+        <RunningCourses
+          courses={instructorCourses}
+          coursesError={instructorCoursesError}
+        />
         {/* <AdminInstructorOverview instructors={} /> */}
         <DashboardStudentsOverview
           message="There are currently no students enrolled under this instructor."
@@ -237,9 +240,9 @@ function Education({ education = [] }) {
   );
 }
 
-function RunningCourses({ courses }) {
+function RunningCourses({ courses, coursesError }) {
   console.log("Courses in running courses", courses);
-  if (!courses.length)
+  if (!courses.length || coursesError)
     return (
       <div className="running-courses">
         <H2>Running Courses</H2>

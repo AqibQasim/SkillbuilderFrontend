@@ -17,7 +17,7 @@ const instructorCoursesSlice = createSlice({
       })
       .addCase(fetchCoursesByInstructorId.fulfilled, (state, action) => {
         console.log("data when fulfilled:", action.payload);
-        state.courses = action.payload;
+        state.courses = action.payload.data;
         state.isLoading = false;
       })
       .addCase(fetchCoursesByInstructorId.rejected, (state, action) => {
