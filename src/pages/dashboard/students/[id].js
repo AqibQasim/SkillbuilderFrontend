@@ -16,13 +16,13 @@ const StudentsDetail = () => {
   const dispatch = useDispatch();
   const studentId = router.query.id;
   const userId = useSelector((state) => state.singleUser.userData.id);
-  const { loading: userLoading, error: userError } = useSelector(
-    (state) => state.singleUser,
-  );
+  const userLoading = useSelector((state) => state.singleUser.loading);
+  const userError = useSelector((state) => state.singleUser.error);
+
   useEffect(() => {
     if (!studentId || userId) return;
     dispatch(fetchOneUser(studentId));
-  }, [studentId]);
+  }, [studentId, userId]);
 
   function handleBack() {
     router.back();

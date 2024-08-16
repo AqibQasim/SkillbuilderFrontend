@@ -44,7 +44,7 @@ function Dashboard() {
   console.log("pending Courses on dashboard", pendingCourses);
 
   useEffect(() => {
-    if (!userId) return;
+    if (!userId || instructorId) return;
     dispatch(fetchInstructorByUserId(userId));
   }, [userId]);
 

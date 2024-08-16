@@ -25,7 +25,7 @@ const fetchStudentsByInstructorSlice = createSlice({
       .addCase(fetchStudentsByInstructor.rejected, (state, action) => {
         state.status = "failed";
         state.students = [];
-        state.error = action.error.message;
+        state.error = action.payload;
       });
   },
 });
