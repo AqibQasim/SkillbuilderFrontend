@@ -46,7 +46,7 @@ export default function CourseModules({ course, heading = "Course outline" }) {
                 <ModuleAccordion
                   title={module?.title}
                   lectures={`Lectures`}
-                  duration="24 mins"
+                  duration={module?.content?.length}
                 >
                   <div className="space-y-1">
                     {module?.content?.map((content) => {

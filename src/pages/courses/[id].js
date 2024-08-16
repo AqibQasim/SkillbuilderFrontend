@@ -135,18 +135,23 @@ const CourseDetails = () => {
 
   useEffect(() => {
     if (course && course.instructor_id) {
+      console.log("course ki instructor id ", course.instructor_id)
       dispatch(fetchOneInstructor(course.instructor_id));
     }
   }, [dispatch, course]);
 
   useEffect(() => {
-    console.log("user it izzz", user);
+    if(user){
+      console.log("user it izzz", user);
+    }
   }, [user]);
 
   // const { instructorData: instructor, isInstLoading } = useSelector(
   //   (state) =>
   //     state.singleInstructor || { instructorData: {}, isInstLoading: true },
   // );
+
+  // console.log("Instructor here: " , instructor)
 
   const { reviewsData: reviews, isReviewsLoading } = useSelector(
     (state) => state.allReviews || { reviewsData: [], isReviewsLoading: true },
@@ -169,17 +174,24 @@ const CourseDetails = () => {
     if (id) {
       dispatch(fetchOneCourse(id));
     }
+
+    console.log(`course fetched is: ${id}`)
   }, [id]);
 
   useEffect(() => {
     if (course && course.instructor_id) {
       dispatch(fetchOneUser(course.instructor_id));
+
+      console.log()
+
     }
+
+   
   }, [course]);
 
   useEffect(() => {
     if (course && course.id) {
-      dispatch(fetchAllReviews(course.id));
+      dispatch(fetchAllReviews(id));
     }
   }, [course]);
 

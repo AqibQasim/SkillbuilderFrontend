@@ -4,9 +4,6 @@ import Bill from "./Bill";
 
 
 const ShopCheckout = ({ setCartsItemsLength, courses }) => {
-
-
-
   return (
     <div>
       <div
