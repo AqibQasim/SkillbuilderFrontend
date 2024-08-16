@@ -17,6 +17,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchAllReviews } from "../../../redux/thunks/reviewsThunk";
 import { fetchOneCourse } from "../../../redux/thunks/coursesThunks";
 
+const progress = 100;
+
 function EnrolledCourseDetails() {
   const dispatch = useDispatch();
 
@@ -81,6 +83,8 @@ function EnrolledCourseDetails() {
           <CourseModules course={course?.modules} heading="Videos" />
           <EnrolledCourseRatingAndReviews reviews={reviews} />
           <CourseReviews reviews={reviews} />
+         
+         <CourseCertificate course={course} />
         </div>
         <Footer />
       </div>
@@ -170,6 +174,32 @@ function EnrolledCourseRatingAndReviews({ reviews }) {
           </div>
         </div>
       </div>
+    </LayoutWidth>
+  );
+}
+
+
+function CourseCertificate({course}) {
+  const router = useRouter();
+
+  const handleCertificateView = () => {
+    // Navigate to the certificate page, replace '/certificate' with the correct path if needed
+    router.push(`/certificate/${course.id}`);
+  };
+
+  return (
+    <LayoutWidth>
+      {progress === 100 && (
+        <>
+          <H2 className="ms-16">Certificate </H2> 
+          <button 
+            className="font-medium text-white rounded-md bg-blue p-2 ms-16"
+            onClick={handleCertificateView} // Navigate on button click
+          >
+            View Certificate
+          </button>
+        </>
+      )}
     </LayoutWidth>
   );
 }
