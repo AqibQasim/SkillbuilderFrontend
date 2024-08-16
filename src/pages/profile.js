@@ -7,8 +7,6 @@ import withAuth from "@/components/WithAuth";
 const profile = () => {
   let profile_text = {
     image: "/profileimage.png",
-    name: "Usman kareem",
-    email: "Usmankareem@gmail.com",
     course: "UI / UX Designing +2",
     location: "Chicago, IL",
   };

@@ -1,22 +1,24 @@
 "use client";
 import Image from "next/image";
-import { useState } from "react";
-import { useSelector } from "react-redux";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import EditProfileForm from "./EditProfileForm";
 import Footer from "./Footer";
 import LayoutWidth from "./LayoutWidth";
 import { setSuccess } from "../../redux/slices/authSlice";
+import { fetchOneUser } from "../../redux/thunks/userInfoThunk";
 
 const Profile = ({ profile_text }) => {
   const [state, setstate] = useState(false);
   const { first_name, last_name, email, location } = useSelector(
     (state) => state.profile,
   );
+
   const {
     image,
     name,
-    email: dummyEmail,
     course,
+    email: dummyEmail,
     location: dummyLocation,
   } = profile_text;
   let dummyFName;
