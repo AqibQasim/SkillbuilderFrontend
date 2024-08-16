@@ -8,11 +8,16 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchStudentsByInstructor } from "../../../redux/thunks/fetchStudentsByInstructorthunk";
 import { fetchCoursesByInstructorId } from "../../../redux/thunks/instructorCoursesThunk";
+import { fetchInstructorByUserId } from "../../../redux/thunks/InstructorByUserIdThunk";
 // import students from "./students";
 function Dashboard() {
   const router = useRouter();
   const dispatch = useDispatch();
   const userId = useSelector((state) => state.auth.user);
+  const instructorId = useSelector(
+    (state) => state.instructorByUserId.instructorByUserId.id,
+  );
+  console.log("current instructor ID", instructorId);
   const studentsByInstructor = useSelector(
     (state) => state.studentsByInstructor.students,
   );
@@ -22,8 +27,6 @@ function Dashboard() {
   const studentsError = useSelector(
     (state) => state.studentsByInstructor.error,
   );
-  // const instructorId = useSelector((state) => state.singleInstructor.id);
-  const instructorId = 4;
   const courses = useSelector((state) => state.instructorCourses.courses);
   const coursesLoading = useSelector(
     (state) => state.instructorCourses.isLoading,
@@ -36,10 +39,10 @@ function Dashboard() {
   console.log("Students on dashboard", studentsByInstructor);
   console.log("Courses on dashboard", courses);
 
-  // useEffect(() => {
-  //   if (!userId) return;
-  //   dispatch(fetchOneInstructor(userId));
-  // }, [userId]);
+  useEffect(() => {
+    if (!userId) return;
+    dispatch(fetchInstructorByUserId(userId));
+  }, [userId]);
 
   useEffect(() => {
     if (!instructorId || courses?.length > 0) return;
