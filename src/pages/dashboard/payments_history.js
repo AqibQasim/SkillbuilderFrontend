@@ -46,21 +46,22 @@ function Payments() {
   const [accountLinkUrl, setAccountLinkUrl] = useState(null);
 
   const dispatch = useDispatch();
-  const id = useSelector((state) => state.singleInstructor.id);
-  const userId = useSelector((state) => state.auth.user);
+  const instructor = useSelector((state) => state.singleInstructor);
+  // const userId = useSelector((state) => state.auth.user);
+
+  // useEffect(() => {
+  //   if (userId && !id) {
+  //     dispatch(fetchOneInstructor(userId));
+  //   }
+  // }, [userId, id, dispatch]);
 
   useEffect(() => {
-    if (userId && !id) {
-      dispatch(fetchOneInstructor(userId));
-    }
-  }, [userId, id, dispatch]);
-
-  useEffect(() => {
-    if (id) {
+    // console.log("ID in payments history page: ", id)
+    if (instructor) {
       const fetchPaymentDetails = async () => {
         try {
           const response = await fetch(
-            `http://127.0.0.1:4000/check-payment-rec?instructor_id=${id}`,
+            `http://127.0.0.1:4000/check-payment-rec?id=${instructor.user_id}`,
             {
               method: "GET",
               headers: { "Content-Type": "application/json" },
@@ -134,7 +135,7 @@ function Payments() {
       
     }
    
-  }, [id]);
+  }, [instructor]);
 
   const handleAccountLink = async () => {
 
@@ -190,9 +191,9 @@ function Payments() {
             </Button>
           </div>
         )}
-        {error && (
+        {/* {error && (
           <p className="text-red-500">An error occurred. Please try again.</p>
-        )}
+        )} */}
       </div>
     </DashboardLayout>
   );

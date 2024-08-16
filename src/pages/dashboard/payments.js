@@ -56,21 +56,34 @@ function Payments() {
   const [isModalOpen, setIsModalOpen] = useState(false); // State to manage modal visibility
 
   const dispatch = useDispatch();
-  const id = useSelector((state) => state.singleInstructor.id);
-  const userId = useSelector((state) => state.auth.user);
+  const instructor = useSelector((state) => state.singleInstructor);
+  // const userId = useSelector((state) => state.auth.user);
+
+  // useEffect(() => {
+   
+  //   dispatch(fetchOneInstructor(instur));
+
+  // }, [instructor, dispatch]);
+  
+
+  // useEffect(() => {
+
+  //   if()
+
+  //   console.log("id in the dashboard page: ", id)
+  
+    
+  // }, [id, dispatch]);
+  
 
   useEffect(() => {
-    if (userId && !id) {
-      dispatch(fetchOneInstructor(userId));
-    }
-  }, [userId, id, dispatch]);
 
-  useEffect(() => {
-    if (id) {
+    if (instructor) {
+      console.log("INSTRUCTOR DETAILS IN PAYMENTS", instructor)
       const fetchPaymentDetails = async () => {
         try {
           const response = await fetch(
-            `http://127.0.0.1:4000/check-payment-rec?instructor_id=${id}`,
+            `http://127.0.0.1:4000/check-payment-rec?id=${instructor.user_id}`,
             {
               method: "GET",
               headers: { "Content-Type": "application/json" },
@@ -152,7 +165,7 @@ function Payments() {
 
       fetchPaymentDetails();
     }
-  }, [id]);
+  }, [instructor]);
 
   const getBankName = (bankId) => {
     const bankDetail = bankDetails.find((bank) => bank.id === bankId);
@@ -347,9 +360,9 @@ function Payments() {
             </Button>
           </div>
         )}
-        {error && (
+        {/* {error && (
           <p className="text-red-500">An error occurred. Please try again.</p>
-        )}
+        )} */}
       </div>
 
       {/* Modal */}
