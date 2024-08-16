@@ -1,10 +1,13 @@
 import DeclineCourse from "@/components/DeclineCourse";
 import Menus from "@/components/Menus";
 import Modal from "@/components/Modal";
-import { HiCheckCircle, HiXCircle } from "react-icons/hi2";
+import { HiCheckCircle, HiMiniNoSymbol, HiXCircle } from "react-icons/hi2";
 import { useDispatch, useSelector } from "react-redux";
 import { statusConstants } from "../../redux/slices/courseStatusSlice";
-import { approveCourse } from "../../redux/thunks/courseStatusThunk";
+import {
+  approveCourse,
+  suspendCourse,
+} from "../../redux/thunks/courseStatusThunk";
 
 function AdminCourseActions({ course, className }) {
   console.log();
@@ -14,6 +17,7 @@ function AdminCourseActions({ course, className }) {
 
   const isApproved = status === "approved";
   const isDeclined = status === "declined";
+  const isSuspended = status === "suspended";
   console.log("approved: ", isApproved, "2: declined: ", isDeclined);
 
   //   useEffect(() => {
@@ -23,11 +27,20 @@ function AdminCourseActions({ course, className }) {
 
   const handleCourseApprove = () => {
     const dataToDispatch = {
-      ...statusData,
       course_id: id,
       status: statusConstants.APPROVED,
     };
     dispatch(approveCourse(dataToDispatch));
+  };
+
+  const handleCourseSuspend = () => {
+    const dataToDispatch = {
+      ...statusData,
+      course_id: id,
+      status: statusConstants.SUSPENDED,
+      reason: "Video Quality",
+    };
+    dispatch(suspendCourse(dataToDispatch));
   };
 
   return (
@@ -44,6 +57,14 @@ function AdminCourseActions({ course, className }) {
                 disabled={loading || isApproved}
               >
                 Approve
+              </Menus.Button>
+              <Menus.Button
+                className={`suspend ${isApproved ? "!bg-pending-hover-bg !text-pending" : ""}`}
+                icon={<HiMiniNoSymbol className="size-6" />}
+                onClick={handleCourseSuspend}
+                disabled={loading || isSuspended}
+              >
+                Suspend
               </Menus.Button>
 
               <Modal.Open opens="decline">
