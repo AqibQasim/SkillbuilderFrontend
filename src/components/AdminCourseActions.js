@@ -1,27 +1,25 @@
 import DeclineCourse from "@/components/DeclineCourse";
 import Menus from "@/components/Menus";
 import Modal from "@/components/Modal";
-import { useEffect } from "react";
 import { HiCheckCircle, HiXCircle } from "react-icons/hi2";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchOneCourse } from "../../redux/thunks/coursesThunks";
 import { statusConstants } from "../../redux/slices/courseStatusSlice";
 import { approveCourse } from "../../redux/thunks/courseStatusThunk";
 
-function TempPageForPopup() {
+function AdminCourseActions({ course, className }) {
+  console.log();
+  const { title, id, status } = course;
   const { statusData, loading } = useSelector((state) => state.courseStatus);
-  const { title, id, modules, status } = useSelector(
-    (state) => state.singleCourse.data,
-  );
   const dispatch = useDispatch();
 
   const isApproved = status === "approved";
   const isDeclined = status === "declined";
   console.log("approved: ", isApproved, "2: declined: ", isDeclined);
 
-  useEffect(() => {
-    dispatch(fetchOneCourse(1));
-  }, [dispatch]);
+  //   useEffect(() => {
+  //     dispatch(fetchOneCourse(courseId));
+  //   }, []);
+  //   useEffect(() => dispatch(resetState()), []);
 
   const handleCourseApprove = () => {
     const dataToDispatch = {
@@ -33,7 +31,7 @@ function TempPageForPopup() {
   };
 
   return (
-    <div className="flex min-h-screen items-center justify-center">
+    <div className={`${className} class`}>
       <Modal>
         <Menus>
           <Menus.Menu>
@@ -60,7 +58,8 @@ function TempPageForPopup() {
             </Menus.List>
 
             <Modal.Window name="decline">
-              <DeclineCourse courseToDecline={{ title, id, modules }} />
+              {/* <DeclineCourse courseToDecline={{ title, id, modules }} /> */}
+              <DeclineCourse courseToDecline={{ title, id }} />
             </Modal.Window>
           </Menus.Menu>
         </Menus>
@@ -69,4 +68,4 @@ function TempPageForPopup() {
   );
 }
 
-export default TempPageForPopup;
+export default AdminCourseActions;

@@ -2,7 +2,7 @@ import { fetchOneCourse } from "../thunks/coursesThunks";
 import { createSlice } from "@reduxjs/toolkit";
 
 const singleCourseSlice = createSlice({
-  name: "course",
+  name: "singleCourse",
   initialState: {
     data: {},
     isLoading: false,

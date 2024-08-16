@@ -5,7 +5,7 @@ import ChevronRightIconSvg from "./ChevronRightIconSvg";
 import formatDate from "@/utils/formatDate";
 import Avatar from "./Avatar";
 
-function InstructorsStudentsRow({ student }) {
+function InstructorsCourseStudentsRow({ student }) {
   const router = useRouter();
   console.log("student in row", student);
 
@@ -37,6 +37,8 @@ function InstructorsStudentsRow({ student }) {
       <Avatar firstName={first_name} lastName={last_name} />
       <div className="name"> {fullName} </div>
       <div className="email">{email}</div>
+      <div className="purchase-date">{formatDate(created_at)}</div>
+      {/* <div className="course-progress">{progressNotAvailableYet}</div> */}
       <div className="joining-date">{formatDate(created_at)}</div>
       <ButtonCircle role="link" clasName="ml-auto">
         <ChevronRightIconSvg
@@ -48,4 +50,4 @@ function InstructorsStudentsRow({ student }) {
   );
 }
 
-export default InstructorsStudentsRow;
+export default InstructorsCourseStudentsRow;
