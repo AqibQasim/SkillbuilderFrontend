@@ -3,7 +3,12 @@ import { useRouter } from "next/router";
 import Avatar from "./Avatar";
 import ViewAll from "./ViewAll";
 
-function DashboardStudentsOverview({ students, href, expand = true }) {
+function DashboardStudentsOverview({
+  message = "No students enrolled for the current course",
+  students,
+  href,
+  expand = true,
+}) {
   const router = useRouter();
   console.log("students overview?", students);
 
@@ -23,9 +28,7 @@ function DashboardStudentsOverview({ students, href, expand = true }) {
         {expand && <ViewAll onClick={handleViewAllClick} />}
       </div>
       <div className="scrollbar-custom mt-4 flex min-h-12 w-full space-x-4 overflow-x-scroll rounded-sm bg-white px-7 py-8">
-        {!students?.length ? (
-          <p>No students enrolled for the current course.</p>
-        ) : null}
+        {!students?.length ? <p>{message}</p> : null}
         {students?.length
           ? students.map((student, index) => (
               <Student key={index} student={student} />

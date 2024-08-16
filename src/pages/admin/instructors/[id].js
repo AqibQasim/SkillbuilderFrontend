@@ -24,8 +24,10 @@ const InstructorDetails = () => {
     status: studentsByInstructorStatus,
     error: studentsByInstructorError,
   } = useSelector((state) => state.studentsByInstructor);
+
   const instructorsUniqueStudents =
     filterRepeatedStudents(studentsByInstructor);
+
   console.log("students of this instructor", studentsByInstructor);
   const {
     courses: instructorCourses,
@@ -72,6 +74,7 @@ const InstructorDetails = () => {
   useEffect(
     function () {
       if (!instructorId) return;
+      console.log("dispatch students inst id", instructorId);
       dispatch(fetchStudentsByInstructor(instructorId));
     },
     [instructorId],
@@ -117,6 +120,7 @@ const InstructorDetails = () => {
         <RunningCourses courses={instructorCourses} />
         {/* <AdminInstructorOverview instructors={} /> */}
         <DashboardStudentsOverview
+          message="There are currently no students enrolled under this instructor."
           students={instructorsUniqueStudents}
           expand={false}
         />
