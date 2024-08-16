@@ -21,7 +21,7 @@ function AdminInstructorOverview({ instructors, href }) {
         <h2 className="text-2xl font-medium">Instructors</h2>
         <ViewAll onClick={handleViewAllClick} />
       </div>
-      <div className="scrollbar-custom mt-4 flex min-h-12 w-full space-x-4 overflow-x-scroll bg-white px-7 py-8">
+      <div className="scrollbar-custom mt-4 flex min-h-12 w-full space-x-4 overflow-x-scroll rounded-sm bg-white px-7 py-8">
         {!instructors?.length ? (
           <p>No instructors have uploaded any course yet.</p>
         ) : null}

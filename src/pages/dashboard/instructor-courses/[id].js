@@ -14,6 +14,7 @@ import { FaChevronLeft } from "react-icons/fa6";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchStudents } from "../../../../redux/thunks/allstudentsThunk";
 import { fetchOneCourse } from "../../../../redux/thunks/coursesThunks";
+import DashboardCourseModules from "@/components/DashboardCourseModules";
 
 function CourseDetail() {
   const { first_name, last_name } = useSelector((state) => state.profile);
@@ -93,7 +94,7 @@ function CourseDetail() {
               <p>You haven't posted any modules.</p>
             ) : null}
             {!isSingleCourseLoading && singleCourse?.modules?.length ? (
-              <CourseModules course={singleCourse} />
+              <DashboardCourseModules modules={singleCourse?.modules} />
             ) : null}
             <DashboardStudentsOverview students={uniqueStudents} />
           </>

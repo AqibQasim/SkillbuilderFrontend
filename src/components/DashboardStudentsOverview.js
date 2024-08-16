@@ -22,7 +22,7 @@ function DashboardStudentsOverview({ students, href, expand = true }) {
         <h2 className="text-2xl font-medium">Students</h2>
         {expand && <ViewAll onClick={handleViewAllClick} />}
       </div>
-      <div className="scrollbar-custom mt-4 flex min-h-12 w-full space-x-4 overflow-x-scroll bg-white px-7 py-8">
+      <div className="scrollbar-custom mt-4 flex min-h-12 w-full space-x-4 overflow-x-scroll rounded-sm bg-white px-7 py-8">
         {!students?.length ? (
           <p>No students enrolled for the current course.</p>
         ) : null}
