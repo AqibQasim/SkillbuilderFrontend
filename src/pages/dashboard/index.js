@@ -9,7 +9,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchStudentsByInstructor } from "../../../redux/thunks/fetchStudentsByInstructorthunk";
 import { fetchCoursesByInstructorId } from "../../../redux/thunks/instructorCoursesThunk";
 import { fetchInstructorByUserId } from "../../../redux/thunks/InstructorByUserIdThunk";
-// import students from "./students";
+import InstructorPendingCourseTable from "@/components/InstructorPendingCourseTable";
+import Loader from "@/components/Loader";
 function Dashboard() {
   const router = useRouter();
   const dispatch = useDispatch();
@@ -27,6 +28,9 @@ function Dashboard() {
   const studentsError = useSelector(
     (state) => state.studentsByInstructor.error,
   );
+  const pendingCourses = useSelector(
+    (state) => state.instructorCourses.pendingCourses,
+  );
   const courses = useSelector((state) => state.instructorCourses.courses);
   const coursesLoading = useSelector(
     (state) => state.instructorCourses.isLoading,
@@ -37,7 +41,7 @@ function Dashboard() {
   // ===Logs
   console.log("User Id on dashboard", userId);
   console.log("Students on dashboard", studentsByInstructor);
-  console.log("Courses on dashboard", courses);
+  console.log("pending Courses on dashboard", pendingCourses);
 
   useEffect(() => {
     if (!userId) return;
@@ -54,14 +58,32 @@ function Dashboard() {
     dispatch(fetchStudentsByInstructor(instructorId));
   }, [instructorId, studentsByInstructor?.length]);
 
+  // if (coursesLoading || studentsStatus === "loading")
+  //   return (
+  //     <DashboardLayout>
+  //       <div className="flex size-full items-center justify-center">
+  //         <Loader />
+  //       </div>
+  //     </DashboardLayout>
+  //   );
+
   return (
     <DashboardLayout>
-      <InstructorCourseTable courses={courses} courseStatus="pending" />
-      <div className="mt-16">
-        <DashboardStudentsOverview
-          students={uniqueStudents}
-          href="dashboard/students"
-        />
+      <div className="flex size-full flex-col">
+        {/* <InstructorCourseTable courses={courses} courseStatus="pending" /> */}
+        <div className="pending-courses">
+          <InstructorPendingCourseTable
+            emptyStateClasses="!size-[unset] !block"
+            courses={pendingCourses}
+            courseStatus="pending"
+          />
+        </div>
+        <div className="mt-auto">
+          <DashboardStudentsOverview
+            students={uniqueStudents}
+            href="dashboard/students"
+          />
+        </div>
       </div>
     </DashboardLayout>
   );
