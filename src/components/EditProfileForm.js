@@ -82,7 +82,7 @@ const EditProfileForm = ({ setCloseForm }) => {
           <div className="flex-1">
             <label
               htmlFor="first_name"
-              className="mb-2 block text-sm font-medium text-black"
+              className="text-black mb-2 block text-sm font-medium"
             >
               First Name:
             </label>
@@ -99,7 +99,7 @@ const EditProfileForm = ({ setCloseForm }) => {
           <div className="flex-1">
             <label
               htmlFor="last_name"
-              className="mb-2 block text-sm font-medium text-black"
+              className="text-black mb-2 block text-sm font-medium"
             >
               Last Name:
             </label>
@@ -118,16 +118,16 @@ const EditProfileForm = ({ setCloseForm }) => {
           <div className="flex-1">
             <label
               htmlFor="email"
-              className="mb-2 block text-sm font-medium text-black"
+              className="text-black mb-2 block text-sm font-medium"
             >
               Email:
             </label>
             <input
-              disabled={profile?.status === "loading"}
               value={formData.email}
               id="email"
               placeholder="Email"
               type="email"
+              disabled
               onChange={handleChange}
               className={`w-[80%] rounded-lg border border-border_gray px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-600 ${styles.smallPlaceholder}`}
             />
@@ -135,7 +135,7 @@ const EditProfileForm = ({ setCloseForm }) => {
           <div className="flex-1">
             <label
               htmlFor="profession"
-              className="mb-2 block text-sm font-medium text-black"
+              className="text-black mb-2 block text-sm font-medium"
             >
               Profession:
             </label>
@@ -154,7 +154,7 @@ const EditProfileForm = ({ setCloseForm }) => {
           <div className="flex-1">
             <label
               htmlFor="location"
-              className="mb-2 block text-sm font-medium text-black"
+              className="text-black mb-2 block text-sm font-medium"
             >
               Location:
             </label>
@@ -172,7 +172,7 @@ const EditProfileForm = ({ setCloseForm }) => {
         <div className="">
           <label
             htmlFor="message"
-            className="mb-2 block text-sm font-medium text-black"
+            className="text-black mb-2 block text-sm font-medium"
           >
             Social Media
           </label>
