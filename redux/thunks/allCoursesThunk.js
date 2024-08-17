@@ -13,7 +13,9 @@ export const fetchCourses = createAsyncThunk(
           },
         },
       );
+      console.log("Li::::::::::::",response);
       const data = await response.json();
+      console.log("Data::::::::::" , data);
       console.log("API Response Data:", data?.data);
       if (!response.ok) {
         throw new Error(data.message || "Unable to fetch courses");
