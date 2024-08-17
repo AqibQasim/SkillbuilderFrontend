@@ -4,6 +4,8 @@ import { HiMiniChevronDown } from "react-icons/hi2";
 
 export default function DashboardCourseModules({ modules }) {
   console.log("######### tahta", modules);
+  if (!modules?.length) return <p>You haven't posted any modules.</p>;
+
   return (
     <div className="rounded-sm bg-white">
       {modules?.map((module) => {

@@ -7,6 +7,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchOneUser } from "../../../../redux/thunks/userInfoThunk";
 import StrudentEnrollCourses from "@/components/StrudentEnrollCourses";
 import withAuth from "@/components/WithAuth";
+import StudentEnrolledCourses from "@/components/StudentEnrolledCourses";
+import ButtonCircle from "@/components/ButtonCircle";
+import { FaChevronLeft } from "react-icons/fa6";
 
 const StudentsDetail = () => {
   const router = useRouter();
@@ -23,6 +26,10 @@ const StudentsDetail = () => {
   }, [studentId]);
   console.log("Loading...", userLoading);
   console.log("Error...", userError);
+
+  function handleBack() {
+    router.back();
+  }
 
   if (userLoading)
     return (
@@ -41,10 +48,16 @@ const StudentsDetail = () => {
 
   return (
     <AdminDashboardLayout>
-      <StudentProfile />
-      {/* <StudentEducation /> */}
-      <StrudentEnrollCourses paddingTop="pt-10" heading="Enrolled Courses" />
-      {/* <Courses paddingTop="pt-10" heading="Enrolled Courses" /> */}
+      <div className="space-y-8">
+        <ButtonCircle onClick={handleBack}>
+          <FaChevronLeft />
+        </ButtonCircle>
+        <StudentProfile />
+        {/* <StudentEducation /> */}
+        {/* <StrudentsEnrollCourses paddingTop="pt-10" heading="Enrolled Courses" /> */}
+        {/* <Courses paddingTop="pt-10" heading="Enrolled Courses" /> */}
+        <StudentEnrolledCourses />
+      </div>
     </AdminDashboardLayout>
   );
 };

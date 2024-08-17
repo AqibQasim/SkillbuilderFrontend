@@ -1,9 +1,70 @@
-import React from "react";
+// import { instructor } from "@/data/getInstructorById";
+import React, { useEffect } from "react";
+import { useState } from "react";
+import { useSelector } from "react-redux";
+import { createCourse } from "../../redux/thunks/createCourseThunk";
 
 const InstructorIntendedLearner = ({ onNext }) => {
+  const profile = useSelector((state) => state.profile);
+  const userId = profile?.id;
+  console.log("profile data:", userId);
+
+  const initialFormData = {
+    instructor_id: "",
+    title: "",
+    category: "",
+    learning_outcomes: "",
+    modulesCount: 0,
+    amount: 0,
+    charges: 0,
+    
+    // specialization: "",
+    // qualifications: [{ percentage: "", degree: "" }],
+    // skills: [{ percentage: "", title: "" }],
+    // video_url: "",
+  };
+
+  const [formData, setFormData] = useState({
+    ...initialFormData,
+    instructor_id: userId,
+  });
+
+  const submitHandler = (e) => {
+    e.preventDefault();
+    dispatch(createCourse(formData));
+  };
+
+  useEffect(() => {
+    console.log("log the form data:",formData)
+  },[formData])
+
+  // const handleNestedChange = (section, index, key, value) => {
+  //   setFormData((prevFormData) => ({
+  //     ...prevFormData,
+  //     [section]: prevFormData[section].map((item, i) =>
+  //       i === index ? { ...item, [key]: value } : item,
+  //     ),
+  //   }));
+  // };
+
+  // const handleExperienceChange = (index, value) => {
+  //   setFormData((prevFormData) => ({
+  //     ...prevFormData,
+  //     experience: prevFormData.experience.map((item, i) =>
+  //       i === index ? value : item,
+  //     ),
+  //   }));
+  // };
+
+  
+
+  const handleChange = (field, value) => {
+    setFormData((prevFormData) => ({ ...prevFormData, [field]: value }));
+  };
+
   return (
     <div className="container mt-20">
-      <form className="relative space-y-4">
+      <form onSubmit={submitHandler} className="relative space-y-4">
         <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
           <div>
             <label
@@ -13,6 +74,7 @@ const InstructorIntendedLearner = ({ onNext }) => {
               Course Name:
             </label>
             <input
+              onChange={(e) => handleChange('title', e.target.value)}
               type="text"
               id="course-name"
               name="course-name"
@@ -32,6 +94,7 @@ const InstructorIntendedLearner = ({ onNext }) => {
               id="category"
               name="category"
               required
+              onChange={(e) => handleChange('category', e.target.value)}
               className="border-darkgrey mt-1 block w-full rounded-md border bg-transparent p-3 shadow-sm focus:border-blue-500 focus:ring-blue-500"
             >
               <option value="">Select category</option>
@@ -54,6 +117,8 @@ const InstructorIntendedLearner = ({ onNext }) => {
               Time:
             </label>
             <input
+              // onChange={}
+              onChange={(e) => handleChange('time', e.target.value)}
               type="number"
               id="time"
               name="time"
@@ -70,6 +135,7 @@ const InstructorIntendedLearner = ({ onNext }) => {
               Outcome of this Course:
             </label>
             <input
+              onChange={(e) => handleChange("learning_outcomes",e.target.value)}
               type="text"
               id="learning"
               name="learning"
