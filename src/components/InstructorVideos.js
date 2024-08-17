@@ -3,6 +3,7 @@ import Image from "next/image";
 import VideoUpload from "./VideoUpload";
 
 const InstructorVideos = ({ onNext, onPrev }) => {
+  const [selectedVideo, setSelectedVideo] = useState(null);
   const [modules, setModules] = useState([{ title: "1", videos: [] }]);
   const [showVideos, setShowVideos] = useState({});
   const fileInputRef = useRef(null);
@@ -79,7 +80,7 @@ const InstructorVideos = ({ onNext, onPrev }) => {
       <h3 className="font-medium text-lg mt-10 mb-5">
         Upload an introduction video of Course
       </h3>
-      <VideoUpload />
+      <VideoUpload setSelectedVideo={setSelectedVideo} />
       <div className="accordion mt-8 rounded-md border-2 border-[#BBBBBB] px-4 py-2 overflow-hidden">
         {modules.map((item, moduleIndex) => (
           <div key={moduleIndex}>

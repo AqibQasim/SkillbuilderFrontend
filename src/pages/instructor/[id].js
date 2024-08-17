@@ -8,6 +8,8 @@ import { useRouter } from "next/router";
 import { fetchOneInstructor } from "../../../redux/thunks/instructorThunk";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
+import { fetchAccessToken } from "../../../redux/thunks/ytAccessThunk";
+// import {}
 import { fetchCoursesByInstructorId } from "../../../redux/thunks/instructorCoursesThunk";
 
 export function SubHeading({ children }) {
