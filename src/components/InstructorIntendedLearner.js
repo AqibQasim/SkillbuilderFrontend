@@ -2,10 +2,14 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { createCourse } from "../../redux/thunks/createCourseThunk";
 import { setCourseDetails } from "../../redux/slices/createCourseSlice";
+import { fetchInstructorByUserId } from "../../redux/thunks/InstructorByUserIdThunk";
 
 const InstructorIntendedLearner = ({ onNext }) => {
   const dispatch = useDispatch();
   const userId = useSelector((state) => state.auth.user);
+  const instructorId = useSelector(
+    (state) => state.instructorByUserId.instructorByUserId.id,
+  );
   const title = useSelector((state) => state.createCourse.courseDetails.title);
   const category = useSelector(
     (state) => state.createCourse.courseDetails.category,
@@ -14,11 +18,18 @@ const InstructorIntendedLearner = ({ onNext }) => {
     (state) => state.createCourse.courseDetails.learning_outcomes,
   );
 
-  console.log("title in courDetails slice", title);
-  console.log("profile data:", userId);
+  useEffect(
+    function () {
+      if (!userId || instructorId) return;
+      dispatch(fetchInstructorByUserId(userId));
+    },
+    [userId, instructorId],
+  );
+
+  console.log("Getting the instructor id correctly?:", instructorId);
 
   const initialFormData = {
-    instructor_id: "",
+    instructor_id: instructorId,
     title: "",
     category: "",
     learning_outcomes: "",
@@ -27,23 +38,19 @@ const InstructorIntendedLearner = ({ onNext }) => {
     charges: 0,
   };
 
-  const [formData, setFormData] = useState({
-    ...initialFormData,
-    instructor_id: userId,
-  });
+  const [formData, setFormData] = useState(initialFormData);
 
   const submitHandler = (e) => {
     e.preventDefault();
     const { title, category, learning_outcomes } = formData;
     if (!title || !category || !learning_outcomes) return;
 
-    dispatch(setCourseDetails(formData));
+    const dataWithInstructorId = { ...formData, instructor_id: instructorId };
+    console.log("submit this data?", dataWithInstructorId);
+
+    dispatch(setCourseDetails(dataWithInstructorId));
     onNext();
   };
-
-  useEffect(() => {
-    console.log("log the form data:", formData);
-  }, [formData]);
 
   const handleChange = (field, value) => {
     setFormData((prevFormData) => ({ ...prevFormData, [field]: value }));
