@@ -17,7 +17,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchAllReviews } from "../../../redux/thunks/reviewsThunk";
 import { fetchOneCourse } from "../../../redux/thunks/coursesThunks";
 
-const progress = 100;
+const courseProgress = 100;
 
 function EnrolledCourseDetails() {
   const dispatch = useDispatch();
@@ -189,7 +189,7 @@ function CourseCertificate({course}) {
 
   return (
     <LayoutWidth>
-      {progress === 100 && (
+      {courseProgress === 100 && (
         <>
           <H2 className="ms-16">Certificate </H2> 
           <button 
