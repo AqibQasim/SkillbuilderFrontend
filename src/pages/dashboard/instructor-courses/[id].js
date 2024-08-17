@@ -96,12 +96,6 @@ function CourseDetail() {
             {!isSingleCourseLoading && (
               <DashboardCourseModules modules={singleCourse?.modules} />
             )}
-            {/* {!isSingleCourseLoading && !singleCourse?.modules?.length ? (
-              <p>You haven't posted any modules.</p>
-            ) : null}
-            {!isSingleCourseLoading && singleCourse?.modules?.length ? (
-              <DashboardCourseModules modules={singleCourse?.modules} />
-            ) : null} */}
             <DashboardStudentsOverview students={uniqueStudents} />
           </>
         ) : (
