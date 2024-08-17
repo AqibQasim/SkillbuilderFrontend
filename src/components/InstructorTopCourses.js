@@ -25,9 +25,9 @@ function InstructorTopCourses({ courses }) {
             <div className="space-y-2">
               <h3 className="text-lg font-semibold">{course.title}</h3>
               <h3 className="text-sm font-normal">
-                Duration: {course.duration}
-              </h3>
-              <div className="mt-2 flex w-full items-center justify-start gap-3">
+                Duration: {course.creation_duration_hours}
+              </h3> 
+               <div className="mt-2 flex w-full items-center justify-start gap-3">
                 <span className="text-sm">{course.rating}</span>
                 <StarRating rating={Math.round(course.rating)} />
               </div>

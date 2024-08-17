@@ -21,6 +21,7 @@ import ytAuthReducer from '../slices/accessToken.js';
 import courseVideoUploadReducer from '../slices/courseVideoSlice';
 import reviewSlice from "../slices/reviewSlice";
 import purchasecourseSlice from "../slices/purchasecoursedSlice";
+import InstructorByUserIdSlice from "../slices/InstructorByUserIdSlice";
 // Function to load state from localStorage
 function loadState() {
   try {
@@ -89,6 +90,7 @@ export const store = configureStore({
     review : reviewSlice,
     courseVideoUpload: courseVideoUploadReducer,
     purchasecourse: purchasecourseSlice,
+    instructorByUserId: InstructorByUserIdSlice,
   },
   preloadedState,
 });

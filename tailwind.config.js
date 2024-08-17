@@ -124,7 +124,7 @@ module.exports = {
         },
         suspend: {
           DEFAULT: "#FF9800",
-          text: "#FFFFFF",
+          "hover-bg": "#FFF4EB",
         },
         delete: {
           DEFAULT: "#D32F2F",

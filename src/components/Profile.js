@@ -1,26 +1,30 @@
 "use client";
 import Image from "next/image";
-import { useState } from "react";
-import { useSelector } from "react-redux";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import EditProfileForm from "./EditProfileForm";
 import Footer from "./Footer";
 import LayoutWidth from "./LayoutWidth";
 import { setSuccess } from "../../redux/slices/authSlice";
+import { fetchOneUser } from "../../redux/thunks/userInfoThunk";
 
-const Profile = ({ profile_text }) => {
+const Profile = () => {
+  const dispatch = useDispatch();
+  const fetcheduserdata = useSelector((state) => state.singleUser);
+  const user = useSelector((state) => state.auth.user);
+
+  useEffect(() => {
+    dispatch(fetchOneUser(user));
+  }, []);
+
+  useEffect(() => {
+    console.log("Fetched User Data", fetcheduserdata.userData);
+  }, [fetcheduserdata]);
+
   const [state, setstate] = useState(false);
   const { first_name, last_name, email, location } = useSelector(
     (state) => state.profile,
   );
-  const {
-    image,
-    name,
-    email: dummyEmail,
-    course,
-    location: dummyLocation,
-  } = profile_text;
-  let dummyFName;
-  let dummyLName;
 
   return (
     <div className="bg-gray-100">
@@ -31,11 +35,13 @@ const Profile = ({ profile_text }) => {
               <div className="m-3 flex w-[80%] items-center p-3 lg:flex-row max-xsm:flex-col max-sm:flex-col max-md:flex-col">
                 <div className="max-w[18.375rem] relative m-2 max-h-[18.375rem] w-[27%] min-w-28 p-2">
                   <Image
-                    src={image}
+                    src={
+                      fetcheduserdata?.userData?.profile || "/Avatardisplay.png"
+                    }
                     width={160}
                     height={160}
                     alt=""
-                    className="h-auto w-full"
+                    className="h-auto w-full rounded-full"
                   />
 
                   {state && (
@@ -51,25 +57,43 @@ const Profile = ({ profile_text }) => {
 
                 <div className="mt-4 flex flex-col lg:items-start max-sm:items-center max-md:items-center">
                   <h1 className="mb-3 text-xl font-bold leading-5 md:text-xl lg:text-xl max-xsm:text-sm">
-                    {first_name ? `${first_name} ` : "Set name "}
-                    {last_name ? `${last_name}` : "Please"}
+                    {fetcheduserdata?.userData?.first_name
+                      ? `${fetcheduserdata?.userData?.first_name} `
+                      : "loading "}
+                    {fetcheduserdata?.userData?.last_name
+                      ? `${fetcheduserdata?.userData?.last_name}`
+                      : "Please"}
                   </h1>
                   <p className="mb-2 text-wrap font-normal lg:text-sm max-sm:text-xs max-md:text-xs">
                     Email:{" "}
                     <span className="pl-1 font-light text-bg_text_gray">
-                      {email}
+                      {fetcheduserdata?.userData?.email || "loading"}
                     </span>
                   </p>
                   <p className="mb-2 text-wrap font-normal lg:text-sm max-sm:text-xs max-md:text-xs">
                     Course:{" "}
                     <span className="pl-1 font-light text-bg_text_gray">
-                      {course}{" "}
+                      {`${
+                        fetcheduserdata?.userData?.enrolled_courses_by_student
+                          ?.length < 1
+                          ? "No Course"
+                          : fetcheduserdata?.userData
+                              ?.enrolled_courses_by_student?.[0]
+                      } ${
+                        fetcheduserdata?.userData?.enrolled_courses_by_student
+                          ?.length > 1
+                          ? "+" +
+                            (fetcheduserdata?.userData
+                              ?.enrolled_courses_by_student?.length -
+                              1)
+                          : ""
+                      }`}
                     </span>
                   </p>
                   <p className="mb-2 text-wrap font-normal lg:text-sm max-sm:text-xs max-md:text-xs">
                     Location:{" "}
                     <span className="pl-1 font-light text-bg_text_gray">
-                      {location || "Set location"}
+                      {fetcheduserdata?.userData?.location || "Set location"}
                     </span>
                   </p>
                 </div>

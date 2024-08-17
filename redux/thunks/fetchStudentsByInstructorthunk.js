@@ -3,11 +3,11 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 export const fetchStudentsByInstructor = createAsyncThunk(
   "students/fetchStudentsByInstructor",
   async (instructorId, { rejectWithValue }) => {
-    console.log(instructorId);
+    console.log("inst id in thunk", instructorId);
 
     try {
       const response = await fetch(
-        `${process.env.NEXT_PUBLIC_BASE_API}/get-students-by-inst?${instructorId}`,
+        `${process.env.NEXT_PUBLIC_BASE_API}/get-students-by-inst?id=${instructorId}`,
         {
           method: "GET",
           headers: {

@@ -4,9 +4,9 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 export const fetchOneInstructor = createAsyncThunk(
   "singleInstructor/fetchOne",
   async (id, { rejectWithValue }) => {
-    console.log("this is id:", id);
+    console.log("id in isntructor thunk:", id);
     try {
-      const response = await fetch(`${base_Api}/instructor-detail?id=${id}`, {
+      const response = await fetch(`${base_Api}/instructor-detail/${id}`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",

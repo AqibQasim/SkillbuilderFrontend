@@ -14,6 +14,7 @@ import { fetchCoursesByInstructorId } from "../../../../redux/thunks/instructorC
 import { fetchOneInstructor } from "../../../../redux/thunks/instructorThunk";
 import { fetchStudentsByInstructor } from "../../../../redux/thunks/fetchStudentsByInstructorthunk";
 import { filterRepeatedStudents } from "@/utils/filterRepeatedStudents";
+import withAuth from "@/components/WithAuth";
 
 const InstructorDetails = () => {
   const router = useRouter();
@@ -24,8 +25,10 @@ const InstructorDetails = () => {
     status: studentsByInstructorStatus,
     error: studentsByInstructorError,
   } = useSelector((state) => state.studentsByInstructor);
+
   const instructorsUniqueStudents =
     filterRepeatedStudents(studentsByInstructor);
+
   console.log("students of this instructor", studentsByInstructor);
   const {
     courses: instructorCourses,
@@ -72,6 +75,7 @@ const InstructorDetails = () => {
   useEffect(
     function () {
       if (!instructorId) return;
+      console.log("dispatch students inst id", instructorId);
       dispatch(fetchStudentsByInstructor(instructorId));
     },
     [instructorId],
@@ -114,9 +118,13 @@ const InstructorDetails = () => {
         />
 
         <Education education={instructor.education} />
-        <RunningCourses courses={instructorCourses} />
+        <RunningCourses
+          courses={instructorCourses}
+          coursesError={instructorCoursesError}
+        />
         {/* <AdminInstructorOverview instructors={} /> */}
         <DashboardStudentsOverview
+          message="There are currently no students enrolled under this instructor."
           students={instructorsUniqueStudents}
           expand={false}
         />
@@ -125,7 +133,7 @@ const InstructorDetails = () => {
   );
 };
 
-export default InstructorDetails;
+export default withAuth(InstructorDetails);
 
 function Hero({ instructor }) {
   const fullName = instructor?.first_name
@@ -233,9 +241,9 @@ function Education({ education = [] }) {
   );
 }
 
-function RunningCourses({ courses }) {
+function RunningCourses({ courses, coursesError }) {
   console.log("Courses in running courses", courses);
-  if (!courses.length)
+  if (!courses.length || coursesError)
     return (
       <div className="running-courses">
         <H2>Running Courses</H2>

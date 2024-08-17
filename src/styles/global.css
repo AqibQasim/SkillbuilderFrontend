@@ -12,7 +12,7 @@
 }
 
 .suspend {
-  @apply bg-suspend text-suspend-text;
+  @apply hover:!bg-suspend-hover-bg !text-suspend;
 }
 
 .delete {
