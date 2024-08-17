@@ -74,7 +74,7 @@ function CertificatePage() {
             >
               <span>PDF</span>
               <svg width="12" height="16" viewBox="0 0 12 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M7.65 1.39844H3.8C1.97746 1.39844 0.5 2.8759 0.5 4.69844V11.2984C0.5 13.121 1.97746 14.5984 3.8 14.5984H8.2C10.0225 14.5984 11.5 13.121 11.5 11.2984V5.24844M7.65 1.39844H8.06655C8.50416 1.39844 8.92384 1.57228 9.23327 1.88171L11.0167 3.66516C11.3262 3.9746 11.5 4.39428 11.5 4.83189V5.24844M7.65 1.39844V3.59844C7.65 4.50971 8.38873 5.24844 9.3 5.24844H11.5M2.7 6.89844H6M2.7 9.09844H9.025" stroke="#0038FF" stroke-linecap="round"/>
+              <path d="M7.65 1.39844H3.8C1.97746 1.39844 0.5 2.8759 0.5 4.69844V11.2984C0.5 13.121 1.97746 14.5984 3.8 14.5984H8.2C10.0225 14.5984 11.5 13.121 11.5 11.2984V5.24844M7.65 1.39844H8.06655C8.50416 1.39844 8.92384 1.57228 9.23327 1.88171L11.0167 3.66516C11.3262 3.9746 11.5 4.39428 11.5 4.83189V5.24844M7.65 1.39844V3.59844C7.65 4.50971 8.38873 5.24844 9.3 5.24844H11.5M2.7 6.89844H6M2.7 9.09844H9.025" stroke="#0038FF" strokeLinecap="round"/>
               </svg>
 
             </button>
@@ -85,13 +85,11 @@ function CertificatePage() {
               
               <span>JPG</span>
               <svg width="12" height="16" viewBox="0 0 12 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M7.65 1.39844H3.8C1.97746 1.39844 0.5 2.8759 0.5 4.69844V11.2984C0.5 13.121 1.97746 14.5984 3.8 14.5984H8.2C10.0225 14.5984 11.5 13.121 11.5 11.2984V5.24844M7.65 1.39844H8.06655C8.50416 1.39844 8.92384 1.57228 9.23327 1.88171L11.0167 3.66516C11.3262 3.9746 11.5 4.39428 11.5 4.83189V5.24844M7.65 1.39844V3.59844C7.65 4.50971 8.38873 5.24844 9.3 5.24844H11.5M2.7 6.89844H6M2.7 9.09844H9.025" stroke="#0038FF" stroke-linecap="round"/>
+              <path d="M7.65 1.39844H3.8C1.97746 1.39844 0.5 2.8759 0.5 4.69844V11.2984C0.5 13.121 1.97746 14.5984 3.8 14.5984H8.2C10.0225 14.5984 11.5 13.121 11.5 11.2984V5.24844M7.65 1.39844H8.06655C8.50416 1.39844 8.92384 1.57228 9.23327 1.88171L11.0167 3.66516C11.3262 3.9746 11.5 4.39428 11.5 4.83189V5.24844M7.65 1.39844V3.59844C7.65 4.50971 8.38873 5.24844 9.3 5.24844H11.5M2.7 6.89844H6M2.7 9.09844H9.025" stroke="#0038FF" strokeLinecap="round"/>
               </svg>
             </button>
           </div>
       <LayoutWidth>
-     
-
         <div className="my-10 justify-center items-center">
           <div className='flex flex-row  justify-center items-center'>
             <div className='flex justify-between border border-2 h-1/3 w-8/12' ref={certificateRef}>
@@ -127,7 +125,7 @@ function CertificatePage() {
                 </div>
               </div>
               <div>
-                <Image src={"/blueRibbon.svg"} height={100} width={150} fetchpriority="high" />
+                <Image src={"/blueRibbon.svg"} height={100} width={150}/>
                 <div className='text-start my-20'>
                   <div className='text-xs mt-3 mb-2 font-bold ms-7'>Awarder</div>
                   <hr className='w-32' />
@@ -136,8 +134,6 @@ function CertificatePage() {
               </div>
             </div>
           </div>
-
-
           <Footer />
         </div>
       </LayoutWidth>
