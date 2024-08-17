@@ -20,11 +20,12 @@ const fetchStudentsByInstructorSlice = createSlice({
       .addCase(fetchStudentsByInstructor.fulfilled, (state, action) => {
         console.log("instructor students in slice", action.payload);
         state.status = "succeeded";
-        state.students = action.payload;
+        state.students = action.payload.data;
       })
       .addCase(fetchStudentsByInstructor.rejected, (state, action) => {
         state.status = "failed";
-        state.error = action.error.message;
+        state.students = [];
+        state.error = action.payload;
       });
   },
 });

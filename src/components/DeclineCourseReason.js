@@ -3,10 +3,10 @@ import { setReason } from "../../redux/slices/courseStatusSlice";
 import DropdownSelector from "./DropdownSelector";
 
 const options = [
-  { value: "video-quality", label: "Video Quality" },
-  { value: "inappropriate-language", label: "Inappropriate Language" },
-  { value: "discriminations", label: "Discriminations" },
-  { value: "course-curriculum", label: "Course Curriculum" },
+  { value: "Video Quality", label: "Video Quality" },
+  { value: "Inappropriate Language", label: "Inappropriate Language" },
+  { value: "Discriminations", label: "Discriminations" },
+  { value: "Course Curriculum", label: "Course Curriculum" },
 ];
 
 function DeclineCourseReason() {

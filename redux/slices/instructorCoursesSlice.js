@@ -5,6 +5,9 @@ const instructorCoursesSlice = createSlice({
   name: "instructorCourses",
   initialState: {
     courses: [],
+    pendingCourses: [],
+    declinedCourses: [],
+    approvedCourses: [],
     isLoading: false,
     error: null,
   },
@@ -17,7 +20,10 @@ const instructorCoursesSlice = createSlice({
       })
       .addCase(fetchCoursesByInstructorId.fulfilled, (state, action) => {
         console.log("data when fulfilled:", action.payload);
-        state.courses = action.payload;
+        state.courses = action.payload.courses;
+        state.pendingCourses = action.payload.pendingCourses;
+        state.declinedCourses = action.payload.declinedCourses;
+        state.approvedCourses = action.payload.approvedCourses;
         state.isLoading = false;
       })
       .addCase(fetchCoursesByInstructorId.rejected, (state, action) => {

@@ -19,6 +19,7 @@ import allInstructorsReducer from "../slices/allInstructorsSlice";
 import fetchStudentsByInstructorReducer from "../slices/fetchStudentsByInstructorSlice";
 import reviewSlice from "../slices/reviewSlice";
 import purchasecourseSlice from "../slices/purchasecoursedSlice";
+import InstructorByUserIdSlice from "../slices/InstructorByUserIdSlice";
 // Function to load state from localStorage
 function loadState() {
   try {
@@ -82,8 +83,9 @@ export const store = configureStore({
     students: studentsSlice,
     allInstructors: allInstructorsReducer,
     studentsByInstructor: fetchStudentsByInstructorReducer,
-    review : reviewSlice,
+    review: reviewSlice,
     purchasecourse: purchasecourseSlice,
+    instructorByUserId: InstructorByUserIdSlice,
   },
   preloadedState,
 });
