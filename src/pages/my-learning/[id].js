@@ -25,11 +25,18 @@ function EnrolledCourseDetails() {
   const router = useRouter();
   const [isClient, setIsClient] = useState(false);
   const enrolledCourseId = router.query.id;
+  console.log(" Enrolled CourseId in my-learning: ", enrolledCourseId);
   const courses = useSelector((state) => state.cart.items);
   console.log("length in root file:", courses?.length);
   const { reviewsData: reviews, isReviewsLoading } = useSelector(
     (state) => state.allReviews || { reviewsData: [], isReviewsLoading: true },
   );
+
+  const handleViewAllButton = () => {
+    console.log("View All Button is clicked!!");
+    router.replace(`coursereview/${enrolledCourseId}`);
+  }
+
   useEffect(() => {
     try {
       if (enrolledCourseId) {
@@ -74,7 +81,7 @@ function EnrolledCourseDetails() {
           </div>
         </LayoutWidth>
         <div className="space-y-7">
-          <EnrolledCourseDetailsHero videolink={course?.video_url} />
+          <EnrolledCourseDetailsHero enrolledCourse={course?.video_url} />
           <EnrolledCourseAbout
             enrolledCourse={course?.description}
             purchasedCourses={course?.purchased_course}

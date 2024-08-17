@@ -26,6 +26,10 @@ const Courses = ({ heading, paddingTop }) => {
   useEffect(() => {
     dispatch(fetchCourses());
   }, []);
+  
+  useEffect(() => {
+    console.log("HIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII: ",courses);
+  }, [courses]);
 
   const cartItems = useSelector((state) => state.cart.items);
 

@@ -4,11 +4,14 @@ import { useSelector } from "react-redux";
 
 const Fields = () => {
   const [selected, setSelected] = useState("student");
-
-  const id = useSelector((state) => state.singleInstructor.id);
-  console.log("fetched instructor id is:", id);
   const router = useRouter();
-  const instructorPath = id ? "/dashboard" : "/details-upload";
+  const userId = useSelector((state) => state.auth.user);
+  const instructorId = useSelector(
+    (state) => state.instructorByUserId.instructorByUserId.id,
+  );
+
+  console.log("fetched instructor id is:", instructorId);
+  const instructorPath = instructorId ? "/dashboard" : "/details-upload";
 
   function handleContinue() {
     if (selected === "student") {

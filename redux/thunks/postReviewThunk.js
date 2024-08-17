@@ -5,6 +5,7 @@ export const postReview = createAsyncThunk(
     'review/postReview', 
     async (reviewData, { rejectWithValue }) => {
   try {
+    console.log("Going to post review: ", reviewData)
     const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/post-review`, {
       method: 'POST',
       headers: {

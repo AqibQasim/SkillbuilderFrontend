@@ -12,9 +12,11 @@ import ChatIconSvg from "./ChatIconSvg";
 import ChevronRightIconSvg from "./ChevronRightIconSvg";
 import Button from "./Button";
 import { useRouter } from "next/router";
+import Image from "next/image";
 
 function User({ cartClickHandler, cartItemsLength }) {
   const [show, setShow] = useState(false);
+  const [showNotification, setShowNotification] = useState(false);
   const [showIconsOnSmallScreen, setShowIconsOnSmallScreen] = useState(false);
   const { user, isLoading } = useSelector((store) => store.auth);
   const profile = useSelector((store) => store.profile);
@@ -44,7 +46,25 @@ function User({ cartClickHandler, cartItemsLength }) {
       dispatch(logout());
     }
   }
-
+  let notification = [
+    {
+      id:1,
+      name:"Aahil Alvani",
+      description: "This is description ",
+    },{
+      id:2,
+      name:"Aahil Alvani",
+      description: "This is description",
+    },{
+      id:3,
+      name:"Aahil Alvani",
+      description: "This is description",
+    },{
+      id:4,
+      name:"Aahil Alvani",
+      description: "This is description",
+    }
+  ];
   useEffect(() => {
     if (status === "authenticated" || user) {
     }
@@ -72,7 +92,10 @@ function User({ cartClickHandler, cartItemsLength }) {
                 </div>
               ) : null}
             </button>
-            <button className="hidden md:block">
+            <button className="hidden md:block" onClick={() => {
+              setShowNotification((prevalue) => !prevalue);
+              if(show) setShow(false);
+              }}>
               <BellIconSvg className="h-7 w-7" />
             </button>
             <button className="hidden md:block">
@@ -84,7 +107,10 @@ function User({ cartClickHandler, cartItemsLength }) {
           ref={ref}
           className="action relative flex items-center justify-center"
         >
-          <button onClick={() => setShow((prevValue) => !prevValue)}>
+          <button onClick={() => {
+            setShow((prevValue) => !prevValue);
+            if (showNotification) setShowNotification(false);
+            }}>
             {session?.user?.image ? (
               <img
                 src={session?.user?.image}
@@ -100,8 +126,8 @@ function User({ cartClickHandler, cartItemsLength }) {
             )}
           </button>
           <div
-            className={`absolute -right-6 top-6 z-50 min-w-80 rounded-lg bg-white py-3 shadow-lg transition-all duration-300 sm:right-0 ${show ? "visible translate-y-3 opacity-100" : "invisible translate-y-0 opacity-0"}`}
-          >
+            className={`absolute -right-6 top-6 z-50 min-w-80 rounded-lg bg-white py-3 shadow-lg transition-all duration-300 sm:right-0 
+              ${show ? "visible translate-y-3 opacity-100" : "invisible translate-y-0 opacity-0"}`}>
             <div className="mb-5 flex flex-col items-center justify-center px-5">
               <div
                 className="flex items-center justify-center gap-2 transition-all"
@@ -207,6 +233,37 @@ function User({ cartClickHandler, cartItemsLength }) {
               </li>
             </ul>
           </div>
+          {/* ________________________________ */}
+          <div
+            className={`absolute py-4 px-2 -right-6 top-6 z-50 min-w-80 rounded-lg bg-white py-3 shadow-lg transition-all duration-300 sm:right-0 
+              ${showNotification ? "visible translate-y-3 opacity-100" : "invisible translate-y-0 opacity-0"}`}>
+            <h2 className="font-bold text-lg ">Notification</h2>
+            <hr/>
+            <ul className="">
+              {notification.map(noti => (
+                <>
+                <li className="py-6 flex gap-4">
+                  <div>
+                <Image
+                    src="/Avatardisplay.png"
+                    width={30}
+                    height={30}
+                    alt=""
+                    className="ml-2 rounded-full"
+                  />
+                  </div>
+                  <div className="self-center w-full">
+                  <span className="font-semibold text-sm">{noti.name}</span>
+                  <span className="text-xs pl-1 text-[#4A525D]">{noti.description}</span>
+                  </div>
+                </li>  
+                <hr/>
+                </>
+              ))}
+            </ul>
+          </div>
+          {/* ________________________________ */}
+
         </div>
       </div>
     );

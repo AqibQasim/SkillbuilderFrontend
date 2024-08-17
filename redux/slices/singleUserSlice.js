@@ -1,4 +1,3 @@
-import { fetchOneCourse } from "../thunks/coursesThunks";
 import { createSlice } from "@reduxjs/toolkit";
 import { fetchOneUser } from "../thunks/userInfoThunk";
 

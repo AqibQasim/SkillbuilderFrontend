@@ -9,6 +9,7 @@ import { fetchCourses } from "../../../redux/thunks/allCoursesThunk";
 import { fetchStudents } from "../../../redux/thunks/allstudentsThunk";
 import { filterRepeatedStudents } from "@/utils/filterRepeatedStudents";
 import { fetchAllInstructors } from "../../../redux/thunks/allInstructorsThunk";
+import withAuth from "@/components/WithAuth";
 
 const admin = () => {
   const dispatch = useDispatch();
@@ -77,4 +78,4 @@ const admin = () => {
   );
 };
 
-export default admin;
+export default withAuth(admin);

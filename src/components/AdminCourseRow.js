@@ -7,6 +7,7 @@ import InstructorCourseStatus from "./InstructorCourseStatus";
 function AdminCourseRow({ course }) {
   const router = useRouter();
   const { image, title, amount, discount, status, id } = course;
+  const name = course?.instructor?.user?.first_name;
   //   const { first_name, last_name } = useSelector((state) => state.profile);
 
   console.log("course in pending courses", course);
@@ -28,7 +29,7 @@ function AdminCourseRow({ course }) {
       <div className="title">{title}</div>
       <div>
         {/* {first_name} {last_name}  */}
-        [instructor Name]
+        {name}
       </div>
       <div>{formatCurrency(Number(amount))}</div>
       <div>{formatCurrency(Number(discount))}</div>
