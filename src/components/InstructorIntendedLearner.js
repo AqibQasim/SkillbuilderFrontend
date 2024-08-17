@@ -38,7 +38,12 @@ const InstructorIntendedLearner = ({ onNext }) => {
     charges: 0,
   };
 
-  const [formData, setFormData] = useState(initialFormData);
+  const [formData, setFormData] = useState({
+    ...initialFormData,
+    title,
+    category,
+    learning_outcomes,
+  });
 
   const submitHandler = (e) => {
     e.preventDefault();
