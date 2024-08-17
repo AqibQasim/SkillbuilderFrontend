@@ -30,7 +30,7 @@ const coursereviews = () => {
     console.log(reviews)
 
   },[])
-
+  const user = useSelector((state) => state.auth.user);
   let arrayofobjects = [
     {
       name: "Taha",
