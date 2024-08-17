@@ -17,17 +17,26 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchAllReviews } from "../../../redux/thunks/reviewsThunk";
 import { fetchOneCourse } from "../../../redux/thunks/coursesThunks";
 
+const courseProgress = 100;
+
 function EnrolledCourseDetails() {
   const dispatch = useDispatch();
 
   const router = useRouter();
   const [isClient, setIsClient] = useState(false);
   const enrolledCourseId = router.query.id;
+  console.log(" Enrolled CourseId in my-learning: ", enrolledCourseId);
   const courses = useSelector((state) => state.cart.items);
   console.log("length in root file:", courses?.length);
   const { reviewsData: reviews, isReviewsLoading } = useSelector(
     (state) => state.allReviews || { reviewsData: [], isReviewsLoading: true },
   );
+
+  const handleViewAllButton = () => {
+    console.log("View All Button is clicked!!");
+    router.replace(`coursereview/${enrolledCourseId}`);
+  }
+
   useEffect(() => {
     try {
       if (enrolledCourseId) {
@@ -72,7 +81,7 @@ function EnrolledCourseDetails() {
           </div>
         </LayoutWidth>
         <div className="space-y-7">
-          <EnrolledCourseDetailsHero videolink={course?.video_url} />
+          <EnrolledCourseDetailsHero enrolledCourse={course?.video_url} />
           <EnrolledCourseAbout
             enrolledCourse={course?.description}
             purchasedCourses={course?.purchased_course}
@@ -81,6 +90,8 @@ function EnrolledCourseDetails() {
           <CourseModules course={course?.modules} heading="Videos" />
           <EnrolledCourseRatingAndReviews reviews={reviews} />
           <CourseReviews reviews={reviews} />
+         
+         <CourseCertificate course={course} />
         </div>
         <Footer />
       </div>
@@ -170,6 +181,32 @@ function EnrolledCourseRatingAndReviews({ reviews }) {
           </div>
         </div>
       </div>
+    </LayoutWidth>
+  );
+}
+
+
+function CourseCertificate({course}) {
+  const router = useRouter();
+
+  const handleCertificateView = () => {
+    // Navigate to the certificate page, replace '/certificate' with the correct path if needed
+    router.push(`/certificate/${course.id}`);
+  };
+
+  return (
+    <LayoutWidth>
+      {courseProgress === 100 && (
+        <>
+          <H2 className="ms-16">Certificate </H2> 
+          <button 
+            className="font-medium text-white rounded-md bg-blue p-2 ms-16"
+            onClick={handleCertificateView} // Navigate on button click
+          >
+            View Certificate
+          </button>
+        </>
+      )}
     </LayoutWidth>
   );
 }

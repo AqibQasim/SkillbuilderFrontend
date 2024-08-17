@@ -3,6 +3,7 @@ import StarRating from "./StarRating";
 import Image from "next/image";
 import LayoutWidth from "./LayoutWidth";
 import formatDate from "../utils/formatDate";
+import {useRouter} from "next/router";
 
 // const reviews = [
 //   {
@@ -28,7 +29,14 @@ import formatDate from "../utils/formatDate";
 //   },
 // ];
 
-const CourseReviews = ({ reviews }) => {
+const CourseReviews = ({ reviews, CourseId }) => {
+
+  const router = useRouter();
+  console.log("I am courseID from CourseReviews.js: ", CourseId);
+  const handleViewAll = () => {
+    console.log("View All Button is clicked!!");
+    router.push(`/coursereview/${CourseId}`);
+  }
   console.log("reviews in course reviews", reviews);
   if (!reviews || reviews.length === 0)
     return (
@@ -48,9 +56,14 @@ const CourseReviews = ({ reviews }) => {
     // <div className="container mt-12">
     <LayoutWidth>
       <div className="mt-12">
-        <h1 className="mb-12 text-2xl font-semibold max-sm:mb-[1rem] max-sm:mt-[1rem] max-sm:w-[100%] max-sm:text-center max-sm:text-xl">
-          Course Reviews
-        </h1>
+        <div className="flex justify-between">
+          <h1 className="mb-12 text-2xl font-semibold max-sm:mb-[1rem] max-sm:mt-[1rem] max-sm:w-[100%] max-sm:text-center max-sm:text-xl">
+            Course Reviews
+          </h1>
+          <button className="text-gray-500" onClick={handleViewAll}>
+            View All
+          </button>
+        </div>
         <div className="flex w-full flex-col items-center justify-center">
           <div className="grid h-auto w-[95%] grid-cols-1 place-items-center items-start gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {reviews.slice(0, 3).map((review) => (
