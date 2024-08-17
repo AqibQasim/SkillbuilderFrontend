@@ -87,6 +87,7 @@ export const store = configureStore({
     allInstructors: allInstructorsReducer,
     studentsByInstructor: fetchStudentsByInstructorReducer,
     review : reviewSlice,
+    courseVideoUpload: courseVideoUploadReducer,
     purchasecourse: purchasecourseSlice,
   },
   preloadedState,
