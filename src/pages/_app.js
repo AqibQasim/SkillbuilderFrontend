@@ -4,12 +4,16 @@ import { store } from "../../redux/store/store";
 import { SessionProvider } from "next-auth/react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchOneInstructor } from "../../redux/thunks/instructorThunk";
-import { useEffect } from "react";
+import { fetchAccessToken } from "../../redux/thunks/ytAccessThunk"
+
+import { useState, useEffect } from "react";
 
 function MyApp({ Component, pageProps }) {
+
+  const [authUrl, setAuthUrl] = useState("");
+
   return (
     <SessionProvider>
-      {/* Ensure the entire app is wrapped with the Provider */}
       <Provider store={store}>
         <MyAppContent Component={Component} pageProps={pageProps} />
       </Provider>
@@ -17,12 +21,11 @@ function MyApp({ Component, pageProps }) {
   );
 }
 
+
+
 function MyAppContent({ Component, pageProps }) {
-  const userId = useSelector((state) => state.auth.user);
-  const id = useSelector((state) => state.singleInstructor.id);
-  console.log("fetched instructor id in profession.js is:", id);
   const dispatch = useDispatch();
-  console.log("Inst id", id);
+  const userId = useSelector((state) => state.auth.user);
 
   useEffect(() => {
     if (userId) {
@@ -30,7 +33,10 @@ function MyAppContent({ Component, pageProps }) {
     }
   }, [userId, dispatch]);
 
+
+
   return <Component {...pageProps} />;
 }
+
 
 export default MyApp;

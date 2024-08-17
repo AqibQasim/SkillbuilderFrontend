@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchCourses } from "../../../../redux/thunks/allCoursesThunk";
 import AdminCoursesTable from "@/components/AdminCoursesTable";
+import withAuth from "@/components/WithAuth";
 
 const approved = () => {
   const dispatch = useDispatch();
@@ -27,4 +28,4 @@ const approved = () => {
     </AdminDashboardLayout>
   );
 };
-export default approved;
+export default withAuth(approved);
