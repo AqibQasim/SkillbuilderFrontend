@@ -3,32 +3,20 @@ import H2 from "./H2";
 import StarRating from "./StarRating";
 import { formatCurrency } from "@/utils/formatCurrency";
 
-// Single student enrolled courses api
-const enrolledCourses = [
-  {
-    id: 1,
-    title: "UI / UX Designing",
-    rating: 4.9,
-    learning_outcomes: "Equipping you with essential skills",
-    amount: 250,
-    image: "/courseImg.png",
-  },
-  {
-    id: 2,
-    title: "Web Development",
-    rating: 4.9,
-    learning_outcomes: "Equipping you with essential skills",
-    amount: 250,
-    image: "/courseImg.png",
-  },
-];
+function StudentEnrolledCourses({ className, href, enrolledCourses }) {
+  if (!enrolledCourses?.length)
+    return (
+      <div className={`${className}`}>
+        <H2 className="mb-3">Enrolled Courses</H2>
+        <p>This student hasn't enrolled in any courses yet.</p>
+      </div>
+    );
 
-function StudentEnrolledCourses({ href }) {
   return (
-    <div>
+    <div className={`${className} `}>
       <H2 className="mb-3">Enrolled courses</H2>
       <div className="grid grid-cols-[repeat(auto-fill,minmax(300px,1fr))] justify-items-start gap-4">
-        {enrolledCourses.map((course) => (
+        {enrolledCourses?.map((course) => (
           <StudentEnrolledCoursesCard
             course={course}
             href={href ? href : ""}
