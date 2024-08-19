@@ -78,7 +78,7 @@ const Profile = () => {
                           ?.length < 1
                           ? "No Course"
                           : fetcheduserdata?.userData
-                              ?.enrolled_courses_by_student?.[0]
+                              ?.enrolled_courses_by_student?.[0].title
                       } ${
                         fetcheduserdata?.userData?.enrolled_courses_by_student
                           ?.length > 1

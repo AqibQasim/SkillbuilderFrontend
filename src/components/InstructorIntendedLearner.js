@@ -199,12 +199,23 @@ const InstructorIntendedLearner = ({ onNext }) => {
         </div>
         <br /> <br />
         <div className="mt-4 flex justify-end">
+          {/* <button
+          <button
+            type="submit"
+            className="rounded-md bg-blue px-10 py-2 font-normal text-white hover:bg-blue-600 max-lsm:w-full"
+          >
+            Continue
+          </button> */}
           <button
             type="submit"
             className="rounded-md bg-blue px-10 py-2 font-normal text-white hover:bg-blue-600 max-lsm:w-full"
           >
             Continue
           </button>
+
+          {/* <Button type="submit" className="!px-10">
+            Continue
+          </Button> */}
         </div>
       </form>
     </div>
