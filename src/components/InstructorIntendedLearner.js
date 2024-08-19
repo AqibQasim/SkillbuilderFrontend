@@ -1,13 +1,15 @@
 // import { instructor } from "@/data/getInstructorById";
 import React, { useEffect } from "react";
 import { useState } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { createCourse } from "../../redux/thunks/createCourseThunk";
 
 const InstructorIntendedLearner = ({ onNext }) => {
   const profile = useSelector((state) => state.profile);
   const userId = profile?.id;
   console.log("profile data:", userId);
+  const dispatch = useDispatch();
+  // console.log("[DISPATCH THE THUNK]:",)
 
   const initialFormData = {
     instructor_id: "",
@@ -17,11 +19,6 @@ const InstructorIntendedLearner = ({ onNext }) => {
     modulesCount: 0,
     amount: 0,
     charges: 0,
-    
-    // specialization: "",
-    // qualifications: [{ percentage: "", degree: "" }],
-    // skills: [{ percentage: "", title: "" }],
-    // video_url: "",
   };
 
   const [formData, setFormData] = useState({
@@ -29,10 +26,24 @@ const InstructorIntendedLearner = ({ onNext }) => {
     instructor_id: userId,
   });
 
+  useEffect(() => {
+    setFormData((prevFormData) => ({ ...prevFormData, instructor_id: userId }));
+  }, [userId]);
+
+  // Submit handler
   const submitHandler = (e) => {
     e.preventDefault();
+
+    // Log the formData for debugging
+    console.log("[FORMDATA TO BE SENT TO THUNK]:", formData);
+
+    // Dispatch the thunk to create the course
     dispatch(createCourse(formData));
+
+    // Call the onNext callback after the thunk dispatches
+    onNext();
   };
+
 
   useEffect(() => {
     console.log("log the form data:",formData)
@@ -55,8 +66,6 @@ const InstructorIntendedLearner = ({ onNext }) => {
   //     ),
   //   }));
   // };
-
-  
 
   const handleChange = (field, value) => {
     setFormData((prevFormData) => ({ ...prevFormData, [field]: value }));
@@ -147,13 +156,23 @@ const InstructorIntendedLearner = ({ onNext }) => {
         </div>
         <br /> <br />
         <div className="mt-4 flex justify-end">
-          <button
-            type="button"
+          {/* <button
+            type="submit"
             className="rounded-md bg-blue px-10 py-2 font-normal text-white hover:bg-blue-600 max-lsm:w-full"
             onClick={onNext}
           >
             Continue
+          </button> */}
+          <button
+            type="submit"
+            className="rounded-md bg-blue px-10 py-2 font-normal text-white hover:bg-blue-600 max-lsm:w-full"
+          >
+            Continue
           </button>
+
+          {/* <Button type="submit" className="!px-10">
+            Continue
+          </Button> */}
         </div>
       </form>
     </div>
