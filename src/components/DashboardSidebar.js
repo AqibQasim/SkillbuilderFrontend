@@ -92,7 +92,7 @@ const DashboardSidebar = () => {
               <div
                 className={`text-red hover:text-black flex w-full cursor-pointer items-center justify-between gap-3 rounded-lg px-4 py-3 text-gray-shade-1 transition-colors duration-300 hover:bg-dashboard-sidenav-bg lg:px-5 lg:py-3 ${
                   isActiveLink(pathname, link.href)
-                    ? "text-black bg-dashboard-sidenav-bg"
+                    ? "bg-dashboard-sidenav-bg !text-black-shade-1"
                     : ""
                 }`}
                 onClick={() =>

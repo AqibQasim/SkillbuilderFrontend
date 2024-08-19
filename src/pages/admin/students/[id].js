@@ -18,6 +18,9 @@ const StudentsDetail = () => {
   const { loading: userLoading, error: userError } = useSelector(
     (state) => state.singleUser,
   );
+  const enrolledCourses = useSelector(
+    (state) => state.singleUser.userData.enrolled_courses_by_student,
+  );
 
   useEffect(() => {
     if (studentId) {
@@ -48,16 +51,14 @@ const StudentsDetail = () => {
 
   return (
     <AdminDashboardLayout>
-      <div className="space-y-8">
-        <ButtonCircle onClick={handleBack}>
-          <FaChevronLeft />
-        </ButtonCircle>
-        <StudentProfile />
-        {/* <StudentEducation /> */}
-        {/* <StrudentsEnrollCourses paddingTop="pt-10" heading="Enrolled Courses" /> */}
-        {/* <Courses paddingTop="pt-10" heading="Enrolled Courses" /> */}
-        <StudentEnrolledCourses />
-      </div>
+      <ButtonCircle clasName="!mb-6" onClick={handleBack}>
+        <FaChevronLeft />
+      </ButtonCircle>
+      <StudentProfile />
+      <StudentEnrolledCourses
+        className="mt-12"
+        enrolledCourses={enrolledCourses}
+      />
     </AdminDashboardLayout>
   );
 };
