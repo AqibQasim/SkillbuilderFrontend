@@ -37,13 +37,13 @@ const InstructorTab = ({ steps, currentStep, onNext, onPrev }) => {
                   🎥
                 </span>
               )}
-              {index === 2 && (
+              {/* {index === 2 && (
                 <span
                   className={`ml-2 ${currentStep >= index ? "text-blue-600" : "text-gray-400"}`}
                 >
                   💲
                 </span>
-              )}
+              )} */}
             </div>
             {index < steps.length - 1 && (
               <div
@@ -64,11 +64,11 @@ const InstructorTab = ({ steps, currentStep, onNext, onPrev }) => {
             <InstructorVideos onNext={onNext} onPrev={onPrev} />
           </div>
         )}
-        {currentStep === 2 && (
+        {/* {currentStep === 2 && (
           <div>
             <InstructorPricing onNext={onNext} onPrev={onPrev} />
           </div>
-        )}
+        )} */}
       </div>
     </div>
   );

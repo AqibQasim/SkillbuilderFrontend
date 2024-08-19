@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { createInstructor } from "../thunks/createInstructorthunk";
 import { createCourse } from "../thunks/createCourseThunk";
+import { act } from "react";
 
 const initialState = {
   courseDetails: {
@@ -22,6 +23,7 @@ const createCourseSlice = createSlice({
   initialState,
   reducers: {
     setCourseDetails: (state, action) => {
+      console.log(console.log("payload on course detail", action.payload));
       state.courseDetails = {
         ...state.courseDetails,
         ...action.payload,
