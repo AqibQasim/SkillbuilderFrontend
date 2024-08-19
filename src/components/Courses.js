@@ -1,18 +1,15 @@
-// components/Courses.js
-
-import Image from "next/image";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import StarRating from "./StarRating";
-import "../styles/courses.css";
+import Image from "next/image";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchAllCourses } from "../../redux/thunks/auththunks";
-import { addItem } from "../../redux/slices/addToCart";
-import { useEffect, useState } from "react";
-import LayoutWidth from "./LayoutWidth";
 import { fetchCourses } from "../../redux/thunks/allCoursesThunk";
+import LayoutWidth from "./LayoutWidth";
+import { addItem } from "../../redux/slices/addToCart";
 
 const Courses = ({ heading, paddingTop }) => {
-  const [addedToCart, setAddedToCart] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [starReady, setStarReady] = useState(false);
   const router = useRouter();
   const dispatch = useDispatch();
   const {
@@ -25,11 +22,17 @@ const Courses = ({ heading, paddingTop }) => {
 
   useEffect(() => {
     dispatch(fetchCourses());
-  }, []);
-  
+  }, [dispatch]);
+
   useEffect(() => {
-    console.log("HIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII: ",courses);
-  }, [courses]);
+    // Simulate loading and check if StarRating styles are applied
+    const timer = setTimeout(() => {
+      setStarReady(true);
+      setLoading(false);
+    }, 500); // Adjust delay as needed
+
+    return () => clearTimeout(timer);
+  }, [router.asPath]);
 
   const cartItems = useSelector((state) => state.cart.items);
 
@@ -47,8 +50,12 @@ const Courses = ({ heading, paddingTop }) => {
     return cartItems.some((item) => item.id === course.id);
   };
 
-  if (isLoading) {
-    return <div>Loading...</div>;
+  if (isLoading || loading) {
+    return (
+      <div className="flex h-[100vh] w-[100vw] items-center justify-center bg-bg_gray">
+        <div className="loader">Loading...</div>
+      </div>
+    );
   }
 
   if (error) {
@@ -94,7 +101,12 @@ const Courses = ({ heading, paddingTop }) => {
                     <div className="mt-2 flex w-full items-center justify-between">
                       <div>
                         <span className="text-sm">{course?.rating}</span>
-                        <StarRating rating={Math.round(course?.rating)} />
+                        {starReady && (
+                        <StarRating
+                          key={router.asPath}
+                          rating={Math.round(course?.rating)}
+                        />
+                      )}
                       </div>
                       {isCourseAddedToCart(course) && (
                         <span className="font-semibold text-blue">
