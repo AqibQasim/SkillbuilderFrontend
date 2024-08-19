@@ -1,6 +1,6 @@
 import Image from "next/image";
 import React from "react";
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 
 // const VideoUpload = () => {
 //   const [videoFile, setVideoFile] = useState(null);
@@ -49,7 +49,7 @@ import { useState, useRef } from "react";
 //   );
 // };
 
-const VideoUpload = ({ setSelectedVideo }) => {
+const VideoUpload = ({ setSelectedVideo, selectedVideo }) => {
   const [videoFile, setVideoFile] = useState(null);
   const [showVideo, setshowVideo] = useState(null);
   const [videoUrl, setVideoUrl] = useState("");
@@ -62,7 +62,18 @@ const VideoUpload = ({ setSelectedVideo }) => {
       setVideoUrl(URL.createObjectURL(file));
       setSelectedVideo(file);
     }
+
+    // if(selectedVideo)
   };
+
+  useEffect(() => {
+    try{
+      console.log("[SELECTED VIDEO]:",selectedVideo)
+    }catch(err){
+      console.log("[ERROR]:",err);
+    }
+  },[selectedVideo])
+
   const handlePlayVideo = () => {
     setshowVideo(true);
   };

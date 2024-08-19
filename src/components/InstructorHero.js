@@ -19,19 +19,19 @@ function InstructorHero({ instructor }) {
             alt={`${instructor.user?.first_name}'s avatar photo`}
           />
         </div>
-        <div className="content relative mt-4 space-y-2">
+        <div className="content relative mt-4 mb-8 space-y-2">
           <h1 className="font-semibold text-5xl">
             {instructor.user?.first_name} {instructor.user?.last_name}
           </h1>
-          <p className="text-xl xl:text-2xl font-normal text-black">
+          <p className="text-lg xl:text-xl font-normal text-black">
             Email:
-            <span className="text-[1.375rem] text-span">
+            <span className="text-lg xl:text-xl text-span">
               &nbsp; {instructor.user?.email}
             </span>
           </p>
-          <p className="text-xl xl:text-2xl font-normal text-black inline-flex justify-center items-center">
+          <p className="text-lg xl:text-xl mt-2 font-normal text-black inline-flex justify-center items-center">
             Location:{" "}
-            <span className="text-[1.375rem] text-span">
+            <span className="text-lg xl:text-xl  text-span">
               &nbsp; {instructor.user?.location}
             </span>
             <span className="ml-3 mb-1">
@@ -45,7 +45,7 @@ function InstructorHero({ instructor }) {
             </span>
           </p>
           <div className="skills">
-            <p className="text-xl xl:text-2xl font-normal text-black">
+            <p className="text-lg xl:text-xl mt-2 font-normal text-black">
               Super Skills:
             </p>
             <ul className="ml-0 mt-4 inline-flex flex-wrap justify-center items-center gap-3 xl:ml-6">

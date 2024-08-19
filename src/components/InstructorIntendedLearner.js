@@ -10,7 +10,11 @@ const InstructorIntendedLearner = ({ onNext }) => {
   const instructorId = useSelector(
     (state) => state.instructorByUserId.instructorByUserId.id,
   );
+  const courseId = useSelector((state) => state.createCourse.courseId);
   const title = useSelector((state) => state.createCourse.courseDetails.title);
+  const amount = useSelector(
+    (state) => state.createCourse.courseDetails.amount,
+  );
   const category = useSelector(
     (state) => state.createCourse.courseDetails.category,
   );
@@ -30,7 +34,7 @@ const InstructorIntendedLearner = ({ onNext }) => {
 
   const initialFormData = {
     instructor_id: instructorId,
-    title: "",
+    creation_duration_hours: "",
     category: "",
     learning_outcomes: "",
     modulesCount: 0,
@@ -43,14 +47,21 @@ const InstructorIntendedLearner = ({ onNext }) => {
     title,
     category,
     learning_outcomes,
+    amount,
   });
 
-  const submitHandler = (e) => {
-    e.preventDefault();
-    const { title, category, learning_outcomes } = formData;
-    if (!title || !category || !learning_outcomes) return;
+  console.log("form data", formData);
 
+  const submitHandler = (e) => {
+    console.log("we here");
+    console.log("form data to submit?", formData);
+    e.preventDefault();
     const dataWithInstructorId = { ...formData, instructor_id: instructorId };
+    const { instructor_id, title, category, learning_outcomes, amount } =
+      dataWithInstructorId;
+    if (!instructor_id || !title || !category || !learning_outcomes || !amount)
+      return;
+
     console.log("submit this data?", dataWithInstructorId);
 
     dispatch(setCourseDetails(dataWithInstructorId));
@@ -58,6 +69,7 @@ const InstructorIntendedLearner = ({ onNext }) => {
   };
 
   const handleChange = (field, value) => {
+    console.log(`Field: ${field}, value: ${value}`);
     setFormData((prevFormData) => ({ ...prevFormData, [field]: value }));
   };
 
@@ -112,17 +124,19 @@ const InstructorIntendedLearner = ({ onNext }) => {
         <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
           <div>
             <label
-              htmlFor="time"
+              htmlFor="creation_duration_hours"
               className="text-md mb-4 block font-semibold text-gray-700"
             >
               Time:
             </label>
             <input
               // onChange={}
-              onChange={(e) => handleChange("time", e.target.value)}
+              onChange={(e) =>
+                handleChange("creation_duration_hours", e.target.value)
+              }
               type="number"
-              id="time"
-              name="time"
+              id="creation_duration_hours"
+              name="creation_duration_hours"
               required
               className="border-darkgrey mt-1 block w-full rounded-md border bg-transparent p-3 shadow-sm focus:border-blue-500 focus:ring-blue-500"
               placeholder="hours"
@@ -150,13 +164,61 @@ const InstructorIntendedLearner = ({ onNext }) => {
           </div>
         </div>
         <br /> <br />
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+          <div>
+            <label
+              htmlFor="amount"
+              className="text-md mb-4 block font-semibold text-gray-700"
+            >
+              Amount:
+            </label>
+            <input
+              defaultValue={amount}
+              onChange={(e) => handleChange("amount", e.target.value)}
+              type="number"
+              id="amount"
+              name="amount"
+              required
+              className="border-darkgrey mt-1 block w-full rounded-md border bg-transparent p-3 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+              placeholder="Price"
+            />
+          </div>
+          <div>
+            <label
+              htmlFor="learning"
+              className="text-md mb-4 block font-semibold text-gray-700"
+            >
+              Discount:
+            </label>
+            <input
+              type="number"
+              id="discount"
+              name="discount"
+              required
+              className="border-darkgrey mt-1 block w-full rounded-md border bg-transparent p-3 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+              placeholder="Discount"
+            />
+          </div>
+        </div>
+        <br /> <br />
         <div className="mt-4 flex justify-end">
+          {/* <button
+          <button
+            type="submit"
+            className="rounded-md bg-blue px-10 py-2 font-normal text-white hover:bg-blue-600 max-lsm:w-full"
+          >
+            Continue
+          </button> */}
           <button
             type="submit"
             className="rounded-md bg-blue px-10 py-2 font-normal text-white hover:bg-blue-600 max-lsm:w-full"
           >
             Continue
           </button>
+
+          {/* <Button type="submit" className="!px-10">
+            Continue
+          </Button> */}
         </div>
       </form>
     </div>

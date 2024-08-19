@@ -1,9 +1,9 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
 export const createCourse = createAsyncThunk(
-  "course/createCourse",
+  "courses/createCourse",
   async (courseData, { rejectWithValue }) => {
-    console.log("Course data in thunk :", courseData);
+    console.log("[Course data in thunk]:", courseData);
 
     try {
       const response = await fetch(
@@ -16,7 +16,7 @@ export const createCourse = createAsyncThunk(
           body: JSON.stringify(courseData),
         },
       );
-      console.log("this is course data ", courseData);
+      console.log("[this is course data]:", courseData);
 
       if (!response.ok) {
         const errorData = await response.json();
@@ -26,6 +26,7 @@ export const createCourse = createAsyncThunk(
 
       const data = await response.json();
       console.log("current data ", data);
+      console.log("Create course data to return", data);
 
       return data;
     } catch (error) {
