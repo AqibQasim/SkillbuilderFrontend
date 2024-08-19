@@ -1,8 +1,9 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import Image from "next/image";
 import VideoUpload from "./VideoUpload";
 import { createCourse } from "../../redux/thunks/createCourseThunk";
 import { uploadVideo } from "../../redux/thunks/courseVideoThunk";
+import { useDispatch } from "react-redux";
 
 const InstructorVideos = ({ onNext, onPrev }) => {
   const [selectedVideo, setSelectedVideo] = useState(null);
@@ -10,6 +11,8 @@ const InstructorVideos = ({ onNext, onPrev }) => {
   const [showVideos, setShowVideos] = useState({});
   const fileInputRef = useRef(null);
   const [currentModuleIndex, setCurrentModuleIndex] = useState(null);
+  const userId = useSelector((state) => state.auth.user);
+  const dispatch = useDispatch();
 
   const handleVideoUpload = (event) => {
     const files = Array.from(event.target.files);
@@ -22,15 +25,16 @@ const InstructorVideos = ({ onNext, onPrev }) => {
       prevModules.map((module, index) =>
         index === currentModuleIndex
           ? { ...module, videos: [...module.videos, ...newFiles] }
-          : module
-      )
+          : module,
+      ),
     );
   };
 
   const handlePlayVideo = (moduleIndex, videoIndex) => {
     setShowVideos((prevShowVideos) => ({
       ...prevShowVideos,
-      [`${moduleIndex}-${videoIndex}`]: !prevShowVideos[`${moduleIndex}-${videoIndex}`],
+      [`${moduleIndex}-${videoIndex}`]:
+        !prevShowVideos[`${moduleIndex}-${videoIndex}`],
     }));
   };
 
@@ -51,11 +55,11 @@ const InstructorVideos = ({ onNext, onPrev }) => {
       prevModules.map((module, index) =>
         index === moduleIndex
           ? {
-            ...module,
-            videos: module.videos.filter((_, i) => i !== videoIndex),
-          }
-          : module
-      )
+              ...module,
+              videos: module.videos.filter((_, i) => i !== videoIndex),
+            }
+          : module,
+      ),
     );
     setShowVideos((prevShowVideos) => {
       const newShowVideos = { ...prevShowVideos };
@@ -77,42 +81,64 @@ const InstructorVideos = ({ onNext, onPrev }) => {
     ]);
   };
 
-  const uploadvideoHandler = async () => {
+  // const uploadvideoHandler = async () => {
+  //   if (!selectedVideo) return;
+
+  //   try {
+
+  //     console.log("[SELECTED VIDEO LOG]:", selectedVideo);
+  //     // if (instructorId) {
+  //     //   dispatch(uploadVideo(selectedVideo));
+  //     // } else {
+  //     await dispatch(createCourse(courseDetails)).unwrap();
+  //     dispatch(uploadVideo(selectedVideo));
+  //     // }
+  //   } catch (error) {
+  //     console.error("Failed to create instructor or upload video:", error);
+  //   }
+  // };
+
+  async function uploadCourseDetailsAndVideo() {
     if (!selectedVideo) return;
+    let stage;
 
     try {
-
-      console.log("[SELECTED VIDEO LOG]:", selectedVideo);
-      // if (instructorId) {
-      //   dispatch(uploadVideo(selectedVideo));
-      // } else {
-      await dispatch(createCourse(courseDetails)).unwrap();
-      dispatch(uploadVideo(selectedVideo));
-      // }
+      stage = 1;
+      await dispatch(createCourse()).unwrap();
+      stage = 2;
+      await dispatch(uploadVideo({ userId, selectedVideo })).unwrap();
     } catch (error) {
-      console.error("Failed to create instructor or upload video:", error);
+      const msg =
+        stage === 1
+          ? "could not upload Course Details"
+          : "Video FAILD to upload, however the Course details are saved.";
+      console.log(`create course Stage: ${stage} Error: ${error}`);
     }
-  };
+  }
 
   return (
     <div>
-      <h3 className="font-medium text-lg mt-10 mb-5">
+      <h3 className="mb-5 mt-10 text-lg font-medium">
         Upload an introduction video of Course
       </h3>
-      <VideoUpload selectedVideo={selectedVideo} setSelectedVideo={setSelectedVideo} />
-      <div className="accordion mt-8 rounded-md border-2 border-[#BBBBBB] px-4 py-2 overflow-hidden">
+      <VideoUpload
+        selectedVideo={selectedVideo}
+        setSelectedVideo={setSelectedVideo}
+      />
+      <div className="accordion mt-8 overflow-hidden rounded-md border-2 border-[#BBBBBB] px-4 py-2">
         {modules.map((item, moduleIndex) => (
           <div key={moduleIndex}>
             <h2>
               <button
                 type="button"
-                className="flex w-full items-center justify-between py-5 font-medium text-black"
+                className="text-black flex w-full items-center justify-between py-5 font-medium"
                 onClick={() => toggleAccordion(moduleIndex)}
               >
                 <span>Module {item.title}</span>
                 <svg
-                  className={`h-3 w-3 transition-transform ${open === moduleIndex ? "rotate-0" : "rotate-180"
-                    }`}
+                  className={`h-3 w-3 transition-transform ${
+                    open === moduleIndex ? "rotate-0" : "rotate-180"
+                  }`}
                   aria-hidden="true"
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
@@ -130,16 +156,15 @@ const InstructorVideos = ({ onNext, onPrev }) => {
             </h2>
             <div className="border-b-2 border-[#BBBBBB]"></div>
             <div
-              className={` ${open === moduleIndex ? "block" : "max-h-0 overflow-hidden"
-                }`}
+              className={` ${
+                open === moduleIndex ? "block" : "max-h-0 overflow-hidden"
+              }`}
             >
               <div className="border-[#BBBBBB] py-5">
                 <div className="flex w-full flex-col items-center">
                   {item.videos.map((videoFile, videoIndex) => (
                     <React.Fragment key={videoIndex}>
-                      <div
-                        className="mt-4 flex h-fit w-full flex-row justify-between rounded-md border-2 border-[#BBBBBB] bg-bg_gray p-4 max-md:flex-col"
-                      >
+                      <div className="mt-4 flex h-fit w-full flex-row justify-between rounded-md border-2 border-[#BBBBBB] bg-bg_gray p-4 max-md:flex-col">
                         <div className="flex h-full w-fit gap-3">
                           <div className="flex justify-center">
                             <button
@@ -209,7 +234,7 @@ const InstructorVideos = ({ onNext, onPrev }) => {
                         </div>
                       </div>
                       {showVideos[`${moduleIndex}-${videoIndex}`] && (
-                        <video className="h-2/6 w-6/12 mt-4" controls>
+                        <video className="mt-4 h-2/6 w-6/12" controls>
                           <source
                             src={videoFile.url}
                             type={videoFile.file.type}
