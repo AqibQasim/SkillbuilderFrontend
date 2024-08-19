@@ -13,7 +13,7 @@ function InstructorIntro({ video }) {
           width="100%"
           height="auto"
           className="h-video-h w-video-w rounded-3xl sm:h-video-h-sm md:h-video-h-md xl:w-video-w-xl"
-          src="https://www.youtube.com/embed/rRBCABGaLbI"
+          src={video}
           allow="autoplay; encrypted-media"
           allowFullScreen
           title="Instructor Video"
