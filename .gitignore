@@ -38,4 +38,5 @@ next-env.d.ts
 
 
 #package and node modules 
+#package
 package-lock.json

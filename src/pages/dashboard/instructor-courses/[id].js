@@ -23,6 +23,7 @@ function CourseDetail() {
     isLoading: isSingleCourseLoading,
     error: singleCourseError,
   } = useSelector((state) => state.singleCourse);
+  const courseModules = useSelector((state) => state.singleCourse.data.modules);
   const { students } = useSelector((state) => state.students);
   const router = useRouter();
   const { id, view } = router.query;
@@ -34,6 +35,8 @@ function CourseDetail() {
   }, [students]);
 
   console.log("single course", singleCourse);
+  console.log("Single Course modules", courseModules);
+  console.log("Single course Loading?", isSingleCourseLoading);
 
   useEffect(() => {
     if (id) {
@@ -87,15 +90,12 @@ function CourseDetail() {
 
         {overview === "overview" ? (
           <>
-            <DashboardCourseSkills course={singleCourse} />
+            <DashboardCourseSkills skills={singleCourse?.skills} />
             {/* Course Modules */}
             {isSingleCourseLoading && <Loader />}
-            {!isSingleCourseLoading && !singleCourse?.modules?.length ? (
-              <p>You haven't posted any modules.</p>
-            ) : null}
-            {!isSingleCourseLoading && singleCourse?.modules?.length ? (
+            {!isSingleCourseLoading && (
               <DashboardCourseModules modules={singleCourse?.modules} />
-            ) : null}
+            )}
             <DashboardStudentsOverview students={uniqueStudents} />
           </>
         ) : (

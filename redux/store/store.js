@@ -17,11 +17,12 @@ import studentsReducer from "../slices/fetchStudentsByInstructorSlice";
 import studentsSlice from "../slices/allStudentsSlice";
 import allInstructorsReducer from "../slices/allInstructorsSlice";
 import fetchStudentsByInstructorReducer from "../slices/fetchStudentsByInstructorSlice";
-import ytAuthReducer from '../slices/accessToken.js';
-import courseVideoUploadReducer from '../slices/courseVideoSlice';
+import ytAuthReducer from "../slices/accessToken.js";
+import courseVideoUploadReducer from "../slices/courseVideoSlice";
 import reviewSlice from "../slices/reviewSlice";
 import purchasecourseSlice from "../slices/purchasecoursedSlice";
 import InstructorByUserIdSlice from "../slices/InstructorByUserIdSlice";
+import createCourseSlice from "../slices/createCourseSlice";
 // Function to load state from localStorage
 function loadState() {
   try {
@@ -80,17 +81,18 @@ export const store = configureStore({
     instructor: InstructorReducer,
     loginFlow: loginFlowSlice,
     videoUpload: instructorvideoReducer,
-    courseVideoUpload : courseVideoUploadReducer,
+    courseVideoUpload: courseVideoUploadReducer,
     instructorCourses: instructorCoursesSliceReducer,
     courseStatus: courseStatusSlice,
     students: studentsReducer,
     students: studentsSlice,
     allInstructors: allInstructorsReducer,
     studentsByInstructor: fetchStudentsByInstructorReducer,
-    review : reviewSlice,
+    review: reviewSlice,
     courseVideoUpload: courseVideoUploadReducer,
     purchasecourse: purchasecourseSlice,
     instructorByUserId: InstructorByUserIdSlice,
+    createCourse: createCourseSlice,
   },
   preloadedState,
 });

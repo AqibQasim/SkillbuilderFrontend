@@ -7,6 +7,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchOneUser } from "../../../../redux/thunks/userInfoThunk";
 import StrudentEnrollCourses from "@/components/StrudentEnrollCourses";
 import withAuth from "@/components/WithAuth";
+import StudentEnrolledCourses from "@/components/StudentEnrolledCourses";
+import ButtonCircle from "@/components/ButtonCircle";
+import { FaChevronLeft } from "react-icons/fa6";
 
 const StudentsDetail = () => {
   const router = useRouter();
@@ -14,6 +17,9 @@ const StudentsDetail = () => {
   const dispatch = useDispatch();
   const { loading: userLoading, error: userError } = useSelector(
     (state) => state.singleUser,
+  );
+  const enrolledCourses = useSelector(
+    (state) => state.singleUser.userData.enrolled_courses_by_student,
   );
 
   useEffect(() => {
@@ -23,6 +29,10 @@ const StudentsDetail = () => {
   }, [studentId]);
   console.log("Loading...", userLoading);
   console.log("Error...", userError);
+
+  function handleBack() {
+    router.back();
+  }
 
   if (userLoading)
     return (
@@ -41,10 +51,14 @@ const StudentsDetail = () => {
 
   return (
     <AdminDashboardLayout>
+      <ButtonCircle clasName="!mb-6" onClick={handleBack}>
+        <FaChevronLeft />
+      </ButtonCircle>
       <StudentProfile />
-      {/* <StudentEducation /> */}
-      <StrudentEnrollCourses paddingTop="pt-10" heading="Enrolled Courses" />
-      {/* <Courses paddingTop="pt-10" heading="Enrolled Courses" /> */}
+      <StudentEnrolledCourses
+        className="mt-12"
+        enrolledCourses={enrolledCourses}
+      />
     </AdminDashboardLayout>
   );
 };
