@@ -37,9 +37,6 @@ const Courses = ({ heading, paddingTop }) => {
     console.log("Updated cart items:", cartItems);
   }, [router?.isReady, cartItems]);
 
-  // const handleAddToCart = (course) => {
-  //   dispatch(addItem(course));
-  // };
   const handleAddToCart = (course) => {
     if (!cartItems.some((item) => item.id === course.id)) {
       dispatch(addItem(course));
@@ -76,41 +73,41 @@ const Courses = ({ heading, paddingTop }) => {
           </span>
         </div>
 
-        <div className="flex w-full flex-col items-center justify-center">
-          <div className="grid h-auto w-[90%] grid-cols-1 place-items-center gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="flex w-full flex-col items-center justify-between">
+          <div className="grid h-auto w-[100%] grid-cols-1 place-items-center gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {courses?.slice(0, 8).map((course) => (
               <div
                 key={course?.id}
-                className="img-container mb-4 flex h-auto w-full max-w-sm transform flex-col items-start rounded-2xl border border-cards_gray bg-white p-2 transition transition-shadow duration-300 hover:border-[rgb(152,159,233)] hover:shadow-lg"
+                className="img-container mb-4 flex h-full w-full max-w-sm transform flex-col items-start rounded-2xl border border-cards_gray bg-white p-2 transition transition-shadow duration-300 hover:border-[rgb(152,159,233)] hover:shadow-lg"
+                style={{ minHeight: '25rem', maxHeight: '25rem' }}
                 onClick={() => router.push(`/courses/${course?.id}`)}
               >
                 <Image
                   className="w-[100%] pt-1"
-                  // src={course?.image}
                   src="/dummyImg.svg"
                   alt={course?.title}
                   width={280}
                   height={260}
                 />
-                <div className="w-[100%] p-2">
-                  <div className="mt-2 flex w-full items-center justify-between">
-                    <div>
-                      <span className="text-sm">{course?.rating}</span>
-                      <StarRating rating={Math.round(course?.rating)} />
+                <div className="flex-grow w-[100%] p-2 flex flex-col justify-between">
+                  <div>
+                    <div className="mt-2 flex w-full items-center justify-between">
+                      <div>
+                        <span className="text-sm">{course?.rating}</span>
+                        <StarRating rating={Math.round(course?.rating)} />
+                      </div>
+                      {isCourseAddedToCart(course) && (
+                        <span className="font-semibold text-blue">
+                          Added To Cart
+                        </span>
+                      )}
                     </div>
-                    {isCourseAddedToCart(course) && (
-                      <span className="font-semibold text-blue">
-                        Added To Cart
-                      </span>
-                    )}
-                    {/* <span className="text-blue font-semibold" >Added To Cart</span> */}
+                    <h3 className="mt-4 text-lg font-semibold">
+                      {course?.title}
+                    </h3>
+                    <p className="mb-2 text-sm">{course?.learning_outcomes}</p>
                   </div>
-                  <h3 className="mt-4 text-lg font-semibold">
-                    {course?.title}
-                  </h3>
-                  <p className="mb-2 text-sm">{course?.learning_outcomes}</p>
-
-                  <div className="flex w-[100%] justify-between pb-2 max-md:pb-2">
+                  <div className="flex w-[100%] justify-between pb-2">
                     <div className="flex w-[50%] items-center justify-start gap-2 lg:items-center lg:justify-start lg:gap-1">
                       <span className="font-semibold text-blue">
                         ${course?.amount}
