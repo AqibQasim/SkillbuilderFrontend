@@ -10,6 +10,7 @@ const InstructorIntendedLearner = ({ onNext }) => {
   const instructorId = useSelector(
     (state) => state.instructorByUserId.instructorByUserId.id,
   );
+  const courseId = useSelector((state) => state.createCourse.courseId);
   const title = useSelector((state) => state.createCourse.courseDetails.title);
   const amount = useSelector(
     (state) => state.createCourse.courseDetails.amount,
@@ -33,7 +34,7 @@ const InstructorIntendedLearner = ({ onNext }) => {
 
   const initialFormData = {
     instructor_id: instructorId,
-    title: "",
+    creation_duration_hours: "",
     category: "",
     learning_outcomes: "",
     modulesCount: 0,
@@ -123,17 +124,19 @@ const InstructorIntendedLearner = ({ onNext }) => {
         <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
           <div>
             <label
-              htmlFor="time"
+              htmlFor="creation_duration_hours"
               className="text-md mb-4 block font-semibold text-gray-700"
             >
               Time:
             </label>
             <input
               // onChange={}
-              onChange={(e) => handleChange("time", e.target.value)}
+              onChange={(e) =>
+                handleChange("creation_duration_hours", e.target.value)
+              }
               type="number"
-              id="time"
-              name="time"
+              id="creation_duration_hours"
+              name="creation_duration_hours"
               required
               className="border-darkgrey mt-1 block w-full rounded-md border bg-transparent p-3 shadow-sm focus:border-blue-500 focus:ring-blue-500"
               placeholder="hours"

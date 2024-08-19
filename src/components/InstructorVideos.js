@@ -3,7 +3,7 @@ import Image from "next/image";
 import VideoUpload from "./VideoUpload";
 import { createCourse } from "../../redux/thunks/createCourseThunk";
 import { uploadVideo } from "../../redux/thunks/courseVideoThunk";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 const InstructorVideos = ({ onNext, onPrev }) => {
   const [selectedVideo, setSelectedVideo] = useState(null);
@@ -12,6 +12,10 @@ const InstructorVideos = ({ onNext, onPrev }) => {
   const fileInputRef = useRef(null);
   const [currentModuleIndex, setCurrentModuleIndex] = useState(null);
   const userId = useSelector((state) => state.auth.user);
+  const courseId = useSelector((state) => state.createCourse.courseId);
+  const courseDetails = useSelector(
+    (state) => state.createCourse.courseDetails,
+  );
   const dispatch = useDispatch();
 
   const handleVideoUpload = (event) => {
@@ -99,21 +103,35 @@ const InstructorVideos = ({ onNext, onPrev }) => {
   // };
 
   async function uploadCourseDetailsAndVideo() {
-    if (!selectedVideo) return;
-    let stage;
+    if (!selectedVideo)
+      return console.log("Please upload a video before you proceed");
 
-    try {
-      stage = 1;
-      await dispatch(createCourse()).unwrap();
-      stage = 2;
-      await dispatch(uploadVideo({ userId, selectedVideo })).unwrap();
-    } catch (error) {
-      const msg =
-        stage === 1
-          ? "could not upload Course Details"
-          : "Video FAILD to upload, however the Course details are saved.";
-      console.log(`create course Stage: ${stage} Error: ${error}`);
+    const createCourseResult = await dispatch(
+      createCourse(courseDetails),
+    ).unwrap();
+    console.log("Create course result", createCourseResult);
+
+    if (!createCourseResult?.status)
+      throw new Error(
+        createCourseResult?.message ||
+          "Could not upload course details please try again later",
+      );
+
+    const uploadCourseIntroVideoResult = await dispatch(
+      uploadVideo({ courseId, selectedVideo }),
+    ).unwrap();
+    Temp;
+
+    console.log(uploadCourseIntroVideoResult);
+    if (!uploadCourseIntroVideoResult?.status) {
+      throw new Error(
+        uploadCourseIntroVideoResult?.message ||
+          "Course details uploaded successfully, but the introduction video failed to upload.",
+      );
     }
+    console.log("No Error?");
+    console.log("Course details Status", createCourseResult);
+    console.log("Video upload Status", uploadCourseIntroVideoResult);
   }
 
   return (
@@ -291,7 +309,8 @@ const InstructorVideos = ({ onNext, onPrev }) => {
             <button
               type="button"
               className="rounded-md bg-blue px-10 py-2 font-normal text-white hover:bg-blue-600 max-lsm:mt-4 max-lsm:w-full"
-              onClick={onNext}
+              // onClick={onNext}
+              onClick={uploadCourseDetailsAndVideo}
             >
               Continue
             </button>
