@@ -7,6 +7,11 @@ const nextConfig = {
         hostname: "img.freepik.com",
         pathname: "**",
       },
+      {
+        protocol: "https",
+        hostname: "dfstudio-d420.kxcdn.com",
+        pathname: "**",
+      },
     ],
   },
 };
