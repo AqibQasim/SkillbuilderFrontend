@@ -113,6 +113,7 @@ import { fetchOneCourse } from "../../../redux/thunks/coursesThunks";
 import { fetchOneInstructor } from "../../../redux/thunks/instructorThunk";
 import { fetchOneUser } from "../../../redux/thunks/userInfoThunk";
 import { fetchAllReviews } from "../../../redux/thunks/reviewsThunk";
+import Loader from "@/components/Loader";
 
 const CourseDetails = () => {
   const router = useRouter();
@@ -123,35 +124,9 @@ const CourseDetails = () => {
     (state) => state.singleCourse || { data: {}, isLoading: true },
   );
 
-  // const { userData: user, isUserLoading } = useSelector(
-  //   (state) => state.singleUser || { userData: {}, isUserLoading: true },
-  // );
-
-  // console.log(" complete name would be :", first_name + " " + last_name);
-
-  const { user, isInstLoading, InstructorError } = useSelector(
-    (state) => state.singleInstructor,
+  const { user, isInstLoading } = useSelector(
+    (state) => state.singleInstructor || { user: {}, isInstLoading: true },
   );
-
-  useEffect(() => {
-    if (course && course.instructor_id) {
-      console.log("course ki instructor id ", course.instructor_id)
-      dispatch(fetchOneInstructor(course.instructor_id));
-    }
-  }, [dispatch, course]);
-
-  useEffect(() => {
-    if(user){
-      console.log("user it izzz", user);
-    }
-  }, [user]);
-
-  // const { instructorData: instructor, isInstLoading } = useSelector(
-  //   (state) =>
-  //     state.singleInstructor || { instructorData: {}, isInstLoading: true },
-  // );
-
-  // console.log("Instructor here: " , instructor)
 
   const { reviewsData: reviews, isReviewsLoading } = useSelector(
     (state) => state.allReviews || { reviewsData: [], isReviewsLoading: true },
@@ -164,45 +139,32 @@ const CourseDetails = () => {
     setIsClient(true);
   }, [router?.isReady, courses]);
 
-  // useEffect(() => {
-  //   if (user && user.id) {
-  //     dispatch(fetchOneInstructor(user.id));
-  //   }
-  // }, [user]);
-
   useEffect(() => {
     if (id) {
       dispatch(fetchOneCourse(id));
     }
-
-    console.log(`course fetched is: ${id}`)
   }, [id]);
 
   useEffect(() => {
     if (course && course.instructor_id) {
-      dispatch(fetchOneUser(course.instructor_id));
-
-      console.log()
-
+      dispatch(fetchOneInstructor(course.instructor_id));
     }
+  }, [course]);
 
-   
+  useEffect(() => {
+    if (course && course.instructor_id) {
+      dispatch(fetchOneUser(course.instructor_id));
+    }
   }, [course]);
 
   useEffect(() => {
     if (course && course.id) {
-      dispatch(fetchAllReviews(id));
+      dispatch(fetchAllReviews(course.id));
     }
   }, [course]);
 
-  if (
-    !isClient ||
-    courseLoading ||
-    // isUserLoading ||
-    isInstLoading ||
-    isReviewsLoading
-  ) {
-    return null; // Or loading indicator
+  if (!isClient || courseLoading || isInstLoading || isReviewsLoading) {
+    return <Loader />; // Show the loader while data is being fetched
   }
 
   return (

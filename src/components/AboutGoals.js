@@ -15,8 +15,8 @@ const AboutGoals = () => {
               <Image
                 src="/goal1.png"
                 alt="Goal 1 image"
-                width={348}
-                height={224}
+                width={328}
+                height={204}
               />
               <h5 className="mt-2 text-center font-semibold">
                 Expanding Course Offerings
@@ -30,8 +30,8 @@ const AboutGoals = () => {
               <Image
                 src="/goal2.png"
                 alt="Goal 2 image"
-                width={348}
-                height={224}
+                width={328}
+                height={204}
               />
               <h5 className="mt-2 text-center font-semibold">
                 Enhancing User Engagement
@@ -45,8 +45,8 @@ const AboutGoals = () => {
               <Image
                 src="/goal3.png"
                 alt="Goal 3 image"
-                width={348}
-                height={224}
+                width={328}
+                height={204}
               />
               <h5 className="mt-2 text-center font-semibold">
                 Global Reach and Accessibility
@@ -61,8 +61,8 @@ const AboutGoals = () => {
               <Image
                 src="/goal4.png"
                 alt="Goal 4 image"
-                width={348}
-                height={224}
+                width={328}
+                height={204}
               />
               <h5 className="mt-2 text-center font-semibold">
                 Technological Innovation
@@ -76,8 +76,8 @@ const AboutGoals = () => {
               <Image
                 src="/goal5.png"
                 alt="Goal 5 image"
-                width={233}
-                height={224}
+                width={213}
+                height={204}
               />
               <h5 className="mt-2 text-center font-semibold">
                 Community Impact Initiatives

@@ -4,13 +4,15 @@ import { store } from "../../redux/store/store";
 import { SessionProvider } from "next-auth/react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchOneInstructor } from "../../redux/thunks/instructorThunk";
-import { fetchAccessToken } from "../../redux/thunks/ytAccessThunk"
+import { fetchAccessToken } from "../../redux/thunks/ytAccessThunk";
+import { config } from "@fortawesome/fontawesome-svg-core";
+import "@fortawesome/fontawesome-svg-core/styles.css";
 
 import { useState, useEffect } from "react";
 
 function MyApp({ Component, pageProps }) {
-
   const [authUrl, setAuthUrl] = useState("");
+  config.autoAddCss = false;
 
   return (
     <SessionProvider>
@@ -20,8 +22,6 @@ function MyApp({ Component, pageProps }) {
     </SessionProvider>
   );
 }
-
-
 
 function MyAppContent({ Component, pageProps }) {
   const dispatch = useDispatch();
@@ -33,10 +33,7 @@ function MyAppContent({ Component, pageProps }) {
     }
   }, [userId, dispatch]);
 
-
-
   return <Component {...pageProps} />;
 }
-
 
 export default MyApp;
