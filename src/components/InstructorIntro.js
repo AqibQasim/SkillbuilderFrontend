@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 
 function InstructorIntro({ video }) {
-
   console.log("video_url:", video);
 
   return (
@@ -19,7 +18,6 @@ function InstructorIntro({ video }) {
           allowFullScreen
           title="Instructor Video"
         ></iframe>
-
       </div>
     </div>
   );

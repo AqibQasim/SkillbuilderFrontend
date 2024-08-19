@@ -5,7 +5,7 @@ export const uploadVideo = createAsyncThunk(
   "courseVideoUpload/Course",
   async ({ userId, selectedVideo }, { rejectWithValue }) => {
     const formData = new FormData();
-    console.log("Create course for this user", userId);
+    console.log("Upload intro video for this courseId", userId);
     try {
       formData.append("courseId", userId);
       formData.append("video", selectedVideo);

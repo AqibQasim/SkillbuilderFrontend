@@ -2,10 +2,10 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import LayoutWidth from "./LayoutWidth";
+import InstructorIntro from "./InstructorIntro";
 
 function ModuleAccordion({ title, lectures, duration, children }) {
   const [isOpen, setIsOpen] = useState(false);
-
   return (
     // <div className="container mt-4">
     <div className="mt-4">
@@ -29,9 +29,16 @@ function ModuleAccordion({ title, lectures, duration, children }) {
 }
 
 export default function CourseModules({ course, heading = "Course outline" }) {
+  const [isclick, setisclick] = useState(false);
+
+  const clickHandler = (index) => {
+    setisclick(index);
+  };
+
   useEffect(() => {
     console.log("######### tahta", course);
   }, []);
+
   return (
     <LayoutWidth>
       {/* <div className="container mt-12"> */}
@@ -49,10 +56,13 @@ export default function CourseModules({ course, heading = "Course outline" }) {
                   duration={module?.content?.length}
                 >
                   <div className="space-y-1">
-                    {module?.content?.map((content) => {
+                    {module?.content?.map((content, index) => {
                       return (
                         <>
-                          <div className="flex items-center justify-between">
+                          <div
+                            className="flex cursor-pointer items-center justify-between"
+                            onClick={() => clickHandler(index)}
+                          >
                             <span className="flex items-center">
                               <Image
                                 src="/Play.svg"
@@ -66,6 +76,11 @@ export default function CourseModules({ course, heading = "Course outline" }) {
                               {content?.lock_status} {content?.duration}
                             </span>
                           </div>
+                          {isclick === index ? (
+                            <div>
+                              <InstructorIntro />
+                            </div>
+                          ) : null}
                         </>
                       );
                     })}
