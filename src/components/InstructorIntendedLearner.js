@@ -1,62 +1,66 @@
-// import { instructor } from "@/data/getInstructorById";
-import React, { useEffect } from "react";
-import { useState } from "react";
-import { useSelector } from "react-redux";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { createCourse } from "../../redux/thunks/createCourseThunk";
+import { setCourseDetails } from "../../redux/slices/createCourseSlice";
+import { fetchInstructorByUserId } from "../../redux/thunks/InstructorByUserIdThunk";
 
 const InstructorIntendedLearner = ({ onNext }) => {
-  const profile = useSelector((state) => state.profile);
-  const userId = profile?.id;
-  console.log("profile data:", userId);
+  const dispatch = useDispatch();
+  const userId = useSelector((state) => state.auth.user);
+  const instructorId = useSelector(
+    (state) => state.instructorByUserId.instructorByUserId.id,
+  );
+  const title = useSelector((state) => state.createCourse.courseDetails.title);
+  const category = useSelector(
+    (state) => state.createCourse.courseDetails.category,
+  );
+  const learning_outcomes = useSelector(
+    (state) => state.createCourse.courseDetails.learning_outcomes,
+  );
+
+  useEffect(
+    function () {
+      if (!userId || instructorId) return;
+      dispatch(fetchInstructorByUserId(userId));
+    },
+    [userId, instructorId],
+  );
+
+  console.log("Getting the instructor id correctly?:", instructorId);
 
   const initialFormData = {
-    instructor_id: "",
+    instructor_id: instructorId,
     title: "",
     category: "",
     learning_outcomes: "",
     modulesCount: 0,
     amount: 0,
     charges: 0,
-    
-    // specialization: "",
-    // qualifications: [{ percentage: "", degree: "" }],
-    // skills: [{ percentage: "", title: "" }],
-    // video_url: "",
   };
 
   const [formData, setFormData] = useState({
     ...initialFormData,
-    instructor_id: userId,
+    title,
+    category,
+    learning_outcomes,
   });
 
+  useEffect(() => {
+    setFormData((prevFormData) => ({ ...prevFormData, instructor_id: userId }));
+  }, [userId]);
+
+  // Submit handler
   const submitHandler = (e) => {
     e.preventDefault();
-    dispatch(createCourse(formData));
+    const { title, category, learning_outcomes } = formData;
+    if (!title || !category || !learning_outcomes) return;
+
+    const dataWithInstructorId = { ...formData, instructor_id: instructorId };
+    console.log("submit this data?", dataWithInstructorId);
+
+    dispatch(setCourseDetails(dataWithInstructorId));
+    onNext();
   };
-
-  useEffect(() => {
-    console.log("log the form data:",formData)
-  },[formData])
-
-  // const handleNestedChange = (section, index, key, value) => {
-  //   setFormData((prevFormData) => ({
-  //     ...prevFormData,
-  //     [section]: prevFormData[section].map((item, i) =>
-  //       i === index ? { ...item, [key]: value } : item,
-  //     ),
-  //   }));
-  // };
-
-  // const handleExperienceChange = (index, value) => {
-  //   setFormData((prevFormData) => ({
-  //     ...prevFormData,
-  //     experience: prevFormData.experience.map((item, i) =>
-  //       i === index ? value : item,
-  //     ),
-  //   }));
-  // };
-
-  
 
   const handleChange = (field, value) => {
     setFormData((prevFormData) => ({ ...prevFormData, [field]: value }));
@@ -74,7 +78,8 @@ const InstructorIntendedLearner = ({ onNext }) => {
               Course Name:
             </label>
             <input
-              onChange={(e) => handleChange('title', e.target.value)}
+              defaultValue={title}
+              onChange={(e) => handleChange("title", e.target.value)}
               type="text"
               id="course-name"
               name="course-name"
@@ -91,10 +96,11 @@ const InstructorIntendedLearner = ({ onNext }) => {
               Field:
             </label>
             <select
+              defaultValue={category}
               id="category"
               name="category"
               required
-              onChange={(e) => handleChange('category', e.target.value)}
+              onChange={(e) => handleChange("category", e.target.value)}
               className="border-darkgrey mt-1 block w-full rounded-md border bg-transparent p-3 shadow-sm focus:border-blue-500 focus:ring-blue-500"
             >
               <option value="">Select category</option>
@@ -118,7 +124,7 @@ const InstructorIntendedLearner = ({ onNext }) => {
             </label>
             <input
               // onChange={}
-              onChange={(e) => handleChange('time', e.target.value)}
+              onChange={(e) => handleChange("time", e.target.value)}
               type="number"
               id="time"
               name="time"
@@ -135,7 +141,10 @@ const InstructorIntendedLearner = ({ onNext }) => {
               Outcome of this Course:
             </label>
             <input
-              onChange={(e) => handleChange("learning_outcomes",e.target.value)}
+              defaultValue={learning_outcomes}
+              onChange={(e) =>
+                handleChange("learning_outcomes", e.target.value)
+              }
               type="text"
               id="learning"
               name="learning"
@@ -147,13 +156,23 @@ const InstructorIntendedLearner = ({ onNext }) => {
         </div>
         <br /> <br />
         <div className="mt-4 flex justify-end">
+          {/* <button
           <button
-            type="button"
+            type="submit"
             className="rounded-md bg-blue px-10 py-2 font-normal text-white hover:bg-blue-600 max-lsm:w-full"
-            onClick={onNext}
+          >
+            Continue
+          </button> */}
+          <button
+            type="submit"
+            className="rounded-md bg-blue px-10 py-2 font-normal text-white hover:bg-blue-600 max-lsm:w-full"
           >
             Continue
           </button>
+
+          {/* <Button type="submit" className="!px-10">
+            Continue
+          </Button> */}
         </div>
       </form>
     </div>

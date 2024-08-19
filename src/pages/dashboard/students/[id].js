@@ -45,15 +45,16 @@ const StudentsDetail = () => {
 
   return (
     <DashboardLayout>
-      <div className="space-y-8">
-        <ButtonCircle onClick={handleBack}>
-          <FaChevronLeft />
-        </ButtonCircle>
-        <StudentProfile />
-        {/* not available for students, only for instructors */}
-        {/* <StudentEducation /> */}
-        <StudentEnrolledCourses href="/dashboard/instructor-courses" />
-      </div>
+      <ButtonCircle clasName="!mb-6" onClick={handleBack}>
+        <FaChevronLeft />
+      </ButtonCircle>
+      <StudentProfile />
+      <StudentEnrolledCourses
+        className="mt-12"
+        href="/dashboard/instructor-courses"
+        // StudentEnrolledCourses of this current instructor
+        enrolledCourses={[]}
+      />
     </DashboardLayout>
   );
 };

@@ -1,6 +1,8 @@
 import React, { useState, useRef } from "react";
 import Image from "next/image";
 import VideoUpload from "./VideoUpload";
+import { createCourse } from "../../redux/thunks/createCourseThunk";
+import { uploadVideo } from "../../redux/thunks/courseVideoThunk";
 
 const InstructorVideos = ({ onNext, onPrev }) => {
   const [selectedVideo, setSelectedVideo] = useState(null);
@@ -49,9 +51,9 @@ const InstructorVideos = ({ onNext, onPrev }) => {
       prevModules.map((module, index) =>
         index === moduleIndex
           ? {
-              ...module,
-              videos: module.videos.filter((_, i) => i !== videoIndex),
-            }
+            ...module,
+            videos: module.videos.filter((_, i) => i !== videoIndex),
+          }
           : module
       )
     );
@@ -75,12 +77,29 @@ const InstructorVideos = ({ onNext, onPrev }) => {
     ]);
   };
 
+  const uploadvideoHandler = async () => {
+    if (!selectedVideo) return;
+
+    try {
+
+      console.log("[SELECTED VIDEO LOG]:", selectedVideo);
+      // if (instructorId) {
+      //   dispatch(uploadVideo(selectedVideo));
+      // } else {
+      await dispatch(createCourse(courseDetails)).unwrap();
+      dispatch(uploadVideo(selectedVideo));
+      // }
+    } catch (error) {
+      console.error("Failed to create instructor or upload video:", error);
+    }
+  };
+
   return (
     <div>
       <h3 className="font-medium text-lg mt-10 mb-5">
         Upload an introduction video of Course
       </h3>
-      <VideoUpload setSelectedVideo={setSelectedVideo} />
+      <VideoUpload selectedVideo={selectedVideo} setSelectedVideo={setSelectedVideo} />
       <div className="accordion mt-8 rounded-md border-2 border-[#BBBBBB] px-4 py-2 overflow-hidden">
         {modules.map((item, moduleIndex) => (
           <div key={moduleIndex}>
@@ -92,9 +111,8 @@ const InstructorVideos = ({ onNext, onPrev }) => {
               >
                 <span>Module {item.title}</span>
                 <svg
-                  className={`h-3 w-3 transition-transform ${
-                    open === moduleIndex ? "rotate-0" : "rotate-180"
-                  }`}
+                  className={`h-3 w-3 transition-transform ${open === moduleIndex ? "rotate-0" : "rotate-180"
+                    }`}
                   aria-hidden="true"
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
@@ -112,9 +130,8 @@ const InstructorVideos = ({ onNext, onPrev }) => {
             </h2>
             <div className="border-b-2 border-[#BBBBBB]"></div>
             <div
-              className={` ${
-                open === moduleIndex ? "block" : "max-h-0 overflow-hidden"
-              }`}
+              className={` ${open === moduleIndex ? "block" : "max-h-0 overflow-hidden"
+                }`}
             >
               <div className="border-[#BBBBBB] py-5">
                 <div className="flex w-full flex-col items-center">

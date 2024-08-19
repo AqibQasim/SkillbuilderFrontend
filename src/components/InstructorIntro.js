@@ -6,12 +6,10 @@ function InstructorIntro({ video }) {
 
   console.log("video_url:", video);
 
-
   return (
     <div className="mx-auto mt-8 w-[90%] max-w-screen-2xl">
       <SubHeading>Instructor introduction</SubHeading>
       <div className="mt-10 flex w-full items-center justify-center">
-
         <iframe
           width="100%"
           height="auto"
