@@ -27,51 +27,55 @@ function InstructorDetails() {
   const instructor_courses = useSelector((state) => state.instructorCourses);
   const dispatch = useDispatch();
 
-  
   useEffect(() => {
     if (instructorId) {
-      console.log("inst id in individual compionent:",instructorId)
+      console.log("inst id in individual compionent:", instructorId);
       dispatch(fetchOneInstructor(instructorId));
     }
   }, [instructorId, dispatch]);
 
-
   useEffect(() => {
-    if (instructor ) {
-     dispatch(fetchCoursesByInstructorId(instructorId));
-    
+    if (instructor) {
+      dispatch(fetchCoursesByInstructorId(instructorId));
     }
   }, [instructor, dispatch]);
 
-
   useEffect(() => {
-    if (instructor_courses && instructor_courses.courses && instructor_courses.courses.length > 0 && instructor.video_url) {
-      console.log(`Instructor courses fetched: ${instructor_courses.courses[0].id}`);
+    if (
+      instructor_courses &&
+      instructor_courses.courses &&
+      instructor_courses.courses.length > 0 &&
+      instructor.video_url
+    ) {
+      console.log(
+        `Instructor courses fetched: ${instructor_courses.courses[0].id}`,
+      );
     }
   }, [instructor_courses, dispatch]);
-  
 
   useEffect(() => {
-    if (instructor ) {
-    
-      console.log("Instructor in intructor page: " , instructor.id)
+    if (instructor) {
+      console.log("Instructor in intructor page: ", instructor.id);
     }
   }, [instructor, dispatch]);
-  
+
   return (
     <div className="min-h-screen bg-bg_gray">
       <Navbar />
       <div className="path-wrapper mx-auto mb-8 mt-16 w-[90%] max-w-screen-2xl">
-        <CurrentPath dynamicPath={`${instructor.user?.first_name} ${instructor.user?.last_name}`} />
+        <CurrentPath
+          dynamicPath={`${instructor.user?.first_name} ${instructor.user?.last_name}`}
+        />
       </div>
 
-      {(instructor && instructor.skills && 
-      <InstructorHero instructor={instructor}/>)}
-
-    {(instructor && instructor.video_url && 
-      <InstructorIntro video={instructor.video_url}/>
+      {instructor && instructor.skills && (
+        <InstructorHero instructor={instructor} />
       )}
-      <InstructorTopCourses  courses={instructor_courses.courses}  /> 
+
+      {instructor && instructor.video_url && (
+        <InstructorIntro video={instructor.video_url} />
+      )}
+      <InstructorTopCourses courses={instructor_courses.courses} />
       <Footer />
     </div>
   );

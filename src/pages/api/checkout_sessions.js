@@ -57,7 +57,7 @@ export default async function handler(req, res) {
           },
         },
        
-        success_url: `${req.headers.origin}/shoppingcart`,
+        success_url: `${req.headers.origin}/payment_success`,
         cancel_url: `${req.headers.origin}/shoppingcart`,
       });
 
