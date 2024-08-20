@@ -25,7 +25,6 @@ const courses = () => {
   if (!isClient) {
     return null;
   }
-
   return (
     <>
       <div className="flex h-[100%] w-[100%] flex-col items-center bg-bg_gray">
