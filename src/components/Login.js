@@ -66,7 +66,7 @@ const Login = () => {
 
   return (
     <div className="w-full max-w-md rounded-md bg-white p-6 shadow-md">
-      {showError ? (
+      {showError || formError ? (
         <ErrorMessage
           showError={showError}
           setShowError={setShowError}
@@ -126,7 +126,7 @@ const Login = () => {
           <div className="mb-2 text-center text-red-500">{formError}</div>
         )}
 
-        {!formError && <div className="text-center text-red-500">{error}</div>}
+        {/* {!formError && <div className="text-center text-red-500">{error}</div>} */}
         <Link
           href="/reset-password"
           className="ml-2 text-sm font-semibold text-blue"

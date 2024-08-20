@@ -7,12 +7,14 @@ import { createInstructor } from "../../redux/thunks/createInstructorthunk";
 import { fetchOneInstructor } from "../../redux/thunks/instructorThunk";
 import { uploadVideo } from "../../redux/thunks/instructorvideothunk";
 import Button from "./Button";
+import ErrorMessage from "./ErrorMessage";
 
 const TakeIntro = ({ onPrev }) => {
   const [selectedVideo, setSelectedVideo] = useState(null);
   const router = useRouter();
   const dispatch = useDispatch();
   const { loading, success, error } = useSelector((state) => state.videoUpload);
+  const [showError, setShowError] = useState(false);
 
   const {
     instructorDetails,
@@ -44,9 +46,14 @@ const TakeIntro = ({ onPrev }) => {
       }
     } catch (error) {
       console.error("Failed to create instructor or upload video:", error);
+      setShowError(true);
     }
   };
-
+  useEffect(()=>{
+    if(error){
+      setShowError(true);
+    }
+  },[error])
   return (
     <>
       <div className="flex h-auto w-full flex-col p-6">
@@ -92,6 +99,16 @@ const TakeIntro = ({ onPrev }) => {
           <p>Video uploaded successfully!</p>
         </div>
       )}
+      {error && (
+        <ErrorMessage
+        showError={showError}
+        setShowError={setShowError}
+        errorMessage={error}
+        />
+
+      )
+
+      }
     </>
   );
 };

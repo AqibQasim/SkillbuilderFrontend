@@ -6,12 +6,13 @@ import Button from "./Button";
 const InstructorDetails = ({ onNext }) => {
   const profile = useSelector((state) => state.profile);
   const userId = profile?.id;
+  const [showError, setShowError] = useState(false);
   const instructorDetails = useSelector(
     (state) => state.instructor.instructorDetails,
   );
   const dispatch = useDispatch();
   const { loading, error } = useSelector((state) => state.instructor || {});
-
+  
   const initialFormData = {
     user_id: "",
     experience: [""],
@@ -72,9 +73,21 @@ const InstructorDetails = ({ onNext }) => {
     e.preventDefault();
     dispatch(updateInstructorDetails(formData));
   };
+  useEffect(()=>{
+      if(error){
+        setShowError(true);
+      }
+  }, [error]);
 
   return (
     <div className="w-full overflow-auto p-8">
+      {showError && (
+          <ErrorMessage
+          showError={showError}
+          setShowError={setShowError}
+          errorMessage={error}
+        />
+      )}
       <form onSubmit={submitHandler}>
         <div className="mt-5 flex justify-between gap-28 max-lg:flex-col">
           <div className="flex flex-col gap-y-5 flex-grow">
@@ -90,6 +103,7 @@ const InstructorDetails = ({ onNext }) => {
                     className="h-12 w-full rounded border-2 bg-bg_gray p-3"
                     value={detail.percentage}
                     required
+                    pattern="^(100|[1-9]?[0-9])$"
                     onChange={(e) =>
                       handleNestedChange(
                         "qualifications",
