@@ -13,8 +13,19 @@ function AdminInstructorsRow({ isSpecific, instructor }) {
     instructor.user;
 
   const handleRowClick = () => {
-    // router.push(`/admin/instructors/${user_id}`);
-    router.push(`/admin/instructors/${instructor?.id}`);
+    try {
+      if (instructor?.id) {
+        router.push(`/admin/instructors/${instructor.id}`);
+      } else {
+        throw new Error("Instructor ID is not defined");
+      }
+    } catch (error) {
+      console.error("Error navigating to instructor page:", error);
+      // Optional: You can display an alert or a message to the user
+      alert(
+        "Unable to navigate to the instructor page. Please try again later.",
+      );
+    }
   };
 
   return (

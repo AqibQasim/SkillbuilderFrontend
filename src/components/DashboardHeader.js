@@ -14,7 +14,12 @@ function DashboardHeader() {
       <Search />
       {!isAdminRoute && (
         <>
-          <Button fill="unfill" href="/home">
+          <Button
+            fill="unfill"
+            onClick={() => {
+              router.push(`/home`);
+            }}
+          >
             Student
           </Button>
           <Button className="hidden md:block" href="/course-upload">
