@@ -35,7 +35,7 @@ function EnrolledCourseDetails() {
   const handleViewAllButton = () => {
     console.log("View All Button is clicked!!");
     router.replace(`coursereview/${enrolledCourseId}`);
-  }
+  };
 
   useEffect(() => {
     try {
@@ -81,7 +81,7 @@ function EnrolledCourseDetails() {
           </div>
         </LayoutWidth>
         <div className="space-y-7">
-          <EnrolledCourseDetailsHero enrolledCourse={course?.video_url} />
+          <EnrolledCourseDetailsHero videolink={course?.video_url} />
           <EnrolledCourseAbout
             enrolledCourse={course?.description}
             purchasedCourses={course?.purchased_course}
@@ -90,8 +90,8 @@ function EnrolledCourseDetails() {
           <CourseModules course={course?.modules} heading="Videos" />
           <EnrolledCourseRatingAndReviews reviews={reviews} />
           <CourseReviews reviews={reviews} />
-         
-         <CourseCertificate course={course} />
+
+          <CourseCertificate course={course} />
         </div>
         <Footer />
       </div>
@@ -185,8 +185,7 @@ function EnrolledCourseRatingAndReviews({ reviews }) {
   );
 }
 
-
-function CourseCertificate({course}) {
+function CourseCertificate({ course }) {
   const router = useRouter();
 
   const handleCertificateView = () => {
@@ -198,9 +197,9 @@ function CourseCertificate({course}) {
     <LayoutWidth>
       {courseProgress === 100 && (
         <>
-          <H2 className="ms-16">Certificate </H2> 
-          <button 
-            className="font-medium text-white rounded-md bg-blue p-2 ms-16"
+          <H2 className="ms-16">Certificate </H2>
+          <button
+            className="ms-16 rounded-md bg-blue p-2 font-medium text-white"
             onClick={handleCertificateView} // Navigate on button click
           >
             View Certificate

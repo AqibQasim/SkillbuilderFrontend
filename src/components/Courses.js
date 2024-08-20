@@ -29,7 +29,7 @@ const Courses = ({ heading, paddingTop }) => {
     const timer = setTimeout(() => {
       setStarReady(true);
       setLoading(false);
-    }, 500); // Adjust delay as needed
+    }, 300); // Adjust delay as needed
 
     return () => clearTimeout(timer);
   }, [router.asPath]);
@@ -86,8 +86,10 @@ const Courses = ({ heading, paddingTop }) => {
               <div
                 key={course?.id}
                 className="img-container mb-4 flex h-full w-full max-w-sm transform flex-col items-start rounded-2xl border border-cards_gray bg-white p-2 transition transition-shadow duration-300 hover:border-[rgb(152,159,233)] hover:shadow-lg"
-                style={{ minHeight: '25rem', maxHeight: '25rem' }}
-                onClick={() => router.push(`/courses/${course?.id}`)}
+                style={{ minHeight: "25rem", maxHeight: "25rem" }}
+                onClick={() =>
+                  course?.id && router.push(`/courses/${course.id}`)
+                }
               >
                 <Image
                   className="w-[100%] pt-1"
@@ -96,17 +98,21 @@ const Courses = ({ heading, paddingTop }) => {
                   width={280}
                   height={260}
                 />
-                <div className="flex-grow w-[100%] p-2 flex flex-col justify-between">
+                <div className="flex w-[100%] flex-grow flex-col justify-between p-2">
                   <div>
                     <div className="mt-2 flex w-full items-center justify-between">
                       <div>
-                        <span className="text-sm">{course?.rating}</span>
-                        {starReady && (
-                        <StarRating
-                          key={router.asPath}
-                          rating={Math.round(course?.rating)}
-                        />
-                      )}
+                        {course?.rating ? (
+                          <>
+                            <span className="text-sm">{course?.rating}</span>
+                            <StarRating
+                              key={router.asPath}
+                              rating={course?.rating}
+                            />
+                          </>
+                        ) : (
+                          <span>Not Rated Yet</span>
+                        )}
                       </div>
                       {isCourseAddedToCart(course) && (
                         <span className="font-semibold text-blue">

@@ -25,7 +25,6 @@ const courses = () => {
   if (!isClient) {
     return null;
   }
-
   return (
     <>
       <div className="flex h-[100%] w-[100%] flex-col items-center bg-bg_gray">
@@ -33,7 +32,7 @@ const courses = () => {
         <div className="path-wrapper mx-auto mb-8 mt-16 w-[90%] max-w-screen-2xl">
           <CurrentPath />
         </div>
-        <Courses paddingTop="pt-10" heading="High TO Low" />
+        <Courses paddingTop="pt-10" heading="High To Low" />
         <Courses paddingTop="pt-10" heading="Low To High" />
         <Courses paddingTop="pt-10" heading="Free Courses" />
         <Footer />
