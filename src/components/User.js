@@ -29,7 +29,18 @@ function User({ cartClickHandler, cartItemsLength }) {
 
   console.log("Instructor ki id h ye : ", instructorid);
 
-  const instructorPath = instructorid ? "/dashboard" : "/details-upload";
+  // const instructorPath = instructorid ? "/dashboard" : "/details-upload";
+  const handleNavigation = () => {
+    const path = instructorid ? "/dashboard" : "/details-upload";
+
+    try {
+      router.push(path);
+    } catch (error) {
+      console.error("Error navigating to the path:", error);
+      // Optional: Display an alert or a message to the user
+      alert("Unable to navigate. Please try again later.");
+    }
+  };
 
   function handleClose() {
     if (!show) return;
@@ -48,22 +59,25 @@ function User({ cartClickHandler, cartItemsLength }) {
   }
   let notification = [
     {
-      id:1,
-      name:"Aahil Alvani",
+      id: 1,
+      name: "Aahil Alvani",
       description: "This is description ",
-    },{
-      id:2,
-      name:"Aahil Alvani",
+    },
+    {
+      id: 2,
+      name: "Aahil Alvani",
       description: "This is description",
-    },{
-      id:3,
-      name:"Aahil Alvani",
+    },
+    {
+      id: 3,
+      name: "Aahil Alvani",
       description: "This is description",
-    },{
-      id:4,
-      name:"Aahil Alvani",
+    },
+    {
+      id: 4,
+      name: "Aahil Alvani",
       description: "This is description",
-    }
+    },
   ];
   useEffect(() => {
     if (status === "authenticated" || user) {
@@ -92,10 +106,13 @@ function User({ cartClickHandler, cartItemsLength }) {
                 </div>
               ) : null}
             </button>
-            <button className="hidden md:block" onClick={() => {
-              setShowNotification((prevalue) => !prevalue);
-              if(show) setShow(false);
-              }}>
+            <button
+              className="hidden md:block"
+              onClick={() => {
+                setShowNotification((prevalue) => !prevalue);
+                if (show) setShow(false);
+              }}
+            >
               <BellIconSvg className="h-7 w-7" />
             </button>
             <button className="hidden md:block">
@@ -107,10 +124,12 @@ function User({ cartClickHandler, cartItemsLength }) {
           ref={ref}
           className="action relative flex items-center justify-center"
         >
-          <button onClick={() => {
-            setShow((prevValue) => !prevValue);
-            if (showNotification) setShowNotification(false);
-            }}>
+          <button
+            onClick={() => {
+              setShow((prevValue) => !prevValue);
+              if (showNotification) setShowNotification(false);
+            }}
+          >
             {session?.user?.image ? (
               <img
                 src={session?.user?.image}
@@ -126,8 +145,8 @@ function User({ cartClickHandler, cartItemsLength }) {
             )}
           </button>
           <div
-            className={`absolute -right-6 top-6 z-50 min-w-80 rounded-lg bg-white py-3 shadow-lg transition-all duration-300 sm:right-0 
-              ${show ? "visible translate-y-3 opacity-100" : "invisible translate-y-0 opacity-0"}`}>
+            className={`absolute -right-6 top-6 z-50 min-w-80 rounded-lg bg-white py-3 shadow-lg transition-all duration-300 sm:right-0 ${show ? "visible translate-y-3 opacity-100" : "invisible translate-y-0 opacity-0"}`}
+          >
             <div className="mb-5 flex flex-col items-center justify-center px-5">
               <div
                 className="flex items-center justify-center gap-2 transition-all"
@@ -220,13 +239,20 @@ function User({ cartClickHandler, cartItemsLength }) {
                 </Link>
               </li>
               <li>
-                <Link
-                  href={instructorPath}
+                {/* <Link
+                  href={handleNavigation}
                   className="inline-flex w-full items-center justify-between px-5 py-2 text-gray-700 hover:bg-gray-100"
                 >
                   Become a Tutor
                   <ChevronRightIconSvg className="h-4 w-4" />
-                </Link>
+                </Link> */}
+                <button
+                  onClick={handleNavigation}
+                  className="inline-flex w-full items-center justify-between px-5 py-2 text-gray-700 hover:bg-gray-100"
+                >
+                  Become a Tutor
+                  <ChevronRightIconSvg className="h-4 w-4" />
+                </button>
               </li>
               <li className="!mt-5 px-5">
                 <Button onClick={handleLogout}>Logout</Button>
@@ -235,35 +261,36 @@ function User({ cartClickHandler, cartItemsLength }) {
           </div>
           {/* ________________________________ */}
           <div
-            className={`absolute py-4 px-2 -right-6 top-6 z-50 min-w-80 rounded-lg bg-white py-3 shadow-lg transition-all duration-300 sm:right-0 
-              ${showNotification ? "visible translate-y-3 opacity-100" : "invisible translate-y-0 opacity-0"}`}>
-            <h2 className="font-bold text-lg ">Notification</h2>
-            <hr/>
+            className={`absolute -right-6 top-6 z-50 min-w-80 rounded-lg bg-white px-2 py-3 py-4 shadow-lg transition-all duration-300 sm:right-0 ${showNotification ? "visible translate-y-3 opacity-100" : "invisible translate-y-0 opacity-0"}`}
+          >
+            <h2 className="text-lg font-bold">Notification</h2>
+            <hr />
             <ul className="">
-              {notification.map(noti => (
+              {notification.map((noti) => (
                 <>
-                <li className="py-6 flex gap-4">
-                  <div>
-                <Image
-                    src="/Avatardisplay.png"
-                    width={30}
-                    height={30}
-                    alt=""
-                    className="ml-2 rounded-full"
-                  />
-                  </div>
-                  <div className="self-center w-full">
-                  <span className="font-semibold text-sm">{noti.name}</span>
-                  <span className="text-xs pl-1 text-[#4A525D]">{noti.description}</span>
-                  </div>
-                </li>  
-                <hr/>
+                  <li className="flex gap-4 py-6">
+                    <div>
+                      <Image
+                        src="/Avatardisplay.png"
+                        width={30}
+                        height={30}
+                        alt=""
+                        className="ml-2 rounded-full"
+                      />
+                    </div>
+                    <div className="w-full self-center">
+                      <span className="text-sm font-semibold">{noti.name}</span>
+                      <span className="pl-1 text-xs text-[#4A525D]">
+                        {noti.description}
+                      </span>
+                    </div>
+                  </li>
+                  <hr />
                 </>
               ))}
             </ul>
           </div>
           {/* ________________________________ */}
-
         </div>
       </div>
     );
