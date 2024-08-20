@@ -77,7 +77,7 @@ const InstructorDetails = ({ onNext }) => {
     <div className="w-full overflow-auto p-8">
       <form onSubmit={submitHandler}>
         <div className="mt-5 flex justify-between gap-28 max-lg:flex-col">
-          <div className="flex flex-col gap-y-5 flex-grow">
+          <div className="flex flex-grow flex-col gap-y-5">
             <div>
               <h3 className="mb-3 text-lg font-medium">
                 What is your educational background?
@@ -168,7 +168,7 @@ const InstructorDetails = ({ onNext }) => {
               </button>
             </div>
           </div>
-          <div className="flex flex-col gap-y-5 flex-grow">
+          <div className="flex flex-grow flex-col gap-y-5">
             <div>
               <h3 className="mb-3 text-lg font-medium max-lg:mt-5">
                 What are your experience domains?

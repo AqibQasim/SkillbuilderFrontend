@@ -14,8 +14,7 @@ const initialState = {
     description:
       "This is a temporary description for this course; it can be changed later.",
     creation_duration_hours: 0,
-    image:
-      "https://images.unsplash.com/photo-1484417894907-623942c8ee29?q=80&w=1932&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    image: "/heroImage2.png",
     title: "",
   },
   successMessage: null,
@@ -24,7 +23,7 @@ const initialState = {
 };
 
 const createCourseSlice = createSlice({
-  name: "instructor",
+  name: "createCourse",
   initialState,
   reducers: {
     setCourseDetails: (state, action) => {
@@ -45,9 +44,7 @@ const createCourseSlice = createSlice({
         console.log("payload on createCourse fulfilled case", action.payload);
         state.loading = false;
         state.successMessage = action.payload?.message;
-        // uncomment once api return course id
-        // state.courseId = action.payload.data.courseId;
-
+        state.courseId = action.payload?.courseId;
         state.error = null;
       })
       .addCase(createCourse.rejected, (state, action) => {
