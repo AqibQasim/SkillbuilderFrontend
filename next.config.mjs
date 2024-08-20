@@ -9,7 +9,7 @@ const nextConfig = {
       },
       {
         protocol: "https",
-        hostname: "dfstudio-d420.kxcdn.com",
+        hostname: "encrypted-tbn0.gstatic.com",
         pathname: "**",
       },
     ],

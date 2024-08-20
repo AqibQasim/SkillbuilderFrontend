@@ -1,16 +1,21 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { createInstructor } from "../thunks/createInstructorthunk";
 import { createCourse } from "../thunks/createCourseThunk";
 
 const initialState = {
+  courseId: null, // keep this ID OUTSIDE courseDetails
   courseDetails: {
-    instructor_id: "",
-    title: "",
+    amount: 0,
     category: "",
+    charges: 0,
+    instructor_id: null,
     learning_outcomes: "",
     modulesCount: 0,
-    amount: 0,
-    charges: 0,
+    video_url: "temp_url",
+    description:
+      "This is a temporary description for this course; it can be changed later.",
+    creation_duration_hours: 0,
+    image: "/heroImage2.png",
+    title: "",
   },
   successMessage: null,
   loading: false,
@@ -18,10 +23,11 @@ const initialState = {
 };
 
 const createCourseSlice = createSlice({
-  name: "instructor",
+  name: "createCourse",
   initialState,
   reducers: {
     setCourseDetails: (state, action) => {
+      console.log(console.log("payload on course detail", action.payload));
       state.courseDetails = {
         ...state.courseDetails,
         ...action.payload,
@@ -37,7 +43,8 @@ const createCourseSlice = createSlice({
       .addCase(createCourse.fulfilled, (state, action) => {
         console.log("payload on createCourse fulfilled case", action.payload);
         state.loading = false;
-        // state.courseDetails = action.payload;
+        state.successMessage = action.payload?.message;
+        state.courseId = action.payload?.courseId;
         state.error = null;
       })
       .addCase(createCourse.rejected, (state, action) => {

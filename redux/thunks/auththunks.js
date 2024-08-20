@@ -32,6 +32,9 @@ export const loginUser = createAsyncThunk(
 
       return data; // assuming the API returns the user object
     } catch (error) {
+      if (error.message === "Failed to fetch") {
+        return rejectWithValue("Please check your network or try again later.");
+      }
       return rejectWithValue(error.message || "Failed to login");
     }
   },
@@ -66,6 +69,9 @@ export const signupUser = createAsyncThunk(
       }
       return data; // assuming the API returns the user object
     } catch (error) {
+      if (error.message == "Failed to fetch") {
+        return rejectWithValue("Please check your network or try again later.");
+      }
       return rejectWithValue(error.message || "Failed to signup");
     }
   },
