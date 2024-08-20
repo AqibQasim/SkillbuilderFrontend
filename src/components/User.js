@@ -203,22 +203,26 @@ function User({ cartClickHandler, cartItemsLength }) {
             </div>
             <ul className="space-y-1">
               <li>
-                <Link
-                  href="/my-learning"
-                  className="inline-flex w-full items-center justify-between px-5 py-2 text-gray-700 hover:bg-gray-100"
+                <button
+                  onClick={() => {
+                    router.push("/my-learning");
+                  }}
+                  className="mt-4 inline-flex w-full items-center justify-between px-5 py-2 text-gray-700 hover:bg-gray-100"
                 >
                   My Learning
                   <ChevronRightIconSvg className="h-4 w-4" />
-                </Link>
+                </button>
               </li>
               <li>
-                <Link
-                  href="/profile"
-                  className="inline-flex w-full items-center justify-between px-5 py-2 text-gray-700 hover:bg-gray-100"
+                <button
+                  onClick={() => {
+                    router.push("/profile");
+                  }}
+                  className="mt-1 inline-flex w-full items-center justify-between px-5 py-2 text-gray-700 hover:bg-gray-100"
                 >
                   Account Settings
                   <ChevronRightIconSvg className="h-4 w-4" />
-                </Link>
+                </button>
               </li>
               <li>
                 <Link
