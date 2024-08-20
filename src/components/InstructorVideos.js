@@ -85,53 +85,48 @@ const InstructorVideos = ({ onNext, onPrev }) => {
     ]);
   };
 
-  // const uploadvideoHandler = async () => {
-  //   if (!selectedVideo) return;
-
-  //   try {
-
-  //     console.log("[SELECTED VIDEO LOG]:", selectedVideo);
-  //     // if (instructorId) {
-  //     //   dispatch(uploadVideo(selectedVideo));
-  //     // } else {
-  //     await dispatch(createCourse(courseDetails)).unwrap();
-  //     dispatch(uploadVideo(selectedVideo));
-  //     // }
-  //   } catch (error) {
-  //     console.error("Failed to create instructor or upload video:", error);
-  //   }
-  // };
-
   async function uploadCourseDetailsAndVideo() {
     if (!selectedVideo)
       return console.log("Please upload a video before you proceed");
 
-    const createCourseResult = await dispatch(
-      createCourse(courseDetails),
-    ).unwrap();
-    console.log("Create course result", createCourseResult);
+    try {
+      // Details
+      const createCourseResult = await dispatch(
+        createCourse(courseDetails),
+      ).unwrap();
+      console.log("Create course result", createCourseResult);
 
-    if (!createCourseResult?.status)
-      throw new Error(
-        createCourseResult?.message ||
-          "Could not upload course details please try again later",
+      if (!createCourseResult?.status)
+        throw new Error(
+          createCourseResult?.message ||
+            "Could not upload course details please try again later",
+        );
+
+      // Video
+      const courseId = createCourseResult?.courseId;
+      if (!courseId)
+        throw new Error("Course id is undefined for the Intro video");
+      console.log(
+        "send this course id as video upload payload course Id: ",
+        courseId,
       );
+      const uploadCourseIntroVideoResult = await dispatch(
+        uploadVideo({ courseId, selectedVideo }),
+      ).unwrap();
 
-    const uploadCourseIntroVideoResult = await dispatch(
-      uploadVideo({ courseId, selectedVideo }),
-    ).unwrap();
-    Temp;
-
-    console.log(uploadCourseIntroVideoResult);
-    if (!uploadCourseIntroVideoResult?.status) {
-      throw new Error(
-        uploadCourseIntroVideoResult?.message ||
-          "Course details uploaded successfully, but the introduction video failed to upload.",
-      );
+      console.log(uploadCourseIntroVideoResult);
+      if (!uploadCourseIntroVideoResult?.status) {
+        throw new Error(
+          uploadCourseIntroVideoResult?.message ||
+            "Course details uploaded successfully, but the introduction video failed to upload.",
+        );
+      }
+      console.log("No Error?");
+      console.log("Course details Status", createCourseResult);
+      console.log("Video upload Status", uploadCourseIntroVideoResult);
+    } catch (error) {
+      console.log("Error on create course fail", error);
     }
-    console.log("No Error?");
-    console.log("Course details Status", createCourseResult);
-    console.log("Video upload Status", uploadCourseIntroVideoResult);
   }
 
   return (
