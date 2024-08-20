@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { decrementIndex as instructorDecrementIndex } from "../../redux/slices/createInstructorSlice";
 import { fetchInstructorByUserId } from "../../redux/thunks/InstructorByUserIdThunk";
 import { createInstructorAndUploadIntroVideo } from "../../redux/thunks/instructorIntroVideoThunk";
-import Button from "./Button";
+
 import { createInstructor } from "../../redux/thunks/createInstructorthunk";
 import ErrorMessage from "./ErrorMessage";
 import { fetchOneInstructor } from "../../redux/thunks/instructorThunk";
