@@ -6,6 +6,7 @@ export const uploadVideo = createAsyncThunk(
   async ({ courseId, selectedVideo }, { rejectWithValue }) => {
     const formData = new FormData();
     console.log("Upload intro video for this courseId", courseId);
+
     try {
       formData.append("courseId", courseId);
       formData.append("video", selectedVideo);
@@ -13,11 +14,14 @@ export const uploadVideo = createAsyncThunk(
         method: "POST",
         body: formData,
       });
+
       const data = await response.json();
       console.log("API Response Data API :", data?.message);
+
       if (!response.ok) {
         throw new Error(data.message || "Unable to post video");
       }
+
       console.log("course intro upload API response on success", data);
       return data?.message;
     } catch (error) {

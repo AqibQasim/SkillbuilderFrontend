@@ -1,28 +1,31 @@
 import { configureStore } from "@reduxjs/toolkit";
+import InstructorByUserIdSlice from "../slices/InstructorByUserIdSlice";
+import ytAuthReducer from "../slices/accessToken.js";
+import cartReducer from "../slices/addToCart";
+import coursesReducer from "../slices/allCoursesSlice";
+import allInstructorsReducer from "../slices/allInstructorsSlice";
+import studentsSlice from "../slices/allStudentsSlice";
 import authReducer from "../slices/authSlice";
 import contactReducer from "../slices/contactslice";
+import courseStatusSlice from "../slices/courseStatusSlice";
+import courseVideoUploadReducer from "../slices/courseVideoSlice";
+import createCourseSlice from "../slices/createCourseSlice";
+import InstructorReducer from "../slices/createInstructorSlice";
+import {
+  default as fetchStudentsByInstructorReducer,
+  default as studentsReducer,
+} from "../slices/fetchStudentsByInstructorSlice";
+import getAllReviewsSlice from "../slices/getAllReviewsSlice";
+import instructorCoursesSliceReducer from "../slices/instructorCoursesSlice";
+import instructorIntroVideoSlice from "../slices/instructorIntroVideoSlice";
+import instructorvideoReducer from "../slices/instructorvideoslice";
+import loginFlowSlice from "../slices/loginFlowSlice";
 import profileReducer from "../slices/profileSlice";
-import coursesReducer from "../slices/allCoursesSlice";
+import purchasecourseSlice from "../slices/purchasecoursedSlice";
+import reviewSlice from "../slices/reviewSlice";
 import singleCourseReducer from "../slices/singleCourseSlice";
 import singleInstructorReducer from "../slices/singleInstructorSlice";
 import singleUserSlice from "../slices/singleUserSlice";
-import getAllReviewsSlice from "../slices/getAllReviewsSlice";
-import cartReducer from "../slices/addToCart";
-import loginFlowSlice from "../slices/loginFlowSlice";
-import instructorCoursesSliceReducer from "../slices/instructorCoursesSlice";
-import InstructorReducer from "../slices/createInstructorSlice";
-import instructorvideoReducer from "../slices/instructorvideoslice";
-import courseStatusSlice from "../slices/courseStatusSlice";
-import studentsReducer from "../slices/fetchStudentsByInstructorSlice";
-import studentsSlice from "../slices/allStudentsSlice";
-import allInstructorsReducer from "../slices/allInstructorsSlice";
-import fetchStudentsByInstructorReducer from "../slices/fetchStudentsByInstructorSlice";
-import ytAuthReducer from "../slices/accessToken.js";
-import courseVideoUploadReducer from "../slices/courseVideoSlice";
-import reviewSlice from "../slices/reviewSlice";
-import purchasecourseSlice from "../slices/purchasecoursedSlice";
-import InstructorByUserIdSlice from "../slices/InstructorByUserIdSlice";
-import createCourseSlice from "../slices/createCourseSlice";
 // Function to load state from localStorage
 function loadState() {
   try {
@@ -93,6 +96,7 @@ export const store = configureStore({
     purchasecourse: purchasecourseSlice,
     instructorByUserId: InstructorByUserIdSlice,
     createCourse: createCourseSlice,
+    instructorIntroVideo: instructorIntroVideoSlice,
   },
   preloadedState,
 });
