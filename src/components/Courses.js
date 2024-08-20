@@ -87,7 +87,9 @@ const Courses = ({ heading, paddingTop }) => {
                 key={course?.id}
                 className="img-container mb-4 flex h-full w-full max-w-sm transform flex-col items-start rounded-2xl border border-cards_gray bg-white p-2 transition transition-shadow duration-300 hover:border-[rgb(152,159,233)] hover:shadow-lg"
                 style={{ minHeight: "25rem", maxHeight: "25rem" }}
-                onClick={() => router.push(`/courses/${course?.id}`)}
+                onClick={() =>
+                  course?.id && router.push(`/courses/${course.id}`)
+                }
               >
                 <Image
                   className="w-[100%] pt-1"

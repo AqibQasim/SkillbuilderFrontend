@@ -273,7 +273,6 @@ function CourseCardOnAdminDashboard({ course }) {
     <div
       key={course?.id}
       className="img-container mb-4 flex h-auto w-full max-w-sm transform flex-col items-start rounded-bl-2xl rounded-tr-2xl border border-cards_gray bg-white p-2 transition duration-300 hover:border-[rgb(152,159,233)] hover:shadow-lg"
-      //   onClick={() => router.push(`/courses/${course?.id}`)}
     >
       {/* <Image
         className="w-[100%] pt-1"

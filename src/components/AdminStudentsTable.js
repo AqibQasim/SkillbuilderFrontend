@@ -1,4 +1,4 @@
-import { specificCourseStudentsDummydata } from "@/pages/dashboard/students";
+// import { specificCourseStudentsDummydata } from "@/pages/dashboard/students";
 import { useSelector } from "react-redux";
 import AdminStudentsRow from "./AdminStudentsRow";
 import Table from "./Table";
