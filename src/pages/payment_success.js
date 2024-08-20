@@ -3,15 +3,17 @@ import { useEffect, useState } from "react";
 import { setCurrentTab } from "../utils/currentTabMethods";
 import Footer from "@/components/Footer";
 import { useRouter } from "next/router";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { clearCart } from "../../redux/slices/addToCart";
 
 const PaymentSuccess = () => {
   const router = useRouter();
+  const dispatch = useDispatch();
   const [isClient, setIsClient] = useState(false);
   const [loading, setLoading] = useState(true);
   const courses = useSelector((state) => state.cart.items);
   const userId = useSelector((state) => state.auth.user);
-  
+
   useEffect(() => {
     setCurrentTab("Payment Success");
   }, []);
@@ -21,10 +23,9 @@ const PaymentSuccess = () => {
       setIsClient(true);
       setLoading(false);
 
-      
       const enrollInCourses = async () => {
         try {
-          const enrollPromises = courses.map((course) => 
+          const enrollPromises = courses.map((course) =>
             fetch("http://localhost:4000/enroll-in-course", {
               method: "PUT",
               headers: {
@@ -35,7 +36,7 @@ const PaymentSuccess = () => {
                 course_id: course.id,
                 filter: "id",
               }),
-            })
+            }),
           );
 
           // Wait for all requests to complete
@@ -43,11 +44,14 @@ const PaymentSuccess = () => {
 
           responses.forEach((response, index) => {
             if (!response.ok) {
-              throw new Error(`Failed to enroll in course with id: ${courses[index].id}`);
+              throw new Error(
+                `Failed to enroll in course with id: ${courses[index].id}`,
+              );
             }
           });
 
           console.log("Enrollment successful for all courses");
+          dispatch(clearCart());
           router.push("/my-learning");
         } catch (error) {
           console.error("Error enrolling in courses:", error);
