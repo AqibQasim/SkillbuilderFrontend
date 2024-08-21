@@ -3,6 +3,7 @@ import InstructorByUserIdSlice from "../slices/InstructorByUserIdSlice";
 import ytAuthReducer from "../slices/accessToken.js";
 import cartReducer from "../slices/addToCart";
 import coursesReducer from "../slices/allCoursesSlice";
+import approvedCoursesReducer from '../slices/allApprovedCoursesSlice';
 import allInstructorsReducer from "../slices/allInstructorsSlice";
 import studentsSlice from "../slices/allStudentsSlice";
 import authReducer from "../slices/authSlice";
@@ -98,6 +99,7 @@ export const store = configureStore({
     instructorByUserId: InstructorByUserIdSlice,
     createCourse: createCourseSlice,
     instructorIntroVideo: instructorIntroVideoSlice,
+    courses: approvedCoursesReducer,
     studentEnrolledCoursesForOneInstructor:
       studentEnrolledCoursesForOneInstructorSlice,
   },

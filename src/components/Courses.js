@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 import StarRating from "./StarRating";
 import Image from "next/image";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchCourses } from "../../redux/thunks/allCoursesThunk";
+import { fetchApprovedCourses } from "../../redux/thunks/approvedCoursesThunk";
 import LayoutWidth from "./LayoutWidth";
 import { addItem } from "../../redux/slices/addToCart";
 
@@ -21,7 +21,7 @@ const Courses = ({ heading, paddingTop }) => {
   );
 
   useEffect(() => {
-    dispatch(fetchCourses());
+    dispatch(fetchApprovedCourses());
   }, [dispatch]);
 
   useEffect(() => {
