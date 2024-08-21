@@ -144,8 +144,8 @@ function MyLearningCourses() {
 
           return (
             <MyLearningCourseCard
-              key={item.id}
-              id={item.id}
+              key={item.course.id}
+              id={item.course.id}
               title={item.course.title}
               image={item.course.image}
               instructor={instructorName}
