@@ -81,11 +81,7 @@ const StudentsDetail = () => {
       <StudentEnrolledCourses
         className="mt-12"
         href="/dashboard/instructor-courses"
-        // StudentEnrolledCourses of this current instructor
-        enrolledCourses={studentEnrolledCoursesForThisInstructor.map((cour) =>
-          cour.rating ? cour : { ...cour, rating: 3.5 },
-        )}
-        // enrolledCourses={[]}
+        enrolledCourses={studentEnrolledCoursesForThisInstructor}
       />
     </DashboardLayout>
   );
