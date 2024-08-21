@@ -8,7 +8,7 @@ import {
 } from "../../redux/slices/createInstructorSlice";
 import { fetchInstructorByUserId } from "../../redux/thunks/InstructorByUserIdThunk";
 import { createInstructorAndUploadIntroVideo } from "../../redux/thunks/instructorIntroVideoThunk";
-import Button from "./Button";
+
 import { createInstructor } from "../../redux/thunks/createInstructorthunk";
 import ErrorMessage from "./ErrorMessage";
 import { resetState as resetStateInstructorIntroVideo } from "../../redux/slices/instructorIntroVideoSlice";
