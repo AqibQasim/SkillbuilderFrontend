@@ -2,12 +2,13 @@ import { SubHeading } from "@/pages/instructor/[id]";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 
-function InstructorIntro({ video }) {
+function InstructorIntro({ video, introFor = "instructor" }) {
   console.log("video_url:", video);
+  const subHeading = introFor === "instructor" ? "Instructor" : "Course";
 
   return (
     <div className="mx-auto mt-8 w-[90%] max-w-screen-2xl">
-      <SubHeading>Instructor introduction</SubHeading>
+      <SubHeading> {subHeading} introduction </SubHeading>
       <div className="mt-10 flex w-full items-center justify-center">
         {/* <iframe
           width="560"

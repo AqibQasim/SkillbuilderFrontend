@@ -3,6 +3,7 @@ import InstructorByUserIdSlice from "../slices/InstructorByUserIdSlice";
 import ytAuthReducer from "../slices/accessToken.js";
 import cartReducer from "../slices/addToCart";
 import coursesReducer from "../slices/allCoursesSlice";
+import approvedCoursesReducer from '../slices/allApprovedCoursesSlice';
 import allInstructorsReducer from "../slices/allInstructorsSlice";
 import studentsSlice from "../slices/allStudentsSlice";
 import authReducer from "../slices/authSlice";
@@ -26,6 +27,7 @@ import reviewSlice from "../slices/reviewSlice";
 import singleCourseReducer from "../slices/singleCourseSlice";
 import singleInstructorReducer from "../slices/singleInstructorSlice";
 import singleUserSlice from "../slices/singleUserSlice";
+import studentEnrolledCoursesForOneInstructorSlice from "../slices/studentEnrolledCoursesForOneInstructorSlice";
 // Function to load state from localStorage
 function loadState() {
   try {
@@ -97,6 +99,9 @@ export const store = configureStore({
     instructorByUserId: InstructorByUserIdSlice,
     createCourse: createCourseSlice,
     instructorIntroVideo: instructorIntroVideoSlice,
+    courses: approvedCoursesReducer,
+    studentEnrolledCoursesForOneInstructor:
+      studentEnrolledCoursesForOneInstructorSlice,
   },
   preloadedState,
 });

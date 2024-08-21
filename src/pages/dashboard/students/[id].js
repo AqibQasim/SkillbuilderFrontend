@@ -10,23 +10,52 @@ import { useEffect } from "react";
 import { FaChevronLeft, FaGraduationCap } from "react-icons/fa6";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchOneUser } from "../../../../redux/thunks/userInfoThunk";
+import { studentEnrolledCoursesForOneInstructor } from "../../../../redux/thunks/studentEnrolledCoursesForOneInstructorThunk";
+import { fetchInstructorByUserId } from "../../../../redux/thunks/InstructorByUserIdThunk";
 
 const StudentsDetail = () => {
   const router = useRouter();
   const dispatch = useDispatch();
   const studentId = router.query.id;
   const userId = useSelector((state) => state.singleUser.userData.id);
+  const instructorId = useSelector(
+    (state) => state.instructorByUserId.instructorByUserId.id,
+  );
   const userLoading = useSelector((state) => state.singleUser.loading);
   const userError = useSelector((state) => state.singleUser.error);
-
+  const studentEnrolledCoursesForThisInstructor = useSelector(
+    (state) => state.studentEnrolledCoursesForOneInstructor.courses,
+  );
+  const loadingStudentEnrolledCourses = useSelector(
+    (state) => state.studentEnrolledCoursesForOneInstructor.loading,
+  );
   useEffect(() => {
     if (!studentId || userId) return;
     dispatch(fetchOneUser(studentId));
   }, [studentId, userId]);
 
+  useEffect(() => {
+    if (!userId || instructorId) return;
+    dispatch(fetchInstructorByUserId(userId));
+  }, [userId]);
+
+  useEffect(() => {
+    if (!instructorId || !studentId) return;
+    dispatch(
+      studentEnrolledCoursesForOneInstructor({
+        instructorId,
+        studentId,
+      }),
+    );
+  }, [instructorId, studentId]);
+
   function handleBack() {
     router.back();
   }
+
+  console.log("courses: ", studentEnrolledCoursesForThisInstructor);
+  console.log("instructorId: ", instructorId);
+  console.log("studentId: ", studentId);
 
   if (userLoading)
     return (
@@ -52,8 +81,7 @@ const StudentsDetail = () => {
       <StudentEnrolledCourses
         className="mt-12"
         href="/dashboard/instructor-courses"
-        // StudentEnrolledCourses of this current instructor
-        enrolledCourses={[]}
+        enrolledCourses={studentEnrolledCoursesForThisInstructor}
       />
     </DashboardLayout>
   );

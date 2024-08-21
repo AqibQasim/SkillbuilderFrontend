@@ -2,15 +2,16 @@ import VideoUpload from "@/components/VideoUpload";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { decrementIndex as instructorDecrementIndex } from "../../redux/slices/createInstructorSlice";
+import {
+  decrementIndex as instructorDecrementIndex,
+  resetErrorAndLoader as resetErrorAndLoaderCreateInstructor,
+} from "../../redux/slices/createInstructorSlice";
 import { fetchInstructorByUserId } from "../../redux/thunks/InstructorByUserIdThunk";
 import { createInstructorAndUploadIntroVideo } from "../../redux/thunks/instructorIntroVideoThunk";
 
 import { createInstructor } from "../../redux/thunks/createInstructorthunk";
 import ErrorMessage from "./ErrorMessage";
-import { fetchOneInstructor } from "../../redux/thunks/instructorThunk";
-import { uploadVideo } from "../../redux/thunks/instructorvideothunk";
-import Button from "./Button";
+import { resetState as resetStateInstructorIntroVideo } from "../../redux/slices/instructorIntroVideoSlice";
 
 const TakeIntro = ({ onPrev }) => {
   const [selectedVideo, setSelectedVideo] = useState(null);
@@ -23,12 +24,12 @@ const TakeIntro = ({ onPrev }) => {
   const instructorDetails = useSelector(
     (state) => state.instructor.instructorDetails,
   );
-  const loadingCreateCourse = useSelector(
-    (state) => state.createCourse.loading,
+  const loadingCreateInstructor = useSelector(
+    (state) => state.instructor.loading,
   );
-  const errorCreateCourse = useSelector((state) => state.createCourse.error);
-  const successMessageCreateCourse = useSelector(
-    (state) => state.createCourse.successMessage,
+  const errorCreateInstructor = useSelector((state) => state.instructor.error);
+  const successMessageCreateInstructor = useSelector(
+    (state) => state.instructor.successMessage,
   );
   const loadingInstructorIntroVideo = useSelector(
     (state) => state.instructorIntroVideo.loading,
@@ -40,26 +41,55 @@ const TakeIntro = ({ onPrev }) => {
     (state) => state.instructorIntroVideo.successMessage,
   );
 
+  // temp log for instructor intro video slice
+  const { error, successMessage, loading } = useSelector(
+    (state) => state.instructorIntroVideo,
+  );
+  const disableActions = loadingCreateInstructor || loadingInstructorIntroVideo;
+
+  console.log("loading Intro Video: ", loading);
+  console.log("Error Intro Video: ", error);
+  console.log("successMessage Intro Video: ", successMessage);
+
   useEffect(() => {
     if (!userId || instructorId) return;
     dispatch(fetchInstructorByUserId(userId));
   }, [userId]);
 
+  useEffect(() => {
+    dispatch(resetStateInstructorIntroVideo());
+    dispatch(resetErrorAndLoaderCreateInstructor);
+  }, []);
+
   // Logs
   console.log("Instructor Details: ", instructorDetails);
   console.log("Instructor Id: ", instructorId);
+  console.log("Selected video: ", selectedVideo);
 
-  function uploadvideoHandler() {
+  async function uploadvideoHandler() {
     if (!selectedVideo) return;
     const file = selectedVideo;
-    // dispatch(createInstructorAndUploadIntroVideo({ instructorId, file }));
-    if (instructorId) return router.push("/dashboard");
-    try {
-      dispatch(createInstructor(instructorDetails));
-      router.push("/dashboard");
-    } catch (error) {
-      console.log(error);
-    }
+    console.log("Instructor Id to send for intro video: ", instructorId);
+    console.log("Video file to send for intro video: ", file);
+    const createInstructorResult = dispatch(
+      createInstructorAndUploadIntroVideo({ instructorId, file }),
+    );
+    console.log("Instructor dispatch RESULT: ", createInstructorResult);
+    console.log("Done dispatching");
+    if (
+      !errorCreateInstructor &&
+      !errorInstructorIntroVideo &&
+      successMessageCreateInstructor &&
+      successMessageInstructorIntroVideo
+    )
+      return router.push("/dashboard");
+    // if (instructorId) return router.push("/dashboard");
+    // try {
+    //   dispatch(createInstructor(instructorDetails));
+    //   router.push("/dashboard");
+    // } catch (error) {
+    //   console.log(error);
+    // }
   }
 
   return (
@@ -77,6 +107,7 @@ const TakeIntro = ({ onPrev }) => {
       <div className="mt-4 flex justify-end gap-4">
         <Button
           variant="secondary"
+          disabled={disableActions}
           onClick={() => dispatch(instructorDecrementIndex())}
         >
           Previous
@@ -84,20 +115,13 @@ const TakeIntro = ({ onPrev }) => {
 
         <Button
           type="button"
-          disabled={!selectedVideo}
+          disabled={!selectedVideo || disableActions}
           onClick={uploadvideoHandler}
-          className="!px-10"
+          className="!px-10 disabled:!bg-blue disabled:!text-white"
         >
           Continue
         </Button>
       </div>
-
-      {/* popup temp */}
-      {/* {success && (
-        <div className="absolute flex min-h-screen min-w-full items-center justify-center">
-          <p>Video uploaded successfully!</p>
-        </div>
-      )} */}
     </>
   );
 };

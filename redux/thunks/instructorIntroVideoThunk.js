@@ -11,6 +11,7 @@ export const uploadIntroVideo = createAsyncThunk(
       "Instructor id to pass in for intro video upload:",
       instructorId,
     );
+    console.log("Intro Video to pass in for intro video upload:", instructorId);
 
     try {
       formData.append("instructorId", instructorId);
@@ -20,7 +21,8 @@ export const uploadIntroVideo = createAsyncThunk(
         body: formData,
       });
       const data = await response.json();
-      console.log("API Response Data API :", data?.message);
+      console.log("DATA Response in API :", data);
+      console.log("MESSAGE Response in API  :", data?.message);
       if (!response.ok) {
         throw new Error(data.message || "Unable to post video");
       }
