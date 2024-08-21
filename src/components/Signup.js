@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { signupUser, signupWithGoogle } from "../../redux/thunks/auththunks";
 import { useSession, signOut } from "next-auth/react";
+import ErrorMessage from "./ErrorMessage";
 // import { handleGoogleCallback } from "../../redux/thunks/googlethunk";
 
 import ShowPassword from "./ShowPassword";
@@ -17,11 +18,11 @@ const Signup = () => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [formError, setFormError] = useState("");
-  const [gmailData, setGmailData] = useState();
-  const [gstatus, setgStatus] = useState();
-  const { data, status } = useSession();
+  const [showError, setShowError] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+
+  const { data, status } = useSession();
   const dispatch = useDispatch();
 
   const { isLoading, error, successMessage } = useSelector(
@@ -68,6 +69,7 @@ const Signup = () => {
       console.log("Google user created:", result);
     } catch (err) {
       console.log("ERR:", err);
+      setShowError(true);
     }
   };
 
@@ -99,7 +101,11 @@ const Signup = () => {
     if (password)
       dispatch(signupUser({ first_name, last_name, email, password }));
   };
-
+  useEffect(()=>{
+      if(error){
+        setShowError(true);
+      }
+  }, [error]);
   // const { data, status } = useSession();
   console.log("data:", data, "status:", status);
   if (status === "loading") return <h1> loading... please wait</h1>;
@@ -109,6 +115,20 @@ const Signup = () => {
 
   return (
     <div className="w-full max-w-md rounded-md bg-white px-6 py-4 shadow-md">
+      {formError ? (
+        <ErrorMessage
+          showError={formError}
+          setShowError={setFormError}
+          errorMessage={formError}
+        />
+      ) : null}
+      {showError && (
+        <ErrorMessage
+        showError={showError}
+        setShowError={setShowError}
+        errorMessage={error}
+      />
+    )}
       <h2 className="text-2xl font-bold text-darkgray">Create Your Account</h2>
       <p className="text-lightgray">Start your learning journey with us </p>
       {/* Form */}
@@ -221,9 +241,9 @@ const Signup = () => {
             />
           </div>
         </div>
-        {formError && (
+        {/* {formError && (
           <div className="mb-2 text-center text-red-500">{formError}</div>
-        )}
+        )} */}
         {successMessage && (
           <div className="mb-2 text-center text-green-500">
             {successMessage}
@@ -256,7 +276,7 @@ const Signup = () => {
             {isLoading ? "Signing up..." : "Sign Up"}
           </button>
         </div>
-        {error && <div className="text-center text-red-500">{error}</div>}
+        {/* {error && <div className="text-center text-red-500">{error}</div>} */}
       </form>
 
       {/* Login Link */}
@@ -292,4 +312,5 @@ const Signup = () => {
     </div>
   );
 };
+
 export default Signup;
