@@ -3,10 +3,11 @@ import { useEffect, useState } from "react";
 import { setCurrentTab } from "../utils/currentTabMethods";
 import Footer from "@/components/Footer";
 import { useRouter } from "next/router";
-import { useSelector } from "react-redux";
-
+import { useSelector , useDispatch} from "react-redux";
+import { clearCart } from "../../redux/slices/addToCart";
 const PaymentSuccess = () => {
   const router = useRouter();
+  const dispatch = useDispatch();
   const [isClient, setIsClient] = useState(false);
   const [loading, setLoading] = useState(true);
   const courses = useSelector((state) => state.cart.items);
@@ -46,6 +47,7 @@ const PaymentSuccess = () => {
           }
 
           console.log("Enrollment successful for all courses");
+          dispatch(clearCart());
           router.push("/my-learning");
         } catch (error) {
           console.error("Error enrolling in courses:", error);
