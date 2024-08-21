@@ -1,3 +1,4 @@
+import React from 'react'
 import HeroSection from "@/components/HeroSection";
 import Navbar from "@/components/Navbar";
 import { useEffect, useState } from "react";
@@ -8,9 +9,8 @@ import Courses from "../components/Courses";
 import Footer from "@/components/Footer";
 import { useRouter } from "next/router";
 import { useSelector } from "react-redux";
-
-const Home = () => {
-  // Set current tab on mount
+const index = () => {
+    // Set current tab on mount
   useEffect(() => {
     setCurrentTab("home");
   }, []);
@@ -53,6 +53,6 @@ const Home = () => {
       </div>
     </>
   );
-};
+}
 
-export default Home;
+export default index

@@ -61,7 +61,7 @@ const Login = () => {
     dispatch(loginWithGoogle(token));
   };
   if (user) {
-    router.replace("/home");
+    router.replace("/");
   }
 
   return (

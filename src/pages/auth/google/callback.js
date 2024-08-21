@@ -15,7 +15,7 @@ const GoogleCallback = () => {
 
       console.log("result h ye :", result);
       if (result.payload.status) {
-        router.push("/home"); // Redirect to the home page upon success
+        router.push("/"); // Redirect to the home page upon success
       } else {
         console.error(result.payload.message);
       }
