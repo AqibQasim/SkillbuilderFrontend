@@ -7,6 +7,7 @@ import Button from "../../components/Button";
 import DashboardLayout from "../../components/DashboardLayout";
 import { fetchOneInstructor } from "../../../redux/thunks/instructorThunk";
 import AdminRevenueStatistics from "@/components/AdminRevenueStatistics";
+import { fetchInstructorByUserId } from "../../../redux/thunks/InstructorByUserIdThunk";
 
 const formatTimestamp = (timestamp) => {
   const date = new Date(timestamp * 1000);
@@ -57,33 +58,27 @@ function Payments() {
 
   const dispatch = useDispatch();
   const instructor = useSelector((state) => state.singleInstructor);
-  // const userId = useSelector((state) => state.auth.user);
+  const userId = useSelector((state) => state.auth.user);
+  const instructorId = useSelector(
+    (state) => state.instructorByUserId.instructorByUserId.id,
+  );
 
-  // useEffect(() => {
-   
-  //   dispatch(fetchOneInstructor(instur));
-
-  // }, [instructor, dispatch]);
-  
-
-  // useEffect(() => {
-
-  //   if()
-
-  //   console.log("id in the dashboard page: ", id)
-  
-    
-  // }, [id, dispatch]);
-  
+  console.log("user id: ", userId);
+  console.log("instructor id: ", instructorId);
 
   useEffect(() => {
+    if (!userId || instructorId) return;
+    dispatch(fetchInstructorByUserId(userId));
+  }, [userId]);
 
-    if (instructor) {
-      console.log("INSTRUCTOR DETAILS IN PAYMENTS", instructor)
+  useEffect(() => {
+    if (instructorId) {
+      console.log("INSTRUCTOR ID IN PAYMENTS", instructorId);
       const fetchPaymentDetails = async () => {
         try {
+          console.log(instructorId);
           const response = await fetch(
-            `http://127.0.0.1:4000/check-payment-rec?id=${instructor.user_id}`,
+            `http://127.0.0.1:4000/check-payment-rec?id=${instructorId}`,
             {
               method: "GET",
               headers: { "Content-Type": "application/json" },
@@ -165,7 +160,7 @@ function Payments() {
 
       fetchPaymentDetails();
     }
-  }, [instructor]);
+  }, [instructorId]);
 
   const getBankName = (bankId) => {
     const bankDetail = bankDetails.find((bank) => bank.id === bankId);
@@ -368,7 +363,7 @@ function Payments() {
       {/* Modal */}
       {isModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-gray-600 bg-opacity-50">
-          <div className="relative w-full max-w-xl h-5/6 overflow-y-auto rounded-lg bg-white p-4 shadow-lg">
+          <div className="relative h-5/6 w-full max-w-xl overflow-y-auto rounded-lg bg-white p-4 shadow-lg">
             <div className="flex justify-end">
               <button
                 onClick={closeModal}
@@ -380,8 +375,7 @@ function Payments() {
             <ConnectPayout stripe_account_id={connectedAccountId} />
           </div>
         </div>
-)}
-
+      )}
     </DashboardLayout>
   );
 }
