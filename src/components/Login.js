@@ -66,11 +66,18 @@ const Login = () => {
 
   return (
     <div className="w-full max-w-md rounded-md bg-white p-6 shadow-md">
-      {showError || formError ? (
+      {showError  ? (
         <ErrorMessage
           showError={showError}
           setShowError={setShowError}
           errorMessage={error}
+        />
+      ) : null}
+      {formError ? (
+        <ErrorMessage
+          showError={formError}
+          setShowError={setFormError}
+          errorMessage={formError}
         />
       ) : null}
       <h2 className="text-center text-2xl font-bold text-darkgray">
@@ -122,9 +129,9 @@ const Login = () => {
             />
           </div>
         </div>
-        {formError && (
+        {/* {formError && (
           <div className="mb-2 text-center text-red-500">{formError}</div>
-        )}
+        )} */}
 
         {/* {!formError && <div className="text-center text-red-500">{error}</div>} */}
         <Link
