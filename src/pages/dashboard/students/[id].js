@@ -82,8 +82,10 @@ const StudentsDetail = () => {
         className="mt-12"
         href="/dashboard/instructor-courses"
         // StudentEnrolledCourses of this current instructor
-        // enrolledCourses={studentEnrolledCoursesForThisInstructor}
-        enrolledCourses={[]}
+        enrolledCourses={studentEnrolledCoursesForThisInstructor.map((cour) =>
+          cour.rating ? cour : { ...cour, rating: 3.5 },
+        )}
+        // enrolledCourses={[]}
       />
     </DashboardLayout>
   );
