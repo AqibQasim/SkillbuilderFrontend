@@ -11,7 +11,13 @@ const instructorIntroVideoSlice = createSlice({
     loading: false,
     error: null,
   },
-  reducers: {},
+  reducers: {
+    resetState: (state) => {
+      state.successMessage = null;
+      state.loading = false;
+      state.error = null;
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(uploadIntroVideo.pending, (state) => {
@@ -38,6 +44,7 @@ const instructorIntroVideoSlice = createSlice({
       .addCase(
         createInstructorAndUploadIntroVideo.fulfilled,
         (state, action) => {
+          console.log("Intro Video success Payload ", action.payload);
           state.loading = false;
           state.successMessage = action.payload.message;
           state.error = null;
@@ -54,4 +61,5 @@ const instructorIntroVideoSlice = createSlice({
   },
 });
 
+export const { resetState } = instructorIntroVideoSlice.actions;
 export default instructorIntroVideoSlice.reducer;
