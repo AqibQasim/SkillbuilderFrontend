@@ -1,3 +1,4 @@
+import InstructorIntro from "./InstructorIntro";
 import LayoutWidth from "./LayoutWidth";
 function EnrolledCourseDetailsHero({ videolink }) {
   console.log("############", videolink);
@@ -5,7 +6,9 @@ function EnrolledCourseDetailsHero({ videolink }) {
     <div className="w-full bg-white py-4">
       <LayoutWidth>
         <div className="video-wrapper">
-          <VideoElement video={videolink} />
+          <InstructorIntro video={videolink} />
+
+          {/* <VideoElement video={videolink} /> */}
         </div>
       </LayoutWidth>
     </div>
