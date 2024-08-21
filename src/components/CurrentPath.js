@@ -25,7 +25,7 @@ function CurrentPath({ className, dynamicPath = "Dynamic title for id path" }) {
 
   return (
     <>
-      <Link href="/home" className="inline-flex">
+      <Link href="/" className="inline-flex">
         <HomeSvg className="h-5 w-5" />
       </Link>
       {formattedSegments.map((segment, index) => (

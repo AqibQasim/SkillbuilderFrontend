@@ -17,7 +17,7 @@ function DashboardHeader() {
           <Button
             fill="unfill"
             onClick={() => {
-              router.push(`/home`);
+              router.push(`/`);
             }}
           >
             Student
