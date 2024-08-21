@@ -9,6 +9,14 @@ function InstructorIntro({ video }) {
     <div className="mx-auto mt-8 w-[90%] max-w-screen-2xl">
       <SubHeading>Instructor introduction</SubHeading>
       <div className="mt-10 flex w-full items-center justify-center">
+        {/* <iframe
+          width="560"
+          height="315"
+          src="https://www.youtube.com/embed/a_g2ja3emGI"
+          frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen
+        ></iframe> */}
         <iframe
           width="100%"
           height="auto"
