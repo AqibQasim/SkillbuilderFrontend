@@ -18,7 +18,7 @@ import axios from "axios";
 // import { handleGoogleCallback } from "../../redux/thunks/googlethunk";
 
 import ShowPassword from "./ShowPassword";
-import ApiService from "../../redux/ApiService";
+// import ApiService from "../../redux/ApiService";
 // import { signupUser } from "../../redux/thunks/auththunks";
 
 const Signup = () => {

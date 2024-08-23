@@ -2,7 +2,7 @@ import Signup from "@/components/Signup";
 import redirectIfAuthenticated from "@/components/redirectIfAuthenticated";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import dotenv from "dotenv";
-dotenv.config({ path: '../../.env' });
+dotenv.config({ path: "../../.env" });
 
 function signup() {
   return (
