@@ -1,5 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { loginUser, signupUser, signupWithGoogle } from "../thunks/auththunks";
+import { editProfile } from "../thunks/profilethunk";
+import { filterObject } from "@/utils/filterObject";
 
 const initialState = {
   user: null,
@@ -20,6 +22,14 @@ const authSlice = createSlice({
     logout(state) {
       state.user = null;
       localStorage.removeItem("auth");
+    },
+    loginGoogleUserInStorage(state, action) {
+      console.log("action payload user id h ye : ", action.payload.user.id);
+      state.user = action.payload.user.id;
+      state.isLoading = false;
+      state.error = null;
+      // Save to localStorage
+      localStorage.setItem("auth", JSON.stringify(state.user));
     },
   },
   extraReducers: (builder) => {
@@ -68,5 +78,6 @@ const authSlice = createSlice({
     // });
   },
 });
-export const { logout, setSuccess, clearError } = authSlice.actions;
+export const { loginGoogleUserInStorage, logout, setSuccess, clearError } =
+  authSlice.actions;
 export default authSlice.reducer;

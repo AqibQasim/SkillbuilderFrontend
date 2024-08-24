@@ -1,20 +1,15 @@
 // import { signIn } from "next-auth/react";
-import Image from "next/image";
+import { GoogleLogin } from "@react-oauth/google";
+import { jwtDecode } from "jwt-decode";
+import { useSession } from "next-auth/react";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { signupUser, signupWithGoogle } from "../../redux/thunks/auththunks";
-import { useSession, signOut } from "next-auth/react";
-import { handleGoogleCallback } from "../../redux/thunks/googlethunk";
-import { GoogleLogin } from '@react-oauth/google';
-import { jwtDecode } from "jwt-decode";
-import { useRouter } from "next/router";
 import { clearError } from "../../redux/slices/authSlice";
-import {
-  clearEmail as clearLoginFlowEmail,
-  setEmail as setLoginFlowEmail,
-} from "../../redux/slices/loginFlowSlice";
-import axios from "axios";
+import { clearEmail as clearLoginFlowEmail } from "../../redux/slices/loginFlowSlice";
+import { loginGoogleUser, signupUser } from "../../redux/thunks/auththunks";
+import { handleGoogleCallback } from "../../redux/thunks/googlethunk";
 // import { handleGoogleCallback } from "../../redux/thunks/googlethunk";
 
 import ShowPassword from "./ShowPassword";
@@ -42,29 +37,28 @@ const Signup = () => {
 
   const handleGoogleSignIn = async () => {
     console.log("calling signup");
-    try{
-      
-    window.location.href = "http://localhost:4000/auth/google";
-    // const response = await fetch(`http://localhost:4000/auth/google`, {
-    //   method: "GET",
-    //   credentials: "include",
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //   },
-    // });
-    // const config = {
-    //     credentials: "include",
-    //     headers: {
-    //       "Content-Type": "application/json",
-    //     }
-    //   }
-    // const response = await axios.get(`http://localhost:4000/auth/google`, config);
-    // window.location.href = response.data.url;
-    console.log(`response.body: ${response.body}`);
-    dispatch(handleGoogleCallback);
-  } catch (error) {
-    console.error("Google Sign-In error:", error);
-  }
+    try {
+      window.location.href = "http://localhost:4000/auth/google";
+      // const response = await fetch(`http://localhost:4000/auth/google`, {
+      //   method: "GET",
+      //   credentials: "include",
+      //   headers: {
+      //     "Content-Type": "application/json",
+      //   },
+      // });
+      // const config = {
+      //     credentials: "include",
+      //     headers: {
+      //       "Content-Type": "application/json",
+      //     }
+      //   }
+      // const response = await axios.get(`http://localhost:4000/auth/google`, config);
+      // window.location.href = response.data.url;
+      console.log(`response.body: ${response.body}`);
+      dispatch(handleGoogleCallback);
+    } catch (error) {
+      console.error("Google Sign-In error:", error);
+    }
   };
 
   useEffect(() => {
@@ -73,18 +67,17 @@ const Signup = () => {
       createGoogleUser(data);
     }
   }, [status, data]);
-  
+
   useEffect(() => {
     dispatch(clearError());
     dispatch(clearLoginFlowEmail());
   }, []);
 
   const SignUpSSOUser = async (credentialResponse) => {
-  
     try {
       const decoded = jwtDecode(credentialResponse?.credential);
       console.log(decoded);
-  
+
       const fullName = decoded.name;
       const nameParts = fullName.split(" ");
       const fname = nameParts.splice(0, 1)[0];
@@ -103,22 +96,31 @@ const Signup = () => {
       });
       const data = await response.json();
       console.log("response: ", data);
-  
+
       if (!response.ok) {
         throw new Error(data.message || "Unable to Signup");
       } else {
         const token = data.message;
         console.log("Token: ", token);
-  
         const decodedToken = jwtDecode(token);
         console.log(decodedToken);
-  
-        const id = decodedToken.id;
-        const email = decodedToken.email;
-  
-        dispatch(setLoginFlowEmail(email));
-  
-        router.replace("/home");
+        const { id, email } = decodedToken;
+        console.log("decoded data to set for profile ?: ", decoded);
+        const { given_name, family_name } = decoded;
+        const user = {
+          id,
+          email,
+          first_name: given_name,
+          last_name: family_name,
+        };
+        const googleLoginPayload = {
+          token,
+          user,
+        };
+        // Google user login
+        dispatch(loginGoogleUser(googleLoginPayload));
+
+        // router.replace("/home");
       }
     } catch (error) {
       console.error("Signup error:", error.message);
@@ -314,7 +316,7 @@ const Signup = () => {
               className="form-checkbox h-4 w-4 text-blue-500"
               required
             />
-            <span className="ml-2 text-sm font-semibold text-black">
+            <span className="text-black ml-2 text-sm font-semibold">
               I agree to all our{" "}
               <a href="/login" className="text-blue-600 hover:underline">
                 Terms & Conditions
@@ -353,7 +355,7 @@ const Signup = () => {
           <span className="mx-4 text-gray-300">Or</span>
           <div className="flex-grow border-t border-gray-300"></div>
         </div>
-        
+
         {/* <button
           onClick={handleGoogleSignIn}
           // onClick={() => signIn("google")}
@@ -362,14 +364,14 @@ const Signup = () => {
           <span className="mr-2">
             <Image src="/googlelogo.png" width={25} height={25} alt="" />
             {/* <img src={googleicon} width={24} height={24} alt="Google Icon" /> */}
-          {/*</span>
+        {/*</span>
           <span className="text-sm font-semibold">Continue with Google</span>
         </button> */}
         <div className="w-full">
           <GoogleLogin
             onSuccess={SignUpSSOUser}
             onError={() => {
-              console.log('Login Failed');
+              console.log("Login Failed");
             }}
           />
         </div>

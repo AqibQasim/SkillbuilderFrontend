@@ -1,5 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { setSuccess } from "../slices/authSlice";
+import { loginGoogleUserInStorage, setSuccess } from "../slices/authSlice";
 import { editProfile } from "./profilethunk";
 import { filterObject } from "@/utils/filterObject";
 
@@ -34,6 +34,38 @@ export const loginUser = createAsyncThunk(
       return data; // assuming the API returns the user object
     } catch (error) {
       return rejectWithValue(error.message || "Failed to login");
+    }
+  },
+);
+
+export const loginGoogleUser = createAsyncThunk(
+  "auth/loginGoogleUser",
+  async (userData, { dispatch, rejectWithValue }) => {
+    console.log(
+      "this is user data to login user and update profile: ",
+      userData,
+    );
+    try {
+      const loginGoogleUserResult = dispatch(
+        loginGoogleUserInStorage(userData),
+      );
+      console.log("Google Login Result:", loginGoogleUserResult);
+
+      // Update profile
+      let dataForProfile;
+      if (userData?.user) {
+        dataForProfile = filterObject(userData?.user);
+        console.log(`dataForProfile: ${dataForProfile}`);
+        const editProfileResult = await dispatch(editProfile(dataForProfile)); // Assuming you meant to call editProfile here
+        console.log("Edit Profile Result:", editProfileResult);
+      }
+
+      return {
+        message: "Successfully logged in and profile updated via Google",
+      };
+    } catch (error) {
+      console.error("Google Login Error:", error.message);
+      return rejectWithValue(error.message || "Failed to log in via Google");
     }
   },
 );
@@ -156,7 +188,7 @@ export const fetchAllCourses = createAsyncThunk(
     try {
       const response = await fetch(
         `${process.env.NEXT_PUBLIC_BASE_API}/all-courses`,
-        { 
+        {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
