@@ -11,6 +11,7 @@ import {
 import { loginUser } from "../../redux/thunks/auththunks";
 import ErrorMessage from "./ErrorMessage";
 import ShowPassword from "./ShowPassword";
+import GoogleSignup from "./GoogleSignup";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -66,7 +67,7 @@ const Login = () => {
 
   return (
     <div className="w-full max-w-md rounded-md bg-white p-6 shadow-md">
-      {showError  ? (
+      {showError ? (
         <ErrorMessage
           showError={showError}
           setShowError={setShowError}
@@ -159,7 +160,7 @@ const Login = () => {
           <span className="mx-4 text-gray-300">Or Login With</span>
           <div className="flex-grow border-t border-gray-300"></div>
         </div>
-        <button className="text-black mb-4 mt-4 flex w-full items-center justify-center rounded-lg border border-google-border bg-white p-2">
+        {/* <button className="text-black mb-4 mt-4 flex w-full items-center justify-center rounded-lg border border-google-border bg-white p-2">
           <span className="mr-2">
             <Image src="/googlelogo.png" width={25} height={25} />
           </span>
@@ -174,7 +175,9 @@ const Login = () => {
           >
             Continue with Google
           </span>
-        </button>
+        </button> */}
+        {/* Continue with google component */}
+        <GoogleSignup />
       </div>
       <div className="mt-4 text-center">
         <p className="text-sm">

@@ -1,21 +1,14 @@
-// import { signIn } from "next-auth/react";
-import { GoogleLogin } from "@react-oauth/google";
-import { jwtDecode } from "jwt-decode";
+import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { clearError } from "../../redux/slices/authSlice";
 import { clearEmail as clearLoginFlowEmail } from "../../redux/slices/loginFlowSlice";
-import { loginGoogleUser, signupUser } from "../../redux/thunks/auththunks";
-import { handleGoogleCallback } from "../../redux/thunks/googlethunk";
-import { useSession, signOut } from "next-auth/react";
+import { signupUser } from "../../redux/thunks/auththunks";
 import ErrorMessage from "./ErrorMessage";
-// import { handleGoogleCallback } from "../../redux/thunks/googlethunk";
-
 import ShowPassword from "./ShowPassword";
-// import ApiService from "../../redux/ApiService";
-// import { signupUser } from "../../redux/thunks/auththunks";
+import GoogleSignup from "./GoogleSignup";
 
 const Signup = () => {
   const router = useRouter();
@@ -36,95 +29,10 @@ const Signup = () => {
     (state) => state.auth,
   );
 
-  // useEffect(() => {
-  //   if (status === "authenticated") {
-  //     console.log("AUTHENTICATED SUCCESSFULLY!");
-  //     createGoogleUser(data);
-  //   }
-  // }, [status, data]);
-
   useEffect(() => {
     dispatch(clearError());
     dispatch(clearLoginFlowEmail());
   }, []);
-
-  const SignUpSSOUser = async (credentialResponse) => {
-    try {
-      const decoded = jwtDecode(credentialResponse?.credential);
-      console.log(decoded);
-
-      const fullName = decoded.name;
-      const nameParts = fullName.split(" ");
-      const fname = nameParts.splice(0, 1)[0];
-      const lname = nameParts.join(" ");
-      const dataSend = {
-        email: decoded.email,
-        fname: fname,
-        lname: lname,
-      };
-      const response = await fetch(`http://localhost:4000/signup-googleSSO`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(dataSend),
-      });
-      const data = await response.json();
-      console.log("response: ", data);
-      const changeData = data?.token || data?.message;
-
-      if (!response.ok) {
-        throw new Error(data.message || "Unable to Signup");
-      } else {
-        const token = changeData;
-        console.log("Token: ", token);
-        const decodedToken = jwtDecode(token);
-        console.log(decodedToken);
-        const { id, email } = decodedToken;
-        console.log("decoded data to set for profile ?: ", decoded);
-        const { given_name, family_name } = decoded;
-        const user = {
-          id,
-          email,
-          first_name: given_name,
-          last_name: family_name,
-        };
-        const googleLoginPayload = {
-          token,
-          user,
-        };
-        // Google user login
-        dispatch(loginGoogleUser(googleLoginPayload));
-
-        // router.replace("/home");
-      }
-    } catch (error) {
-      console.error("Signup error:", error.message);
-    }
-  };
-
-  const createGoogleUser = async (data) => {
-    try {
-      const reqBody = {
-        email: data?.user?.email,
-        image: data?.user?.image,
-        name: data?.user?.name,
-      };
-
-      const response = await fetch("/api/create-user", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(reqBody),
-      });
-      const result = await response.json();
-      console.log("Google user created:", result);
-    } catch (err) {
-      console.log("ERR:", err);
-      setShowError(true);
-    }
-  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -362,14 +270,8 @@ const Signup = () => {
         {/*</span>
           <span className="text-sm font-semibold">Continue with Google</span>
         </button> */}
-        <div className="w-full">
-          <GoogleLogin
-            onSuccess={SignUpSSOUser}
-            onError={() => {
-              console.log("Login Failed");
-            }}
-          />
-        </div>
+        {/* Continue with google component */}
+        <GoogleSignup />
       </div>
     </div>
   );
