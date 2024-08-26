@@ -1,7 +1,6 @@
 // import { signIn } from "next-auth/react";
 import { GoogleLogin } from "@react-oauth/google";
 import { jwtDecode } from "jwt-decode";
-import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
@@ -10,6 +9,8 @@ import { clearError } from "../../redux/slices/authSlice";
 import { clearEmail as clearLoginFlowEmail } from "../../redux/slices/loginFlowSlice";
 import { loginGoogleUser, signupUser } from "../../redux/thunks/auththunks";
 import { handleGoogleCallback } from "../../redux/thunks/googlethunk";
+import { useSession, signOut } from "next-auth/react";
+import ErrorMessage from "./ErrorMessage";
 // import { handleGoogleCallback } from "../../redux/thunks/googlethunk";
 
 import ShowPassword from "./ShowPassword";
@@ -24,49 +25,23 @@ const Signup = () => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [formError, setFormError] = useState("");
-  const [gmailData, setGmailData] = useState();
-  const [gstatus, setgStatus] = useState();
-  const { data, status } = useSession();
+  const [showError, setShowError] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+
+  const { data, status } = useSession();
   const dispatch = useDispatch();
 
   const { isLoading, error, successMessage } = useSelector(
     (state) => state.auth,
   );
 
-  const handleGoogleSignIn = async () => {
-    console.log("calling signup");
-    try {
-      window.location.href = "http://localhost:4000/auth/google";
-      // const response = await fetch(`http://localhost:4000/auth/google`, {
-      //   method: "GET",
-      //   credentials: "include",
-      //   headers: {
-      //     "Content-Type": "application/json",
-      //   },
-      // });
-      // const config = {
-      //     credentials: "include",
-      //     headers: {
-      //       "Content-Type": "application/json",
-      //     }
-      //   }
-      // const response = await axios.get(`http://localhost:4000/auth/google`, config);
-      // window.location.href = response.data.url;
-      console.log(`response.body: ${response.body}`);
-      dispatch(handleGoogleCallback);
-    } catch (error) {
-      console.error("Google Sign-In error:", error);
-    }
-  };
-
-  useEffect(() => {
-    if (status === "authenticated") {
-      console.log("AUTHENTICATED SUCCESSFULLY!");
-      createGoogleUser(data);
-    }
-  }, [status, data]);
+  // useEffect(() => {
+  //   if (status === "authenticated") {
+  //     console.log("AUTHENTICATED SUCCESSFULLY!");
+  //     createGoogleUser(data);
+  //   }
+  // }, [status, data]);
 
   useEffect(() => {
     dispatch(clearError());
@@ -96,11 +71,12 @@ const Signup = () => {
       });
       const data = await response.json();
       console.log("response: ", data);
+      const changeData = data?.token || data?.message;
 
       if (!response.ok) {
         throw new Error(data.message || "Unable to Signup");
       } else {
-        const token = data.message;
+        const token = changeData;
         console.log("Token: ", token);
         const decodedToken = jwtDecode(token);
         console.log(decodedToken);
@@ -146,6 +122,7 @@ const Signup = () => {
       console.log("Google user created:", result);
     } catch (err) {
       console.log("ERR:", err);
+      setShowError(true);
     }
   };
 
@@ -177,7 +154,11 @@ const Signup = () => {
     if (password)
       dispatch(signupUser({ first_name, last_name, email, password }));
   };
-
+  useEffect(() => {
+    if (error) {
+      setShowError(true);
+    }
+  }, [error]);
   // const { data, status } = useSession();
   console.log("data:", data, "status:", status);
   if (status === "loading") return <h1> loading... please wait</h1>;
@@ -187,6 +168,20 @@ const Signup = () => {
 
   return (
     <div className="w-full max-w-md rounded-md bg-white px-6 py-4 shadow-md">
+      {formError ? (
+        <ErrorMessage
+          showError={formError}
+          setShowError={setFormError}
+          errorMessage={formError}
+        />
+      ) : null}
+      {showError && (
+        <ErrorMessage
+          showError={showError}
+          setShowError={setShowError}
+          errorMessage={error}
+        />
+      )}
       <h2 className="text-2xl font-bold text-darkgray">Create Your Account</h2>
       <p className="text-lightgray">Start your learning journey with us </p>
       {/* Form */}
@@ -299,9 +294,9 @@ const Signup = () => {
             />
           </div>
         </div>
-        {formError && (
+        {/* {formError && (
           <div className="mb-2 text-center text-red-500">{formError}</div>
-        )}
+        )} */}
         {successMessage && (
           <div className="mb-2 text-center text-green-500">
             {successMessage}
@@ -334,7 +329,7 @@ const Signup = () => {
             {isLoading ? "Signing up..." : "Sign Up"}
           </button>
         </div>
-        {error && <div className="text-center text-red-500">{error}</div>}
+        {/* {error && <div className="text-center text-red-500">{error}</div>} */}
       </form>
 
       {/* Login Link */}
@@ -359,7 +354,7 @@ const Signup = () => {
         {/* <button
           onClick={handleGoogleSignIn}
           // onClick={() => signIn("google")}
-          className="mb-4 mt-4 flex w-full items-center justify-center rounded-lg border border-black bg-white p-2 text-black"
+          className="border-black text-black mb-4 mt-4 flex w-full items-center justify-center rounded-lg border bg-white p-2"
         >
           <span className="mr-2">
             <Image src="/googlelogo.png" width={25} height={25} alt="" />
@@ -379,4 +374,5 @@ const Signup = () => {
     </div>
   );
 };
+
 export default Signup;

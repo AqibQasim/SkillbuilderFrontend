@@ -39,7 +39,6 @@ module.exports = {
         "max-lg": { max: "1250px" }, // Styles for devices smaller than 1024px
         "max-xlg": { max: "1422px" },
       },
-
       colors: {
         "dashboard-border": {
           DEFAULT: "#E0E3F0",
@@ -111,9 +110,25 @@ module.exports = {
         },
         gray: {
           "shade-1": "#878A99",
-          "shade-2": "shade 2 goes here",
+          "shade-2": "#D5D5D5",
           "shade-3": "#F0F1F5",
           // this is max ignore other shades if exists use one of these instead!.
+        },
+        approve: {
+          DEFAULT: "#18B100",
+          "hover-bg": "#EDFFEB",
+        },
+        decline: {
+          DEFAULT: "#FF0000",
+          "hover-bg": "#FFF2F2",
+        },
+        suspend: {
+          DEFAULT: "#FF9800",
+          "hover-bg": "#FFF4EB",
+        },
+        delete: {
+          DEFAULT: "#D32F2F",
+          text: "#FFFFFF",
         },
       },
       spacing: {
@@ -130,9 +145,14 @@ module.exports = {
     },
   },
   variants: {
-    scrollbar: ['rounded'],
+    scrollbar: ["rounded"],
   },
-  plugins: [
-    require('tailwind-scrollbar'),
+  plugins: [require("tailwind-scrollbar")],
+  safelist: [
+    "text-yellow-500",
+    "text-yellow-300",
+    "text-blue-500",
+    "text-blue-300",
+    // Add other color variations you plan to use
   ],
 };

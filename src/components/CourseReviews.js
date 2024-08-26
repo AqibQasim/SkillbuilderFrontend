@@ -2,7 +2,8 @@ import React from "react";
 import StarRating from "./StarRating";
 import Image from "next/image";
 import LayoutWidth from "./LayoutWidth";
-import formatDate from '../utils/formatDate';
+import formatDate from "../utils/formatDate";
+import {useRouter} from "next/router";
 
 // const reviews = [
 //   {
@@ -28,23 +29,48 @@ import formatDate from '../utils/formatDate';
 //   },
 // ];
 
-const CourseReviews = ({ reviews }) => {
+const CourseReviews = ({ reviews, CourseId }) => {
 
+  const router = useRouter();
+  console.log("I am courseID from CourseReviews.js: ", CourseId);
+  const handleViewAll = () => {
+    console.log("View All Button is clicked!!");
+    router.push(`/coursereview/${CourseId}`);
+  }
   console.log("reviews in course reviews", reviews);
+  if (!reviews || reviews.length === 0)
+    return (
+      <LayoutWidth>
+        <div className="no-reviews">
+          <h1 className="text-2xl font-semibold max-sm:mb-[1rem] max-sm:mt-[1rem] max-sm:w-[100%] max-sm:text-center max-sm:text-xl">
+            Course Reviews
+          </h1>
+          <p>
+            There are no reviews for this course yet. Be the first to leave a
+            review!
+          </p>
+        </div>
+      </LayoutWidth>
+    );
   return (
     // <div className="container mt-12">
     <LayoutWidth>
       <div className="mt-12">
-        <h1 className="text-2xl mb-12  font-semibold max-sm:mt-[1rem]  max-sm:text-center max-sm:text-xl max-sm:w-[100%] max-sm:mb-[1rem]">
-          Course Reviews
-        </h1>
-        <div className="w-full flex flex-col justify-center items-center">
-          <div className="h-auto w-[95%] grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 place-items-center">
-            {reviews.slice(0,3  ).map((review) => (
-              <div className="bg-white shadow-lg  rounded-tr-3xl rounded-bl-3xl p-4 max-w-sm">
-                <div className="flex items-center space-x-4">
+        <div className="flex justify-between">
+          <h1 className="mb-12 text-2xl font-semibold max-sm:mb-[1rem] max-sm:mt-[1rem] max-sm:w-[100%] max-sm:text-center max-sm:text-xl">
+            Course Reviews
+          </h1>
+          <button className="text-gray-500" onClick={handleViewAll}>
+            View All
+          </button>
+        </div>
+        <div className="flex w-full flex-col items-center justify-center">
+          <div className="grid h-auto w-[95%] grid-cols-1 place-items-center items-start gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {reviews.slice(0, 3).map((review) => (
+              <div className="max-w-sm rounded-bl-3xl rounded-tr-3xl bg-white p-4 shadow-lg">
+                <div className="flex items-center space-x-4 object-contain">
                   <Image
-                    src='/instructor.png' // Add the path to your image
+                    src={review?.user?.profile || "/Avatardisplay.png"}
                     alt="Profile Picture"
                     width={50}
                     height={50}
@@ -53,16 +79,24 @@ const CourseReviews = ({ reviews }) => {
                   <div className="p-2">
                     <div className="flex items-center justify-between">
                       {/* <h3 className="text-lg font-semibold">{review.name}</h3> */}
-                      <h3 className="text-lg font-semibold">Zubair Alam</h3>
+                      <h3 className="text-lg font-semibold">
+                        {`${review?.user?.first_name} ${review?.user?.last_name}`}
+                      </h3>
                       <p></p>
                     </div>
                     <div className="flex items-center">
-                      <StarRating rating={Math.round(parseInt(review?.rating))} />
-                      <p className="text-gray-500 text-xs	ml-4">{formatDate(review?.date)}</p>
+                      <StarRating
+                        rating={Math.round(parseInt(review?.rating))}
+                      />
+                      <p className="ml-4 text-xs text-gray-500">
+                        {formatDate(review?.date)}
+                      </p>
                     </div>
                   </div>
                 </div>
-                <p className="mt-2 text-gray-600 text-sm p-2">{review?.review}</p>
+                <p className="mt-2 p-2 text-sm text-gray-600">
+                  {review?.review}
+                </p>
               </div>
             ))}
           </div>

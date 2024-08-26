@@ -69,7 +69,7 @@ const Navbar = ({ cartItemsLength }) => {
               </button>
             </div>
 
-            <div className="text-gray-shade-1 flex hidden w-full items-center justify-center gap-3 lg:flex lg:w-auto lg:text-sm">
+            <div className="flex hidden w-full items-center justify-center gap-3 text-gray-shade-1 lg:flex lg:w-auto lg:text-sm">
               <Link
                 // className={
                 //   // currentTab === "home"
@@ -77,8 +77,8 @@ const Navbar = ({ cartItemsLength }) => {
                 //     ? `rounded-lg bg-bg_gray px-[1.2rem] py-2 font-semibold text-blue lg:px-[0.8rem]`
                 //     : `px-[1.2rem] py-2 lg:px-[0.5rem]`
                 // }
-                className={`rounded-lg px-[1.2rem] py-2 font-semibold lg:px-[0.8rem] ${pathname === "/home" ? `bg-bg_gray text-blue` : ""} `}
-                href="/home"
+                className={`rounded-lg px-[1.2rem] py-2 font-semibold lg:px-[0.8rem] ${pathname === "/" ? `bg-bg_gray text-blue` : ""} `}
+                href="/"
               >
                 Home
               </Link>
@@ -166,7 +166,7 @@ const Navbar = ({ cartItemsLength }) => {
             <div className="flex flex-col items-center gap-4">
               <Link
                 className="rounded-lg px-[1.2rem] py-2 lg:px-[0.5rem]"
-                href="/home"
+                href="/"
               >
                 Home
               </Link>

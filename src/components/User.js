@@ -1,80 +1,149 @@
 import { useOutsideClick } from "@/utils/useOutsideClick";
-import { signOut, useSession } from "next-auth/react";
+import { googleLogout } from "@react-oauth/google";
+import { useSession } from "next-auth/react";
+import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../../redux/slices/authSlice";
 import { remove } from "../../redux/slices/profileSlice";
+import { fetchOneUser } from "../../redux/thunks/userInfoThunk";
 import Avatar from "./Avatar";
 import BellIconSvg from "./BellIconSvg";
+import Button from "./Button";
 import CartIconSvg from "./CartIconSvg";
 import ChatIconSvg from "./ChatIconSvg";
 import ChevronRightIconSvg from "./ChevronRightIconSvg";
-import Button from "./Button";
 
-// TODO make it dry
 function User({ cartClickHandler, cartItemsLength }) {
-  console.log("cart item length:", cartItemsLength);
   const [show, setShow] = useState(false);
+  const [showNotification, setShowNotification] = useState(false);
   const [showIconsOnSmallScreen, setShowIconsOnSmallScreen] = useState(false);
   const { user, isLoading } = useSelector((store) => store.auth);
   const profile = useSelector((store) => store.profile);
   const ref = useOutsideClick(handleClose);
   const dispatch = useDispatch();
-
   const { data: session, status } = useSession();
+  const router = useRouter();
+  const instructorid = useSelector((state) => state.singleInstructor.id);
+  const userAlreadyAvailableId = useSelector(
+    (state) => state.singleUser.userData.id,
+  );
+  const isSSOUser = useSelector((state) => state.singleUser.userData.isSSOUser);
+  useEffect(() => {
+    if (userAlreadyAvailableId) return;
+    dispatch(fetchOneUser(user));
+  }, [userAlreadyAvailableId]);
 
-  console.log("Session", session);
-  console.log("Status", status);
+  console.log("Instructor ki id h ye : ", instructorid);
+
+  // const instructorPath = instructorid ? "/dashboard" : "/details-upload";
+  const handleNavigation = () => {
+    const path = instructorid ? "/dashboard" : "/details-upload";
+
+    try {
+      router.push(path);
+    } catch (error) {
+      console.error("Error navigating to the path:", error);
+      // Optional: Display an alert or a message to the user
+      alert("Unable to navigate. Please try again later.");
+    }
+  };
 
   function handleClose() {
     if (!show) return;
     setShow(false);
   }
-  // Handle logout
+
   function handleLogout() {
-    if (session) {
+    // if (session) {
+    //   dispatch(remove());
+    //   googleLogout();
+    //   signOut();
+    // }
+    if (isSSOUser) {
+      googleLogout();
       dispatch(remove());
-      signOut();
     }
     if (user) {
       dispatch(remove());
       dispatch(logout());
     }
   }
+  let notification = [
+    {
+      id: 1,
+      name: "Aahil Alvani",
+      description: "This is description ",
+    },
+    {
+      id: 2,
+      name: "Aahil Alvani",
+      description: "This is description",
+    },
+    {
+      id: 3,
+      name: "Aahil Alvani",
+      description: "This is description",
+    },
+    {
+      id: 4,
+      name: "Aahil Alvani",
+      description: "This is description",
+    },
+  ];
   useEffect(() => {
     if (status === "authenticated" || user) {
     }
   }, [status, user]);
+
   if (status === "loading" || isLoading) {
     return null;
   }
+
+  const isAdminRoute = router.pathname.includes("/admin");
+
   if (status === "authenticated" || user) {
     return (
       <div className="relative inline-flex items-center justify-center gap-3 text-dark-svg">
-        <button className="hidden w-[100%] md:flex">
-          <CartIconSvg clickHandler={cartClickHandler} className="h-7 w-7" />
-          {cartItemsLength ? (
-            <>
-              <div className="flex h-[1.25rem] w-[1.25rem] items-center justify-center rounded-[100%] bg-red-600 text-sm text-white">
-                {cartItemsLength}
-              </div>
-            </>
-          ) : (
-            <></>
-          )}
-        </button>
-        <button className="hidden md:block">
-          <BellIconSvg className="h-7 w-7" />
-        </button>
-        <button className="hidden md:block">
-          <ChatIconSvg className="h-7 w-7" />
-        </button>
+        {!isAdminRoute && (
+          <>
+            <button className="hidden w-[100%] md:flex">
+              <CartIconSvg
+                clickHandler={cartClickHandler}
+                className="h-7 w-7"
+              />
+              {cartItemsLength ? (
+                <div className="flex h-[1.25rem] w-[1.25rem] items-center justify-center rounded-[100%] bg-red-600 text-sm text-white">
+                  {cartItemsLength}
+                </div>
+              ) : null}
+            </button>
+            <button
+              className="hidden md:block"
+              onClick={() => {
+                setShowNotification((prevalue) => !prevalue);
+                if (show) setShow(false);
+              }}
+            >
+              <BellIconSvg className="h-7 w-7" />
+            </button>
+            <button className="hidden md:block">
+              <ChatIconSvg className="h-7 w-7" />
+            </button>
+          </>
+        )}
         <div
           ref={ref}
           className="action relative flex items-center justify-center"
         >
-          <button onClick={() => setShow((prevValue) => !prevValue)}>
+          <button
+            onClick={() => {
+              setShow((prevValue) => !prevValue);
+              if (showNotification) setShowNotification(false);
+            }}
+          >
             {session?.user?.image ? (
               <img
                 src={session?.user?.image}
@@ -83,23 +152,18 @@ function User({ cartClickHandler, cartItemsLength }) {
               />
             ) : (
               <Avatar
-                name={profile.first_name || user.first_name}
+                firstName={profile.first_name || user.first_name}
+                lastName={profile.last_name || user.last_name}
                 className="h-7 w-7"
               />
             )}
           </button>
           <div
-            className={`absolute -right-6 top-6 z-50 min-w-80 rounded-lg bg-white py-3 shadow-lg transition-all duration-300 sm:right-0 ${
-              show
-                ? "visible translate-y-3 opacity-100"
-                : "invisible translate-y-0 opacity-0"
-            }`}
+            className={`absolute -right-6 top-6 z-50 min-w-80 rounded-lg bg-white py-3 shadow-lg transition-all duration-300 sm:right-0 ${show ? "visible translate-y-3 opacity-100" : "invisible translate-y-0 opacity-0"}`}
           >
-            <div
-              className={`mb-5 flex flex-col items-center justify-center px-5`}
-            >
+            <div className="mb-5 flex flex-col items-center justify-center px-5">
               <div
-                className={`flex items-center justify-center gap-2 transition-all`}
+                className="flex items-center justify-center gap-2 transition-all"
                 onMouseEnter={() => setShowIconsOnSmallScreen(true)}
                 onMouseLeave={() => setShowIconsOnSmallScreen(false)}
               >
@@ -111,37 +175,38 @@ function User({ cartClickHandler, cartItemsLength }) {
                   />
                 ) : (
                   <Avatar
-                    name={profile.first_name || user.first_name}
+                    firstName={profile.first_name || user.first_name}
+                    lastName={profile.last_name || user.last_name}
                     className={`z-[2] h-16 w-16 cursor-pointer transition-all duration-300 ${showIconsOnSmallScreen ? "translate-x-0" : "translate-x-[3.4rem] md:translate-x-0"}`}
                   />
                 )}
-                <button
-                  className={`transition-all duration-300 md:hidden ${showIconsOnSmallScreen ? "scale-1 translate-x-4 opacity-100" : "translate-x-0 opacity-0"}`}
-                >
-                  <ChatIconSvg className="h-7 w-7" />
-                </button>
-                <button
-                  className={`transition-all delay-100 duration-300 md:hidden ${showIconsOnSmallScreen ? "scale-1 translate-x-4 opacity-100" : "translate-x-0 opacity-0"}`}
-                >
-                  <BellIconSvg className="h-7 w-7" />
-                </button>
-                <button
-                  className={`flex transition-all delay-200 duration-300 md:hidden ${showIconsOnSmallScreen ? "scale-1 translate-x-4 opacity-100" : "translate-x-0 opacity-0"}`}
-                >
-                  <CartIconSvg
-                    clickHandler={cartClickHandler}
-                    className="h-7 w-7"
-                  />
-                  {cartItemsLength ? (
-                    <>
-                      <div className="flex h-[1.25rem] w-[1.25rem] items-center justify-center rounded-[100%] bg-red-600 text-sm text-white">
-                        {cartItemsLength}
-                      </div>
-                    </>
-                  ) : (
-                    <></>
-                  )}
-                </button>
+                {!isAdminRoute && (
+                  <>
+                    <button
+                      className={`transition-all duration-300 md:hidden ${showIconsOnSmallScreen ? "scale-1 translate-x-4 opacity-100" : "translate-x-0 opacity-0"}`}
+                    >
+                      <ChatIconSvg className="h-7 w-7" />
+                    </button>
+                    <button
+                      className={`transition-all delay-100 duration-300 md:hidden ${showIconsOnSmallScreen ? "scale-1 translate-x-4 opacity-100" : "translate-x-0 opacity-0"}`}
+                    >
+                      <BellIconSvg className="h-7 w-7" />
+                    </button>
+                    <button
+                      className={`flex transition-all delay-200 duration-300 md:hidden ${showIconsOnSmallScreen ? "scale-1 translate-x-4 opacity-100" : "translate-x-0 opacity-0"}`}
+                    >
+                      <CartIconSvg
+                        clickHandler={cartClickHandler}
+                        className="h-7 w-7"
+                      />
+                      {cartItemsLength ? (
+                        <div className="flex h-[1.25rem] w-[1.25rem] items-center justify-center rounded-[100%] bg-red-600 text-sm text-white">
+                          {cartItemsLength}
+                        </div>
+                      ) : null}
+                    </button>
+                  </>
+                )}
               </div>
               <p className="text-center font-semibold text-gray-500">
                 {session?.user?.name || profile?.first_name}
@@ -152,22 +217,26 @@ function User({ cartClickHandler, cartItemsLength }) {
             </div>
             <ul className="space-y-1">
               <li>
-                <Link
-                  href="/my-learning"
-                  className="inline-flex w-full items-center justify-between px-5 py-2 text-gray-700 hover:bg-gray-100"
+                <button
+                  onClick={() => {
+                    router.push("/my-learning");
+                  }}
+                  className="mt-4 inline-flex w-full items-center justify-between px-5 py-2 text-gray-700 hover:bg-gray-100"
                 >
                   My Learning
                   <ChevronRightIconSvg className="h-4 w-4" />
-                </Link>
+                </button>
               </li>
               <li>
-                <Link
-                  href="/profile"
-                  className="inline-flex w-full items-center justify-between px-5 py-2 text-gray-700 hover:bg-gray-100"
+                <button
+                  onClick={() => {
+                    router.push("/profile");
+                  }}
+                  className="mt-1 inline-flex w-full items-center justify-between px-5 py-2 text-gray-700 hover:bg-gray-100"
                 >
                   Account Settings
                   <ChevronRightIconSvg className="h-4 w-4" />
-                </Link>
+                </button>
               </li>
               <li>
                 <Link
@@ -188,24 +257,58 @@ function User({ cartClickHandler, cartItemsLength }) {
                 </Link>
               </li>
               <li>
-                <Link
-                  href="/become-a-tutor"
+                {/* <Link
+                  href={handleNavigation}
                   className="inline-flex w-full items-center justify-between px-5 py-2 text-gray-700 hover:bg-gray-100"
                 >
                   Become a Tutor
                   <ChevronRightIconSvg className="h-4 w-4" />
-                </Link>
+                </Link> */}
+                <button
+                  onClick={handleNavigation}
+                  className="inline-flex w-full items-center justify-between px-5 py-2 text-gray-700 hover:bg-gray-100"
+                >
+                  Become a Tutor
+                  <ChevronRightIconSvg className="h-4 w-4" />
+                </button>
               </li>
               <li className="!mt-5 px-5">
-                {/* <button
-                  className="mx-5 mt-5 w-full items-center justify-between rounded-lg bg-blue px-4 py-2 text-white"
-                >
-                  Log Out
-                </button> */}
                 <Button onClick={handleLogout}>Logout</Button>
               </li>
             </ul>
           </div>
+          {/* ________________________________ */}
+          <div
+            className={`absolute -right-6 top-6 z-50 min-w-80 rounded-lg bg-white px-2 py-3 py-4 shadow-lg transition-all duration-300 sm:right-0 ${showNotification ? "visible translate-y-3 opacity-100" : "invisible translate-y-0 opacity-0"}`}
+          >
+            <h2 className="text-lg font-bold">Notification</h2>
+            <hr />
+            <ul className="">
+              {notification.map((noti) => (
+                <>
+                  <li className="flex gap-4 py-6">
+                    <div>
+                      <Image
+                        src="/Avatardisplay.png"
+                        width={30}
+                        height={30}
+                        alt=""
+                        className="ml-2 rounded-full"
+                      />
+                    </div>
+                    <div className="w-full self-center">
+                      <span className="text-sm font-semibold">{noti.name}</span>
+                      <span className="pl-1 text-xs text-[#4A525D]">
+                        {noti.description}
+                      </span>
+                    </div>
+                  </li>
+                  <hr />
+                </>
+              ))}
+            </ul>
+          </div>
+          {/* ________________________________ */}
         </div>
       </div>
     );
@@ -213,11 +316,12 @@ function User({ cartClickHandler, cartItemsLength }) {
 
   return (
     <Link
-      href="/signup"
+      href="/login"
       className="hidden w-full items-center justify-between rounded-lg bg-blue px-4 py-2 text-white lg:flex lg:w-auto"
     >
       Get started
     </Link>
   );
 }
+
 export default User;

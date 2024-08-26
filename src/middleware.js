@@ -11,7 +11,7 @@ export async function middleware(request) {
   // Redirect logged-in users away from login/signup pages
   if (token) {
     if (pathname === "/login" || pathname === "/signup") {
-      return NextResponse.redirect(new URL("/home", request.url));
+      return NextResponse.redirect(new URL("/", request.url));
     }
     return NextResponse.next();
   }
@@ -26,7 +26,7 @@ export async function middleware(request) {
 }
 
 export const config = {
-  matcher: [ "/login", "/signup"],
+  matcher: ["/login", "/signup"],
 };
 
 // not using next-auth  provided middleware as i couldnt fix signup page redirect issue

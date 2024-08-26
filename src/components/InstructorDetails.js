@@ -1,147 +1,131 @@
-import React, { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { createInstructor } from "../../redux/thunks/createInstructorthunk";
+import { updateInstructorDetails } from "../../redux/slices/createInstructorSlice";
 import Button from "./Button";
 
 const InstructorDetails = ({ onNext }) => {
   const profile = useSelector((state) => state.profile);
-  const [formData, setFormData] = useState({
-    id: profile.id,
-    experience: ["Web-Development", "Beginner-level Devops"],
-    specialization: "Web-Development",
-    qualifications: [
-      { degree: "BSSE", percentage: 90.0, instructor_id: profile?.id },
-    ],
-    skills: [
-      { title: "Next JS", percentage: "90%", instructor_id: profile?.id },
-      { title: "Express JS", percentage: "90%", instructor_id: profile?.id },
-    ],
-    video_url: "temporary video url",
-  });
-
+  const userId = profile?.id;
+  const [showError, setShowError] = useState(false);
+  const instructorDetails = useSelector(
+    (state) => state.instructor.instructorDetails,
+  );
   const dispatch = useDispatch();
   const { loading, error } = useSelector((state) => state.instructor || {});
-
-  const [educationDetails, setEducationDetails] = useState([
-    { id: 1, value: "", placeholder: "Percentage %" },
-    { id: 2, value: "", placeholder: "Qualification" },
-  ]);
-  const [skills, setSkills] = useState([
-    { id: 1, value: "", placeholder: "Percentage %" },
-    { id: 2, value: "", placeholder: "Skills" },
-  ]);
-  const [experienceDomains, setExperienceDomains] = useState([
-    { id: 1, value: "" },
-  ]);
-  const [specialization, setSpecialization] = useState("");
-
-  const addEducationDetail = () => {
-    setEducationDetails((prevDetails) => [
-      ...prevDetails,
-      { id: prevDetails.length + 1, value: "", placeholder: "Percentage %" },
-      { id: prevDetails.length + 2, value: "", placeholder: "Qualification" },
-    ]);
+  
+  const initialFormData = {
+    user_id: "",
+    experience: [""],
+    specialization: "",
+    qualifications: [{ percentage: "", degree: "" }],
+    skills: [{ percentage: "", title: "" }],
+    video_url: "",
   };
 
-  const addSkill = () => {
-    setSkills((prevSkills) => [
-      ...prevSkills,
-      { id: prevSkills.length + 1, value: "", placeholder: "Percentage %" },
-      { id: prevSkills.length + 2, value: "", placeholder: "Skill" },
-    ]);
+  const [formData, setFormData] = useState({
+    ...initialFormData,
+    user_id: userId,
+  });
+
+  useEffect(() => {
+    if (Object.keys(instructorDetails).length > 0) {
+      setFormData({ ...instructorDetails, user_id: userId });
+    }
+  }, [instructorDetails]);
+
+  const handleChange = (field, value) => {
+    setFormData((prevFormData) => ({ ...prevFormData, [field]: value }));
   };
 
-  const addExperienceDomain = () => {
-    setExperienceDomains((prevDomains) => [
-      ...prevDomains,
-      { id: prevDomains.length + 1, value: "" },
-    ]);
+  const handleNestedChange = (section, index, key, value) => {
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      [section]: prevFormData[section].map((item, i) =>
+        i === index ? { ...item, [key]: value } : item,
+      ),
+    }));
   };
 
-  const handleEducationChange = (id, value) => {
-    const updatedEducationDetails = educationDetails.map((detail) =>
-      detail.id === id ? { ...detail, value } : detail,
-    );
-    setEducationDetails(updatedEducationDetails);
+  const handleExperienceChange = (index, value) => {
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      experience: prevFormData.experience.map((item, i) =>
+        i === index ? value : item,
+      ),
+    }));
   };
 
-  const handleSkillChange = (id, value) => {
-    const updatedSkills = skills.map((skill) =>
-      skill.id === id ? { ...skill, value } : skill,
-    );
-    setSkills(updatedSkills);
+  const addField = (section, emptyField) => {
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      [section]: [...prevFormData[section], emptyField],
+    }));
   };
 
-  const handleExperienceChange = (id, value) => {
-    const updatedExperienceDomains = experienceDomains.map((domain) =>
-      domain.id === id ? { ...domain, value } : domain,
-    );
-    setExperienceDomains(updatedExperienceDomains);
+  const addExperienceField = () => {
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      experience: [...prevFormData.experience, ""],
+    }));
   };
 
-  const handleSpecializationChange = (value) => {
-    setSpecialization(value);
-  };
-
-  const submitHandler = async (e) => {
+  const submitHandler = (e) => {
     e.preventDefault();
-    console.log("Form is submitting ... ");
-
-    // Update formData with dynamic fields before dispatching
-    const updatedFormData = {
-      ...formData,
-      experience: experienceDomains.map((domain) => domain.value),
-      specialization: specialization,
-      qualifications: educationDetails
-        .map((detail, index) => {
-          if (index % 2 === 1) return null; // Skip the placeholder fields
-          return {
-            degree: educationDetails[index + 1].value,
-            percentage: parseFloat(detail.value),
-            instructor_id: profile.id,
-          };
-        })
-        .filter(Boolean), // Remove null values
-      skills: skills
-        .map((detail, index) => {
-          if (index % 2 === 1) return null; // Skip the placeholder fields
-          return {
-            title: skills[index + 1].value,
-            percentage: detail.value,
-            instructor_id: profile.id,
-          };
-        })
-        .filter(Boolean), // Remove null values
-    };
-
-    // const resultAction = await dispatch(createInstructor(updatedFormData));
-    // if (createInstructor.fulfilled.match(resultAction)) {
-    //   onNext();
-    // } else {
-    //   console.error("Failed to create instructor:", resultAction.payload);
-    // }
-    onNext();
+    dispatch(updateInstructorDetails(formData));
   };
+  useEffect(()=>{
+      if(error){
+        setShowError(true);
+      }
+  }, [error]);
 
   return (
     <div className="w-full overflow-auto p-8">
+      {showError && (
+          <ErrorMessage
+          showError={showError}
+          setShowError={setShowError}
+          errorMessage={error}
+        />
+      )}
       <form onSubmit={submitHandler}>
-        <div className="mt-5 flex flex-row justify-between max-plg:flex-col">
-          <div className="flex flex-col gap-y-5">
+        <div className="mt-5 flex justify-between gap-28 max-lg:flex-col">
+          <div className="flex flex-grow flex-col gap-y-5">
             <div>
-              <h3 className="mb-3 me-40 text-lg font-medium">
+              <h3 className="mb-3 text-lg font-medium">
                 What is your educational background?
               </h3>
-              {educationDetails.map((detail) => (
-                <div className="mb-2" key={detail.id}>
+              {formData.qualifications.map((detail, i) => (
+                <div className="mb-2 flex flex-col gap-3" key={i}>
                   <input
                     type="text"
-                    placeholder={detail.placeholder}
+                    placeholder="Percentage %"
                     className="h-12 w-full rounded border-2 bg-bg_gray p-3"
-                    value={detail.value}
+                    value={detail.percentage}
+                    required
+                    pattern="^(100|[1-9]?[0-9])$"
+                    onChange={(e) =>
+                      handleNestedChange(
+                        "qualifications",
+                        i,
+                        "percentage",
+                        e.target.value,
+                      )
+                    }
+                  />
+                  <input
+                    type="text"
+                    placeholder="Qualification"
+                    className="h-12 w-full rounded border-2 bg-bg_gray p-3"
+                    value={detail.degree}
                     required
                     onChange={(e) =>
-                      handleEducationChange(detail.id, e.target.value)
+                      handleNestedChange(
+                        "qualifications",
+                        i,
+                        "degree",
+                        e.target.value,
+                      )
                     }
                   />
                 </div>
@@ -149,23 +133,40 @@ const InstructorDetails = ({ onNext }) => {
               <button
                 className="font-medium text-blue"
                 type="button"
-                onClick={addEducationDetail}
+                onClick={() =>
+                  addField("qualifications", { percentage: "", degree: "" })
+                }
               >
                 + Add more Educational detail
               </button>
             </div>
             <div>
               <h3 className="text-lg font-medium">Add Your Skills</h3>
-              {skills.map((skill) => (
-                <div className="mb-2" key={skill.id}>
+              {formData.skills.map((skill, i) => (
+                <div className="mb-2 flex flex-col gap-3" key={i}>
                   <input
                     type="text"
-                    placeholder={skill.placeholder}
+                    placeholder="Percentage %"
                     className="h-12 w-full rounded border-2 bg-bg_gray p-3"
-                    value={skill.value}
+                    value={skill.percentage}
                     required
                     onChange={(e) =>
-                      handleSkillChange(skill.id, e.target.value)
+                      handleNestedChange(
+                        "skills",
+                        i,
+                        "percentage",
+                        e.target.value,
+                      )
+                    }
+                  />
+                  <input
+                    type="text"
+                    placeholder="Skill"
+                    className="h-12 w-full rounded border-2 bg-bg_gray p-3"
+                    value={skill.title}
+                    required
+                    onChange={(e) =>
+                      handleNestedChange("skills", i, "title", e.target.value)
                     }
                   />
                 </div>
@@ -173,51 +174,51 @@ const InstructorDetails = ({ onNext }) => {
               <button
                 className="font-medium text-blue"
                 type="button"
-                onClick={addSkill}
+                onClick={() =>
+                  addField("skills", { percentage: "", title: "" })
+                }
               >
                 + Add more Skills
               </button>
             </div>
           </div>
-          <div className="flex flex-col gap-y-5">
+          <div className="flex flex-grow flex-col gap-y-5">
             <div>
-              <h3 className="mb-3 text-lg font-medium max-plg:mt-5">
+              <h3 className="mb-3 text-lg font-medium max-lg:mt-5">
                 What are your experience domains?
               </h3>
-              {experienceDomains.map((domain) => (
-                <div className="mb-2" key={domain.id}>
+              {formData.experience.map((domain, i) => (
+                <div className="mb-2 flex flex-col gap-3" key={i}>
                   <input
                     type="text"
-                    placeholder="domains"
+                    placeholder="Domain"
                     className="h-12 w-full rounded border-2 bg-bg_gray p-3"
-                    value={domain.value}
+                    value={domain}
                     required
-                    onChange={(e) =>
-                      handleExperienceChange(domain.id, e.target.value)
-                    }
+                    onChange={(e) => handleExperienceChange(i, e.target.value)}
                   />
                 </div>
               ))}
               <button
                 className="font-medium text-blue"
                 type="button"
-                onClick={addExperienceDomain}
+                onClick={addExperienceField}
               >
                 + Add more domains
               </button>
             </div>
             <div>
-              <h3 className="me-5 text-lg font-medium">
-                What is your primary area of specialization? Can you provide
-                Specific field
+              <h3 className="text-lg font-medium">
+                What is your primary area of specialization? Can you provide a
+                specific field?
               </h3>
               <input
                 type="text"
                 placeholder="Specialization"
                 className="h-12 w-full rounded border-2 bg-bg_gray p-3"
-                value={specialization}
+                value={formData.specialization}
                 required
-                onChange={(e) => handleSpecializationChange(e.target.value)}
+                onChange={(e) => handleChange("specialization", e.target.value)}
               />
             </div>
           </div>

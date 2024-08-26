@@ -2,9 +2,11 @@ import InstructorTab2 from "@/components/InstructorTab2";
 import withAuth from "@/components/WithAuth";
 // import withAuth from "@/components/WithAuth";
 import { useState } from "react";
+import { useSelector } from "react-redux";
 function detailsUpload() {
   const steps = ["Basic Info", "Videos"];
   const [currentStep, setCurrentStep] = useState(0);
+  const testCurrentStep = useSelector((state) => state.instructor.index);
 
   const handleNext = () => {
     setCurrentStep((prevStep) =>
@@ -19,7 +21,8 @@ function detailsUpload() {
     <div className="container mx-auto p-4">
       <InstructorTab2
         steps={steps}
-        currentStep={currentStep}
+        // currentStep={currentStep}
+        currentStep={testCurrentStep}
         onNext={handleNext}
         onPrev={prevHandler}
       />

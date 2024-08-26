@@ -14,9 +14,19 @@ function InstructorCourseRow({ course }) {
   console.log(course);
 
   const handleRowClick = () => {
-    // router.push(`/courses/${id}`);
-    // router.push(`/dashboard/courses/${id}`);
-    router.push(`instructor-courses/${id}`);
+    try {
+      if (id) {
+        router.push(`/dashboard/instructor-courses/${id}`);
+      } else {
+        throw new Error("Course ID is not defined");
+      }
+    } catch (error) {
+      console.error("Error navigating to instructor course page:", error);
+      // Optional: Display an alert or a message to the user
+      alert(
+        "Unable to navigate to the instructor course page. Please try again later.",
+      );
+    }
   };
 
   return (

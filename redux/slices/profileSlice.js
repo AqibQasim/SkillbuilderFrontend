@@ -67,7 +67,7 @@ const profileSlice = createSlice({
       })
       .addCase(editProfile.rejected, (state, action) => {
         console.log("editProfile.rejected", action.error.message);
-        state.status = "error";
+        state.status = "idle";
         state.successMessage = null;
         state.error = action.payload || action.error.message;
       });

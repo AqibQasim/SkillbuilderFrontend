@@ -28,6 +28,9 @@ export const editProfile = createAsyncThunk(
 
       return data;
     } catch (error) {
+      if(error.message == "Failed to fetch"){
+        return rejectWithValue("Please Check your Internet connection")
+      }
       console.log(error.message);
       return rejectWithValue(error.message || "Failed to update profile");
     }

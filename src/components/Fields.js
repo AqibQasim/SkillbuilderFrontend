@@ -1,22 +1,30 @@
 import { useRouter } from "next/router";
 import { useState } from "react";
+import { useSelector } from "react-redux";
 
 const Fields = () => {
   const [selected, setSelected] = useState("student");
   const router = useRouter();
+  const userId = useSelector((state) => state.auth.user);
+  const instructorId = useSelector(
+    (state) => state.instructorByUserId.instructorByUserId.id,
+  );
+
+  console.log("fetched instructor id is:", instructorId);
+  const instructorPath = instructorId ? "/dashboard" : "/details-upload";
 
   function handleContinue() {
     if (selected === "student") {
-      router.push("/home");
+      router.push("/");
     } else if (selected === "instructor") {
-      router.push("/details-upload");
+      router.push(instructorPath);
     }
   }
 
   return (
     <div className="w-full max-w-md rounded-md bg-white p-6 shadow-md">
       <h1 className="mb-10 text-2xl font-semibold">
-        You can Choose You are sign up as a instructor or student
+        You can choose to log in as an instructor or student
       </h1>
 
       <div className="mt-4 flex items-center">
@@ -31,7 +39,7 @@ const Fields = () => {
         />
         <label
           htmlFor="default-radio-1"
-          className={`ms-2 cursor-pointer text-base font-medium ${
+          className={`ms-2 w-full cursor-pointer text-base font-medium ${
             selected === "student" ? "text-blue-700" : "text-gray-900"
           }`}
         >
@@ -52,7 +60,7 @@ const Fields = () => {
         />
         <label
           htmlFor="default-radio-2"
-          className={`ms-2 cursor-pointer text-base font-medium ${
+          className={`ms-2 w-full cursor-pointer text-base font-medium ${
             selected === "instructor" ? "text-blue-700" : "text-gray-900"
           }`}
         >

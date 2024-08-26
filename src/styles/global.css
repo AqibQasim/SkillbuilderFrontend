@@ -3,30 +3,42 @@
 @tailwind utilities;
 @import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
 
-/* scrollbar-width: thin; */
-/* @layer components {
-  .scrollbar {
-    scroll-behavior: smooth;
-    overflow-y: scroll;
-    scrollbar-width: 15px;
-    scrollbar-color: theme(colors.white.DEFAULT) theme(colors.neutral.500);
-  }
-  .scrollbar::-webkit-scrollbar {
-    width: 15px;
-  }
-
-  .scrollbar::-webkit-scrollbar-track {
-    background: theme(colors.neutral.500);
-    width: 15px;
-  }
-
-  .scrollbar::-webkit-scrollbar-thumb {
-    background-color: theme(colors.neutral.500);
-    width: 15px;
-    border: 3px solid theme(colors.blue.500);
+.approve {
+  @apply !text-approve hover:!bg-approve-hover-bg;
 }
+
+.decline {
+  @apply !text-decline hover:!bg-decline-hover-bg;
 }
-*/
+
+.suspend {
+  @apply hover:!bg-suspend-hover-bg !text-suspend;
+}
+
+.delete {
+  @apply bg-delete text-delete-text;
+}
+
+progress {
+  border-radius: 7px;
+  height: 5px;
+}
+progress::-webkit-progress-bar {
+  background-color: theme(colors.gray.shade-1);
+  border-radius: 7px;
+}
+progress::-webkit-progress-value {
+  background-color: theme(colors.blue.DEFAULT);
+  border-radius: 7px;
+}
+progress::-moz-progress-bar {
+  background-color: theme(colors.gray.shade-2);
+  border-radius: 7px;
+}
+progress::-moz-progress-value {
+  background-color: theme(colors.blue.DEFAULT);
+  border-radius: 7px;
+}
 
 body {
   @apply font-poppins;
@@ -37,16 +49,9 @@ body {
   margin-bottom: 1rem;
 }
 
-/* :root {
-    --tw-border-radius-tl-br: 1rem;
-}
-
-.rounded-tl-br {
-    border-top-left-radius: var(--tw-border-radius-tl-br);
-    border-bottom-right-radius: var(--tw-border-radius-tl-br);
-} */
 .scrollbar-custom::-webkit-scrollbar {
   height: 8px;
+  width: 8px;
 }
 
 .scrollbar-custom::-webkit-scrollbar-thumb {
@@ -58,7 +63,6 @@ body {
   background-color: #edf2f7; /* Customize the track color */
 }
 
-/* HTML: <div class="loader"></div> */
 .loader {
   width: 50px;
   --b: 8px;

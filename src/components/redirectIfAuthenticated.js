@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 
-const redirectIfAuthenticated = (WrappedComponent, redirectPath = '/home') => {
+const redirectIfAuthenticated = (WrappedComponent, redirectPath = '/') => {
   return (props) => {
     const router = useRouter();
     const user = useSelector((state) => state.auth.user);

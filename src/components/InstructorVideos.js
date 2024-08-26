@@ -1,12 +1,22 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import Image from "next/image";
 import VideoUpload from "./VideoUpload";
+import { createCourse } from "../../redux/thunks/createCourseThunk";
+import { uploadVideo } from "../../redux/thunks/courseVideoThunk";
+import { useDispatch, useSelector } from "react-redux";
 
 const InstructorVideos = ({ onNext, onPrev }) => {
+  const [selectedVideo, setSelectedVideo] = useState(null);
   const [modules, setModules] = useState([{ title: "1", videos: [] }]);
   const [showVideos, setShowVideos] = useState({});
   const fileInputRef = useRef(null);
   const [currentModuleIndex, setCurrentModuleIndex] = useState(null);
+  const userId = useSelector((state) => state.auth.user);
+  const courseId = useSelector((state) => state.createCourse.courseId);
+  const courseDetails = useSelector(
+    (state) => state.createCourse.courseDetails,
+  );
+  const dispatch = useDispatch();
 
   const handleVideoUpload = (event) => {
     const files = Array.from(event.target.files);
@@ -19,15 +29,16 @@ const InstructorVideos = ({ onNext, onPrev }) => {
       prevModules.map((module, index) =>
         index === currentModuleIndex
           ? { ...module, videos: [...module.videos, ...newFiles] }
-          : module
-      )
+          : module,
+      ),
     );
   };
 
   const handlePlayVideo = (moduleIndex, videoIndex) => {
     setShowVideos((prevShowVideos) => ({
       ...prevShowVideos,
-      [`${moduleIndex}-${videoIndex}`]: !prevShowVideos[`${moduleIndex}-${videoIndex}`],
+      [`${moduleIndex}-${videoIndex}`]:
+        !prevShowVideos[`${moduleIndex}-${videoIndex}`],
     }));
   };
 
@@ -51,8 +62,8 @@ const InstructorVideos = ({ onNext, onPrev }) => {
               ...module,
               videos: module.videos.filter((_, i) => i !== videoIndex),
             }
-          : module
-      )
+          : module,
+      ),
     );
     setShowVideos((prevShowVideos) => {
       const newShowVideos = { ...prevShowVideos };
@@ -74,19 +85,66 @@ const InstructorVideos = ({ onNext, onPrev }) => {
     ]);
   };
 
+  async function uploadCourseDetailsAndVideo() {
+    if (!selectedVideo)
+      return console.log("Please upload a video before you proceed");
+
+    try {
+      // Details
+      const createCourseResult = await dispatch(
+        createCourse(courseDetails),
+      ).unwrap();
+      console.log("Create course result", createCourseResult);
+
+      if (!createCourseResult?.status)
+        throw new Error(
+          createCourseResult?.message ||
+            "Could not upload course details please try again later",
+        );
+
+      // Video
+      const courseId = createCourseResult?.courseId;
+      if (!courseId)
+        throw new Error("Course id is undefined for the Intro video");
+      console.log(
+        "send this course id as video upload payload course Id: ",
+        courseId,
+      );
+      const uploadCourseIntroVideoResult = await dispatch(
+        uploadVideo({ courseId, selectedVideo }),
+      ).unwrap();
+
+      console.log(uploadCourseIntroVideoResult);
+      if (!uploadCourseIntroVideoResult?.status) {
+        throw new Error(
+          uploadCourseIntroVideoResult?.message ||
+            "Course details uploaded successfully, but the introduction video failed to upload.",
+        );
+      }
+      console.log("No Error?");
+      console.log("Course details Status", createCourseResult);
+      console.log("Video upload Status", uploadCourseIntroVideoResult);
+    } catch (error) {
+      console.log("Error on create course fail", error);
+    }
+  }
+
   return (
     <div>
-      <h3 className="font-medium text-lg mt-10 mb-5">
+      <h3 className="mb-5 mt-10 text-lg font-medium">
         Upload an introduction video of Course
       </h3>
-      <VideoUpload />
-      <div className="accordion mt-8 rounded-md border-2 border-[#BBBBBB] px-4 py-2 overflow-hidden">
+      <VideoUpload
+        selectedVideo={selectedVideo}
+        setSelectedVideo={setSelectedVideo}
+      />
+      <div className="accordion mt-8 overflow-hidden rounded-md border-2 border-[#BBBBBB] px-4 py-2">
         {modules.map((item, moduleIndex) => (
           <div key={moduleIndex}>
             <h2>
               <button
                 type="button"
-                className="flex w-full items-center justify-between py-5 font-medium text-black"
+                className="text-black flex w-full items-center justify-between py-5 font-medium"
                 onClick={() => toggleAccordion(moduleIndex)}
               >
                 <span>Module {item.title}</span>
@@ -119,9 +177,7 @@ const InstructorVideos = ({ onNext, onPrev }) => {
                 <div className="flex w-full flex-col items-center">
                   {item.videos.map((videoFile, videoIndex) => (
                     <React.Fragment key={videoIndex}>
-                      <div
-                        className="mt-4 flex h-fit w-full flex-row justify-between rounded-md border-2 border-[#BBBBBB] bg-bg_gray p-4 max-md:flex-col"
-                      >
+                      <div className="mt-4 flex h-fit w-full flex-row justify-between rounded-md border-2 border-[#BBBBBB] bg-bg_gray p-4 max-md:flex-col">
                         <div className="flex h-full w-fit gap-3">
                           <div className="flex justify-center">
                             <button
@@ -191,7 +247,7 @@ const InstructorVideos = ({ onNext, onPrev }) => {
                         </div>
                       </div>
                       {showVideos[`${moduleIndex}-${videoIndex}`] && (
-                        <video className="h-2/6 w-6/12 mt-4" controls>
+                        <video className="mt-4 h-2/6 w-6/12" controls>
                           <source
                             src={videoFile.url}
                             type={videoFile.file.type}
@@ -248,7 +304,8 @@ const InstructorVideos = ({ onNext, onPrev }) => {
             <button
               type="button"
               className="rounded-md bg-blue px-10 py-2 font-normal text-white hover:bg-blue-600 max-lsm:mt-4 max-lsm:w-full"
-              onClick={onNext}
+              // onClick={onNext}
+              onClick={uploadCourseDetailsAndVideo}
             >
               Continue
             </button>

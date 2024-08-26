@@ -1,80 +1,90 @@
 import DashboardLayout from "@/components/DashboardLayout";
+import DashboardStudentsOverview from "@/components/DashboardStudentsOverview";
+import InstructorCourseTable from "@/components/InstructorCourseTable";
 import withAuth from "@/components/WithAuth";
+import { filterRepeatedStudents } from "@/utils/filterRepeatedStudents";
+import { useRouter } from "next/router";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { fetchStudentsByInstructor } from "../../../redux/thunks/fetchStudentsByInstructorthunk";
 import { fetchCoursesByInstructorId } from "../../../redux/thunks/instructorCoursesThunk";
-
+import { fetchInstructorByUserId } from "../../../redux/thunks/InstructorByUserIdThunk";
+import InstructorPendingCourseTable from "@/components/InstructorPendingCourseTable";
+import Loader from "@/components/Loader";
 function Dashboard() {
+  const router = useRouter();
   const dispatch = useDispatch();
-  const instructorId = useSelector((state) => state.profile.id);
-  const {
-    courses: instructorCourses,
-    isLoading,
-    error,
-  } = useSelector((state) => state.instructorCourses);
+  const userId = useSelector((state) => state.auth.user);
+  const instructorId = useSelector(
+    (state) => state.instructorByUserId.instructorByUserId.id,
+  );
+  console.log("current instructor ID", instructorId);
+  const studentsByInstructor = useSelector(
+    (state) => state.studentsByInstructor.students,
+  );
+  const studentsStatus = useSelector(
+    (state) => state.studentsByInstructor.status,
+  );
+  const studentsError = useSelector(
+    (state) => state.studentsByInstructor.error,
+  );
+  const pendingCourses = useSelector(
+    (state) => state.instructorCourses.pendingCourses,
+  );
+  const courses = useSelector((state) => state.instructorCourses.courses);
+  const coursesLoading = useSelector(
+    (state) => state.instructorCourses.isLoading,
+  );
+  const coursesError = useSelector((state) => state.instructorCourses.error);
+  const uniqueStudents = filterRepeatedStudents(studentsByInstructor);
 
-  console.log("instructor Courses", instructorCourses);
-  console.log("instructor Courses length", instructorCourses.length);
+  // ===Logs
+  console.log("User Id on dashboard", userId);
+  console.log("Students on dashboard", studentsByInstructor);
+  console.log("pending Courses on dashboard", pendingCourses);
 
   useEffect(() => {
-    if (instructorId) {
-      dispatch(fetchCoursesByInstructorId(instructorId));
-    }
-  }, [dispatch, instructorId]);
+    if (!userId || instructorId) return;
+    dispatch(fetchInstructorByUserId(userId));
+  }, [userId]);
+
+  useEffect(() => {
+    if (!instructorId || courses?.length > 0) return;
+    dispatch(fetchCoursesByInstructorId(instructorId));
+  }, [instructorId, courses?.length]);
+
+  useEffect(() => {
+    if (!instructorId || studentsByInstructor?.length > 0) return;
+    dispatch(fetchStudentsByInstructor(instructorId));
+  }, [instructorId, studentsByInstructor?.length]);
+
+  // if (coursesLoading || studentsStatus === "loading")
+  //   return (
+  //     <DashboardLayout>
+  //       <div className="flex size-full items-center justify-center">
+  //         <Loader />
+  //       </div>
+  //     </DashboardLayout>
+  //   );
 
   return (
     <DashboardLayout>
-      <>
-        <h1 className="text-2xl font-bold">Welcome to the Dashboard</h1>
-        <p>Select an option from the side navigation to get started.</p>
-
-        {isLoading && <p>Loading courses...</p>}
-        {error && <p>Error: {error}</p>}
-        {instructorCourses.length > 0 && (
-          <div>
-            <h2 className="text-xl font-bold">Your Courses</h2>
-            <ul>
-              {instructorCourses.map((course) => (
-                <li key={course.id}> {course.title} </li>
-              ))}
-            </ul>
-          </div>
-        )}
-
-        <div className="my-9">
-          <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas ea
-            blanditiis, fuga officiis ipsum voluptatibus ad asperiores accusamus
-            numquam quasi repellendus minima in officia impedit rerum iusto
-            atque incidunt natus.
-          </p>
-          <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas ea
-            blanditiis, fuga officiis ipsum voluptatibus ad asperiores accusamus
-            numquam quasi repellendus minima in officia impedit rerum iusto
-            atque incidunt natus.
-          </p>
-          <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas ea
-            blanditiis, fuga officiis ipsum voluptatibus ad asperiores accusamus
-            numquam quasi repellendus minima in officia impedit rerum iusto
-            atque incidunt natus.
-          </p>
-          <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas ea
-            blanditiis, fuga officiis ipsum voluptatibus ad asperiores accusamus
-            numquam quasi repellendus minima in officia impedit rerum iusto
-            atque incidunt natus.
-          </p>
-          <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas ea
-            blanditiis, fuga officiis ipsum voluptatibus ad asperiores accusamus
-            numquam quasi repellendus minima in officia impedit rerum iusto
-            atque incidunt natus.
-          </p>
+      <div className="flex size-full flex-col">
+        {/* <InstructorCourseTable courses={courses} courseStatus="pending" /> */}
+        <div className="pending-courses">
+          <InstructorPendingCourseTable
+            emptyStateClasses="!size-[unset] !block"
+            courses={pendingCourses}
+            courseStatus="pending"
+          />
         </div>
-        {/* Repeat the above block as needed */}
-      </>
+        <div className="mt-auto">
+          <DashboardStudentsOverview
+            students={uniqueStudents}
+            href="dashboard/students"
+          />
+        </div>
+      </div>
     </DashboardLayout>
   );
 }

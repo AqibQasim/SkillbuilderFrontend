@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { editProfile } from "../../redux/thunks/profilethunk";
 import styles from "../styles/form.module.css";
+import ErrorMessage from "./ErrorMessage";
 
 const EditProfileForm = ({ setCloseForm }) => {
   const { user, isLoading } = useSelector((state) => state.auth);
@@ -10,6 +11,16 @@ const EditProfileForm = ({ setCloseForm }) => {
   const dispatch = useDispatch();
   const [formData, setFormData] = useState(initialState());
   const [changedFields, setChangedFields] = useState({});
+
+  const {error} = useSelector((state) => state.profile); // Get the error message from Redux 
+  const [showError, setShowError] = useState(false); // Local state to control error visibility
+  useEffect(() => {
+    console.log("profile error::::::::::::::::", error)
+    console.log("profile status::::::::::::::::", profile.status)
+    if (error) {
+      setShowError(true); // Show the error when there's an error in the profile slice
+    }
+  }, [error]);
 
   // Wanted to declare this constant after initialization
   // Initialize default values based on profile data
@@ -64,6 +75,10 @@ const EditProfileForm = ({ setCloseForm }) => {
     const dataToSubmit = { ...changedFields, id };
 
     dispatch(editProfile(dataToSubmit));
+
+    // if (profileError) {
+    //   setShowError(true); // Show the error when there's an error in the profile slice
+    // }
   }
 
   function handleReset() {
@@ -74,15 +89,21 @@ const EditProfileForm = ({ setCloseForm }) => {
 
   return (
     <div className="mx-auto flex w-[90%] items-center justify-center">
+      {showError && (
+        <ErrorMessage
+        showError={showError}
+        setShowError={setShowError}
+        errorMessage={error}
+      />
+      )}
       <form
         className="w-full space-y-6 p-6 xlg:max-w-screen-xlg"
-        onSubmit={handleSubmit}
-      >
+        onSubmit={handleSubmit}>
         <div className="flex flex-col gap-4 space-x-0 md:flex-row md:gap-0 md:space-x-4">
           <div className="flex-1">
             <label
               htmlFor="first_name"
-              className="mb-2 block text-sm font-medium text-black"
+              className="text-black mb-2 block text-sm font-medium"
             >
               First Name:
             </label>
@@ -99,7 +120,7 @@ const EditProfileForm = ({ setCloseForm }) => {
           <div className="flex-1">
             <label
               htmlFor="last_name"
-              className="mb-2 block text-sm font-medium text-black"
+              className="text-black mb-2 block text-sm font-medium"
             >
               Last Name:
             </label>
@@ -118,16 +139,16 @@ const EditProfileForm = ({ setCloseForm }) => {
           <div className="flex-1">
             <label
               htmlFor="email"
-              className="mb-2 block text-sm font-medium text-black"
+              className="text-black mb-2 block text-sm font-medium"
             >
               Email:
             </label>
             <input
-              disabled={profile?.status === "loading"}
               value={formData.email}
               id="email"
               placeholder="Email"
               type="email"
+              disabled
               onChange={handleChange}
               className={`w-[80%] rounded-lg border border-border_gray px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-600 ${styles.smallPlaceholder}`}
             />
@@ -135,7 +156,7 @@ const EditProfileForm = ({ setCloseForm }) => {
           <div className="flex-1">
             <label
               htmlFor="profession"
-              className="mb-2 block text-sm font-medium text-black"
+              className="text-black mb-2 block text-sm font-medium"
             >
               Profession:
             </label>
@@ -154,7 +175,7 @@ const EditProfileForm = ({ setCloseForm }) => {
           <div className="flex-1">
             <label
               htmlFor="location"
-              className="mb-2 block text-sm font-medium text-black"
+              className="text-black mb-2 block text-sm font-medium"
             >
               Location:
             </label>
@@ -172,7 +193,7 @@ const EditProfileForm = ({ setCloseForm }) => {
         <div className="">
           <label
             htmlFor="message"
-            className="mb-2 block text-sm font-medium text-black"
+            className="text-black mb-2 block text-sm font-medium"
           >
             Social Media
           </label>
@@ -220,6 +241,7 @@ const EditProfileForm = ({ setCloseForm }) => {
           </button>
         </div>
       </form>
+      
     </div>
   );
 };
