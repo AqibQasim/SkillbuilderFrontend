@@ -68,7 +68,7 @@ function GoogleSignup() {
   }
 
   return (
-    <div className="w-full">
+    <div className="flex w-full items-center justify-center">
       <GoogleLogin
         onSuccess={signupSSOUser}
         onError={() => {
