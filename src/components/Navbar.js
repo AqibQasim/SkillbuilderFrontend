@@ -38,7 +38,7 @@ const Navbar = ({ cartItemsLength }) => {
             <Image src="/logo.svg" width={160} height={160} alt="Logo" />
 
             <div className="ml-auto mr-4 block lg:hidden">
-              <User cartClickHandler={routeToShoppingCartHandler} />
+              <User cartItemsLength={cartItemsLength} cartClickHandler={routeToShoppingCartHandler} />
             </div>
 
             <div className="lg:hidden">
