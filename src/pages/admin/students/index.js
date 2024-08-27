@@ -19,7 +19,7 @@ function Students() {
   useEffect(() => {
     if (students?.length > 0) return;
     dispatch(fetchStudents());
-  }, [students]);
+  }, [students?.length]);
 
   const uniqueStudents =
     students.length > 0 ? filterRepeatedStudents(students) : students;

@@ -32,17 +32,17 @@ const admin = () => {
     console.log("running instructors Effect");
     if (instructors?.length > 0) return;
     dispatch(fetchAllInstructors());
-  }, [instructors]);
+  }, [instructors.length]);
 
   useEffect(() => {
     if (courses?.length > 0) return;
     dispatch(fetchCourses());
-  }, [courses]);
+  }, [courses?.length]);
 
   useEffect(() => {
     if (students?.length > 0) return;
     dispatch(fetchStudents());
-  }, [students]);
+  }, [students?.length]);
 
   const uniqueStudents = filterRepeatedStudents(students);
 
