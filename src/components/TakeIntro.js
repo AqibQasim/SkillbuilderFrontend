@@ -12,6 +12,7 @@ import { createInstructorAndUploadIntroVideo } from "../../redux/thunks/instruct
 import { createInstructor } from "../../redux/thunks/createInstructorthunk";
 import ErrorMessage from "./ErrorMessage";
 import { resetState as resetStateInstructorIntroVideo } from "../../redux/slices/instructorIntroVideoSlice";
+import Button from "./Button";
 
 const TakeIntro = ({ onPrev }) => {
   const [selectedVideo, setSelectedVideo] = useState(null);
