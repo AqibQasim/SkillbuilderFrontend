@@ -179,6 +179,9 @@ const Navbar = ({ cartItemsLength }) => {
               <Link className="px-[1.2rem] py-2 lg:px-[0.5rem]" href="/contact">
                 Contact Us
               </Link>
+              <Link className="px-[1.2rem] py-2 lg:px-[0.5rem]" href="/login">
+                Login
+              </Link>
 
               {/* <button className="py-2 px-4 hidden lg:flex justify-between items-center w-full lg:w-auto bg-blue text-white rounded-lg">
                 Get started
