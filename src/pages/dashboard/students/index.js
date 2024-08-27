@@ -53,8 +53,8 @@ function Students() {
   if (studentsStatus === "failed")
     return (
       <DashboardLayout>
-        <div className="flex size-full items-center justify-center">
-          <p>Error: {studentsError} </p>
+        <div className="flex size-full items-center justify-center capitalize">
+          <p>{studentsError} </p>
         </div>
       </DashboardLayout>
     );
