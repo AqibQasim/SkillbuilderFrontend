@@ -8,6 +8,7 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../../redux/slices/authSlice";
 import { remove } from "../../redux/slices/profileSlice";
+import { fetchInstructorByUserId } from "../../redux/thunks/InstructorByUserIdThunk";
 import { fetchOneUser } from "../../redux/thunks/userInfoThunk";
 import Avatar from "./Avatar";
 import BellIconSvg from "./BellIconSvg";
@@ -26,21 +27,30 @@ function User({ cartClickHandler, cartItemsLength }) {
   const dispatch = useDispatch();
   const { data: session, status } = useSession();
   const router = useRouter();
-  const instructorid = useSelector((state) => state.singleInstructor.id);
   const userAlreadyAvailableId = useSelector(
     (state) => state.singleUser.userData.id,
   );
   const isSSOUser = useSelector((state) => state.singleUser.userData.isSSOUser);
+
+  const instructorId = useSelector(
+    (state) => state.instructorByUserId.instructorByUserId.id,
+  );
+
+  useEffect(() => {
+    if (!user || instructorId) return;
+    dispatch(fetchInstructorByUserId(user));
+  }, [user]);
+
   useEffect(() => {
     if (userAlreadyAvailableId) return;
     dispatch(fetchOneUser(user));
   }, [userAlreadyAvailableId]);
 
-  console.log("Instructor ki id h ye : ", instructorid);
+  console.log("Instructor ki id h ye : ", instructorId);
 
-  // const instructorPath = instructorid ? "/dashboard" : "/details-upload";
+  // const instructorPath = instructorId ? "/dashboard" : "/details-upload";
   const handleNavigation = () => {
-    const path = instructorid ? "/dashboard" : "/details-upload";
+    const path = instructorId ? "/dashboard" : "/details-upload";
 
     try {
       router.push(path);
@@ -266,9 +276,9 @@ function User({ cartClickHandler, cartItemsLength }) {
                 </Link> */}
                 <button
                   onClick={handleNavigation}
-                  className="inline-flex w-full items-center justify-between px-5 py-2 text-gray-700 hover:bg-gray-100"
+                  className="w inline-flex w-full items-center justify-between px-5 py-2 text-gray-700 hover:bg-gray-100"
                 >
-                  Become a Tutor
+                  {instructorId ? "Dashboard" : "Become a Tutor"}
                   <ChevronRightIconSvg className="h-4 w-4" />
                 </button>
               </li>
