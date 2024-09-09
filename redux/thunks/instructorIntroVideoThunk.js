@@ -2,43 +2,39 @@ const base_Api = process.env.NEXT_PUBLIC_BASE_API;
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { createInstructor } from "./createInstructorthunk";
 
+
 export const uploadIntroVideo = createAsyncThunk(
   "instructor/uploadIntroVideo",
-
   async ({ instructorId, file }, { rejectWithValue }) => {
-    const formData = new FormData();
-    console.log(
-      "Instructor id to pass in for intro video upload:",
-      instructorId,
-    );
-    console.log("Intro Video to pass in for intro video upload:", instructorId);
-
     try {
-      formData.append("instructorId", instructorId);
-      formData.append("video", file);
-      const response = await fetch(`${base_Api}/upload`, {
-        method: "POST",
+      const formData = new FormData();
+      // formData.append("instructorId", instructorId);
+      formData.append("file111", file);
+
+      const response = await fetch('/api/upload-video', {
+        method: 'POST',
         body: formData,
       });
-      const data = await response.json();
-      console.log("DATA Response in API :", data);
-      console.log("MESSAGE Response in API  :", data?.message);
+
       if (!response.ok) {
-        throw new Error(data.message || "Unable to post video");
+        const errorData = await response.json();
+        throw new Error(errorData.error || "Unable to post video");
       }
-      console.log("Return Data in instructor intro video upload API", data);
+
+      const data = await response.json();
       return data;
     } catch (error) {
       return rejectWithValue(error.message || "Failed to post the video.");
     }
-  },
+  }
 );
+
 
 export const createInstructorAndUploadIntroVideo = createAsyncThunk(
   "instructor/createInstructorAndUploadIntroVideo",
   async ({ instructorId, file }, { getState, dispatch, rejectWithValue }) => {
     console.log("Instructor Id", instructorId);
-    console.log("Selected Video", file);
+    console.log("Selected Video1111", file);
     let step = 0;
     try {
       if (instructorId) {
