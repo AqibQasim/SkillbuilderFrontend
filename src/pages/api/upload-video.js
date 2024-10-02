@@ -6,9 +6,9 @@ import { createRouter } from 'next-connect';
 
 const upload = multer({ dest: '/tmp' });
 
-const client_id = '51352c193f5c9f68a406c2d604aa0c032cf9264f';
-const client_secret = 'iS/GQe0lnwlFfjvAruzirXe6lGtcV31mQhAdQBEAsK6H1jkm5vAgJXfeD2EYmeQpmjz5GCVpvisBNTpBELYY1pO2iCVFc1YNckc1zQq8Zd/dMerB3aETbP/4f56TUzSd';
-const access_token = '229c38f65c4985eba51c5036f722b809';
+const client_id = process.env.VIMEO_CLIENT_ID
+const client_secret = process.env.VIMEO_CLIENT_SECRECT
+const access_token = process.env.VIMEO_ACCESS_TOKEN;
 
 const initializeClient = () => new Vimeo(client_id, client_secret, access_token);
 
