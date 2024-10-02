@@ -60,6 +60,7 @@ const VideoUpload = ({ setSelectedVideo, selectedVideo }) => {
     if (file) {
       setVideoFile(file);
       setVideoUrl(URL.createObjectURL(file));
+      console.log("THE video url is set to: ",   event.target.files[0].mozFullPath)
       setSelectedVideo(file);
     }
 

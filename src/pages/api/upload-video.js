@@ -1,7 +1,10 @@
 // src/pages/api/upload-video.js
 import { Vimeo } from 'vimeo';
-import path from 'path';
+import multer from 'multer';
 import fs from 'fs';
+import { createRouter } from 'next-connect';
+
+const upload = multer({ dest: '/tmp' });
 
 const client_id = '51352c193f5c9f68a406c2d604aa0c032cf9264f';
 const client_secret = 'iS/GQe0lnwlFfjvAruzirXe6lGtcV31mQhAdQBEAsK6H1jkm5vAgJXfeD2EYmeQpmjz5GCVpvisBNTpBELYY1pO2iCVFc1YNckc1zQq8Zd/dMerB3aETbP/4f56TUzSd';
@@ -14,11 +17,11 @@ const uploadVideo = (client, videoPath) => {
     const fileStream = fs.createReadStream(videoPath);
     const fileSize = fs.statSync(videoPath).size;
     console.log("file size is ", fileSize);
-    
+
     client.upload(
       videoPath,
       {
-        name: 'fixed size 2',
+        name: 'Uploaded Video',
         description: 'The description goes here.',
         size: fileSize,
       },
@@ -45,24 +48,32 @@ const uploadVideo = (client, videoPath) => {
   });
 };
 
-// Default export function for the API route
-export default async function handler(req, res) {
-  const videoPath = path.join(process.cwd(), 'video.mp4'); // Adjust the path if needed
+const router = createRouter();
+
+router.use(upload.single('video'));
+
+router.post(async (req, res) => {
+  const videoFile = req.file;
+  if (!videoFile) {
+    return res.status(400).json({ error: 'No video file uploaded' });
+  }
+
   const client = initializeClient();
 
   try {
-    const response = await uploadVideo(client, videoPath);
+    const response = await uploadVideo(client, videoFile.path);
+    // Optionally delete the temporary file after upload
+    fs.unlinkSync(videoFile.path);
     res.status(response.status).json(JSON.parse(response.body));
   } catch (error) {
     res.status(500).json({ error: 'Internal Server Error' });
   }
-}
+});
 
-// Increase the body size limit
+export default router.handler();
+
 export const config = {
   api: {
-    bodyParser: {
-      sizeLimit: '100mb', // Adjust the size limit as needed
-    },
+    bodyParser: false,
   },
 };
