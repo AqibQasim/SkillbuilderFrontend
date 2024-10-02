@@ -7,7 +7,7 @@ import {
   resetErrorAndLoader as resetErrorAndLoaderCreateInstructor,
 } from "../../redux/slices/createInstructorSlice";
 import { fetchInstructorByUserId } from "../../redux/thunks/InstructorByUserIdThunk";
-import { createInstructorAndUploadIntroVideo } from "../../redux/thunks/instructorIntroVideoThunk";
+import { createInstructorAndUploadIntroVideo , uploadIntroVideo } from "../../redux/thunks/instructorIntroVideoThunk";
 
 import { createInstructor } from "../../redux/thunks/createInstructorthunk";
 import ErrorMessage from "./ErrorMessage";
@@ -68,30 +68,35 @@ const TakeIntro = ({ onPrev }) => {
   console.log("Selected video: ", selectedVideo);
 
   async function uploadvideoHandler() {
-    if (!selectedVideo) return;
-    const file = selectedVideo;
-    console.log("Instructor Id to send for intro video: ", instructorId);
-    console.log("Video file to send for intro video: ", file);
-    const createInstructorResult = dispatch(
-      createInstructorAndUploadIntroVideo({ instructorId, file }),
-    );
-    console.log("Instructor dispatch RESULT: ", createInstructorResult);
-    console.log("Done dispatching");
-    if (
-      !errorCreateInstructor &&
-      !errorInstructorIntroVideo &&
-      successMessageCreateInstructor &&
-      successMessageInstructorIntroVideo
-    )
-      return router.push("/dashboard");
-    // if (instructorId) return router.push("/dashboard");
-    // try {
-    //   dispatch(createInstructor(instructorDetails));
-    //   router.push("/dashboard");
-    // } catch (error) {
-    //   console.log(error);
-    // }
+  if (!selectedVideo) return;
+
+  const formData = new FormData();
+  formData.append('video', selectedVideo);
+
+  try {
+    const response = await fetch('/api/upload-video', {
+      method: 'POST',
+      body: formData,
+    });
+
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(errorData.error || 'Unable to post video');
+    }
+
+    const data = await response.json();
+    console.log('Upload successful:', data);
+
+    if (data.uri) {
+      // Perform any additional actions if needed
+      router.push('/dashboard');
+    } else {
+      throw new Error('Failed to get video URI from response');
+    }
+  } catch (error) {
+    console.error('Failed to upload video:', error.message);
   }
+}
 
   return (
     <>

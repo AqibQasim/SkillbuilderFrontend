@@ -13,7 +13,8 @@ const uploadVideo = (client, videoPath) => {
   return new Promise((resolve, reject) => {
     const fileStream = fs.createReadStream(videoPath);
     const fileSize = fs.statSync(videoPath).size;
-    console.log("file size is ", fileSize)
+    console.log("file size is ", fileSize);
+    
     client.upload(
       videoPath,
       {
@@ -24,7 +25,6 @@ const uploadVideo = (client, videoPath) => {
       function (uri) {
         const videoId = uri.split('/').pop();
         console.log('API Response:', videoId);
-        
         resolve({
           status: 200,
           body: JSON.stringify({ uri }),
@@ -57,3 +57,12 @@ export default async function handler(req, res) {
     res.status(500).json({ error: 'Internal Server Error' });
   }
 }
+
+// Increase the body size limit
+export const config = {
+  api: {
+    bodyParser: {
+      sizeLimit: '100mb', // Adjust the size limit as needed
+    },
+  },
+};

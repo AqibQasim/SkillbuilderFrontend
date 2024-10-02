@@ -8,8 +8,8 @@ export const uploadIntroVideo = createAsyncThunk(
   async ({ instructorId, file }, { rejectWithValue }) => {
     try {
       const formData = new FormData();
-      // formData.append("instructorId", instructorId);
-      formData.append("file111", file);
+      // formData.append("instructorId", instructorId); // Uncomment if needed for backend processing
+      formData.append("video", file);
 
       const response = await fetch('/api/upload-video', {
         method: 'POST',
@@ -28,7 +28,6 @@ export const uploadIntroVideo = createAsyncThunk(
     }
   }
 );
-
 
 export const createInstructorAndUploadIntroVideo = createAsyncThunk(
   "instructor/createInstructorAndUploadIntroVideo",
