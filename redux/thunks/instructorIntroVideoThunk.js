@@ -31,9 +31,9 @@ export const uploadIntroVideo = createAsyncThunk(
 
 export const createInstructorAndUploadIntroVideo = createAsyncThunk(
   "instructor/createInstructorAndUploadIntroVideo",
-  async ({ instructorId, file }, { getState, dispatch, rejectWithValue }) => {
+  async ({ instructorId }, { getState, dispatch, rejectWithValue }) => {
     console.log("Instructor Id", instructorId);
-    console.log("Selected Video1111", file);
+    // console.log("Selected Video1111", file);
     let step = 0;
     try {
       if (instructorId) {
@@ -50,7 +50,7 @@ export const createInstructorAndUploadIntroVideo = createAsyncThunk(
       await dispatch(createInstructor(instructorDetails)).unwrap();
       // Upload intro video
       step += 1;
-      await dispatch(uploadIntroVideo({ instructorId, file })).unwrap();
+      // await dispatch(uploadIntroVideo({ instructorId, file })).unwrap();
       return { message: "Instructor created successfully" };
     } catch (error) {
       const errorMessage =

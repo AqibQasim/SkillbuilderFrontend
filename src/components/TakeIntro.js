@@ -88,6 +88,7 @@ const TakeIntro = ({ onPrev }) => {
     console.log('Upload successful:', data);
 
     if (data.uri) {
+     dispatch( createInstructorAndUploadIntroVideo({instructorId}));
       // Perform any additional actions if needed
       router.push('/dashboard');
     } else {
