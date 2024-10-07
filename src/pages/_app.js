@@ -7,6 +7,7 @@ import { fetchOneInstructor } from "../../redux/thunks/instructorThunk";
 import { fetchAccessToken } from "../../redux/thunks/ytAccessThunk";
 import { config } from "@fortawesome/fontawesome-svg-core";
 import "@fortawesome/fontawesome-svg-core/styles.css";
+import IntroVideoProvider from "@/components/IntroVideoProvider";
 
 import { useState, useEffect } from "react";
 
@@ -17,7 +18,9 @@ function MyApp({ Component, pageProps }) {
   return (
     <SessionProvider>
       <Provider store={store}>
+      <IntroVideoProvider>
         <MyAppContent Component={Component} pageProps={pageProps} />
+      </IntroVideoProvider>
       </Provider>
     </SessionProvider>
   );

@@ -11,6 +11,12 @@ import { fetchCoursesByInstructorId } from "../../../redux/thunks/instructorCour
 import { fetchInstructorByUserId } from "../../../redux/thunks/InstructorByUserIdThunk";
 import InstructorPendingCourseTable from "@/components/InstructorPendingCourseTable";
 import Loader from "@/components/Loader";
+import { IntroVideoContext } from "../../../lib/IntroVideoContext";
+import { useContext } from "react";
+import { useState } from "react";
+
+
+
 function Dashboard() {
   const router = useRouter();
   const dispatch = useDispatch();

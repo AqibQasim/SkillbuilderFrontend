@@ -13,6 +13,8 @@ import { createInstructor } from "../../redux/thunks/createInstructorthunk";
 import ErrorMessage from "./ErrorMessage";
 import { resetState as resetStateInstructorIntroVideo } from "../../redux/slices/instructorIntroVideoSlice";
 import Button from "./Button";
+import { IntroVideoContext } from "../../lib/IntroVideoContext";
+import { useContext } from "react";
 
 const TakeIntro = ({ onPrev }) => {
   const [selectedVideo, setSelectedVideo] = useState(null);
@@ -47,6 +49,8 @@ const TakeIntro = ({ onPrev }) => {
     (state) => state.instructorIntroVideo,
   );
   const disableActions = loadingCreateInstructor || loadingInstructorIntroVideo;
+  const { setVideoId } = useContext(IntroVideoContext);
+
 
   console.log("loading Intro Video: ", loading);
   console.log("Error Intro Video: ", error);
@@ -85,7 +89,12 @@ const TakeIntro = ({ onPrev }) => {
     }
 
     const data = await response.json();
-    console.log('Upload successful:', data);
+    
+    if(data.uri){
+      const videoId = data.uri.split('/').pop()
+      setVideoId(videoId);
+      console.log('Upload successful:', videoId);
+    }
 
     if (data.uri) {
      dispatch( createInstructorAndUploadIntroVideo({instructorId}));

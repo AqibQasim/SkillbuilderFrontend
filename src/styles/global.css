@@ -83,8 +83,21 @@ body {
   mask-composite: intersect;
   animation: l5 1s infinite;
 }
+
+iframe{
+  width: 800px;
+  height: 400px;
+  border-radius: 24px;
+}
+.vp-preview {
+  border-radius: 15px;
+  overflow: hidden;
+}
+      
+
 @keyframes l5 {
   to {
     transform: rotate(0.5turn);
   }
 }
+

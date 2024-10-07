@@ -72,7 +72,7 @@ function InstructorDetails() {
         <InstructorHero instructor={instructor} />
       )}
 
-      {instructor && instructor.video_url && (
+      {instructor &&  (
         <InstructorIntro video={instructor.video_url} />
       )}
       <InstructorTopCourses courses={instructor_courses.courses} />
