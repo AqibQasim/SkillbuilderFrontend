@@ -23,7 +23,7 @@ function InstructorIntro({ video, introFor = "instructor" }) {
   useEffect(() => {
     const fetchVimeoVideo = async () => {
       try {
-        const response = await fetch(`https://api.vimeo.com/videos/1015624621`, {
+        const response = await fetch(`https://api.vimeo.com/videos/1020228675`, {
           headers: {
             Authorization: `Bearer ${process.env.NEXT_PUBLIC_VIMEO_ACCESS_TOKEN}`,
           },

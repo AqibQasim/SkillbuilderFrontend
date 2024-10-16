@@ -10,8 +10,8 @@ export const uploadVideo = createAsyncThunk(
     try {
       formData.append("courseId", courseId);
       formData.append("video", selectedVideo);
-      const response = await fetch(`${base_Api}/upload-course-intro`, {
-        method: "POST",
+      const response = await fetch('/api/upload-video', {
+        method: 'POST',
         body: formData,
       });
 

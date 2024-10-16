@@ -18,8 +18,10 @@ const InstructorVideos = ({ onNext, onPrev }) => {
   );
   const dispatch = useDispatch();
 
-  const handleVideoUpload = (event) => {
+  const handleVideoUpload = async (event) => {
     const files = Array.from(event.target.files);
+    console.log("Files uploaded: ", files);
+
     const newFiles = files.map((file) => ({
       file,
       url: URL.createObjectURL(file),
@@ -32,6 +34,14 @@ const InstructorVideos = ({ onNext, onPrev }) => {
           : module,
       ),
     );
+
+    for (const file of files) {
+      try {
+        await dispatch(uploadVideo({ courseId: currentModuleIndex, selectedVideo: file }));
+      } catch (error) {
+        console.error("Failed to upload video: ", error);
+      }
+    }
   };
 
   const handlePlayVideo = (moduleIndex, videoIndex) => {
@@ -42,10 +52,11 @@ const InstructorVideos = ({ onNext, onPrev }) => {
     }));
   };
 
-  const handleClick = (index) => {
-    setCurrentModuleIndex(index);
-    fileInputRef.current.click();
-  };
+  const handleClick = async (index) => {
+  setCurrentModuleIndex(index);
+  fileInputRef.current.click();
+};
+
 
   const formatFileSize = (bytes) => {
     if (bytes < 1024) return bytes + " bytes";
