@@ -23,7 +23,7 @@ function InstructorIntro({ video, introFor = "instructor" }) {
   useEffect(() => {
     const fetchVimeoVideo = async () => {
       try {
-        const response = await fetch(`https://api.vimeo.com/videos/1020228675`, {
+        const response = await fetch(`https://api.vimeo.com/videos/${video}`, {
           headers: {
             Authorization: `Bearer ${process.env.NEXT_PUBLIC_VIMEO_ACCESS_TOKEN}`,
           },
@@ -45,7 +45,7 @@ function InstructorIntro({ video, introFor = "instructor" }) {
     };
 
     fetchVimeoVideo();
-  }, [videoId]);
+  }, [video]);
 
   return (
     <div className="mx-auto mt-8 w-[90%] max-w-screen-2xl">

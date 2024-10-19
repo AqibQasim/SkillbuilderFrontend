@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { IntroVideoContext } from '../../lib/IntroVideoContext';
 
 const IntroVideoProvider = ({ children }) => {
-  const [videoId, setVideoId] = useState('1234567');
+  const [videoId, setVideoId] = useState('');
 
   return (
     <IntroVideoContext.Provider value={{ videoId, setVideoId }}>

@@ -101,7 +101,7 @@ export const store = configureStore({
     instructorIntroVideo: instructorIntroVideoSlice,
     courses: approvedCoursesReducer,
     studentEnrolledCoursesForOneInstructor:
-      studentEnrolledCoursesForOneInstructorSlice,
+    studentEnrolledCoursesForOneInstructorSlice,
   },
   preloadedState,
 });
