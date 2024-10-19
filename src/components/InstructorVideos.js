@@ -4,6 +4,7 @@ import VideoUpload from "./VideoUpload";
 import { createCourse } from "../../redux/thunks/createCourseThunk";
 import { uploadVideo } from "../../redux/thunks/courseVideoThunk";
 import { useDispatch, useSelector } from "react-redux";
+import { setVideoUrl } from "../../redux/slices/createCourseSlice";
 
 const InstructorVideos = ({ onNext, onPrev }) => {
   const [selectedVideo, setSelectedVideo] = useState(null);
@@ -13,6 +14,7 @@ const InstructorVideos = ({ onNext, onPrev }) => {
   const [currentModuleIndex, setCurrentModuleIndex] = useState(null);
   const userId = useSelector((state) => state.auth.user);
   const courseId = useSelector((state) => state.createCourse.courseId);
+  const [videoId, setVideoId] = useState (null)
   const courseDetails = useSelector(
     (state) => state.createCourse.courseDetails,
   );
@@ -96,49 +98,103 @@ const InstructorVideos = ({ onNext, onPrev }) => {
     ]);
   };
 
+  const uploadVideoHandler = async () => {
+  if (!selectedVideo) return;
+
+  const formData = new FormData();
+  formData.append("video", selectedVideo);
+
+  try {
+    const response = await fetch("/api/upload-video", {
+      method: "POST",
+      body: formData,
+    });
+
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(errorData.error || "Unable to post video");
+    }
+
+    const data = await response.json();
+
+    if (data.uri) {
+      const videoId = data.uri.split("/").pop();
+      return videoId
+
+    } else {
+      throw new Error("Failed to get video URI from response");
+    }
+  } catch (error) {
+    console.error("Failed to upload video:", error.message);
+  }
+};
+
   async function uploadCourseDetailsAndVideo() {
     if (!selectedVideo)
       return console.log("Please upload a video before you proceed");
 
     try {
-      // Details
-      const createCourseResult = await dispatch(
-        createCourse(courseDetails),
-      ).unwrap();
-      console.log("Create course result", createCourseResult);
 
-      if (!createCourseResult?.status)
-        throw new Error(
-          createCourseResult?.message ||
-            "Could not upload course details please try again later",
-        );
+      const videoId = await uploadVideoHandler()
+      if(videoId){
+        console.log("Video Id after uploading intro: ", videoId)
+        
+        dispatch(setVideoUrl(videoId));
+        
+        setVideoId(videoId)
+
+
+        console.log("DETAILS I AM SENDING",courseDetails )
+
+      // Details
+      
+    }
+
+      // if (!createCourseResult?.status)
+      //   throw new Error(
+      //     createCourseResult?.message ||
+      //       "Could not upload course details please try again later",
+      //   );
 
       // Video
-      const courseId = createCourseResult?.courseId;
+      // const courseId = createCourseResult?.courseId;
       if (!courseId)
         throw new Error("Course id is undefined for the Intro video");
       console.log(
         "send this course id as video upload payload course Id: ",
         courseId,
       );
-      const uploadCourseIntroVideoResult = await dispatch(
-        uploadVideo({ courseId, selectedVideo }),
-      ).unwrap();
 
-      console.log(uploadCourseIntroVideoResult);
-      if (!uploadCourseIntroVideoResult?.status) {
-        throw new Error(
-          uploadCourseIntroVideoResult?.message ||
-            "Course details uploaded successfully, but the introduction video failed to upload.",
-        );
-      }
+      // const uploadCourseIntroVideoResult = await dispatch(
+      //   uploadVideo({ courseId, selectedVideo }),
+      // ).unwrap();
+
+      // if (!uploadCourseIntroVideoResult?.uri) {
+      //   throw new Error(
+      //     uploadCourseIntroVideoResult?.message ||
+      //       "Course details uploaded successfully, but the introduction video failed to upload.",
+      //   );
+      // }
       console.log("No Error?");
       console.log("Course details Status", createCourseResult);
-      console.log("Video upload Status", uploadCourseIntroVideoResult);
+      // console.log("Video upload Status", uploadCourseIntroVideoResult);
     } catch (error) {
       console.log("Error on create course fail", error);
     }
   }
+  useEffect(() => {
+  if (courseDetails && videoId) {
+
+    const createCourseResult = dispatch(
+        createCourse(courseDetails),
+      ).unwrap();
+      console.log("Create course result", createCourseResult);
+
+
+    // Perform any necessary actions based on updated courseDetails
+    console.log("Updated courseDetails: ", courseDetails);
+  }
+}, [courseDetails, videoId]);
 
   return (
     <div>

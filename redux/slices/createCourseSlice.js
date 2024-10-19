@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import { createCourse } from "../thunks/createCourseThunk";
 
 const initialState = {
-  courseId: null, // keep this ID OUTSIDE courseDetails
+  courseId: null,
   courseDetails: {
     amount: 0,
     category: "",
@@ -11,8 +11,7 @@ const initialState = {
     learning_outcomes: "",
     modulesCount: 0,
     video_url: "temp_url",
-    description:
-      "This is a temporary description for this course; it can be changed later.",
+    description: "This is a temporary description for this course; it can be changed later.",
     creation_duration_hours: 0,
     image: "/heroImage2.png",
     title: "",
@@ -27,11 +26,13 @@ const createCourseSlice = createSlice({
   initialState,
   reducers: {
     setCourseDetails: (state, action) => {
-      console.log(console.log("payload on course detail", action.payload));
       state.courseDetails = {
         ...state.courseDetails,
         ...action.payload,
       };
+    },
+    setVideoUrl: (state, action) => {
+      state.courseDetails.video_url = action.payload;
     },
   },
   extraReducers: (builder) => {
@@ -41,7 +42,6 @@ const createCourseSlice = createSlice({
         state.error = null;
       })
       .addCase(createCourse.fulfilled, (state, action) => {
-        console.log("payload on createCourse fulfilled case", action.payload);
         state.loading = false;
         state.successMessage = action.payload?.message;
         state.courseId = action.payload?.courseId;
@@ -54,5 +54,5 @@ const createCourseSlice = createSlice({
   },
 });
 
-export const { setCourseDetails } = createCourseSlice.actions;
+export const { setCourseDetails, setVideoUrl } = createCourseSlice.actions;
 export default createCourseSlice.reducer;
