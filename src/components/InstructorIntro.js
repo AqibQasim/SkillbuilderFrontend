@@ -49,7 +49,7 @@ function InstructorIntro({ video, introFor = "instructor" }) {
 
   return (
     <div className="mx-auto mt-8 w-[90%] max-w-screen-2xl">
-      <SubHeading> {subHeading} introduction </SubHeading>
+      {/* <SubHeading> {subHeading} introduction </SubHeading> */}
       <div className=" mt-10 flex w-full items-center justify-center">
         <div className="" dangerouslySetInnerHTML={{ __html: embedHtml }} />
       </div>
