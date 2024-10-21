@@ -6,6 +6,7 @@ import { uploadVideo } from "../../redux/thunks/courseVideoThunk";
 import { useDispatch, useSelector } from "react-redux";
 import { setVideoUrl } from "../../redux/slices/createCourseSlice";
 import { uploadCourseContent } from "../../redux/thunks/uploadCourseThunk";
+import { useRouter } from "next/router";
 
 const InstructorVideos = ({ onNext, onPrev }) => {
   const [selectedVideo, setSelectedVideo] = useState(null);
@@ -23,6 +24,7 @@ const InstructorVideos = ({ onNext, onPrev }) => {
   const [updatedCourse, setUpdatedCourse] = useState(false);
 
   const dispatch = useDispatch();
+   const router = useRouter()
 
   const handleVideoUpload = async (event) => {
   const files = Array.from(event.target.files);
@@ -206,6 +208,9 @@ useEffect(() => {
      dispatch(uploadCourseContent(payload));
 
     console.log("Course content uploaded:", payload);
+
+    
+    router.push("/dashboard")
   
   
   } catch (error) {
