@@ -14,6 +14,7 @@ import { fetchOneUser } from "../../../redux/thunks/userInfoThunk";
 import { fetchAllReviews } from "../../../redux/thunks/reviewsThunk";
 import Loader from "@/components/Loader";
 
+
 const CourseDetails = () => {
   const router = useRouter();
   const { id } = router?.query;
