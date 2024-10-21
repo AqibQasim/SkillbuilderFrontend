@@ -28,6 +28,10 @@ import singleCourseReducer from "../slices/singleCourseSlice";
 import singleInstructorReducer from "../slices/singleInstructorSlice";
 import singleUserSlice from "../slices/singleUserSlice";
 import studentEnrolledCoursesForOneInstructorSlice from "../slices/studentEnrolledCoursesForOneInstructorSlice";
+
+// Import the new courseReducer from your courseSlice
+import courseUploadReducer from '../slices/courseUploadSlice'; // <- your new reducer for uploading course content
+
 // Function to load state from localStorage
 function loadState() {
   try {
@@ -89,19 +93,20 @@ export const store = configureStore({
     courseVideoUpload: courseVideoUploadReducer,
     instructorCourses: instructorCoursesSliceReducer,
     courseStatus: courseStatusSlice,
-    students: studentsReducer,
     students: studentsSlice,
     allInstructors: allInstructorsReducer,
     studentsByInstructor: fetchStudentsByInstructorReducer,
     review: reviewSlice,
-    courseVideoUpload: courseVideoUploadReducer,
     purchasecourse: purchasecourseSlice,
     instructorByUserId: InstructorByUserIdSlice,
     createCourse: createCourseSlice,
     instructorIntroVideo: instructorIntroVideoSlice,
-    courses: approvedCoursesReducer,
+    approvedCourses: approvedCoursesReducer,
     studentEnrolledCoursesForOneInstructor:
-    studentEnrolledCoursesForOneInstructorSlice,
+      studentEnrolledCoursesForOneInstructorSlice,
+    
+    // Add your new courseReducer here
+    course: courseUploadReducer, // <- this is where you integrate your courseSlice
   },
   preloadedState,
 });
