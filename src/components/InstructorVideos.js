@@ -189,7 +189,7 @@ useEffect(() => {
     // Step 3: After successfully creating the course, prepare the module data
     const moduleInfo = {
       modules: modules.map((module) => ({
-        title: module.title,
+        title: `Module ${module.title}`,
         content: module.videos.map((video, index) => ({
           title: `Video ${index + 1}`,
           content: video.videoId,
