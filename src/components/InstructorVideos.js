@@ -193,7 +193,7 @@ useEffect(() => {
       modules: modules.map((module) => ({
         title: `Module ${module.title}`,
         content: module.videos.map((video, index) => ({
-          title: `Video ${index + 1}`,
+          title: video.file?.name.split(".")[0],
           content: video.videoId,
         })),
       })),
