@@ -30,7 +30,7 @@ const PaymentSuccess = () => {
             price: parseInt(course.amount),
           }));
 
-          const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}}/enroll-in-course`, {
+          const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/enroll-in-course`, {
             method: "PUT",
             headers: {
               "Content-Type": "application/json",
