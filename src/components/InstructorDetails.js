@@ -21,7 +21,7 @@ const InstructorDetails = ({ onNext }) => {
     specialization: "",
     qualifications: [{ percentage: "", degree: "" }],
     skills: [{ percentage: "", title: "" }],
-    video_url: "123r4",
+    video_url: "",
   };
 
   const [formData, setFormData] = useState({
@@ -100,11 +100,12 @@ const InstructorDetails = ({ onNext }) => {
               <h3 className="mb-3 text-lg font-medium">
                 What is your educational background?
               </h3>
-              {formData.qualifications.map((detail, i) => (
+              {formData.qualifications.map((detail, i) => 
                 <div className="mb-2 flex flex-col gap-3" key={i}>
                   <input
                     type="text"
                     placeholder="Percentage %"
+                    title="Please enter a valid percentage between 0 and 100."
                     className="h-12 w-full rounded border-2 bg-bg_gray p-3"
                     value={detail.percentage}
                     required
@@ -123,6 +124,8 @@ const InstructorDetails = ({ onNext }) => {
                     placeholder="Qualification"
                     className="h-12 w-full rounded border-2 bg-bg_gray p-3"
                     value={detail.degree}
+                    pattern="^[a-zA-Z ]+$"
+                    title="Qualification should contain alphabets only."
                     required
                     onChange={(e) =>
                       handleNestedChange(
@@ -134,7 +137,7 @@ const InstructorDetails = ({ onNext }) => {
                     }
                   />
                 </div>
-              ))}
+              )}
               <button
                 className="font-medium text-blue"
                 type="button"
@@ -153,6 +156,8 @@ const InstructorDetails = ({ onNext }) => {
                     type="text"
                     placeholder="Percentage %"
                     className="h-12 w-full rounded border-2 bg-bg_gray p-3"
+                    pattern="^(100|[1-9]?[0-9])$"
+                    title="Please enter a valid percentage between 0 and 100."
                     value={skill.percentage}
                     required
                     onChange={(e) =>
@@ -169,6 +174,8 @@ const InstructorDetails = ({ onNext }) => {
                     placeholder="Skill"
                     className="h-12 w-full rounded border-2 bg-bg_gray p-3"
                     value={skill.title}
+                    pattern="^[a-zA-Z.+]+$"
+                    title="Please enter a valid skill."
                     required
                     onChange={(e) =>
                       handleNestedChange("skills", i, "title", e.target.value)
@@ -196,6 +203,8 @@ const InstructorDetails = ({ onNext }) => {
                     type="text"
                     placeholder="Domain"
                     className="h-12 w-full rounded border-2 bg-bg_gray p-3"
+                    pattern="^[a-zA-Z \-]+$"
+                    title="Domain should contain alphabets only."
                     value={domain}
                     required
                     onChange={(e) => handleExperienceChange(i, e.target.value)}
@@ -220,6 +229,8 @@ const InstructorDetails = ({ onNext }) => {
                 placeholder="Specialization"
                 className="h-12 w-full rounded border-2 bg-bg_gray p-3"
                 value={formData.specialization}
+                pattern="^[a-zA-Z \-]+$"
+                title="Specialization should contain alphabets only."
                 required
                 onChange={(e) => handleChange("specialization", e.target.value)}
               />
