@@ -1,25 +1,57 @@
 import { SubHeading } from "@/pages/instructor/[id]";
-import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useEffect, useState, useContext } from "react";
+import { IntroVideoContext } from "../../lib/IntroVideoContext";
 
-function InstructorIntro({ video }) {
-
+function InstructorIntro({ video, introFor = "instructor" }) {
   console.log("video_url:", video);
+  const subHeading = introFor === "instructor" ? "Instructor" : "Course";
+  const { videoId } = useContext(IntroVideoContext);
+  const [embedHtml, setEmbedHtml] = useState('');
+
+  const injectStyles = (html) => {
+    const style = `
+      <style>
+        body { 
+          align-items: left;
+        }
+      </style>
+    `;
+    // Inject the style before the closing head tag
+    return html.replace('</head>', `${style}</head>`);
+  };
+
+  useEffect(() => {
+    const fetchVimeoVideo = async () => {
+      try {
+        const response = await fetch(`https://api.vimeo.com/videos/${video}`, {
+          headers: {
+            Authorization: `Bearer ${process.env.NEXT_PUBLIC_VIMEO_ACCESS_TOKEN}`,
+          },
+        });
+
+        if (!response.ok) {
+          throw new Error('Failed to fetch video');
+        }
+
+        const data = await response.json();
+
+        if(data){
+          const styledHtml = injectStyles(data.embed.html);
+          setEmbedHtml(styledHtml);
+        }
+      } catch (error) {
+        console.error('Error fetching video:', error);
+      }
+    };
+
+    fetchVimeoVideo();
+  }, [video]);
 
   return (
     <div className="mx-auto mt-8 w-[90%] max-w-screen-2xl">
-      <SubHeading>Instructor introduction</SubHeading>
-      <div className="mt-10 flex w-full items-center justify-center">
-        <iframe
-          width="100%"
-          height="auto"
-          className="h-video-h w-video-w rounded-3xl sm:h-video-h-sm md:h-video-h-md xl:w-video-w-xl"
-          src={video}
-          allow="autoplay; encrypted-media"
-          allowFullScreen
-          title="Instructor Video"
-        ></iframe>
-
+      {/* <SubHeading> {subHeading} introduction </SubHeading> */}
+      <div className=" mt-10 flex w-full items-center justify-center">
+        <div className="" dangerouslySetInnerHTML={{ __html: embedHtml }} />
       </div>
     </div>
   );

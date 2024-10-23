@@ -26,7 +26,7 @@ const useGoogleSignIn = () => {
 
           if (data.status) {
             // Successfully logged in
-            router.push("/home"); // Redirect to the home page
+            router.push("/"); // Redirect to the home page
           } else {
             // Handle login failure
             console.error(data.message);

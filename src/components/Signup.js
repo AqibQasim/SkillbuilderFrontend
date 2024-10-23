@@ -1,75 +1,38 @@
-// import { signIn } from "next-auth/react";
-import Image from "next/image";
+import { useSession } from "next-auth/react";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { signupUser, signupWithGoogle } from "../../redux/thunks/auththunks";
-import { useSession, signOut } from "next-auth/react";
-// import { handleGoogleCallback } from "../../redux/thunks/googlethunk";
-
+import { clearError } from "../../redux/slices/authSlice";
+import { clearEmail as clearLoginFlowEmail } from "../../redux/slices/loginFlowSlice";
+import { signupUser } from "../../redux/thunks/auththunks";
+import ErrorMessage from "./ErrorMessage";
 import ShowPassword from "./ShowPassword";
-// import { signupUser } from "../../redux/thunks/auththunks";
+import GoogleSignup from "./GoogleSignup";
 
 const Signup = () => {
+  const router = useRouter();
   const [first_name, setfirst_name] = useState("");
   const [last_name, setlast_name] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [formError, setFormError] = useState("");
-  const [gmailData, setGmailData] = useState();
-  const [gstatus, setgStatus] = useState();
-  const { data, status } = useSession();
+  const [showError, setShowError] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+
+  const { data, status } = useSession();
   const dispatch = useDispatch();
 
   const { isLoading, error, successMessage } = useSelector(
     (state) => state.auth,
   );
 
-  const handleGoogleSignIn = async () => {
-    console.log("calling signup");
-    window.location.href = "http://localhost:4000/auth/google";
-
-    // const response = await fetch(`https://localhost:4000/auth/google`, {
-    //   method: "GET",
-    //   // credentials: "include",
-    //   // headers: {
-    //   //   "Content-Type": "a  pplication/json",
-    //   // },
-    // });
-    // dispatch(handleGoogleCallback());
-  };
-
   useEffect(() => {
-    if (status === "authenticated") {
-      console.log("AUTHENTICATED SUCCESSFULLY!");
-      createGoogleUser(data);
-    }
-  }, [status, data]);
-
-  const createGoogleUser = async (data) => {
-    try {
-      const reqBody = {
-        email: data?.user?.email,
-        image: data?.user?.image,
-        name: data?.user?.name,
-      };
-
-      const response = await fetch("/api/create-user", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(reqBody),
-      });
-      const result = await response.json();
-      console.log("Google user created:", result);
-    } catch (err) {
-      console.log("ERR:", err);
-    }
-  };
+    dispatch(clearError());
+    dispatch(clearLoginFlowEmail());
+  }, []);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -99,7 +62,11 @@ const Signup = () => {
     if (password)
       dispatch(signupUser({ first_name, last_name, email, password }));
   };
-
+  useEffect(() => {
+    if (error) {
+      setShowError(true);
+    }
+  }, [error]);
   // const { data, status } = useSession();
   console.log("data:", data, "status:", status);
   if (status === "loading") return <h1> loading... please wait</h1>;
@@ -109,6 +76,20 @@ const Signup = () => {
 
   return (
     <div className="w-full max-w-md rounded-md bg-white px-6 py-4 shadow-md">
+      {formError ? (
+        <ErrorMessage
+          showError={formError}
+          setShowError={setFormError}
+          errorMessage={formError}
+        />
+      ) : null}
+      {showError && (
+        <ErrorMessage
+          showError={showError}
+          setShowError={setShowError}
+          errorMessage={error}
+        />
+      )}
       <h2 className="text-2xl font-bold text-darkgray">Create Your Account</h2>
       <p className="text-lightgray">Start your learning journey with us </p>
       {/* Form */}
@@ -221,9 +202,9 @@ const Signup = () => {
             />
           </div>
         </div>
-        {formError && (
+        {/* {formError && (
           <div className="mb-2 text-center text-red-500">{formError}</div>
-        )}
+        )} */}
         {successMessage && (
           <div className="mb-2 text-center text-green-500">
             {successMessage}
@@ -256,7 +237,7 @@ const Signup = () => {
             {isLoading ? "Signing up..." : "Sign Up"}
           </button>
         </div>
-        {error && <div className="text-center text-red-500">{error}</div>}
+        {/* {error && <div className="text-center text-red-500">{error}</div>} */}
       </form>
 
       {/* Login Link */}
@@ -277,7 +258,8 @@ const Signup = () => {
           <span className="mx-4 text-gray-300">Or</span>
           <div className="flex-grow border-t border-gray-300"></div>
         </div>
-        <button
+
+        {/* <button
           onClick={handleGoogleSignIn}
           // onClick={() => signIn("google")}
           className="border-black text-black mb-4 mt-4 flex w-full items-center justify-center rounded-lg border bg-white p-2"
@@ -285,11 +267,14 @@ const Signup = () => {
           <span className="mr-2">
             <Image src="/googlelogo.png" width={25} height={25} alt="" />
             {/* <img src={googleicon} width={24} height={24} alt="Google Icon" /> */}
-          </span>
+        {/*</span>
           <span className="text-sm font-semibold">Continue with Google</span>
-        </button>
+        </button> */}
+        {/* Continue with google component */}
+        <GoogleSignup />
       </div>
     </div>
   );
 };
+
 export default Signup;

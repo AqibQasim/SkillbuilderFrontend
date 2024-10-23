@@ -11,6 +11,7 @@ import {
 import { loginUser } from "../../redux/thunks/auththunks";
 import ErrorMessage from "./ErrorMessage";
 import ShowPassword from "./ShowPassword";
+import GoogleSignup from "./GoogleSignup";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -61,7 +62,7 @@ const Login = () => {
     dispatch(loginWithGoogle(token));
   };
   if (user) {
-    router.replace("/home");
+    router.replace("/");
   }
 
   return (
@@ -71,6 +72,13 @@ const Login = () => {
           showError={showError}
           setShowError={setShowError}
           errorMessage={error}
+        />
+      ) : null}
+      {formError ? (
+        <ErrorMessage
+          showError={formError}
+          setShowError={setFormError}
+          errorMessage={formError}
         />
       ) : null}
       <h2 className="text-center text-2xl font-bold text-darkgray">
@@ -122,11 +130,11 @@ const Login = () => {
             />
           </div>
         </div>
-        {formError && (
+        {/* {formError && (
           <div className="mb-2 text-center text-red-500">{formError}</div>
-        )}
+        )} */}
 
-        {!formError && <div className="text-center text-red-500">{error}</div>}
+        {/* {!formError && <div className="text-center text-red-500">{error}</div>} */}
         <Link
           href="/reset-password"
           className="ml-2 text-sm font-semibold text-blue"
@@ -152,7 +160,7 @@ const Login = () => {
           <span className="mx-4 text-gray-300">Or Login With</span>
           <div className="flex-grow border-t border-gray-300"></div>
         </div>
-        <button className="mb-4 mt-4 flex w-full items-center justify-center rounded-lg border border-google-border bg-white p-2 text-black">
+        {/* <button className="text-black mb-4 mt-4 flex w-full items-center justify-center rounded-lg border border-google-border bg-white p-2">
           <span className="mr-2">
             <Image src="/googlelogo.png" width={25} height={25} />
           </span>
@@ -167,7 +175,9 @@ const Login = () => {
           >
             Continue with Google
           </span>
-        </button>
+        </button> */}
+        {/* Continue with google component */}
+        <GoogleSignup />
       </div>
       <div className="mt-4 text-center">
         <p className="text-sm">

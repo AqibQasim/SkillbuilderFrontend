@@ -1,8 +1,12 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import Image from "next/image";
 import VideoUpload from "./VideoUpload";
 import { createCourse } from "../../redux/thunks/createCourseThunk";
 import { uploadVideo } from "../../redux/thunks/courseVideoThunk";
+import { useDispatch, useSelector } from "react-redux";
+import { setVideoUrl } from "../../redux/slices/createCourseSlice";
+import { uploadCourseContent } from "../../redux/thunks/uploadCourseThunk";
+import { useRouter } from "next/router";
 
 const InstructorVideos = ({ onNext, onPrev }) => {
   const [selectedVideo, setSelectedVideo] = useState(null);
@@ -10,34 +14,78 @@ const InstructorVideos = ({ onNext, onPrev }) => {
   const [showVideos, setShowVideos] = useState({});
   const fileInputRef = useRef(null);
   const [currentModuleIndex, setCurrentModuleIndex] = useState(null);
+  const userId = useSelector((state) => state.auth.user);
+  const courseId = useSelector((state) => state.createCourse.courseId);
+  const [videoId, setVideoId] = useState (null)
+    const [updateCount, setUpdateCount] = useState(0);
+  const courseDetails = useSelector(
+    (state) => state.createCourse.courseDetails,
+  );
+  const [updatedCourse, setUpdatedCourse] = useState(false);
 
-  const handleVideoUpload = (event) => {
-    const files = Array.from(event.target.files);
-    const newFiles = files.map((file) => ({
-      file,
-      url: URL.createObjectURL(file),
-    }));
+  const dispatch = useDispatch();
+   const router = useRouter()
 
-    setModules((prevModules) =>
-      prevModules.map((module, index) =>
-        index === currentModuleIndex
-          ? { ...module, videos: [...module.videos, ...newFiles] }
-          : module
-      )
-    );
-  };
+  const handleVideoUpload = async (event) => {
+  const files = Array.from(event.target.files);
+  console.log("Files uploaded: ", files);
+
+  const newFiles = files.map((file) => ({
+    file,
+    url: URL.createObjectURL(file),
+    videoId: null, // Initialize with null until the videoId is returned
+  }));
+
+  setModules((prevModules) =>
+    prevModules.map((module, index) =>
+      index === currentModuleIndex
+        ? { ...module, videos: [...module.videos, ...newFiles] }
+        : module
+    )
+  );
+
+
+  for (const [index, file] of files.entries()) {
+    try {
+      // Use the uploadVideoHandler to get the videoId
+      const videoId = await uploadVideoHandler(file);
+      if (videoId) {
+        setModules((prevModules) =>
+          prevModules.map((module, modIndex) =>
+            modIndex === currentModuleIndex
+              ? {
+                  ...module,
+                  videos: module.videos.map((video, vidIndex) =>
+                    vidIndex === index
+                      ? { ...video, videoId } // Store the videoId here
+                      : video
+                  ),
+                }
+              : module
+          )
+        );
+      }
+    } catch (error) {
+      console.error("Failed to upload video: ", error);
+    }
+  }
+};
+
+
 
   const handlePlayVideo = (moduleIndex, videoIndex) => {
     setShowVideos((prevShowVideos) => ({
       ...prevShowVideos,
-      [`${moduleIndex}-${videoIndex}`]: !prevShowVideos[`${moduleIndex}-${videoIndex}`],
+      [`${moduleIndex}-${videoIndex}`]:
+        !prevShowVideos[`${moduleIndex}-${videoIndex}`],
     }));
   };
 
-  const handleClick = (index) => {
-    setCurrentModuleIndex(index);
-    fileInputRef.current.click();
-  };
+  const handleClick = async (index) => {
+  setCurrentModuleIndex(index);
+  fileInputRef.current.click();
+};
+
 
   const formatFileSize = (bytes) => {
     if (bytes < 1024) return bytes + " bytes";
@@ -51,11 +99,11 @@ const InstructorVideos = ({ onNext, onPrev }) => {
       prevModules.map((module, index) =>
         index === moduleIndex
           ? {
-            ...module,
-            videos: module.videos.filter((_, i) => i !== videoIndex),
-          }
-          : module
-      )
+              ...module,
+              videos: module.videos.filter((_, i) => i !== videoIndex),
+            }
+          : module,
+      ),
     );
     setShowVideos((prevShowVideos) => {
       const newShowVideos = { ...prevShowVideos };
@@ -77,42 +125,129 @@ const InstructorVideos = ({ onNext, onPrev }) => {
     ]);
   };
 
-  const uploadvideoHandler = async () => {
-    if (!selectedVideo) return;
+  const uploadVideoHandler = async (selectedVideo) => {
+  if (!selectedVideo) return;
 
-    try {
+  const formData = new FormData();
+  formData.append("video", selectedVideo);
 
-      console.log("[SELECTED VIDEO LOG]:", selectedVideo);
-      // if (instructorId) {
-      //   dispatch(uploadVideo(selectedVideo));
-      // } else {
-      await dispatch(createCourse(courseDetails)).unwrap();
-      dispatch(uploadVideo(selectedVideo));
-      // }
-    } catch (error) {
-      console.error("Failed to create instructor or upload video:", error);
+  try {
+    const response = await fetch("/api/upload-video", {
+      method: "POST",
+      body: formData,
+    });
+
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(errorData.error || "Unable to post video");
     }
-  };
+
+    const data = await response.json();
+
+    if (data.uri) {
+      const videoId = data.uri.split("/").pop();
+      return videoId;
+    } else {
+      throw new Error("Failed to get video URI from response");
+    }
+  } catch (error) {
+    console.error("Failed to upload video:", error.message);
+  }
+};
+
+useEffect(() => {
+  console.log("Updated course details:", courseDetails);
+    
+  setUpdatedCourse(true);
+  console.log("UpdatedC details", courseDetails)
+
+}, [courseDetails]);
+
+
+ const uploadCourseDetailsAndVideo = async () => {
+  try {
+
+
+    const intro = await uploadVideoHandler(selectedVideo)
+
+    await dispatch(setVideoUrl(intro));
+    
+    setVideoId(intro)
+
+     const updatedCourseDetails = { ...courseDetails, video_url: intro };
+
+      console.log("updated course is: ", updatedCourse)
+
+      // Step 1: Dispatch the createCourse action and wait for its result
+      const createCourseResult = await dispatch(createCourse(updatedCourseDetails)).unwrap();
+
+      // Step 2: Check if createCourse was successful and if courseId exists
+      const courseId = createCourseResult?.courseId;
+      if (!courseId) {
+        throw new Error("Failed to create course or missing courseId.");
+      }
+    
+    
+    // Step 3: After successfully creating the course, prepare the module data
+    const moduleInfo = {
+      modules: modules.map((module) => ({
+        title: `Module ${module.title}`,
+        content: module.videos.map((video, index) => ({
+          title: video.file?.name.split(".")[0],
+          content: video.videoId,
+        })),
+      })),
+    };
+
+    const payload = {
+      course_id: courseId,  // Use the courseId from createCourse result
+      module_info: moduleInfo,
+    };
+
+    // Step 4: Dispatch the uploadCourseContent action with the course data
+     dispatch(uploadCourseContent(payload));
+
+    console.log("Course content uploaded:", payload);
+
+    
+    router.push("/dashboard")
+  
+  
+  } catch (error) {
+    console.log("Error during course creation or content upload:", error);
+  }
+};
+
+
+
+
+useEffect(() => {
+  console.log("modules are: ", modules)
+}, [modules])
 
   return (
     <div>
-      <h3 className="font-medium text-lg mt-10 mb-5">
+      <h3 className="mb-5 mt-10 text-lg font-medium">
         Upload an introduction video of Course
       </h3>
-      <VideoUpload selectedVideo={selectedVideo} setSelectedVideo={setSelectedVideo} />
-      <div className="accordion mt-8 rounded-md border-2 border-[#BBBBBB] px-4 py-2 overflow-hidden">
+      <VideoUpload
+        selectedVideo={selectedVideo}
+        setSelectedVideo={setSelectedVideo}
+      />
+      <div className="accordion mt-8 overflow-hidden rounded-md border-2 border-[#BBBBBB] px-4 py-2">
         {modules.map((item, moduleIndex) => (
           <div key={moduleIndex}>
             <h2>
               <button
                 type="button"
-                className="flex w-full items-center justify-between py-5 font-medium text-black"
+                className="text-black flex w-full items-center justify-between py-5 font-medium"
                 onClick={() => toggleAccordion(moduleIndex)}
               >
                 <span>Module {item.title}</span>
                 <svg
-                  className={`h-3 w-3 transition-transform ${open === moduleIndex ? "rotate-0" : "rotate-180"
-                    }`}
+                  className={`h-3 w-3 transition-transform ${
+                    open === moduleIndex ? "rotate-0" : "rotate-180"
+                  }`}
                   aria-hidden="true"
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
@@ -130,16 +265,15 @@ const InstructorVideos = ({ onNext, onPrev }) => {
             </h2>
             <div className="border-b-2 border-[#BBBBBB]"></div>
             <div
-              className={` ${open === moduleIndex ? "block" : "max-h-0 overflow-hidden"
-                }`}
+              className={` ${
+                open === moduleIndex ? "block" : "max-h-0 overflow-hidden"
+              }`}
             >
               <div className="border-[#BBBBBB] py-5">
                 <div className="flex w-full flex-col items-center">
                   {item.videos.map((videoFile, videoIndex) => (
                     <React.Fragment key={videoIndex}>
-                      <div
-                        className="mt-4 flex h-fit w-full flex-row justify-between rounded-md border-2 border-[#BBBBBB] bg-bg_gray p-4 max-md:flex-col"
-                      >
+                      <div className="mt-4 flex h-fit w-full flex-row justify-between rounded-md border-2 border-[#BBBBBB] bg-bg_gray p-4 max-md:flex-col">
                         <div className="flex h-full w-fit gap-3">
                           <div className="flex justify-center">
                             <button
@@ -209,7 +343,7 @@ const InstructorVideos = ({ onNext, onPrev }) => {
                         </div>
                       </div>
                       {showVideos[`${moduleIndex}-${videoIndex}`] && (
-                        <video className="h-2/6 w-6/12 mt-4" controls>
+                        <video className="mt-4 h-2/6 w-6/12" controls>
                           <source
                             src={videoFile.url}
                             type={videoFile.file.type}
@@ -266,7 +400,8 @@ const InstructorVideos = ({ onNext, onPrev }) => {
             <button
               type="button"
               className="rounded-md bg-blue px-10 py-2 font-normal text-white hover:bg-blue-600 max-lsm:mt-4 max-lsm:w-full"
-              onClick={onNext}
+              // onClick={onNext}
+              onClick={uploadCourseDetailsAndVideo}
             >
               Continue
             </button>

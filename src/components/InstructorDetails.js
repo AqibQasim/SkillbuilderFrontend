@@ -1,13 +1,16 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { updateInstructorDetails } from "../../redux/slices/createInstructorSlice";
 import Button from "./Button";
+import { IntroVideoContext } from "../../lib/IntroVideoContext";
 
 const InstructorDetails = ({ onNext }) => {
+  const { videoId } = useContext(IntroVideoContext);
   const profile = useSelector((state) => state.profile);
   const userId = profile?.id;
+  const [showError, setShowError] = useState(false);
   const instructorDetails = useSelector(
-    (state) => state.instructor.instructorDetails,
+    (state) => state.instructor.instructorDetails
   );
   const dispatch = useDispatch();
   const { loading, error } = useSelector((state) => state.instructor || {});
@@ -18,7 +21,7 @@ const InstructorDetails = ({ onNext }) => {
     specialization: "",
     qualifications: [{ percentage: "", degree: "" }],
     skills: [{ percentage: "", title: "" }],
-    video_url: "",
+    video_url: "123r4",
   };
 
   const [formData, setFormData] = useState({
@@ -30,7 +33,8 @@ const InstructorDetails = ({ onNext }) => {
     if (Object.keys(instructorDetails).length > 0) {
       setFormData({ ...instructorDetails, user_id: userId });
     }
-  }, [instructorDetails]);
+  }, [instructorDetails, userId]);
+
 
   const handleChange = (field, value) => {
     setFormData((prevFormData) => ({ ...prevFormData, [field]: value }));
@@ -40,7 +44,7 @@ const InstructorDetails = ({ onNext }) => {
     setFormData((prevFormData) => ({
       ...prevFormData,
       [section]: prevFormData[section].map((item, i) =>
-        i === index ? { ...item, [key]: value } : item,
+        i === index ? { ...item, [key]: value } : item
       ),
     }));
   };
@@ -49,7 +53,7 @@ const InstructorDetails = ({ onNext }) => {
     setFormData((prevFormData) => ({
       ...prevFormData,
       experience: prevFormData.experience.map((item, i) =>
-        i === index ? value : item,
+        i === index ? value : item
       ),
     }));
   };
@@ -66,6 +70,7 @@ const InstructorDetails = ({ onNext }) => {
       ...prevFormData,
       experience: [...prevFormData.experience, ""],
     }));
+    console.log("URL IN EXPERICENCE: ", videoId)
   };
 
   const submitHandler = (e) => {
@@ -73,11 +78,24 @@ const InstructorDetails = ({ onNext }) => {
     dispatch(updateInstructorDetails(formData));
   };
 
+  useEffect(() => {
+    if (error) {
+      setShowError(true);
+    }
+  }, [error]);
+
   return (
     <div className="w-full overflow-auto p-8">
+      {showError && (
+        <ErrorMessage
+          showError={showError}
+          setShowError={setShowError}
+          errorMessage={error}
+        />
+      )}
       <form onSubmit={submitHandler}>
         <div className="mt-5 flex justify-between gap-28 max-lg:flex-col">
-          <div className="flex flex-col gap-y-5 flex-grow">
+          <div className="flex flex-grow flex-col gap-y-5">
             <div>
               <h3 className="mb-3 text-lg font-medium">
                 What is your educational background?
@@ -90,12 +108,13 @@ const InstructorDetails = ({ onNext }) => {
                     className="h-12 w-full rounded border-2 bg-bg_gray p-3"
                     value={detail.percentage}
                     required
+                    pattern="^(100|[1-9]?[0-9])$"
                     onChange={(e) =>
                       handleNestedChange(
                         "qualifications",
                         i,
                         "percentage",
-                        e.target.value,
+                        e.target.value
                       )
                     }
                   />
@@ -110,7 +129,7 @@ const InstructorDetails = ({ onNext }) => {
                         "qualifications",
                         i,
                         "degree",
-                        e.target.value,
+                        e.target.value
                       )
                     }
                   />
@@ -141,7 +160,7 @@ const InstructorDetails = ({ onNext }) => {
                         "skills",
                         i,
                         "percentage",
-                        e.target.value,
+                        e.target.value
                       )
                     }
                   />
@@ -160,15 +179,13 @@ const InstructorDetails = ({ onNext }) => {
               <button
                 className="font-medium text-blue"
                 type="button"
-                onClick={() =>
-                  addField("skills", { percentage: "", title: "" })
-                }
+                onClick={() => addField("skills", { percentage: "", title: "" })}
               >
                 + Add more Skills
               </button>
             </div>
           </div>
-          <div className="flex flex-col gap-y-5 flex-grow">
+          <div className="flex flex-grow flex-col gap-y-5">
             <div>
               <h3 className="mb-3 text-lg font-medium max-lg:mt-5">
                 What are your experience domains?

@@ -7,6 +7,7 @@ import Button from "../../components/Button";
 import DashboardLayout from "../../components/DashboardLayout";
 import { fetchOneInstructor } from "../../../redux/thunks/instructorThunk";
 import AdminRevenueStatistics from "@/components/AdminRevenueStatistics";
+import { fetchInstructorByUserId } from "../../../redux/thunks/InstructorByUserIdThunk";
 
 const formatTimestamp = (timestamp) => {
   const date = new Date(timestamp * 1000);
@@ -54,36 +55,31 @@ function Payments() {
   const [payouts, setPayouts] = useState([]);
   const [bankDetails, setBankDetails] = useState([]); // State to store bank details
   const [isModalOpen, setIsModalOpen] = useState(false); // State to manage modal visibility
+  const [accGetDb, setAccGetDb] = useState(false);
 
   const dispatch = useDispatch();
   const instructor = useSelector((state) => state.singleInstructor);
-  // const userId = useSelector((state) => state.auth.user);
+  const userId = useSelector((state) => state.auth.user);
+  const instructorId = useSelector(
+    (state) => state.instructorByUserId.instructorByUserId.id,
+  );
 
-  // useEffect(() => {
-   
-  //   dispatch(fetchOneInstructor(instur));
-
-  // }, [instructor, dispatch]);
-  
-
-  // useEffect(() => {
-
-  //   if()
-
-  //   console.log("id in the dashboard page: ", id)
-  
-    
-  // }, [id, dispatch]);
-  
+  console.log("user id: ", userId);
+  console.log("instructor id: ", instructorId);
 
   useEffect(() => {
+    if (!userId || instructorId) return;
+    dispatch(fetchInstructorByUserId(userId));
+  }, [userId]);
 
-    if (instructor) {
-      console.log("INSTRUCTOR DETAILS IN PAYMENTS", instructor)
+  useEffect(() => {
+    if (instructorId) {
+      console.log("INSTRUCTOR ID IN PAYMENTS", instructorId);
       const fetchPaymentDetails = async () => {
         try {
+          console.log(instructorId);
           const response = await fetch(
-            `http://127.0.0.1:4000/check-payment-rec?id=${instructor.user_id}`,
+            `${process.env.NEXT_PUBLIC_BASE_API}/check-payment-rec?id=${instructorId}`,
             {
               method: "GET",
               headers: { "Content-Type": "application/json" },
@@ -104,7 +100,9 @@ function Payments() {
           // Validate that `message` is an array and check its length
           if (Array.isArray(message)) {
             if (message.length > 0) {
+              
               const stripe_acc_id = message[0]?.account_reg_id; // Use optional chaining
+              setAccGetDb(true);
 
               if (stripe_acc_id) {
                 setConnectedAccountId(stripe_acc_id);
@@ -116,6 +114,7 @@ function Payments() {
                 );
               }
             } else {
+              
               setAccountLinkCreatePending(true);
               // Message array is empty, create a new account
               const newAccountId = await createAccount(
@@ -124,23 +123,32 @@ function Payments() {
               );
 
               if (newAccountId) {
-                fetchPayouts(newAccountId);
-                setConnectedAccountId(newAccountId);
-                fetchBankDetails(newAccountId); // Fetch bank details
+                
+
+                await fetchPayouts(newAccountId);
+                await setConnectedAccountId(newAccountId);
+                await fetchBankDetails(newAccountId); // Fetch bank details
+
+                
+                console.log("Here only", instructorId  )
+                console.log("test2 ", userId)
+                console.log("test3",  newAccountId)
 
                 const regResponse = await fetch(
-                  `http://127.0.0.1:4000/inst-stipe-acc-reg`,
+                  `${process.env.NEXT_PUBLIC_BASE_API}/inst-stipe-acc-reg`,
                   {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({
-                      instructor_id: id,
+                      instructor_id: instructorId,
                       user_id: userId,
                       account_reg_id: newAccountId,
                     }),
                   },
                 );
-
+                
+                console.log("regResponse: ", regResponse)
+                
                 if (!regResponse.ok) {
                   const regErrorData = await regResponse.json();
                   throw new Error(
@@ -165,7 +173,7 @@ function Payments() {
 
       fetchPaymentDetails();
     }
-  }, [instructor]);
+  }, [instructorId, userId]);
 
   const getBankName = (bankId) => {
     const bankDetail = bankDetails.find((bank) => bank.id === bankId);
@@ -353,7 +361,7 @@ function Payments() {
           </>
         )}
 
-        {connectedAccountId && accountLinkCreatePending && (
+        {connectedAccountId  &&  !accGetDb && (
           <div className="flex justify-end">
             <Button className="mt-10 md:block" onClick={handleAccountLink}>
               Add Payment Details
@@ -368,7 +376,7 @@ function Payments() {
       {/* Modal */}
       {isModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-gray-600 bg-opacity-50">
-          <div className="relative w-full max-w-xl h-5/6 overflow-y-auto rounded-lg bg-white p-4 shadow-lg">
+          <div className="relative h-5/6 w-full max-w-xl overflow-y-auto rounded-lg bg-white p-4 shadow-lg">
             <div className="flex justify-end">
               <button
                 onClick={closeModal}
@@ -380,8 +388,7 @@ function Payments() {
             <ConnectPayout stripe_account_id={connectedAccountId} />
           </div>
         </div>
-)}
-
+      )}
     </DashboardLayout>
   );
 }

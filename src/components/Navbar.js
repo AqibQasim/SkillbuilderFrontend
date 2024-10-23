@@ -38,7 +38,7 @@ const Navbar = ({ cartItemsLength }) => {
             <Image src="/logo.svg" width={160} height={160} alt="Logo" />
 
             <div className="ml-auto mr-4 block lg:hidden">
-              <User cartClickHandler={routeToShoppingCartHandler} />
+              <User cartItemsLength={cartItemsLength} cartClickHandler={routeToShoppingCartHandler} />
             </div>
 
             <div className="lg:hidden">
@@ -77,8 +77,8 @@ const Navbar = ({ cartItemsLength }) => {
                 //     ? `rounded-lg bg-bg_gray px-[1.2rem] py-2 font-semibold text-blue lg:px-[0.8rem]`
                 //     : `px-[1.2rem] py-2 lg:px-[0.5rem]`
                 // }
-                className={`rounded-lg px-[1.2rem] py-2 font-semibold lg:px-[0.8rem] ${pathname === "/home" ? `bg-bg_gray text-blue` : ""} `}
-                href="/home"
+                className={`rounded-lg px-[1.2rem] py-2 font-semibold lg:px-[0.8rem] ${pathname === "/" ? `bg-bg_gray text-blue` : ""} `}
+                href="/"
               >
                 Home
               </Link>
@@ -166,7 +166,7 @@ const Navbar = ({ cartItemsLength }) => {
             <div className="flex flex-col items-center gap-4">
               <Link
                 className="rounded-lg px-[1.2rem] py-2 lg:px-[0.5rem]"
-                href="/home"
+                href="/"
               >
                 Home
               </Link>
@@ -178,6 +178,9 @@ const Navbar = ({ cartItemsLength }) => {
               </Link>
               <Link className="px-[1.2rem] py-2 lg:px-[0.5rem]" href="/contact">
                 Contact Us
+              </Link>
+              <Link className="px-[1.2rem] py-2 lg:px-[0.5rem]" href="/login">
+                Login
               </Link>
 
               {/* <button className="py-2 px-4 hidden lg:flex justify-between items-center w-full lg:w-auto bg-blue text-white rounded-lg">

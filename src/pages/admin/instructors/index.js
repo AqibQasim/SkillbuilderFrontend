@@ -18,7 +18,7 @@ function Students() {
     console.log("running instructors Effect");
     if (instructors?.length > 0) return;
     dispatch(fetchAllInstructors());
-  }, [instructors]);
+  }, [instructors?.length]);
 
   if (instructorsStatus === "loading")
     return (

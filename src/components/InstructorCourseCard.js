@@ -1,17 +1,17 @@
+import { formatCurrency } from "@/utils/formatCurrency";
 import { formatDateAndTime } from "@/utils/formatDateAndTime";
 import InstructorCourseStatus from "./InstructorCourseStatus";
-import { formatCurrency } from "@/utils/formatCurrency";
 
 function InstructorCourseCard({ course, createdBy, className }) {
   return (
     <div
       className={`grid grid-cols-1 gap-8 lg:gap-14 xl:grid-cols-[16.875rem_1fr_max-content] xl:grid-rows-[12.5rem] ${className}`}
     >
-      <div className="image-wrapper relative col-span-1 rounded-lg xl:col-span-1">
+      <div className="image-wrapper relative col-span-1 max-h-64 rounded-lg xl:col-span-1">
         <img
           src={course?.image}
           alt={`${course?.title}'s Image`}
-          className="size-full rounded-lg object-cover"
+          className="size-full rounded-lg object-cover object-center"
         />
         <div className="status-icon absolute bottom-2 right-2 xl:hidden">
           <InstructorCourseStatus status={course?.status} />

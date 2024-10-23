@@ -32,7 +32,7 @@ function CourseDetail() {
   useEffect(() => {
     if (students?.length > 0) return;
     dispatch(fetchStudents());
-  }, [students]);
+  }, [students?.length]);
 
   console.log("single course", singleCourse);
   console.log("Single Course modules", courseModules);

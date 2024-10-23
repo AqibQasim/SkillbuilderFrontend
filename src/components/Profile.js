@@ -7,12 +7,13 @@ import Footer from "./Footer";
 import LayoutWidth from "./LayoutWidth";
 import { setSuccess } from "../../redux/slices/authSlice";
 import { fetchOneUser } from "../../redux/thunks/userInfoThunk";
+import ErrorMessage from "./ErrorMessage";
 
 const Profile = () => {
   const dispatch = useDispatch();
   const fetcheduserdata = useSelector((state) => state.singleUser);
   const user = useSelector((state) => state.auth.user);
-
+  
   useEffect(() => {
     dispatch(fetchOneUser(user));
   }, []);
@@ -22,9 +23,11 @@ const Profile = () => {
   }, [fetcheduserdata]);
 
   const [state, setstate] = useState(false);
+
   const { first_name, last_name, email, location } = useSelector(
     (state) => state.profile,
   );
+
 
   return (
     <div className="bg-gray-100">

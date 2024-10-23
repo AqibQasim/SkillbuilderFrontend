@@ -21,15 +21,28 @@ const contact = () => {
   const [isClient, setIsClient] = useState(false);
   const courses = useSelector((state) => state.cart.items);
   console.log("length in root file:", courses?.length);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     setIsClient(true);
   }, [router?.isReady, courses]);
 
+  useEffect(() => {
+    setIsClient(true);
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 200);
+  }, [router?.isReady, courses]);
   if (!isClient) {
     return null;
   }
-
+  if (isLoading) {
+    return (
+      <div className="flex h-[100vh] w-[100vw] items-center justify-center bg-bg_gray">
+        <div className="loader">Loading...</div>
+      </div>
+    );
+  }
   return (
     <>
       <div className="h-[100%] w-[100%] bg-bg_gray">

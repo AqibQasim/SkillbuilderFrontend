@@ -27,9 +27,23 @@ function InstructorsStudentsRow({ student }) {
       ? last_name
       : "last name";
 
+  // const handleRowClick = () => {
+  //   router.push(`/dashboard/students/${id}`);
+  // };
   const handleRowClick = () => {
-    router.push(`/dashboard/students/${id}`);
+    try {
+      if (id) {
+        router.push(`/dashboard/students/${id}`);
+      } else {
+        throw new Error("Student ID is not defined");
+      }
+    } catch (error) {
+      console.error("Error navigating to student page:", error);
+      // Optional: Display an alert or a message to the user
+      alert("Unable to navigate to the student page. Please try again later.");
+    }
   };
+
   console.log("course length", enrolledCourses?.length);
 
   return (

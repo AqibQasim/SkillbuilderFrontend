@@ -22,8 +22,19 @@ function AdminStudentsRow({ isSpecific, student }) {
   } = student;
 
   const handleRowClick = () => {
-    router.push(`/admin/students/${id}`);
+    try {
+      if (id) {
+        router.push(`/admin/students/${id}`);
+      } else {
+        throw new Error("Student ID is not defined");
+      }
+    } catch (error) {
+      console.error("Error navigating to student page:", error);
+      // Optional: Display an alert or a message to the user
+      alert("Unable to navigate to the student page. Please try again later.");
+    }
   };
+
   console.log("course length", enrolledCourses?.length);
 
   return (

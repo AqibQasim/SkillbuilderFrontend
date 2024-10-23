@@ -27,7 +27,7 @@ function Instructors() {
 
         const userFetches = uniqueUserIds.map(async (id) => {
           try {
-            const userRes = await fetch(`http://127.0.0.1:4000/user/${id}`);
+            const userRes = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/user/${id}`);
             if (!userRes.ok) {
               throw new Error(`Failed to fetch user with ID ${id}`);
             }

@@ -47,6 +47,9 @@ function Payments() {
 
   const dispatch = useDispatch();
   const instructor = useSelector((state) => state.singleInstructor);
+   const instructorId = useSelector(
+    (state) => state.instructorByUserId.instructorByUserId.id,
+  );
   // const userId = useSelector((state) => state.auth.user);
 
   // useEffect(() => {
@@ -58,10 +61,11 @@ function Payments() {
   useEffect(() => {
     // console.log("ID in payments history page: ", id)
     if (instructor) {
+      console.log("instructor isss", instructor)
       const fetchPaymentDetails = async () => {
         try {
           const response = await fetch(
-            `http://127.0.0.1:4000/check-payment-rec?id=${instructor.user_id}`,
+            `${process.env.NEXT_PUBLIC_BASE_API}/check-payment-rec?id=${instructorId}`,
             {
               method: "GET",
               headers: { "Content-Type": "application/json" },
@@ -102,7 +106,7 @@ function Payments() {
               if (newAccountId) {
                 setConnectedAccountId(newAccountId);
 
-                const regResponse = await fetch(`http://127.0.0.1:4000/inst-stipe-acc-reg`, {
+                const regResponse = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/inst-stipe-acc-reg`, {
                   method: "POST",
                   headers: { "Content-Type": "application/json" },
                   body: JSON.stringify({
@@ -172,7 +176,6 @@ function Payments() {
         {connectedAccountId && !accountLinkCreatePending && (
           <p className="mb-5">Your Stripe Account ID is: {connectedAccountId}</p>
         )}
-
 
         {connectedAccountId && !accountLinkCreatePending && (
           <>

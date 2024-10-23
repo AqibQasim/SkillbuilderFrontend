@@ -26,6 +26,7 @@ export const createCourse = createAsyncThunk(
 
       const data = await response.json();
       console.log("current data ", data);
+      console.log("Create course data to return", data);
 
       return data;
     } catch (error) {
