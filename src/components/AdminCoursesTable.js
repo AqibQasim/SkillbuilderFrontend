@@ -43,7 +43,7 @@ function AdminCoursesTable({ courses, courseStatus, emptyStateClasses = "" }) {
           render={(course, i) => <AdminCourseRow course={course} key={i} />}
         />
       </Table>
-      <div className="h-10"></div>
+      <div className="h-32"></div>
     </>
   );
 }
