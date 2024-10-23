@@ -40,3 +40,6 @@ next-env.d.ts
 #package and node modules 
 #package
 package-lock.json
+
+/skill-builder-service-acc.json
+/client-secret.json

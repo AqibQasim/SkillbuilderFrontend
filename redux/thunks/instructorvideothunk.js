@@ -13,7 +13,7 @@ export const uploadVideo = createAsyncThunk(
       const response = await fetch(
         `${process.env.NEXT_PUBLIC_BASE_API}/upload`,
         {
-          method: "PUT",
+          method: "POST",
           body: formData,
         },
       );

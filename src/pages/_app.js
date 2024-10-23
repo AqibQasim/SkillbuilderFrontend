@@ -5,12 +5,11 @@ import { SessionProvider } from "next-auth/react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchOneInstructor } from "../../redux/thunks/instructorThunk";
 import { fetchAccessToken } from "../../redux/thunks/ytAccessThunk"
+// import { google } from "googleapis";
 
 import { useState, useEffect } from "react";
 
 function MyApp({ Component, pageProps }) {
-
-  const [authUrl, setAuthUrl] = useState("");
 
   return (
     <SessionProvider>
@@ -21,8 +20,6 @@ function MyApp({ Component, pageProps }) {
   );
 }
 
-
-
 function MyAppContent({ Component, pageProps }) {
   const dispatch = useDispatch();
   const userId = useSelector((state) => state.auth.user);
@@ -32,8 +29,6 @@ function MyAppContent({ Component, pageProps }) {
       dispatch(fetchOneInstructor(userId));
     }
   }, [userId, dispatch]);
-
-
 
   return <Component {...pageProps} />;
 }

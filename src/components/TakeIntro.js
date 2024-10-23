@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { decrementIndex as instructorDecrementIndex } from "../../redux/slices/createInstructorSlice";
 import { createInstructor } from "../../redux/thunks/createInstructorthunk";
 import { fetchOneInstructor } from "../../redux/thunks/instructorThunk";
-import { uploadVideo } from "../../redux/thunks/instructorvideothunk";
+import { uploadVideo } from "../../redux/thunks/uploadThunk";
 import Button from "./Button";
 
 const TakeIntro = ({ onPrev }) => {
