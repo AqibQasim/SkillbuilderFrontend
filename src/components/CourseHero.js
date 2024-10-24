@@ -11,10 +11,27 @@ function CourseHero({ course }) {
   const { id } = router.query;
   const dispatch = useDispatch();
   const cartItems = useSelector((state) => state.cart.items);
+  const studentId = useSelector((state) => state.auth.user);
 
-  const handleAddToCart = (course) => {
-    if (!cartItems.some((item) => item.id === course.id)) {
-      dispatch(addItem(course));
+
+  const handleAddToCart = async (course) => {
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_BASE_API}/is-course-purchased?course_id=${course.id}&student_id=${studentId}`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      },
+    );
+
+    
+    if(response.ok){
+      alert('You already have purchased this course')
+    }else{
+      if (!cartItems.some((item) => item.id === course.id)) {
+        dispatch(addItem(course));
+      }
     }
   };
 

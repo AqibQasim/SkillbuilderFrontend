@@ -10,6 +10,7 @@ import { addItem } from "../../redux/slices/addToCart";
 const Courses = ({ heading, paddingTop }) => {
   const [loading, setLoading] = useState(true);
   const [starReady, setStarReady] = useState(false);
+  const studentId = useSelector((state) => state.auth.user);
   const router = useRouter();
   const dispatch = useDispatch();
   const {
@@ -40,9 +41,24 @@ const Courses = ({ heading, paddingTop }) => {
     console.log("Updated cart items:", cartItems);
   }, [router?.isReady, cartItems]);
 
-  const handleAddToCart = (course) => {
-    if (!cartItems.some((item) => item.id === course.id)) {
-      dispatch(addItem(course));
+  const handleAddToCart = async (course) => {
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_BASE_API}/is-course-purchased?course_id=${course.id}&student_id=${studentId}`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      },
+    );
+
+
+    if (response.ok) {
+      alert('You already have purchased this course')
+    } else {
+      if (!cartItems.some((item) => item.id === course.id)) {
+        dispatch(addItem(course));
+      }
     }
   };
 
@@ -128,16 +144,16 @@ const Courses = ({ heading, paddingTop }) => {
                   <div className="flex w-[100%] justify-between pb-2">
                     <div className="flex w-[50%] items-center justify-start gap-2 lg:items-center lg:justify-start lg:gap-1">
                       <span className="font-semibold text-blue">
-                        ${course?.discount>0?course?.discount: course?.amount}
+                        ${course?.discount > 0 ? course?.discount : course?.amount}
                       </span>
                       {
-                        (course?.discount>0)&&
-                      <span className="text-[0.5rem] text-bg_text_gray">
-                        <span className="stroke-bg_text_gray line-through">
-                          {course?.amount}
-                        </span>{" "}
-                        {Math.ceil(((course?.amount-course?.discount)/course?.amount)*100)}% off
-                      </span>
+                        (course?.discount > 0) &&
+                        <span className="text-[0.5rem] text-bg_text_gray">
+                          <span className="stroke-bg_text_gray line-through">
+                            {course?.amount}
+                          </span>{" "}
+                          {Math.ceil(((course?.amount - course?.discount) / course?.amount) * 100)}% off
+                        </span>
                       }
                     </div>
                     <button
