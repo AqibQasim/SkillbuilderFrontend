@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { setVideoUrl } from "../../redux/slices/createCourseSlice";
 import { uploadCourseContent } from "../../redux/thunks/uploadCourseThunk";
 import { useRouter } from "next/router";
+import Loader from "./Loader";
 
 const InstructorVideos = ({ onNext, onPrev }) => {
   const [selectedVideo, setSelectedVideo] = useState(null);
@@ -17,6 +18,8 @@ const InstructorVideos = ({ onNext, onPrev }) => {
   const userId = useSelector((state) => state.auth.user);
   const courseId = useSelector((state) => state.createCourse.courseId);
   const [videoId, setVideoId] = useState (null)
+  const [isLoading,setIsLoading]= useState(false);
+
     const [updateCount, setUpdateCount] = useState(0);
   const courseDetails = useSelector(
     (state) => state.createCourse.courseDetails,
@@ -128,6 +131,8 @@ const InstructorVideos = ({ onNext, onPrev }) => {
   const uploadVideoHandler = async (selectedVideo) => {
   if (!selectedVideo) return;
 
+  setIsLoading(true);
+
   const formData = new FormData();
   formData.append("video", selectedVideo);
 
@@ -138,6 +143,7 @@ const InstructorVideos = ({ onNext, onPrev }) => {
     });
 
     if (!response.ok) {
+      setIsLoading(false);
       const errorData = await response.json();
       throw new Error(errorData.error || "Unable to post video");
     }
@@ -150,7 +156,9 @@ const InstructorVideos = ({ onNext, onPrev }) => {
     } else {
       throw new Error("Failed to get video URI from response");
     }
+    setIsLoading(false);
   } catch (error) {
+    setIsLoading(false);
     console.error("Failed to upload video:", error.message);
   }
 };
@@ -403,7 +411,9 @@ useEffect(() => {
               // onClick={onNext}
               onClick={uploadCourseDetailsAndVideo}
             >
-              Continue
+              {
+            isLoading?<Loader/>:'Continue'
+          }
             </button>
           </div>
         </div>

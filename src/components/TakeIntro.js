@@ -14,9 +14,11 @@ import { resetState as resetStateInstructorIntroVideo } from "../../redux/slices
 import Button from "./Button";
 import { IntroVideoContext } from "../../lib/IntroVideoContext";
 import { updateInstructorDetails } from "../../redux/slices/createInstructorSlice";
+import LoaderComponent from "./Loader";
 
 const TakeIntro = ({ onPrev }) => {
   const [selectedVideo, setSelectedVideo] = useState(null);
+  const [isLoading,setIsLoading]= useState(false);
   const router = useRouter();
   const dispatch = useDispatch();
   const userId = useSelector((state) => state.auth.user);
@@ -61,6 +63,7 @@ const TakeIntro = ({ onPrev }) => {
 
   const formData = new FormData();
   formData.append("video", selectedVideo);
+  setIsLoading(true);
 
   try {
     const response = await fetch("/api/upload-video", {
@@ -69,6 +72,7 @@ const TakeIntro = ({ onPrev }) => {
     });
 
     if (!response.ok) {
+      setIsLoading(false);
       const errorData = await response.json();
       throw new Error(errorData.error || "Unable to post video");
     }
@@ -84,9 +88,11 @@ const TakeIntro = ({ onPrev }) => {
       dispatch(updateInstructorDetails({ video_url: videoId }));
 
       dispatch(createInstructorAndUploadIntroVideo({ instructorId }));
+      setIsLoading(false);
       router.push("/dashboard");
 
     } else {
+      setIsLoading(false);
       throw new Error("Failed to get video URI from response");
     }
   } catch (error) {
@@ -122,7 +128,9 @@ const TakeIntro = ({ onPrev }) => {
           onClick={uploadVideoHandler}
           className="!px-10 disabled:!bg-blue disabled:!text-white"
         >
-          Continue
+          {
+            isLoading?<LoaderComponent/>:'Continue'
+          }
         </Button>
       </div>
     </>
