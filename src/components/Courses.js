@@ -128,14 +128,17 @@ const Courses = ({ heading, paddingTop }) => {
                   <div className="flex w-[100%] justify-between pb-2">
                     <div className="flex w-[50%] items-center justify-start gap-2 lg:items-center lg:justify-start lg:gap-1">
                       <span className="font-semibold text-blue">
-                        ${course?.amount}
+                        ${course?.discount>0?course?.discount: course?.amount}
                       </span>
+                      {
+                        (course?.discount>0)&&
                       <span className="text-[0.5rem] text-bg_text_gray">
                         <span className="stroke-bg_text_gray line-through">
-                          $400
+                          {course?.amount}
                         </span>{" "}
-                        88% off
+                        {Math.ceil(((course?.amount-course?.discount)/course?.amount)*100)}% off
                       </span>
+                      }
                     </div>
                     <button
                       onClick={(e) => {

@@ -7,6 +7,7 @@ const initialState = {
     amount: 0,
     category: "",
     charges: 0,
+    discount:0,
     instructor_id: null,
     learning_outcomes: "",
     modulesCount: 0,
