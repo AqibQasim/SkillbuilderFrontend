@@ -266,11 +266,13 @@ function Payments() {
       <div className="text-center">
         <h1 className="text-2xl font-bold">Payment</h1>
         {connectedAccountId && !accountLinkCreatePending && (
+          <>
           <p className="mb-5">
             Your Stripe Account ID is: {connectedAccountId}
           </p>
+          <AdminRevenueStatistics />
+          </>
         )}
-        <AdminRevenueStatistics />
         {connectedAccountId && !accountLinkCreatePending && (
           <>
             <h1 className="my-3 text-start text-2xl font-bold">Wallet</h1>

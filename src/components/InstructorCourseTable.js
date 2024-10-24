@@ -6,6 +6,8 @@ import Filter from "./Filter";
 import InstructorCourseRow from "./InstructorCourseRow";
 import Loader from "./Loader";
 import Table from "./Table";
+import { useState } from "react";
+import { useEffect } from "react";
 
 const filterOptions = [
   { label: "All", value: "all" },
@@ -24,6 +26,66 @@ function InstructorCourseTable({ courses = [], courseStatus }) {
     return courses?.filter((course) => course.status === status);
   }, [status, courses]);
 
+    const userId = useSelector((state) => state.auth.user);
+  const instructorId = useSelector(
+    (state) => state.instructorByUserId.instructorByUserId.id,
+  );
+  const [paymentMethodAvailable, setPaymentMethodAvailable] = useState(false);
+
+  const fetchPaymentDetails = async () => {
+    try {
+      console.log(instructorId);
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_BASE_API}/check-payment-rec?id=${instructorId}`,
+        {
+          method: "GET",
+          headers: { "Content-Type": "application/json" },
+        },
+      );
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(
+          errorData.message || "Failed to fetch payment details",
+        );
+      }
+
+      const data = await response.json();
+      console.log("API Response Data:", data); // Log entire response data for debugging
+      const { message } = data;
+
+      // Validate that `message` is an array and check its length
+      if (Array.isArray(message)) {
+        console.log("Message len is ", message.length);
+        if (message.length > 0) {
+          setPaymentMethodAvailable(true);
+        } else {
+          alert("Please Add payment method first.");
+          router.push('/dashboard/payments');
+        }
+      } else {
+        throw new Error(
+          "Unexpected response format: `message` is not an array",
+        );
+      }
+    } catch (err) {
+      console.error("Error in fetchPaymentDetails:", err);
+    }
+  };
+
+  const handleUploadCourseClick = async () => {
+    await fetchPaymentDetails();
+  };
+
+  useEffect(() => {
+    if (paymentMethodAvailable) {
+      router.push('/course-upload');
+    } 
+  }, [paymentMethodAvailable]);
+
+
+
+
   if (isLoading) return <Loader />;
   if (!statusCourses?.length) {
     return (
@@ -33,7 +95,7 @@ function InstructorCourseTable({ courses = [], courseStatus }) {
           You haven’t posted any courses yet. Please click the button to get
           started.
         </p>
-        <Button href="/course-upload" className="!px-14">
+        <Button onClick={handleUploadCourseClick} className="!px-14">
           Upload Course +
         </Button>
       </div>
