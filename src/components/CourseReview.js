@@ -20,7 +20,7 @@ const CourseReview = ({ name, rating, description, time }) => {
               <div class="flex items-center mb-1 space-x-1 rtl:space-x-reverse mt-1">
                 {/* <StarRating rating={rating} className="cursor-pointer" /> */}
                 <p className=" pl-3 ms-2 text-xs font-normal text-bg_text_gray max-sm:hidden">
-                  <time datetime="2017-03-03 19:00">{time.slice(0,10)}</time>
+                  {/* <time datetime="2017-03-03 19:00">{time.slice(0,10)}</time> */}
                 </p>{" "}
               </div>
             </div>
