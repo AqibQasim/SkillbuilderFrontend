@@ -51,7 +51,6 @@ function User({ cartClickHandler, cartItemsLength }) {
   // const instructorPath = instructorId ? "/dashboard" : "/details-upload";
   const handleNavigation = () => {
     const path = instructorId ? "/dashboard" : "/details-upload";
-
     try {
       router.push(path);
     } catch (error) {

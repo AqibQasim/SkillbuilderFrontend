@@ -78,7 +78,7 @@ export default function CourseModules({ course, heading = "Course outline" }) {
                           </div>
                           {isclick === index ? (
                             <div>
-                              <InstructorIntro video={content?.content}/>
+                              <InstructorIntro video={content?.content} course_content_id = {content?.id} />
                             </div>
                           ) : null}
                         </>
