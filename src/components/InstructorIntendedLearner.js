@@ -15,6 +15,9 @@ const InstructorIntendedLearner = ({ onNext }) => {
   const amount = useSelector(
     (state) => state.createCourse.courseDetails.amount,
   );
+  const discount = useSelector(
+    (state) => state.createCourse.courseDetails.discount,
+  );
   const category = useSelector(
     (state) => state.createCourse.courseDetails.category,
   );
@@ -40,6 +43,7 @@ const InstructorIntendedLearner = ({ onNext }) => {
     modulesCount: 0,
     amount: 0,
     charges: 0,
+    discount:0
   };
 
   const [formData, setFormData] = useState({
@@ -48,6 +52,7 @@ const InstructorIntendedLearner = ({ onNext }) => {
     category,
     learning_outcomes,
     amount,
+    discount
   });
 
   console.log("form data", formData);
@@ -191,6 +196,8 @@ const InstructorIntendedLearner = ({ onNext }) => {
               Discount:
             </label>
             <input
+            defaultValue={discount}
+            onChange={(e)=>handleChange("discount",e.target.value)}
               type="number"
               id="discount"
               name="discount"
