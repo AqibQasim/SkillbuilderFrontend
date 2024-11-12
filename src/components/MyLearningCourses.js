@@ -108,38 +108,58 @@ export const enrolledDummyCourses = [
 ];
 
 function MyLearningCourses() {
-  const [purchasedcourses, setpurchasedcourses] = useState([]);
-  const fetchdata = async () => {
-    await dispatch(fetchpurchasecourses(loggedInid));
-  };
-
+  const [purchasedCourses, setPurchasedCourses] = useState([]);
+  const [coursesWithProgress, setCoursesWithProgress] = useState([]);
   const dispatch = useDispatch();
   const { data } = useSelector((state) => state.purchasecourse);
   const loggedInid = useSelector((state) => state.auth.user);
 
-  useEffect(() => {
-    fetchdata();
-  }, [loggedInid]);
-  useEffect(() => {
-    if (data.length > 0) {
-      setpurchasedcourses(data);
-
-      data.forEach((item, index) => {
-        const { id, course } = item;
-        const { title, description, created_at, instructor_id } = course;
-        console.log(
-          `Course ${index + 1}: ${title} - ${description}, Created At: ${created_at}, Instructor ID: ${instructor_id}`,
-        );
-      });
+  const fetchProgress = async (userId, courseId) => {
+    try {
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_BASE_API}/get-course-completion-progress?user_id=${userId}&course_id=${courseId}`
+      );
+      const result = await response.json();
+      return result.completion;
+    } catch (error) {
+      console.error("Error fetching course progress:", error);
+      return 0;
     }
-  }, [data]);
+  };
 
-  console.log("Purchased Courses outside useEffect:", purchasedcourses);
+  const fetchData = async () => {
+    await dispatch(fetchpurchasecourses(loggedInid));
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, [loggedInid]);
+
+  useEffect(() => {
+    const fetchAllProgress = async () => {
+      if (data.length > 0) {
+        const updatedCourses = await Promise.all(
+          data.map(async (item) => {
+            const progress = await fetchProgress(loggedInid, item.course.id);
+            return {
+              ...item,
+              progress,
+            };
+          })
+        );
+        setCoursesWithProgress(updatedCourses);
+      }
+    };
+
+    fetchAllProgress();
+  }, [data, loggedInid]);
+
+  console.log("Purchased Courses with Progress:", coursesWithProgress);
 
   return (
     <LayoutWidth>
       <div className="grid grid-cols-[repeat(auto-fill,minmax(320px,1fr))] justify-items-center gap-4">
-        {purchasedcourses.map((item) => {
+        {coursesWithProgress.map((item) => {
           const instructorName = `${item.course.instructor.user.first_name} ${item.course.instructor.user.last_name}`;
 
           return (
@@ -149,6 +169,7 @@ function MyLearningCourses() {
               title={item.course.title}
               image={item.course.image}
               instructor={instructorName}
+              progress={item.progress}
             />
           );
         })}
@@ -159,7 +180,7 @@ function MyLearningCourses() {
 
 export default MyLearningCourses;
 
-function MyLearningCourseCard({ id, title, image, instructor }) {
+function MyLearningCourseCard({ id, title, image, instructor, progress }) {
   const router = useRouter();
 
   function handleClick() {
@@ -181,15 +202,15 @@ function MyLearningCourseCard({ id, title, image, instructor }) {
       <h2 className="mt-2 text-xl font-semibold">{title}</h2>
       <p>Instructor: {instructor}</p>
       <div className="progress mt-auto w-full">
-        <p className="float-right ml-auto text-xl">80%</p>
+        <p className="float-right ml-auto text-xl">{progress === null ? 0 : progress}%</p>
         <progress
           className="h-1 w-full rounded-full bg-gray-shade-1 text-blue"
           id="enrolled-course-progress"
-          value="80"
+          value={progress}
           max="100"
         >
-          {" "}
-          80
+
+          {progress === null ? 0 : progress}
         </progress>
       </div>
     </div>
