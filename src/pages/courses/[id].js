@@ -79,7 +79,7 @@ const CourseDetails = () => {
       </div>
       <CourseHero course={course} />
       <CourseInstructor course={course} user={user} />
-      <CourseModule course={course?.modules} />
+      <CourseModule course={course?.modules} course_id={id} />
       <CourseReviews reviews={reviews} CourseId={id} />
       <Footer />
     </div>
