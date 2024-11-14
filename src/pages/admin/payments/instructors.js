@@ -9,6 +9,7 @@ function Instructors() {
   const [users, setUsers] = useState({});
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [totalPlatformFee, setTotalPlatformFee] = useState(0);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -47,12 +48,16 @@ function Instructors() {
         setUsers(userMap);
 
         
-        const revenueMap = fetchedCheckouts.reduce((acc, checkout) => {
+        const revenueMap = fetchedCheckouts.reduce((acc, checkout, currentIndex) => {
           const instructorId = checkout.metadata.instructor_id;
           if (!acc[instructorId]) {
             acc[instructorId] = { totalRevenue: 0, user: userMap[instructorId] || {} };
           }
           acc[instructorId].totalRevenue += checkout.amount_total / 100;
+
+          if(currentIndex === 0){
+            acc[instructorId].last_transaction = new Date(checkout.created * 1000).toDateString();
+          }
           return acc;
         }, {});
 
@@ -68,9 +73,19 @@ function Instructors() {
 
     fetchData();
   }, []);
+
+
+  useEffect(() => {
+    checkouts.map((checkout) => {
+
+      console.log("The checkout are: ", checkout)
+      setTotalPlatformFee(totalPlatformFee + (checkout.totalRevenue * 0.20))
+    })
+  }, [checkouts])
+
   return (
     <AdminDashboardLayout>
-      <AdminRevenueStatistics />
+      <AdminRevenueStatistics current_balance={totalPlatformFee}/>
       <div className="my-3 flex justify-between">
         <h1 className="text-2xl font-bold">Instructors</h1>
         <div className="group hidden w-full rounded-lg border-[1px] border-bg_text_gray pl-4 focus-within:border-blue md:flex md:items-center md:justify-between md:gap-2 lg:flex lg:w-[25%]">
@@ -96,6 +111,7 @@ function Instructors() {
               <th className="text-start">Name</th>
               <th className="text-start">Total Amount</th>
               <th className="text-start">Platform Fee</th>
+              <th className="text-start">Last Transaction</th>
             </tr>
           </thead>
           <tbody className='bg-[#F9FAFE] '>
@@ -108,6 +124,7 @@ function Instructors() {
                   </td>
                   <td className="text-green-600">${checkout.totalRevenue.toFixed(2)}</td>
                   <td className="text-orange-600">${((checkout.totalRevenue * 0.20).toFixed(2))}</td>
+                  <td>{checkout.last_transaction}</td>
                 </tr>
               );
             })}

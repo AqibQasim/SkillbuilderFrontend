@@ -2,7 +2,8 @@
 import React, { useEffect } from "react";
 import Chart from "chart.js/auto";
 
-const AdminRevenueStatistics = () => {
+const AdminRevenueStatistics = ({current_balance="200",  chartData=[100, 200, 300, 400, 500, 600, 700, 200, 900, 1000, 1100, 1200]}) => {
+
   useEffect(() => {
     const ctx = document.getElementById("revenueChart").getContext("2d");
     new Chart(ctx, {
@@ -25,10 +26,7 @@ const AdminRevenueStatistics = () => {
         datasets: [
           {
             label: "Revenue",
-            data: [
-              100000, 200000, 300000, 400000, 500000, 300000, 200000, 400000,
-              500000, 600000, 400000, 300000,
-            ],
+            data: chartData,
             borderColor: "#0038FF",
             backgroundColor: "rgba(0, 56, 255, 0.1)",
             fill: true,
@@ -42,10 +40,10 @@ const AdminRevenueStatistics = () => {
         scales: {
           y: {
             beginAtZero: true,
-            max: 750000,
+            max: chartData[chartData.length - 1 ], 
             ticks: {
               callback: function (value) {
-                return value / 1000 + "k";
+                return value;
               },
             },
           },
@@ -63,7 +61,7 @@ const AdminRevenueStatistics = () => {
           <span className="text-lightgray">
             Current Balance{" "}
             <span className="ml-2 rounded-lg bg-green-200 px-4 py-2 text-lg font-semibold text-green-500">
-              $3,040
+              ${current_balance}
             </span>{" "}
             <span>
               <select
