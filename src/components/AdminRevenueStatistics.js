@@ -2,7 +2,10 @@
 import React, { useEffect } from "react";
 import Chart from "chart.js/auto";
 
-const AdminRevenueStatistics = ({current_balance="200",  chartData=[100, 200, 300, 400, 500, 600, 700, 200, 900, 1000, 1100, 1200]}) => {
+const AdminRevenueStatistics = ({current_balance="50",  chartData=[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]}) => {
+
+  const maxY = Math.max(...chartData) || 10;
+
 
   useEffect(() => {
     const ctx = document.getElementById("revenueChart").getContext("2d");
@@ -40,7 +43,7 @@ const AdminRevenueStatistics = ({current_balance="200",  chartData=[100, 200, 30
         scales: {
           y: {
             beginAtZero: true,
-            max: chartData[chartData.length - 1 ], 
+            max: maxY, 
             ticks: {
               callback: function (value) {
                 return value;
@@ -50,20 +53,22 @@ const AdminRevenueStatistics = ({current_balance="200",  chartData=[100, 200, 30
         },
       },
     });
+
+    console.log("MaxY: ", maxY)
   }, []);
 
   return (
     <div>
-      <h2 className="mb-4 text-2xl font-semibold"> Statistics</h2>
+      <h2 className="mb-4 text-2xl font-semibold"> Payment Graph</h2>
       <div className="container mx-auto rounded-lg bg-white p-4 shadow-md">
         <div className="mb-4 flex items-center justify-between">
-          <h2 className="ml-2 text-xl font-semibold">Revenue Statistics</h2>
+          <h2 className="ml-2 text-xl font-semibold">Statistics</h2>
           <span className="text-lightgray">
-            Current Balance{" "}
-            <span className="ml-2 rounded-lg bg-green-200 px-4 py-2 text-lg font-semibold text-green-500">
+            Total Profit {" "}
+            <span className="ml-2 rounded-lg bg-[#E0E6FF] px-4 py-2 text-lg font-semibold text-[#0038FF]">
               ${current_balance}
             </span>{" "}
-            <span>
+            {/* <span>
               <select
                 id="timeframe"
                 className="rounded-md bg-gray-200 px-4 py-2"
@@ -72,8 +77,8 @@ const AdminRevenueStatistics = ({current_balance="200",  chartData=[100, 200, 30
                 <option value="Daily">Daily</option>
                 <option value="Yearly">Yearly</option>
               </select>
-            </span>
-            <span>
+            </span> */}
+            {/* <span>
               <select
                 id="timeframe"
                 className="ml-2 rounded-md bg-gray-200 px-4 py-2"
@@ -82,7 +87,7 @@ const AdminRevenueStatistics = ({current_balance="200",  chartData=[100, 200, 30
                 <option value="Daily">Daily</option>
                 <option value="Yearly">Yearly</option>
               </select>
-            </span>
+            </span> */}
           </span>
           {/* <span className="text-lg font-semibold text-green-500">$21,476</span> */}
         </div>
