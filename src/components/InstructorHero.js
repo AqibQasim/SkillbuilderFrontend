@@ -54,7 +54,7 @@ function InstructorHero({ instructor }) {
                     height={15}
                     width={15}
                     className="h-[1.4375rem] w-[1.4375rem]"
-                    src={icon(skill.title)}
+                    src={"/Shredder.png"}
                     // alt={skill.title}
                   />
                   {skill.title}
@@ -64,7 +64,7 @@ function InstructorHero({ instructor }) {
           </div>
         </div>
       </div>
-    </div>
+    </div> 
   );
 }
 

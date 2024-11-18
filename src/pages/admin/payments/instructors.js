@@ -9,6 +9,8 @@ function Instructors() {
   const [users, setUsers] = useState({});
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [totalPlatformFee, setTotalPlatformFee] = useState(0);
+  const [monthlyTotals, setMonthlyTotals] = useState([]); 
 
   useEffect(() => {
     const fetchData = async () => {
@@ -20,6 +22,19 @@ function Instructors() {
         }
         const data = await res.json();
         const fetchedCheckouts = data.checkouts || [];
+
+         // Create a temporary array for monthly totals
+        const tempMonthlyTotals = Array(12).fill(0);
+        fetchedCheckouts.forEach((checkout) => {
+          const date = new Date(checkout.created * 1000);
+          const month = date.getMonth(); // Month index (0-11)
+          tempMonthlyTotals[month] += (checkout.amount_total / 100) * 0.20; // Add revenue to the corresponding month
+        });
+
+        // Update state with the computed monthly totals
+      setMonthlyTotals(tempMonthlyTotals); // <-- Correctly update the state here
+      
+
 
         // Fetch user data for each unique instructor
         const userIds = fetchedCheckouts.map(checkout => checkout.metadata.instructor_id);
@@ -53,6 +68,10 @@ function Instructors() {
             acc[instructorId] = { totalRevenue: 0, user: userMap[instructorId] || {} };
           }
           acc[instructorId].totalRevenue += checkout.amount_total / 100;
+
+          
+          acc[instructorId].last_transaction = new Date(checkout.created * 1000).toDateString();
+          
           return acc;
         }, {});
 
@@ -68,9 +87,24 @@ function Instructors() {
 
     fetchData();
   }, []);
+
+
+  useEffect(() => {
+    let totalFee = 0;
+
+  checkouts.forEach((checkout) => {
+    const cout = totalPlatformFee + (checkout.totalRevenue * 0.20);
+    totalFee += cout; // Accumulate the fee
+    console.log("The checkout fee is: ", cout);
+  });
+
+  // After accumulating all the fees, update the state
+  setTotalPlatformFee(totalFee);
+  }, [checkouts])
+
   return (
     <AdminDashboardLayout>
-      <AdminRevenueStatistics />
+      {monthlyTotals.length > 0 && (<AdminRevenueStatistics current_balance={totalPlatformFee} chartData={monthlyTotals} />)}
       <div className="my-3 flex justify-between">
         <h1 className="text-2xl font-bold">Instructors</h1>
         <div className="group hidden w-full rounded-lg border-[1px] border-bg_text_gray pl-4 focus-within:border-blue md:flex md:items-center md:justify-between md:gap-2 lg:flex lg:w-[25%]">
@@ -96,6 +130,7 @@ function Instructors() {
               <th className="text-start">Name</th>
               <th className="text-start">Total Amount</th>
               <th className="text-start">Platform Fee</th>
+              <th className="text-start">Last Transaction</th>
             </tr>
           </thead>
           <tbody className='bg-[#F9FAFE] '>
@@ -108,6 +143,7 @@ function Instructors() {
                   </td>
                   <td className="text-green-600">${checkout.totalRevenue.toFixed(2)}</td>
                   <td className="text-orange-600">${((checkout.totalRevenue * 0.20).toFixed(2))}</td>
+                  <td>{checkout.last_transaction}</td>
                 </tr>
               );
             })}

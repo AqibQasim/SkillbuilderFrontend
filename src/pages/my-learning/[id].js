@@ -87,7 +87,7 @@ function EnrolledCourseDetails() {
             purchasedCourses={course?.purchased_course}
           />
           <EnrolledCourseSkills enrolledCourse={course?.skills} />
-          <CourseModules course={course?.modules} heading="Videos" />
+          <CourseModules course={course?.modules} course_id={course.id} heading="Videos" />
           <EnrolledCourseRatingAndReviews reviews={reviews} />
           <CourseReviews reviews={reviews} />
           <CourseCertificate course={course} />
