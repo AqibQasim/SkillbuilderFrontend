@@ -101,7 +101,7 @@ const Courses = ({ heading, paddingTop }) => {
             {courses?.slice(0, 8).map((course) => (
               <div
                 key={course?.id}
-                className="img-container mb-4 flex h-full w-full max-w-sm transform flex-col items-start rounded-2xl border border-cards_gray bg-white p-2 transition transition-shadow duration-300 hover:border-[rgb(152,159,233)] hover:shadow-lg"
+                className="img-container mb-4 flex h-full w-full max-w-sm transform flex-col items-start rounded-2xl border border-cards_gray bg-white p-2 transition transition-shadow duration-300 hover:border-[rgb(152,159,233)] hover:shadow-lg cursor-pointer"
                 style={{ minHeight: "25rem", maxHeight: "25rem" }}
                 onClick={() =>
                   course?.id && router.push(`/courses/${course.id}`)
