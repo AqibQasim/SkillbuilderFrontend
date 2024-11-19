@@ -38,7 +38,21 @@ const InstructorVideos = ({ onNext, onPrev }) => {
     const files = Array.from(event.target.files);
     console.log("Files uploaded: ", files);
 
-    const newFiles = files.map((file) => ({
+    // Filter only video files and alert for invalid files
+  const videoFiles = files.filter((file) => {
+    if (!file.type.startsWith("video/")) {
+      alert(`Invalid file type: ${file.name}. Only video files are allowed.`);
+      return false;
+    }
+    return true;
+  });
+
+  // If no valid video files, exit the function
+  if (videoFiles.length === 0) {
+    return;
+  }
+
+    const newFiles = videoFiles.map((file) => ({
       file,
       url: URL.createObjectURL(file),
       videoId: null, // Initialize with null until the videoId is returned
