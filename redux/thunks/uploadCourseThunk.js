@@ -6,7 +6,7 @@ export const uploadCourseContent = createAsyncThunk(
   'courseUpload/uploadCourseContent',  // Unique action name
   async (courseData, { rejectWithValue }) => {
     try {
-      const response = await fetch('http://localhost:4000/upload-course-content', {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/upload-course-content`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

@@ -43,12 +43,12 @@ function InstructorDetails() {
   useEffect(() => {
     if (
       instructor_courses &&
-      instructor_courses.courses &&
+      instructor_courses.approvedCourses &&
       instructor_courses.courses.length > 0 &&
       instructor.video_url
     ) {
       console.log(
-        `Instructor courses fetched: ${instructor_courses.courses[0].id}`,
+        `Instructor courses fetched: ${instructor_courses.approvedCourses}`,
       );
     }
   }, [instructor_courses, dispatch]);
@@ -75,7 +75,7 @@ function InstructorDetails() {
       {instructor &&  (
         <InstructorIntro video={instructor.video_url} />
       )}
-      <InstructorTopCourses courses={instructor_courses.courses} />
+      <InstructorTopCourses courses={instructor_courses.approvedCourses} />
       <Footer />
     </div>
   );

@@ -63,6 +63,9 @@ function Payments() {
   const instructorId = useSelector(
     (state) => state.instructorByUserId.instructorByUserId.id,
   );
+  const [charges, setCharges] = useState([])
+  const [stripeAccId, setStripeAccId] = useState(null)
+  const [monthlyCharges, setMonthlyCharges] = useState([])
 
   console.log("user id: ", userId);
   console.log("instructor id: ", instructorId);
@@ -102,12 +105,14 @@ function Payments() {
             if (message.length > 0) {
               
               const stripe_acc_id = message[0]?.account_reg_id; // Use optional chaining
+              setStripeAccId(stripe_acc_id)
               setAccGetDb(true);
 
               if (stripe_acc_id) {
                 setConnectedAccountId(stripe_acc_id);
                 fetchPayouts(stripe_acc_id);
                 fetchBankDetails(stripe_acc_id); // Fetch bank details
+                instructorCharges(stripe_acc_id)
               } else {
                 throw new Error(
                   "Account registration ID is missing in the response",
@@ -253,6 +258,52 @@ function Payments() {
     }
   };
 
+
+  const instructorCharges = async () => {
+    try {
+      const res = await fetch('/api/get_charges', {
+        method: 'POST',
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ stripeAccId })
+      });
+
+      const data = await res.json();
+
+      if (data.charges) {
+          // Filter charges based on stripeAccId
+          const filteredCharges = data.charges.filter(
+            (charge) => charge.destination === stripeAccId            
+        );
+
+         // Initialize a list with 12 zeros (one for each month)
+      const monthlyAmounts = Array(12).fill(0);
+
+      // Process each charge
+      filteredCharges.forEach((charge) => {
+        if (charge.created) {
+          // Convert the created timestamp to a JavaScript Date object
+          const chargeDate = new Date(charge.created * 1000);
+          const month = chargeDate.getMonth(); // Get month (0 for January, 11 for December)
+
+          console.log("Monthly amount ", charge.amount)
+          
+          // Add the amount to the corresponding month
+          monthlyAmounts[month] += charge.amount / 100;
+        }
+      });
+
+      setMonthlyCharges(monthlyAmounts)
+      console.log("Monthly amounts ", monthlyAmounts)
+
+      }
+
+    } catch (error) {
+      console.log("Error fetching the charges:", error);
+    }
+  };
+
   const openModal = () => {
     setIsModalOpen(true);
   };
@@ -261,16 +312,19 @@ function Payments() {
     setIsModalOpen(false);
   };
 
+
   return (
     <DashboardLayout>
       <div className="text-center">
-        <h1 className="text-2xl font-bold">Payment</h1>
+        {/* <h1 className="text-2xl font-bold">Payment</h1> */}
         {connectedAccountId && !accountLinkCreatePending && (
-          <p className="mb-5">
+          <>
+          {/* <p className="mb-5">
             Your Stripe Account ID is: {connectedAccountId}
-          </p>
+          </p> */}
+           {monthlyCharges.length > 0 &&  (<AdminRevenueStatistics current_balance={monthlyCharges.reduce((acc, curr) => acc + curr, 0).toString()}  chartData={monthlyCharges}/>)}
+          </>
         )}
-        <AdminRevenueStatistics />
         {connectedAccountId && !accountLinkCreatePending && (
           <>
             <h1 className="my-3 text-start text-2xl font-bold">Wallet</h1>
