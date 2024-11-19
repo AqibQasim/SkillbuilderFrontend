@@ -259,14 +259,14 @@ function Payments() {
   };
 
 
-  const instructorCharges = async () => {
+  const instructorCharges = async (stripeAccId1) => {
     try {
       const res = await fetch('/api/get_charges', {
         method: 'POST',
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ stripeAccId })
+        body: JSON.stringify({ stripeAccId1 })
       });
 
       const data = await res.json();
@@ -274,7 +274,7 @@ function Payments() {
       if (data.charges) {
           // Filter charges based on stripeAccId
           const filteredCharges = data.charges.filter(
-            (charge) => charge.destination === stripeAccId            
+            (charge) => charge.destination === stripeAccId1            
         );
 
          // Initialize a list with 12 zeros (one for each month)
@@ -290,7 +290,7 @@ function Payments() {
           console.log("Monthly amount ", charge.amount)
           
           // Add the amount to the corresponding month
-          monthlyAmounts[month] += charge.amount / 100;
+          monthlyAmounts[month] += (charge.amount / 100) * 0.80;
         }
       });
 
