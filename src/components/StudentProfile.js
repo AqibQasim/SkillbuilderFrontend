@@ -3,9 +3,13 @@ import { useSelector } from "react-redux";
 import Loader from "./Loader";
 import Avatar from "./Avatar";
 
-const StudentProfile = () => {
-  const { userData: studentUser } = useSelector((state) => state.singleUser);
-  const { first_name, last_name, email, location } = studentUser;
+const StudentProfile = ({studentData}) => {
+  // const { userData: studentUser } = useSelector((state) => state.singleUser);
+  // const { first_name, last_name, email, location } = studentUser;
+  const first_name = studentData.first_name;
+  const last_name = studentData.last_name;
+  const email = studentData.email;
+  const location = studentData.location;
 
   return (
     <div className="flex flex-col items-center gap-4 sm:flex-row sm:items-start sm:gap-8">
