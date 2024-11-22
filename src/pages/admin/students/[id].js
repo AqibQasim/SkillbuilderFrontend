@@ -10,7 +10,11 @@ import withAuth from "@/components/WithAuth";
 import StudentEnrolledCourses from "@/components/StudentEnrolledCourses";
 import ButtonCircle from "@/components/ButtonCircle";
 import { FaChevronLeft } from "react-icons/fa6";
+<<<<<<< Updated upstream
 import students from "@/pages/dashboard/students";
+=======
+import WithAdminAuth from "@/components/WithAdminAuth";
+>>>>>>> Stashed changes
 
 const StudentsDetail = () => {
   const router = useRouter();
@@ -109,4 +113,4 @@ const StudentsDetail = () => {
   );
 };
 
-export default withAuth(StudentsDetail);
+export default WithAdminAuth(StudentsDetail);

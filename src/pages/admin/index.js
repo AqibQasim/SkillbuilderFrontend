@@ -11,6 +11,7 @@ import { filterRepeatedStudents } from "@/utils/filterRepeatedStudents";
 import { fetchAllInstructors } from "../../../redux/thunks/allInstructorsThunk";
 import withAuth from "@/components/WithAuth";
 import { useState } from "react";
+import WithAdminAuth from "@/components/WithAdminAuth";
 
 const admin = () => {
   const [checkouts, setCheckouts] = useState([]);
@@ -178,4 +179,4 @@ const admin = () => {
   );
 };
 
-export default withAuth(admin);
+export default WithAdminAuth(admin);

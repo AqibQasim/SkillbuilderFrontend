@@ -15,6 +15,7 @@ import { fetchOneInstructor } from "../../../../redux/thunks/instructorThunk";
 import { fetchStudentsByInstructor } from "../../../../redux/thunks/fetchStudentsByInstructorthunk";
 import { filterRepeatedStudents } from "@/utils/filterRepeatedStudents";
 import withAuth from "@/components/WithAuth";
+import WithAdminAuth from "@/components/WithAdminAuth";
 
 const InstructorDetails = () => {
   const router = useRouter();
@@ -133,7 +134,7 @@ const InstructorDetails = () => {
   );
 };
 
-export default withAuth(InstructorDetails);
+export default WithAdminAuth(InstructorDetails);
 
 function Hero({ instructor }) {
   const fullName = instructor?.first_name

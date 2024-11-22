@@ -3,6 +3,7 @@ import withAuth from "@/components/WithAuth";
 import AdminRevenueStatistics from "@/components/AdminRevenueStatistics";
 import AdminDashboardLayout from "@/components/AdminDashboardLayout";
 import MagnifierSvg from "@/components/MagnifierSvg";
+import WithAdminAuth from '@/components/WithAdminAuth';
 
 function Students() {
   const [checkouts, setCheckouts] = useState([]);
@@ -155,4 +156,4 @@ function Students() {
   );
 }
 
-export default withAuth(Students);
+export default WithAdminAuth(Students);

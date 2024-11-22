@@ -22,7 +22,7 @@ function GoogleSignup() {
       };
 
       const response = await fetch(
-        `${process.env.NEXT_PUBLIC_BASE_API}/signup-googleSSO`,
+        `${process.env.NEXT_PUBLIC_BASE_API}/auth/google/callback`,
         {
           method: "POST",
           headers: {

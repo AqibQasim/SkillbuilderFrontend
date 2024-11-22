@@ -7,6 +7,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchStudents } from "../../../../redux/thunks/allstudentsThunk";
 import AdminStudentsTable from "@/components/AdminStudentsTable";
+import WithAdminAuth from "@/components/WithAdminAuth";
 
 function Students() {
   const dispatch = useDispatch();
@@ -39,4 +40,4 @@ function Students() {
   );
 }
 
-export default withAuth(Students);
+export default WithAdminAuth(Students);
