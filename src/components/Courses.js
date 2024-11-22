@@ -144,7 +144,7 @@ const Courses = ({ heading, paddingTop }) => {
                   <div className="flex w-[100%] justify-between pb-2">
                     <div className="flex w-[50%] items-center justify-start gap-2 lg:items-center lg:justify-start lg:gap-1">
                       <span className="font-semibold text-blue">
-                        ${course?.discount > 0 ? course?.discount : course?.amount}
+                        ${course?.discount > 0 ? course?.amount-course?.discount : course?.amount}
                       </span>
                       {
                         (course?.discount > 0) &&
@@ -152,7 +152,7 @@ const Courses = ({ heading, paddingTop }) => {
                           <span className="stroke-bg_text_gray line-through">
                             {course?.amount}
                           </span>{" "}
-                          {Math.ceil(((course?.amount - course?.discount) / course?.amount) * 100)}% off
+                          {Math.ceil(((course?.discount) / course?.amount) * 100)}% off
                         </span>
                       }
                     </div>

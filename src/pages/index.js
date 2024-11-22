@@ -1,4 +1,5 @@
-import React from 'react'
+"use client";
+import React, { useCallback } from "react";
 import HeroSection from "@/components/HeroSection";
 import Navbar from "@/components/Navbar";
 import { useEffect, useState } from "react";
@@ -9,8 +10,10 @@ import Courses from "../components/Courses";
 import Footer from "@/components/Footer";
 import { useRouter } from "next/router";
 import { useSelector } from "react-redux";
+import urlBase64ToUint8Array from "@/utils/urlBase64ToUint8Array";
+
 const index = () => {
-    // Set current tab on mount
+  // Set current tab on mount
   useEffect(() => {
     setCurrentTab("home");
   }, []);
@@ -53,6 +56,6 @@ const index = () => {
       </div>
     </>
   );
-}
+};
 
-export default index
+export default index;

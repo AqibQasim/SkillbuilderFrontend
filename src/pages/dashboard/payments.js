@@ -416,8 +416,10 @@ function Payments() {
         )}
 
         {connectedAccountId  &&  !accGetDb && (
-          <div className="flex justify-end">
-            <Button className="mt-10 md:block" onClick={handleAccountLink}>
+          <div className="flex justify-center mt-48 flex-col self-center">
+            <h1 className="text-2xl">Payment Details Not Added</h1>
+            <p className="text-sm">You haven't added your payment details yet, Please add them to start getting paid!</p>
+            <Button className="md:block mx-auto my-2" onClick={handleAccountLink}>
               Add Payment Details
             </Button>
           </div>

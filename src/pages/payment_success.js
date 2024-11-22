@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { setCurrentTab } from "../utils/currentTabMethods";
 import Footer from "@/components/Footer";
 import { useRouter } from "next/router";
-import { useSelector , useDispatch} from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { clearCart } from "../../redux/slices/addToCart";
 const PaymentSuccess = () => {
   const router = useRouter();
@@ -12,7 +12,7 @@ const PaymentSuccess = () => {
   const [loading, setLoading] = useState(true);
   const courses = useSelector((state) => state.cart.items);
   const userId = useSelector((state) => state.auth.user);
-  
+
   useEffect(() => {
     setCurrentTab("Payment Success");
   }, []);
@@ -26,21 +26,32 @@ const PaymentSuccess = () => {
         try {
           const courseDetails = courses.map((course) => ({
             course_id: course.id,
-            quantity: 1, 
+            quantity: 1,
             price: parseInt(course.amount),
           }));
 
-          const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/enroll-in-course`, {
-            method: "PUT",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-              student_id: userId,
-              courses: courseDetails,
-              filter: "id",
-            }),
+          const register = await navigator.serviceWorker.register("/sw.js");
+
+          const subscription = await register.pushManager.subscribe({
+            userVisibleOnly: true,
+            applicationServerKey: process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY,
           });
+
+          const response = await fetch(
+            `${process.env.NEXT_PUBLIC_BASE_API}/enroll-in-course`,
+            {
+              method: "PUT",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                student_id: userId,
+                courses: courseDetails,
+                filter: "id",
+                subscription,
+              }),
+            },
+          );
 
           if (!response.ok) {
             throw new Error("Failed to enroll in courses");

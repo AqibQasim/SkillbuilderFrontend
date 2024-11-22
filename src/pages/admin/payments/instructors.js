@@ -3,6 +3,7 @@ import withAuth from "@/components/WithAuth";
 import AdminRevenueStatistics from "@/components/AdminRevenueStatistics";
 import AdminDashboardLayout from "@/components/AdminDashboardLayout";
 import MagnifierSvg from "@/components/MagnifierSvg";
+import WithAdminAuth from '@/components/WithAdminAuth';
 
 function Instructors() {
   const [checkouts, setCheckouts] = useState([]);
@@ -154,4 +155,4 @@ function Instructors() {
   );
 }
 
-export default withAuth(Instructors);
+export default WithAdminAuth(Instructors);

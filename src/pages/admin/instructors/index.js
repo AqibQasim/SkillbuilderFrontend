@@ -5,6 +5,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchAllInstructors } from "../../../../redux/thunks/allInstructorsThunk";
 import Loader from "@/components/Loader";
+import WithAdminAuth from "@/components/WithAdminAuth";
 
 function Students() {
   const dispatch = useDispatch();
@@ -36,4 +37,4 @@ function Students() {
   );
 }
 
-export default withAuth(Students);
+export default WithAdminAuth(Students);

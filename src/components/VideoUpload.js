@@ -57,11 +57,13 @@ const VideoUpload = ({ setSelectedVideo, selectedVideo }) => {
 
   const handleVideoUpload = (event) => {
     const file = event.target.files[0];
-    if (file) {
+    if (file && file.type.startsWith("video/")) {
       setVideoFile(file);
       setVideoUrl(URL.createObjectURL(file));
       console.log("THE video url is set to: ",   event.target.files[0].mozFullPath)
       setSelectedVideo(file);
+    }else {
+      alert("Invalid file type. Please select a video file.");
     }
 
     // if(selectedVideo)

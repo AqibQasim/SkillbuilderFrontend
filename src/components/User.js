@@ -4,7 +4,7 @@ import { useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../../redux/slices/authSlice";
 import { remove } from "../../redux/slices/profileSlice";
@@ -16,6 +16,10 @@ import Button from "./Button";
 import CartIconSvg from "./CartIconSvg";
 import ChatIconSvg from "./ChatIconSvg";
 import ChevronRightIconSvg from "./ChevronRightIconSvg";
+import {
+  fetchNotificationInstructorThunk,
+  fetchNotificationStudentThunk,
+} from "../../redux/thunks/notificationThunk";
 
 function User({ cartClickHandler, cartItemsLength }) {
   const [show, setShow] = useState(false);
@@ -30,11 +34,48 @@ function User({ cartClickHandler, cartItemsLength }) {
   const userAlreadyAvailableId = useSelector(
     (state) => state.singleUser.userData.id,
   );
+  const studentNotifications = useSelector(
+    (state) => state.fetchNotificationStudent,
+  );
+  const instructorNotifications = useSelector(
+    (state) => state.fetchNotificationInstructor,
+  );
+  const [notifications, setNotifications] = useState([]);
   const isSSOUser = useSelector((state) => state.singleUser.userData.isSSOUser);
 
   const instructorId = useSelector(
     (state) => state.instructorByUserId.instructorByUserId.id,
   );
+
+  useEffect(() => {
+    if (
+      instructorNotifications.notifications &&
+      instructorNotifications?.notifications?.length > 0
+    ) {
+      setNotifications([
+        //...prev,
+        ...instructorNotifications?.notifications,
+      ]);
+    } 
+    
+    if (
+      studentNotifications.notifications &&
+      studentNotifications?.notifications?.length > 0
+    ) {
+      setNotifications([
+        //...prev,
+        ...studentNotifications?.notifications,
+      ]);
+    }
+  }, [user,instructorId]);
+
+  useEffect(() => {
+    if (instructorId) {
+      dispatch(fetchNotificationInstructorThunk(instructorId));
+    }
+    dispatch(fetchNotificationStudentThunk(user));
+    
+  }, [instructorId, user]);
 
   useEffect(() => {
     if (!user || instructorId) return;
@@ -80,28 +121,7 @@ function User({ cartClickHandler, cartItemsLength }) {
       dispatch(logout());
     }
   }
-  let notification = [
-    {
-      id: 1,
-      name: "Aahil Alvani",
-      description: "This is description ",
-    },
-    {
-      id: 2,
-      name: "Aahil Alvani",
-      description: "This is description",
-    },
-    {
-      id: 3,
-      name: "Aahil Alvani",
-      description: "This is description",
-    },
-    {
-      id: 4,
-      name: "Aahil Alvani",
-      description: "This is description",
-    },
-  ];
+
   useEffect(() => {
     if (status === "authenticated" || user) {
     }
@@ -293,7 +313,7 @@ function User({ cartClickHandler, cartItemsLength }) {
             <h2 className="text-lg font-bold">Notification</h2>
             <hr />
             <ul className="">
-              {notification.map((noti) => (
+              {notifications?.map((noti) => (
                 <>
                   <li className="flex gap-4 py-6">
                     <div>
@@ -306,9 +326,11 @@ function User({ cartClickHandler, cartItemsLength }) {
                       />
                     </div>
                     <div className="w-full self-center">
-                      <span className="text-sm font-semibold">{noti.name}</span>
+                      <span className="text-sm font-semibold">
+                        {noti.notification_title}
+                      </span>
                       <span className="pl-1 text-xs text-[#4A525D]">
-                        {noti.description}
+                        {noti.notification_message}
                       </span>
                     </div>
                   </li>

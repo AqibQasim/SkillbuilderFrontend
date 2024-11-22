@@ -3,7 +3,7 @@ import InstructorByUserIdSlice from "../slices/InstructorByUserIdSlice";
 import ytAuthReducer from "../slices/accessToken.js";
 import cartReducer from "../slices/addToCart";
 import coursesReducer from "../slices/allCoursesSlice";
-import approvedCoursesReducer from '../slices/allApprovedCoursesSlice';
+import approvedCoursesReducer from "../slices/allApprovedCoursesSlice";
 import allInstructorsReducer from "../slices/allInstructorsSlice";
 import studentsSlice from "../slices/allStudentsSlice";
 import authReducer from "../slices/authSlice";
@@ -28,9 +28,11 @@ import singleCourseReducer from "../slices/singleCourseSlice";
 import singleInstructorReducer from "../slices/singleInstructorSlice";
 import singleUserSlice from "../slices/singleUserSlice";
 import studentEnrolledCoursesForOneInstructorSlice from "../slices/studentEnrolledCoursesForOneInstructorSlice";
+import fetchNotificationInstructorSlice from '../slices/fetchNotificationInstructorSlice';
+import fetchNotificationStudentSlice from '../slices/fetchNotificationStudentSlice'
 
 // Import the new courseReducer from your courseSlice
-import courseUploadReducer from '../slices/courseUploadSlice'; // <- your new reducer for uploading course content
+import courseUploadReducer from "../slices/courseUploadSlice"; // <- your new reducer for uploading course content
 
 // Function to load state from localStorage
 function loadState() {
@@ -102,11 +104,12 @@ export const store = configureStore({
     createCourse: createCourseSlice,
     instructorIntroVideo: instructorIntroVideoSlice,
     approvedCourses: approvedCoursesReducer,
-    studentEnrolledCoursesForOneInstructor:
-      studentEnrolledCoursesForOneInstructorSlice,
-    
+    studentEnrolledCoursesForOneInstructor: studentEnrolledCoursesForOneInstructorSlice,
+    fetchNotificationStudent: fetchNotificationStudentSlice,
+    fetchNotificationInstructor: fetchNotificationInstructorSlice,
+
     // Add your new courseReducer here
-    course: courseUploadReducer, // <- this is where you integrate your courseSlice
+    //course: courseUploadReducer, // <- this is where you integrate your courseSlice
   },
   preloadedState,
 });
