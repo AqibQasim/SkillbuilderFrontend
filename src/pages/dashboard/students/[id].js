@@ -6,7 +6,7 @@ import StudentEnrolledCourses from "@/components/StudentEnrolledCourses";
 import StudentProfile from "@/components/StudentProfile";
 import withAuth from "@/components/WithAuth";
 import { useRouter } from "next/router";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { FaChevronLeft, FaGraduationCap } from "react-icons/fa6";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchOneUser } from "../../../../redux/thunks/userInfoThunk";
@@ -15,73 +15,116 @@ import { fetchInstructorByUserId } from "../../../../redux/thunks/InstructorByUs
 
 const StudentsDetail = () => {
   const router = useRouter();
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
   const studentId = router.query.id;
-  const userId = useSelector((state) => state.singleUser.userData.id);
-  const instructorId = useSelector(
-    (state) => state.instructorByUserId.instructorByUserId.id,
-  );
-  const userLoading = useSelector((state) => state.singleUser.loading);
-  const userError = useSelector((state) => state.singleUser.error);
-  const studentEnrolledCoursesForThisInstructor = useSelector(
-    (state) => state.studentEnrolledCoursesForOneInstructor.courses,
-  );
-  const loadingStudentEnrolledCourses = useSelector(
-    (state) => state.studentEnrolledCoursesForOneInstructor.loading,
-  );
-  useEffect(() => {
-    if (!studentId || userId) return;
-    dispatch(fetchOneUser(studentId));
-  }, [studentId, userId]);
+  const [enrolledCourses, setEnrolledCourses] = useState(null)
+  const [student, setStudent] = useState(null)
+  // const userId = useSelector((state) => state.singleUser.userData.id);
+  // const instructorId = useSelector(
+  //   (state) => state.instructorByUserId.instructorByUserId.id,
+  // );
+  // const userLoading = useSelector((state) => state.singleUser.loading);
+  // const userError = useSelector((state) => state.singleUser.error);
+  // const studentEnrolledCoursesForThisInstructor = useSelector(
+  //   (state) => state.studentEnrolledCoursesForOneInstructor.courses,
+  // );
+  // const loadingStudentEnrolledCourses = useSelector(
+  //   (state) => state.studentEnrolledCoursesForOneInstructor.loading,
+  // );
+  // useEffect(() => {
+  //   if (!studentId || userId) return;
+  //   dispatch(fetchOneUser(studentId));
+  // }, [studentId, userId]);
 
-  useEffect(() => {
-    if (!userId || instructorId) return;
-    dispatch(fetchInstructorByUserId(userId));
-  }, [userId]);
+  // useEffect(() => {
+  //   if (!userId || instructorId) return;
+  //   dispatch(fetchInstructorByUserId(userId));
+  // }, [userId]);
 
-  useEffect(() => {
-    if (!instructorId || !studentId) return;
-    dispatch(
-      studentEnrolledCoursesForOneInstructor({
-        instructorId,
-        studentId,
-      }),
-    );
-  }, [instructorId, studentId]);
+  // useEffect(() => {
+  //   if (!instructorId || !studentId) return;
+  //   dispatch(
+  //     studentEnrolledCoursesForOneInstructor({
+  //       instructorId,
+  //       studentId,
+  //     }),
+  //   );
+  // }, [instructorId, studentId]);
 
   function handleBack() {
     router.back();
   }
 
-  console.log("courses: ", studentEnrolledCoursesForThisInstructor);
-  console.log("instructorId: ", instructorId);
-  console.log("studentId: ", studentId);
+ 
 
-  if (userLoading)
-    return (
-      <DashboardLayout>
-        <Loader />
-      </DashboardLayout>
-    );
 
-  // Todo Error isnt Showing yet
-  if (userError)
-    return (
-      <DashboardLayout>
-        <p>Could not load user</p>
-      </DashboardLayout>
-    );
+  const getUser = ( async () => {
+    try{
+      const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/user/${studentId}`, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          // body: JSON.stringify({ token }),
+        });
+        const data = await response.json();
+
+        return data;
+
+    }catch(error){
+      console.log("Error: ", error)
+    }
+  })
+
+  useEffect(() => {
+  const fetchStudent = async () => {
+    if (studentId) {
+      try {
+        const student = await getUser();
+        if (student) {
+          console.log("RESPP", student?.message);
+          setEnrolledCourses(student?.message?.enrolled_courses_by_student || []);
+          setStudent(student?.message)
+        }
+      } catch (error) {
+        console.error("Error fetching student:", error);
+      }
+    }
+  };
+
+  fetchStudent(); // Call the function
+}, [studentId]);
+
+
+  // console.log("courses: ", studentEnrolledCoursesForThisInstructor);
+  // console.log("instructorId: ", instructorId);
+  // console.log("studentId: ", studentId);
+
+  // if (userLoading)
+  //   return (
+  //     <DashboardLayout>
+  //       <Loader />
+  //     </DashboardLayout>
+  //   );
+
+  // // Todo Error isnt Showing yet
+  // if (userError)
+  //   return (
+  //     <DashboardLayout>
+  //       <p>Could not load user</p>
+  //     </DashboardLayout>
+  //   );
 
   return (
     <DashboardLayout>
       <ButtonCircle clasName="!mb-6" onClick={handleBack}>
         <FaChevronLeft />
       </ButtonCircle>
-      <StudentProfile />
+      {student && <StudentProfile studentData={student} />}
       <StudentEnrolledCourses
         className="mt-12"
         href="/dashboard/instructor-courses"
-        enrolledCourses={studentEnrolledCoursesForThisInstructor}
+        enrolledCourses={enrolledCourses}
       />
     </DashboardLayout>
   );
