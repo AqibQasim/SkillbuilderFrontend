@@ -51,8 +51,6 @@ async function getCourseStatus(){
   }
 }
   
-getCourseStatus()
-
 
 useEffect( () => { 
   }, [course_id, userId])
@@ -62,10 +60,19 @@ useEffect( () => {
   }, [course]);
 
   useEffect(() => {
+    
     const localData = localStorage.getItem('adminAuth');
     const data = JSON.parse(localData)
     console.log("Admin Auth iss", data);  
-    setCourseLock(data == true ? false : true);
+
+    if(data){
+       const lock = data == true ? false : true
+        console.log("Lock iss ", lock)
+        setCourseLock(lock);
+    }else{
+      getCourseStatus()
+    }
+   
 }, [course]);
 
   return (
