@@ -13,21 +13,36 @@ const Profile = () => {
   const dispatch = useDispatch();
   const fetcheduserdata = useSelector((state) => state.singleUser);
   const user = useSelector((state) => state.auth.user);
+  const [userData, setUserData] = useState(null);
   
   useEffect(() => {
     dispatch(fetchOneUser(user));
   }, []);
 
   useEffect(() => {
-    console.log("Fetched User Data", fetcheduserdata.userData);
-  }, [fetcheduserdata]);
+   const fetchData = async() => {
+   
+      try{
+        const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/user/${user}`);
+        const data = await res.json();
+        setUserData(data?.message)
+        console.log("The user data iss", data);
+
+      }catch(error){
+        console.log("Failed to fetch user: ", error)
+      }
+    } 
+    fetchData();
+  }, [user]);
 
   const [state, setstate] = useState(false);
 
-  const { first_name, last_name, email, location } = useSelector(
-    (state) => state.profile,
-  );
+  // const { first_name, last_name, email, location } = useSelector(
+  //   (state) => state.profile,
+  // );
 
+
+  console.log("STATE PROFILE ", state.profile);
 
   return (
     <div className="bg-gray-100">
@@ -60,35 +75,33 @@ const Profile = () => {
 
                 <div className="mt-4 flex flex-col lg:items-start max-sm:items-center max-md:items-center">
                   <h1 className="mb-3 text-xl font-bold leading-5 md:text-xl lg:text-xl max-xsm:text-sm">
-                    {fetcheduserdata?.userData?.first_name
-                      ? `${fetcheduserdata?.userData?.first_name} `
+                    {userData?.first_name
+                      ? `${userData?.first_name} `
                       : "loading "}
-                    {fetcheduserdata?.userData?.last_name
-                      ? `${fetcheduserdata?.userData?.last_name}`
+                    {userData?.last_name
+                      ? `${userData?.last_name}`
                       : "Please"}
                   </h1>
                   <p className="mb-2 text-wrap font-normal lg:text-sm max-sm:text-xs max-md:text-xs">
                     Email:{" "}
                     <span className="pl-1 font-light text-bg_text_gray">
-                      {fetcheduserdata?.userData?.email || "loading"}
+                      {userData?.email || "No email"}
                     </span>
                   </p>
                   <p className="mb-2 text-wrap font-normal lg:text-sm max-sm:text-xs max-md:text-xs">
                     Course:{" "}
                     <span className="pl-1 font-light text-bg_text_gray">
                       {`${
-                        fetcheduserdata?.userData?.enrolled_courses_by_student
+                        userData?.enrolled_courses_by_student
                           ?.length < 1
                           ? "No Course"
-                          : fetcheduserdata?.userData
+                          : userData
                               ?.enrolled_courses_by_student?.[0].title
                       } ${
-                        fetcheduserdata?.userData?.enrolled_courses_by_student
+                        userData?.enrolled_courses_by_student
                           ?.length > 1
                           ? "+" +
-                            (fetcheduserdata?.userData
-                              ?.enrolled_courses_by_student?.length -
-                              1)
+                            (userData?.enrolled_courses_by_student?.length - 1)
                           : ""
                       }`}
                     </span>
@@ -96,7 +109,7 @@ const Profile = () => {
                   <p className="mb-2 text-wrap font-normal lg:text-sm max-sm:text-xs max-md:text-xs">
                     Location:{" "}
                     <span className="pl-1 font-light text-bg_text_gray">
-                      {fetcheduserdata?.userData?.location || "Set location"}
+                      {userData?.location || "No Location set"}
                     </span>
                   </p>
                 </div>

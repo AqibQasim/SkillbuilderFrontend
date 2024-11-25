@@ -7,6 +7,7 @@ import ClipboardSvg from "./ClipboardSvg";
 import { useRouter } from "next/router";
 import Image from "next/image";
 import InstructorSvg from "./instructorSvg";
+import LogoutSvg from "./LogoutSvg";
 
 const links = [
   { href: "/admin", icon: <MenuSvg />, name: "Overview" },
@@ -60,6 +61,10 @@ const DropdownArrowSvg = ({ isOpen }) => (
 );
 
 const AdminDashboardSidebar = () => {
+  const handleLogout = () => {
+    localStorage.removeItem("adminAuth");
+    router.push("/admin/login");
+  };
   const router = useRouter();
   const { pathname } = router;
 
@@ -134,6 +139,9 @@ const AdminDashboardSidebar = () => {
               )}
             </li>
           ))}
+          <div>
+            <button className="text-red hover:text-black flex w-full cursor-pointer items-center justify-start gap-3 rounded-lg px-4 py-3 text-gray-shade-1 transition-colors duration-300 hover:bg-dashboard-sidenav-bg lg:px-5 lg:py-3" onClick={handleLogout}> <LogoutSvg /> Logout</button>
+          </div>
         </ul>
       </nav>
     </aside>

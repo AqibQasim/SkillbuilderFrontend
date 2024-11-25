@@ -40,9 +40,10 @@ export default function CourseModules({ course, course_id, heading = "Course out
   };
 
 
+
 async function getCourseStatus(){
 
-  if(course_id && course){
+  if(course_id && course && userId){
     const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/check-lock-status?course_id=${course_id}&user_id=${userId}`)
     const data = await response.json()
     console.log("APU RES is ", data.lock)
@@ -51,12 +52,21 @@ async function getCourseStatus(){
 }
   
 getCourseStatus()
+
+
 useEffect( () => { 
   }, [course_id, userId])
 
   useEffect(() => {
-    console.log("######### tahta", courseLock);
+    console.log("#########", courseLock);
   }, [course]);
+
+  useEffect(() => {
+    const localData = localStorage.getItem('adminAuth');
+    const data = JSON.parse(localData)
+    console.log("Admin Auth iss", data);  
+    setCourseLock(data == true ? false : true);
+}, [course]);
 
   return (
     <LayoutWidth>

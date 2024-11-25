@@ -93,9 +93,9 @@ function DashboardHeader() {
           >
             Upload course +
           </Button>
+      <User />
         </>
       )}
-      <User />
     </header>
   );
 }
