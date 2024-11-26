@@ -4,7 +4,7 @@ export default async function handler(req, res) {
   if (req.method === "GET") {
     try {
       const checkouts = await stripe.checkout.sessions.list({
-        limit: 4, // Adjust limit as needed
+        limit: 100, // Adjust limit as needed
       });
 
       // Debugging: log the response from Stripe
