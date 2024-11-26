@@ -270,10 +270,16 @@ function RunningCourses({ courses, coursesError }) {
 }
 
 function CourseCardOnAdminDashboard({ course }) {
+  const router = useRouter();
+
+  const handleRowClick = () => {
+    router.push(`/courses/${course?.id}`);
+  };
   return (
     <div
+      onClick={handleRowClick}
       key={course?.id}
-      className="img-container mb-4 flex h-auto w-full max-w-sm transform flex-col items-start rounded-bl-2xl rounded-tr-2xl border border-cards_gray bg-white p-2 transition duration-300 hover:border-[rgb(152,159,233)] hover:shadow-lg"
+      className="img-container mb-4 flex h-auto w-full max-w-sm transform flex-col items-start rounded-bl-2xl rounded-tr-2xl border border-cards_gray bg-white p-2 transition duration-300 hover:border-[rgb(152,159,233)] hover:shadow-lg cursor-pointer"
     >
       {/* <Image
         className="w-[100%] pt-1"
@@ -299,7 +305,7 @@ function CourseCardOnAdminDashboard({ course }) {
         <h3 className="mt-4 text-lg font-semibold">{course?.title}</h3>
         <p className="mb-2 text-sm">{course?.learning_outcomes}</p>
         <span className="float-right font-semibold text-blue">
-          ${course?.amount}
+          ${course?.amount - course?.discount}
         </span>
       </div>
     </div>

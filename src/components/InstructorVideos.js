@@ -143,6 +143,71 @@ const InstructorVideos = ({ onNext, onPrev }) => {
     ]);
   };
 
+  // const uploadVideoHandler = async (selectedVideos) => {
+  //   // Ensure selectedVideos is an array, even if only one file is provided
+  //   const videosArray = Array.isArray(selectedVideos) ? selectedVideos : [selectedVideos];
+  
+  //   // Check if the array has any videos to upload
+  //   if (videosArray.length === 0) {
+  //     console.error("No videos to upload.");
+  //     return;
+  //   }
+  
+  //   // Initialize upload status for each video
+  //   const initialUploadStatus = Array(videosArray.length).fill(false);
+  //   setModuleVideoUploading(initialUploadStatus);
+  
+  //   const uploadedVideoIds = [];
+  
+  //   for (let i = 0; i < videosArray.length; i++) {
+  //     const selectedVideo = videosArray[i];
+  //     const formData = new FormData();
+  //     formData.append("video", selectedVideo);
+  
+  //     // Set loader for the current video to true
+  //     setModuleVideoUploading((prevStatus) => {
+  //       const updatedStatus = [...prevStatus];
+  //       updatedStatus[i] = true; // Set loader for the current video
+  //       return updatedStatus;
+  //     });
+  
+  //     try {
+  //       const response = await fetch("/api/upload-video", {
+  //         method: "POST",
+  //         body: formData,
+  //       });
+  
+  //       if (!response.ok) {
+  //         const errorData = await response.json();
+  //         throw new Error(errorData.error || "Unable to post video");
+  //       }
+  
+  //       const data = await response.json();
+  
+  //       if (data.uri) {
+  //         const videoId = data.uri.split("/").pop();
+  //         uploadedVideoIds.push(videoId);
+  //       } else {
+  //         throw new Error("Failed to get video URI from response");
+  //       }
+  //     } catch (error) {
+  //       console.error("Failed to upload video:", error.message);
+  //     } finally {
+  //       // Set loader for the current video to false after completion
+  //       setModuleVideoUploading((prevStatus) => {
+  //         const updatedStatus = [...prevStatus];
+  //         updatedStatus[i] = false; // Clear loader for the current video
+  //         return updatedStatus;
+  //       });
+  //     }
+  //   }
+  
+  //   return uploadedVideoIds;
+  // };
+  
+  
+  
+
   const uploadVideoHandler = async (selectedVideo) => {
     if (!selectedVideo) return;
 
