@@ -9,11 +9,11 @@ function Table({ columns, children }) {
   );
 }
 
-function Header({ children }) {
+function Header({ children, className}) {
   const { columns } = useContext(TableContext);
   return (
     <div
-      className={`grid items-center uppercase tracking-wider grid-cols-[${columns}] ${columns} gap-4 p-4 text-gray-shade-1`}
+      className={`${className} grid items-center uppercase tracking-wider grid-cols-[${columns}] ${columns} gap-4 p-4 text-gray-shade-1`}
     >
       {children}
     </div>
