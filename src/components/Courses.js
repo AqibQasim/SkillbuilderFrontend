@@ -117,7 +117,7 @@ const Courses = ({ heading, paddingTop }) => {
                 <div className="flex w-[100%] flex-grow flex-col justify-between p-2">
                   <div>
                     <div className="mt-2 flex w-full items-center justify-between">
-                      <div>
+                      <div className="flex gap-2">
                         {course?.rating ? (
                           <>
                             <span className="text-sm">{course?.rating}</span>

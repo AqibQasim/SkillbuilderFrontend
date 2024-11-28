@@ -90,6 +90,11 @@ const ReviewModal = ({ onClose, courseId }) => {
     //     "rating":10,
     //     "review":"this is the best course"
     // }
+    if(!reviewTitle){
+      alert("Review title is required!")
+      return;
+    }
+
     console.log("This is user from Review Modal: ", user);
     const reviewData = {
       course_id: courseId,
@@ -104,9 +109,10 @@ const ReviewModal = ({ onClose, courseId }) => {
     console.log("FROM REVIEWMODAL(2): ", reviewData);
     // Dispatch the thunk to post the review
     dispatch(postReview(reviewData)).then(() => {
-      if (success) {
-        onClose(); // Close modal on successful submission
-      }
+
+        setTimeout(()=> {
+          onClose(); // Close modal on successful submission
+        }, 2000)
     });
   };
 
@@ -130,6 +136,7 @@ const ReviewModal = ({ onClose, courseId }) => {
             onChange={(e) => setReview(e.target.value)}
             className='w-full placeholder-xsm h-[5rem] sm:h-[7rem] md:h-[9rem] lg:h-[10rem] focus:border-none focus:outline-none sm:placeholder-sm md:placeholder-base lg:placeholder-base'
             placeholder='Write down your experience with our company'
+            required
           />
         </div>
       </div>
@@ -143,6 +150,7 @@ const ReviewModal = ({ onClose, courseId }) => {
             onChange={(e) => setReviewTitle(e.target.value)}
             className='w-full placeholder-xsm h-[3rem] focus:border-none focus:outline-none sm:placeholder-sm md:placeholder-base lg:placeholder-base'
             placeholder="What's important for people to know?"
+            required
           />
         </div>
       </div>
