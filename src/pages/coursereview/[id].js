@@ -12,9 +12,13 @@ import { useRouter } from "next/router";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchAllReviews } from "../../../redux/thunks/reviewsThunk";
 
+
 const coursereviews = () => {
-    const router = useRouter();
+  const router = useRouter();
   const CourseId = router.query.id;
+
+  const [reviewsDatta, setReviewsData] = useState([])
+
   const dispatch = useDispatch();
   const { reviewsData: reviews, isReviewsLoading } = useSelector(
     (state) => state.allReviews || { reviewsData: [], isReviewsLoading: true },
@@ -31,52 +35,55 @@ const coursereviews = () => {
 
   },[])
   const user = useSelector((state) => state.auth.user);
-  let arrayofobjects = [
-    {
-      name: "Taha",
-      rating: "3",
-      description:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolore minus alias fugiat eum accusantium dolores, incidunt repellendus velit nihil vero! Aut velit molestiae repudiandae animi. Illo, facere hic sit enim adipisci neque, quam harum nihil velit ducimus accusamus perferendis perspiciatis odio, nulla voluptas laborum. Pariatur.",
-    },
-    {
-      name: "Zubair Alam",
-      rating: "4",
-      description:
-        "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Asperiores incidunt sapiente vel nobis enim voluptate officiis iusto perspiciatis quam. Officiis veritatis maxime similique nesciunt officia distinctio magnam saepe unde dolorum voluptatum autem consequatur ullam quas magni, odit sequi nihil quo placeat laboriosam quia repellat? Ducimus.",
-    },
-    {
-      name: "Rayyan Sajid",
-      rating: "5",
-      description:
-        "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Asperiores incidunt sapiente vel nobis enim voluptate officiis iusto perspiciatis quam. Officiis veritatis maxime similique nesciunt officia distinctio magnam saepe unde dolorum voluptatum autem consequatur ullam quas magni, odit sequi nihil quo placeat laboriosam quia repellat? Ducimus.",
-    },
-    {
-      name: "Ahmad zaman",
-      rating: "2",
-      description:
-        "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Asperiores incidunt sapiente vel nobis enim voluptate officiis iusto perspiciatis quam. Officiis veritatis maxime similique nesciunt officia distinctio magnam saepe unde dolorum voluptatum autem consequatur ullam quas magni, odit sequi nihil quo placeat laboriosam quia repellat? Ducimus.",
-    },
-    {
-      name: "Sanjay ",
-      rating: "0",
-      description:
-        "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Asperiores incidunt sapiente vel nobis enim voluptate officiis iusto perspiciatis quam. Officiis veritatis maxime similique nesciunt officia distinctio magnam saepe unde dolorum voluptatum autem consequatur ullam quas magni, odit sequi nihil quo placeat laboriosam quia repellat? Ducimus.",
-    },
-  ];
+
+  useEffect(() => {
+
+    const list = []
+    reviews.forEach((review) => {
+      console.log("Raatingg ", review?.rating)
+      list.push({
+        rating: parseFloat(review.rating)
+      }
+      )
+    })
+    setReviewsData(list)
+  }, [reviews])
+  
+  // let arrayofobjects = [
+  //   {
+  //     name: "Taha",
+  //     rating: "3",
+  //     description:
+  //       "Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolore minus alias fugiat eum accusantium dolores, incidunt repellendus velit nihil vero! Aut velit molestiae repudiandae animi. Illo, facere hic sit enim adipisci neque, quam harum nihil velit ducimus accusamus perferendis perspiciatis odio, nulla voluptas laborum. Pariatur.",
+  //   },
+  //   {
+  //     name: "Zubair Alam",
+  //     rating: "4",
+  //     description:
+  //       "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Asperiores incidunt sapiente vel nobis enim voluptate officiis iusto perspiciatis quam. Officiis veritatis maxime similique nesciunt officia distinctio magnam saepe unde dolorum voluptatum autem consequatur ullam quas magni, odit sequi nihil quo placeat laboriosam quia repellat? Ducimus.",
+  //   },
+  //   {
+  //     name: "Rayyan Sajid",
+  //     rating: "5",
+  //     description:
+  //       "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Asperiores incidunt sapiente vel nobis enim voluptate officiis iusto perspiciatis quam. Officiis veritatis maxime similique nesciunt officia distinctio magnam saepe unde dolorum voluptatum autem consequatur ullam quas magni, odit sequi nihil quo placeat laboriosam quia repellat? Ducimus.",
+  //   },
+  //   {
+  //     name: "Ahmad zaman",
+  //     rating: "2",
+  //     description:
+  //       "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Asperiores incidunt sapiente vel nobis enim voluptate officiis iusto perspiciatis quam. Officiis veritatis maxime similique nesciunt officia distinctio magnam saepe unde dolorum voluptatum autem consequatur ullam quas magni, odit sequi nihil quo placeat laboriosam quia repellat? Ducimus.",
+  //   },
+  //   {
+  //     name: "Sanjay ",
+  //     rating: "0",
+  //     description:
+  //       "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Asperiores incidunt sapiente vel nobis enim voluptate officiis iusto perspiciatis quam. Officiis veritatis maxime similique nesciunt officia distinctio magnam saepe unde dolorum voluptatum autem consequatur ullam quas magni, odit sequi nihil quo placeat laboriosam quia repellat? Ducimus.",
+  //   },
+  // ];
   //sanjay branch data
 
-  const review_data = [
-    { rating: 5 },
-    { rating: 5 },
-    { rating: 5 },
-    { rating: 5 },
-    { rating: 5 },
-    { rating: 4 },
-    { rating: 4 },
-    { rating: 4 },
-    { rating: 1 },
-    { rating: 1 },
-  ];
+ 
 
   let rating_counts = {
     one: 0,
@@ -87,10 +94,10 @@ const coursereviews = () => {
   };
 
   // total count of reviews
-  const total_count = review_data.length;
+  const total_count = reviewsDatta.length;
 
   // sum of ratings
-  let rating_sum = review_data.reduce((num, { rating }) => num + rating, 0);
+  let rating_sum = reviewsDatta.reduce((num, { rating }) => num + rating, 0);
 
   // total sum of 5 stars
   let total_sum = 5 * total_count;
@@ -99,7 +106,7 @@ const coursereviews = () => {
   result = Math.round((result + Number.EPSILON) * 100) / 100;
 
   // calculate percentages
-  review_data.forEach((e) => {
+  reviewsDatta.forEach((e) => {
     switch (e.rating) {
       case 5:
         rating_counts.five++;

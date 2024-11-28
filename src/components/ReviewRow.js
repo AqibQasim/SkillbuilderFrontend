@@ -12,7 +12,7 @@ const ReviewRow = ({ number, barwidth }) => {
       ></input>
       <div className="self-center min-w-fit">{number} star</div>
       <ProgressBar centerBar="self-center" barwidth={barwidth} />
-      <div className="self-center">{barwidth}</div>
+      <div className="self-center">{parseFloat(barwidth).toFixed(0)}%</div>
     </div>
   );
 };

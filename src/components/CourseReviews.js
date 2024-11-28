@@ -4,6 +4,7 @@ import Image from "next/image";
 import LayoutWidth from "./LayoutWidth";
 import formatDate from "../utils/formatDate";
 import {useRouter} from "next/router";
+import Link from 'next/link'
 
 // const reviews = [
 //   {
@@ -46,8 +47,7 @@ const CourseReviews = ({ reviews, CourseId }) => {
             Course Reviews
           </h1>
           <p>
-            There are no reviews for this course yet. Be the first to leave a
-            review!
+            There are no reviews for this course yet. Be the first to leave a  <Link className="text-blue-700" href={`/coursereview/${CourseId}`}> review</Link>!
           </p>
         </div>
       </LayoutWidth>
