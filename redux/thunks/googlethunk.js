@@ -17,7 +17,7 @@ export const handleGoogleCallback = createAsyncThunk(
 
     if (code) {
       const response = await fetch(
-        `http://localhost:4000/auth/google`,
+        `${process.env.NEXT_PUBLIC_BASE_API}/auth/google`,
         {
           method: "GET",
           credentials: "include",
