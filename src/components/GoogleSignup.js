@@ -64,6 +64,7 @@ function GoogleSignup() {
       }
 
     } catch (error) {
+      console.log(error)
       console.error("Signup error:", error.message);
     }
   }
