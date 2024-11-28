@@ -5,6 +5,7 @@ import Footer from "@/components/Footer";
 import { useRouter } from "next/router";
 import { useSelector, useDispatch } from "react-redux";
 import { clearCart } from "../../redux/slices/addToCart";
+import urlBase64ToUint8Array from "@/utils/urlBase64ToUint8Array";
 const PaymentSuccess = () => {
   const router = useRouter();
   const dispatch = useDispatch();
@@ -31,10 +32,18 @@ const PaymentSuccess = () => {
           }));
 
           const register = await navigator.serviceWorker.register("/sw.js");
-
+          const existingSubscription =
+            await register.pushManager.getSubscription();
+          if (existingSubscription) {
+            // Unsubscribe if the applicationServerKey is different
+            console.log("Unsubscribing existing subscription...");
+            await existingSubscription.unsubscribe();
+          }
           const subscription = await register.pushManager.subscribe({
             userVisibleOnly: true,
-            applicationServerKey: process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY,
+            applicationServerKey: urlBase64ToUint8Array(
+              process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY,
+            ),
           });
 
           const response = await fetch(

@@ -3,14 +3,17 @@ import { useDispatch, useSelector } from "react-redux";
 import { createCourse } from "../../redux/thunks/createCourseThunk";
 import { setCourseDetails } from "../../redux/slices/createCourseSlice";
 import { fetchInstructorByUserId } from "../../redux/thunks/InstructorByUserIdThunk";
+import ImageUpload from "./ImageUpload";
 
 const InstructorIntendedLearner = ({ onNext }) => {
   const dispatch = useDispatch();
+  const [selectedImage, setSelectedImage] = useState(null);
   const userId = useSelector((state) => state.auth.user);
   const instructorId = useSelector(
     (state) => state.instructorByUserId.instructorByUserId.id,
   );
   const courseId = useSelector((state) => state.createCourse.courseId);
+  const image = useSelector((state) => state.createCourse.courseDetails.image);
   const title = useSelector((state) => state.createCourse.courseDetails.title);
   const amount = useSelector(
     (state) => state.createCourse.courseDetails.amount,
@@ -38,21 +41,23 @@ const InstructorIntendedLearner = ({ onNext }) => {
   const initialFormData = {
     instructor_id: instructorId,
     creation_duration_hours: "",
+    image: "",
     category: "",
     learning_outcomes: "",
     modulesCount: 0,
     amount: 0,
     charges: 0,
-    discount:0
+    discount: 0,
   };
 
   const [formData, setFormData] = useState({
     ...initialFormData,
     title,
     category,
+    image: selectedImage,
     learning_outcomes,
     amount,
-    discount
+    discount,
   });
 
   console.log("form data", formData);
@@ -61,11 +66,14 @@ const InstructorIntendedLearner = ({ onNext }) => {
     console.log("we here");
     console.log("form data to submit?", formData);
     e.preventDefault();
-    const dataWithInstructorId = { ...formData, instructor_id: instructorId };
-    const { instructor_id, title, category, learning_outcomes, amount } =
+    const dataWithInstructorId = {
+      ...formData,
+      instructor_id: instructorId,
+      image: selectedImage,
+    };
+    const { instructor_id, title, category, learning_outcomes } =
       dataWithInstructorId;
-    if (!instructor_id || !title || !category || !learning_outcomes || !amount)
-      return;
+    if (!instructor_id || !title || !category || !learning_outcomes) return;
 
     console.log("submit this data?", dataWithInstructorId);
 
@@ -105,7 +113,7 @@ const InstructorIntendedLearner = ({ onNext }) => {
               htmlFor="category"
               className="text-md mb-4 block font-semibold text-gray-700"
             >
-              Field:
+              Category:
             </label>
             <select
               defaultValue={category}
@@ -125,10 +133,9 @@ const InstructorIntendedLearner = ({ onNext }) => {
           </div>
         </div>
         <br />
-        <br />
-        <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-1">
           <div>
-            <label
+            {/* <label
               htmlFor="creation_duration_hours"
               className="text-md mb-4 block font-semibold text-gray-700"
             >
@@ -145,31 +152,41 @@ const InstructorIntendedLearner = ({ onNext }) => {
               required
               className="border-darkgrey mt-1 block w-full rounded-md border bg-transparent p-3 shadow-sm focus:border-blue-500 focus:ring-blue-500"
               placeholder="hours"
-            />
+            /> */}
           </div>
           <div>
             <label
               htmlFor="learning"
               className="text-md mb-4 block font-semibold text-gray-700"
             >
-              Outcome of this Course:
+              Description:
             </label>
-            <input
+            <textarea
               defaultValue={learning_outcomes}
               onChange={(e) =>
                 handleChange("learning_outcomes", e.target.value)
               }
-              type="text"
+              // type="text"
               id="learning"
               name="learning"
               required
               className="border-darkgrey mt-1 block w-full rounded-md border bg-transparent p-3 shadow-sm focus:border-blue-500 focus:ring-blue-500"
-              placeholder="Learning"
+              placeholder="Enter the details or learning outcomes of this course"
             />
           </div>
         </div>
-        <br /> <br />
-        <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+        <br />
+        <label
+          htmlFor="learning"
+          className="text-md mb-4 block font-semibold text-gray-700"
+        >
+          Upload an image of this course:
+        </label>
+        <ImageUpload
+          selectedImage={selectedImage}
+          setSelectedImage={setSelectedImage}
+        />
+        {/* <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
           <div>
             <label
               htmlFor="amount"
@@ -196,8 +213,8 @@ const InstructorIntendedLearner = ({ onNext }) => {
               Discount:
             </label>
             <input
-            defaultValue={discount}
-            onChange={(e)=>handleChange("discount",e.target.value)}
+              defaultValue={discount}
+              onChange={(e) => handleChange("discount", e.target.value)}
               type="number"
               id="discount"
               name="discount"
@@ -206,8 +223,8 @@ const InstructorIntendedLearner = ({ onNext }) => {
               placeholder="Discount"
             />
           </div>
-        </div>
-        <br /> <br />
+        </div> */}
+        <br />
         <div className="mt-4 flex justify-end">
           {/* <button
           <button
