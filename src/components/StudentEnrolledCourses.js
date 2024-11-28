@@ -31,19 +31,23 @@ function StudentEnrolledCourses({ className, href, enrolledCourses }) {
 export default StudentEnrolledCourses;
 
 function StudentEnrolledCoursesCard({ course, href = "" }) {
-  const { id, title, rating, learning_outcomes, amount, image } = course;
+  const { id, title, rating, learning_outcomes, amount, discount , image } = course;
 
   const router = useRouter();
 
   function handleClick() {
     if (href) return router.push(`${href}/${id}`);
+    else { 
+      router.push(`/courses/${id}`)
+    }
+    
     console.log(`use href prop: href="/url-to-push"`);
   }
 
   return (
     <div
       onClick={handleClick}
-      className={`${href ? "cursor-pointer" : ""} course-card img-container flex h-auto w-full max-w-sm transform flex-col items-start space-y-2 rounded-bl-2xl rounded-tr-2xl border border-gray-shade-2 bg-white px-3 py-4 transition duration-300 hover:border-[rgb(152,159,233)] hover:shadow-lg`}
+      className={`cursor-pointer course-card img-container flex h-auto w-full max-w-sm transform flex-col items-start space-y-2 rounded-bl-2xl rounded-tr-2xl border border-gray-shade-2 bg-white px-3 py-4 transition duration-300 hover:border-[rgb(152,159,233)] hover:shadow-lg`}
     >
       <div className="image-wrapper relative max-h-36 w-full">
         <img
@@ -57,7 +61,7 @@ function StudentEnrolledCoursesCard({ course, href = "" }) {
       </div>
       <h2 className="mt-2 text-xl font-semibold">{title}</h2>
       <p>{learning_outcomes}</p>
-      <p className="ml-auto text-blue"> {formatCurrency(amount)} </p>
+      <p className="ml-auto text-blue"> {formatCurrency(amount - discount)} </p>
     </div>
   );
 }

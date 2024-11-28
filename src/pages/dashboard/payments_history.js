@@ -7,6 +7,7 @@ import Button from "../../components/Button";
 import DashboardLayout from "../../components/DashboardLayout";
 import { fetchOneInstructor } from "../../../redux/thunks/instructorThunk";
 import AdminRevenueStatistics from "@/components/AdminRevenueStatistics";
+import { fetchInstructorByUserId } from "../../../redux/thunks/InstructorByUserIdThunk";
 
 const createAccount = async (
   setAccountCreatePending,
@@ -44,23 +45,24 @@ function Payments() {
   const [error, setError] = useState(false);
   const [connectedAccountId, setConnectedAccountId] = useState(null);
   const [accountLinkUrl, setAccountLinkUrl] = useState(null);
+  const [accGetDb, setAccGetDb] = useState(false);
 
   const dispatch = useDispatch();
   const instructor = useSelector((state) => state.singleInstructor);
-   const instructorId = useSelector(
+  const instructorId = useSelector(
     (state) => state.instructorByUserId.instructorByUserId.id,
   );
-  // const userId = useSelector((state) => state.auth.user);
+  
+  const userId = useSelector((state) => state.auth.user);
 
-  // useEffect(() => {
-  //   if (userId && !id) {
-  //     dispatch(fetchOneInstructor(userId));
-  //   }
-  // }, [userId, id, dispatch]);
+ useEffect(() => {
+    if (!userId || instructorId) return;
+    dispatch(fetchInstructorByUserId(userId));
+  }, [userId]);
 
   useEffect(() => {
     // console.log("ID in payments history page: ", id)
-    if (instructor) {
+    if (instructorId) {
       console.log("instructor isss", instructor)
       const fetchPaymentDetails = async () => {
         try {
@@ -86,6 +88,8 @@ function Payments() {
           // Validate that `message` is an array and check its length
           if (Array.isArray(message)) {
             if (message.length > 0) {
+
+              setAccGetDb(true);
               const stripe_acc_id = message[0]?.account_reg_id; // Use optional chaining
 
               
@@ -96,35 +100,7 @@ function Payments() {
                 throw new Error("Account registration ID is missing in the response");
               }
             } else {
-                setAccountLinkCreatePending(true);
-              // Message array is empty, create a new account
-              const newAccountId = await createAccount(
-                setAccountCreatePending,
-                setError,
-              );
-
-              if (newAccountId) {
-                setConnectedAccountId(newAccountId);
-
-                const regResponse = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/inst-stipe-acc-reg`, {
-                  method: "POST",
-                  headers: { "Content-Type": "application/json" },
-                  body: JSON.stringify({
-                    instructor_id: id,
-                    user_id: userId,
-                    account_reg_id: newAccountId,
-                  }),
-                });
-
-                if (!regResponse.ok) {
-                  const regErrorData = await regResponse.json();
-                  throw new Error(
-                    regErrorData.message || "Failed to register account details",
-                  );
-                }
-              } else {
-                throw new Error("Failed to create a new account");
-              }
+                console.log("test")
             }
           } else {
             throw new Error("Unexpected response format: `message` is not an array");
@@ -139,12 +115,42 @@ function Payments() {
       
     }
    
-  }, [instructor]);
+  }, [instructor, instructorId]);
 
   const handleAccountLink = async () => {
 
     setError(false);
 
+    setAccountLinkCreatePending(true);
+    // Message array is empty, create a new account
+    const newAccountId = await createAccount(
+      setAccountCreatePending,
+      setError,
+    );
+
+    if (newAccountId) {
+      setConnectedAccountId(newAccountId);
+
+      const regResponse = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/inst-stipe-acc-reg`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          instructor_id: instructorId,
+          user_id: userId,
+          account_reg_id: newAccountId,
+        }),
+      });
+
+      if (!regResponse.ok) {
+        const regErrorData = await regResponse.json();
+        throw new Error(
+          regErrorData.message || "Failed to register account details",
+        );
+      }
+    } else {
+      throw new Error("Failed to create a new account");
+    }
+    const connectedAccountId = newAccountId;
     try {
       const response = await fetch("/api/account_link", {
         method: "POST",
@@ -172,10 +178,10 @@ function Payments() {
   return (
     <DashboardLayout>
       <div className="text-center">
-        <h1 className="text-2xl font-bold">Payment</h1>
+        {/* <h1 className="text-2xl font-bold">Payment</h1>
         {connectedAccountId && !accountLinkCreatePending && (
           <p className="mb-5">Your Stripe Account ID is: {connectedAccountId}</p>
-        )}
+        )} */}
 
         {connectedAccountId && !accountLinkCreatePending && (
           <>
@@ -187,11 +193,18 @@ function Payments() {
           </>
         )}
         
-        {connectedAccountId && accountLinkCreatePending && (
-          <div className="flex justify-end">
-            <Button className="mt-10 md:block" onClick={handleAccountLink}>
+        {!accountLinkCreatePending && !accGetDb && (
+          <div className="flex justify-center mt-48 flex-col self-center">
+            <h1 className="text-2xl">Payment Details Not Added</h1>
+            <p className="text-sm">You haven't added your payment details yet, Please add them to start getting paid!</p>
+            <Button className="md:block mx-auto my-2" onClick={handleAccountLink}>
               Add Payment Details
             </Button>
+          </div>
+        )}
+         {accountLinkCreatePending && (
+          <div className="flex justify-center mt-48 flex-col self-center">
+           Loading...
           </div>
         )}
         {/* {error && (

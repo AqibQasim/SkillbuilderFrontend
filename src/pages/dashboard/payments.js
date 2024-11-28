@@ -120,50 +120,7 @@ function Payments() {
               }
             } else {
               
-              setAccountLinkCreatePending(true);
-              // Message array is empty, create a new account
-              const newAccountId = await createAccount(
-                setAccountCreatePending,
-                setError,
-              );
-
-              if (newAccountId) {
-                
-
-                await fetchPayouts(newAccountId);
-                await setConnectedAccountId(newAccountId);
-                await fetchBankDetails(newAccountId); // Fetch bank details
-
-                
-                console.log("Here only", instructorId  )
-                console.log("test2 ", userId)
-                console.log("test3",  newAccountId)
-
-                const regResponse = await fetch(
-                  `${process.env.NEXT_PUBLIC_BASE_API}/inst-stipe-acc-reg`,
-                  {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({
-                      instructor_id: instructorId,
-                      user_id: userId,
-                      account_reg_id: newAccountId,
-                    }),
-                  },
-                );
-                
-                console.log("regResponse: ", regResponse)
-                
-                if (!regResponse.ok) {
-                  const regErrorData = await regResponse.json();
-                  throw new Error(
-                    regErrorData.message ||
-                      "Failed to register account details",
-                  );
-                }
-              } else {
-                throw new Error("Failed to create a new account");
-              }
+              console.log("test")
             }
           } else {
             throw new Error(
@@ -211,6 +168,52 @@ function Payments() {
   const handleAccountLink = async () => {
     setError(false);
 
+    setAccountLinkCreatePending(true);
+      // Message array is empty, create a new account
+      const newAccountId = await createAccount(
+        setAccountCreatePending,
+        setError,
+      );
+
+      if (newAccountId) {
+        
+
+        await fetchPayouts(newAccountId);
+        setConnectedAccountId(newAccountId);
+        await fetchBankDetails(newAccountId); // Fetch bank details
+
+        
+        console.log("Here only", instructorId  )
+        console.log("test2 ", userId)
+        console.log("test3",  newAccountId)
+
+        const regResponse = await fetch(
+          `${process.env.NEXT_PUBLIC_BASE_API}/inst-stipe-acc-reg`,
+          {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              instructor_id: instructorId,
+              user_id: userId,
+              account_reg_id: newAccountId,
+            }),
+          },
+        );
+        
+        console.log("regResponse: ", regResponse)
+        
+        if (!regResponse.ok) {
+          const regErrorData = await regResponse.json();
+          throw new Error(
+            regErrorData.message ||
+              "Failed to register account details",
+          );
+        }
+      } else {
+        throw new Error("Failed to create a new account");
+      }
+
+    const connectedAccountId = newAccountId;
     try {
       const response = await fetch("/api/account_link", {
         method: "POST",
@@ -415,13 +418,19 @@ function Payments() {
           </>
         )}
 
-        {connectedAccountId  &&  !accGetDb && (
+        {!stripeAccId  &&  !accGetDb && !accountLinkCreatePending && (
           <div className="flex justify-center mt-48 flex-col self-center">
             <h1 className="text-2xl">Payment Details Not Added</h1>
             <p className="text-sm">You haven't added your payment details yet, Please add them to start getting paid!</p>
             <Button className="md:block mx-auto my-2" onClick={handleAccountLink}>
               Add Payment Details
             </Button>
+          </div>
+        )}
+
+        {accountLinkCreatePending && (
+          <div className="flex justify-center mt-48 flex-col self-center">
+           Loading...
           </div>
         )}
         {/* {error && (
