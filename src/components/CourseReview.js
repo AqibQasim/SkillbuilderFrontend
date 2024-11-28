@@ -30,22 +30,6 @@ const CourseReview = ({ name, rating, description, time }) => {
           </div>
         </div>
         <p class="py-4 text-bg_text_gray dark:text-gray-400">{description}</p>
-        <div className="w-full flex justify-between">
-          <div className="mt-5 w-[25%] max-md:w-[50%] border-2 rounded-sm shadow-sm flex justify-center cursor-pointer hover:bg-bg_gray ">
-            {" "}
-            <button>
-              <a
-                href="#"
-                class="block mb-2 mt-2 text-sm font-normal text-black-600  dark:text-black max-sm:text-xs"
-              >
-                Reply to this Review
-              </a>
-            </button>
-          </div>
-          <div className="flex">
-            <LikeDislike />
-          </div>
-        </div>
       </article>
     </div>
   );
