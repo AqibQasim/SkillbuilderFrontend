@@ -90,7 +90,7 @@ function CourseHero({ course }) {
           <div className="text-black hidden flex-1 lg:flex lg:items-center lg:justify-center">
             <Image
               // src={course.image}
-              src="/dummyImg.svg"
+              src={course?.image?`${process.env.NEXT_PUBLIC_BASE_API}/media/course/${course?.image}`:"/dummyImg.svg"}
               alt="Contact us hero image"
               quality={100}
               width={472}

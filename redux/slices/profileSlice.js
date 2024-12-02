@@ -7,6 +7,7 @@ const initialState = {
   first_name: "",
   last_name: "",
   email: "",
+  profile:"",
   password: "",
   profession: "",
   location: "",
@@ -29,6 +30,7 @@ const profileSlice = createSlice({
       state.email = "";
       state.password = "";
       state.profession = "";
+      state.profile=""
       state.location = "";
       state.facebook_profile = "";
       state.twitter_profile = "";

@@ -40,6 +40,7 @@ const Courses = ({ heading, paddingTop }) => {
   useEffect(() => {
     console.log("Updated cart items:", cartItems);
   }, [router?.isReady, cartItems]);
+  console.log("coursesssssss.........\n",courses)
 
   const handleAddToCart = async (course) => {
     const response = await fetch(
@@ -108,8 +109,8 @@ const Courses = ({ heading, paddingTop }) => {
                 }
               >
                 <Image
-                  className="w-[100%] pt-1"
-                  src="/dummyImg.svg"
+                  className="w-[100%] h-[40%] pt-1"
+                  src={course?.image?`${process.env.NEXT_PUBLIC_BASE_API}/media/course/${course?.image}`:"/dummyImg.svg"}
                   alt={course?.title}
                   width={280}
                   height={260}

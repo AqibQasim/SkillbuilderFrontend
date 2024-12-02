@@ -22,7 +22,7 @@ function GoogleSignup() {
         last_name: lname,
       };
 
-      console.log(dataSend)
+      console.log(dataSend);
 
       const response = await fetch(
         `${process.env.NEXT_PUBLIC_BASE_API}/google-auth`,
@@ -38,16 +38,21 @@ function GoogleSignup() {
       const data = await response.json();
       console.log("API response:", data);
 
-      if (response.status===200) {
+      if (response.status === 200) {
         // const token = data?.token || data?.message;
         // console.log("Token:", token);
-  
+
         // const decodedToken = jwtDecode(token);
         // console.log("Decoded token for user profile:", decodedToken);
-  
+
         //const { id, email } = decodedToken;
-        const { id: id, given_name: first_name, family_name: last_name, email: email } = data.data;
-  
+        const {
+          id: id,
+          given_name: first_name,
+          family_name: last_name,
+          email: email,
+        } = data.data;
+
         const googleLoginPayload = {
           //token,
           user: {
@@ -62,9 +67,8 @@ function GoogleSignup() {
           message: "Successfully signed up and logged in with Google SSO",
         };
       }
-
     } catch (error) {
-      console.log(error)
+      console.log(error);
       console.error("Signup error:", error.message);
     }
   }

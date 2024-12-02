@@ -4,7 +4,7 @@ import { editProfile } from "../../redux/thunks/profilethunk";
 import styles from "../styles/form.module.css";
 import ErrorMessage from "./ErrorMessage";
 
-const EditProfileForm = ({ setCloseForm }) => {
+const EditProfileForm = ({ setCloseForm, userProfilePic }) => {
   const { user, isLoading } = useSelector((state) => state.auth);
   const profile = useSelector((state) => state.profile);
   console.log("starting line of user id", profile?.id);
@@ -30,6 +30,7 @@ const EditProfileForm = ({ setCloseForm }) => {
       first_name: profile?.first_name || "",
       last_name: profile?.last_name || "",
       email: profile?.email || "",
+      profile: userProfilePic,
       profession: profile?.profession || "",
       location: profile?.location || "",
       facebook_profile: profile?.facebook_profile || "",
@@ -42,10 +43,12 @@ const EditProfileForm = ({ setCloseForm }) => {
     const { id, value } = e.target;
     setFormData((prevState) => ({
       ...prevState,
+      profile: userProfilePic,
       [id]: value,
     }));
     setChangedFields((prevState) => ({
       ...prevState,
+      profile: userProfilePic,
       [id]: value,
     }));
   };
@@ -64,16 +67,15 @@ const EditProfileForm = ({ setCloseForm }) => {
     const allFieldsEmpty = areAllFieldsEmpty(formValues);
     const noActualChanges = hasNoActualChanges(changedFields, initialState);
 
-    if (
-      Object.keys(changedFields).length === 0 ||
-      allFieldsEmpty ||
-      noActualChanges
-    ) {
-      return;
-    }
+    // if (
+    //   Object.keys(changedFields).length === 0 ||
+    //   allFieldsEmpty ||
+    //   noActualChanges
+    // ) {
+    //   return;
+    // }
 
-    const dataToSubmit = { ...changedFields, id };
-
+    const dataToSubmit = { ...changedFields, profile: userProfilePic, id };
     dispatch(editProfile(dataToSubmit));
 
     // if (profileError) {
