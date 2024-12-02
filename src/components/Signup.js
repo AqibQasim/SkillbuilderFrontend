@@ -221,7 +221,7 @@ const Signup = () => {
             />
             <span className="text-black ml-2 text-sm font-semibold">
               I agree to all our{" "}
-              <a href="/login" className="text-blue-600 hover:underline">
+              <a onClick={()=>{router.push("/terms-&-conditions")}} className="text-blue-600 hover:underline cursor-pointer">
                 Terms & Conditions
               </a>
             </span>
