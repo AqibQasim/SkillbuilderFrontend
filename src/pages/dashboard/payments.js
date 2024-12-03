@@ -70,6 +70,35 @@ function Payments() {
   console.log("user id: ", userId);
   console.log("instructor id: ", instructorId);
 
+const getAccount = async (stripeAccountId) => {
+  try {
+    if (!stripeAccountId) {
+      console.log("Missing stripeAccountId");
+      return;
+    }
+
+    console.log("Fetching account for ID:", stripeAccountId);
+
+    const res = await fetch("/api/get_account", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ stripe_account_id: stripeAccountId }), // Fix: Stringify the body
+    });
+
+    if (!res.ok) {
+      throw new Error(`HTTP error! status: ${res.status}`);
+    }
+
+    const data = await res.json();
+    console.log("Account data is: ", data);
+    return data?.account;
+  } catch (e) {
+    console.error("Error fetching account:", e.message);
+  }
+};
+
   useEffect(() => {
     if (!userId || instructorId) return;
     dispatch(fetchInstructorByUserId(userId));
@@ -105,14 +134,42 @@ function Payments() {
             if (message.length > 0) {
               
               const stripe_acc_id = message[0]?.account_reg_id; // Use optional chaining
-              setStripeAccId(stripe_acc_id)
               setAccGetDb(true);
-
+              
               if (stripe_acc_id) {
+                setStripeAccId(stripe_acc_id)
                 setConnectedAccountId(stripe_acc_id);
                 fetchPayouts(stripe_acc_id);
                 fetchBankDetails(stripe_acc_id); // Fetch bank details
                 instructorCharges(stripe_acc_id)
+                const acc = await getAccount(stripe_acc_id)
+
+                if (!acc?.payouts_enabled) {
+                  const connectedAccountId = stripe_acc_id;
+                  try {
+                    const response = await fetch("/api/account_link", {
+                      method: "POST",
+                      headers: {
+                        "Content-Type": "application/json",
+                      },
+                      body: JSON.stringify({ connectedAccountId }),
+                    });
+
+                    const data = await response.json();
+                    setAccountLinkCreatePending(false);
+
+                    if (data.url) {
+                      setAccountLinkUrl(data.url);
+                      window.location.href = data.url; // Redirect to the Stripe account link URL
+                    } else {
+                      setError(true);
+                    }
+                  } catch (error) {
+                    setAccountLinkCreatePending(false);
+                    setError(true);
+                  }
+                }
+                  
               } else {
                 throw new Error(
                   "Account registration ID is missing in the response",
