@@ -33,8 +33,8 @@ const courses = () => {
           <CurrentPath />
         </div>
         <Courses paddingTop="pt-10" heading="High To Low" />
-        <Courses paddingTop="pt-10" heading="Low To High" />
-        <Courses paddingTop="pt-10" heading="Free Courses" />
+        {/* <Courses paddingTop="pt-10" heading="Low To High" />
+        <Courses paddingTop="pt-10" heading="Free Courses" /> */}
         <Footer />
       </div>
     </>
