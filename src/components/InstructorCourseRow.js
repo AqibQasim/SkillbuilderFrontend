@@ -5,6 +5,7 @@ import { useSelector } from "react-redux";
 import ButtonCircle from "./ButtonCircle";
 import ChevronRightIconSvg from "./ChevronRightIconSvg";
 import InstructorCourseStatus from "./InstructorCourseStatus";
+import Image from "next/image";
 
 function InstructorCourseRow({ course }) {
   const router = useRouter();
@@ -32,9 +33,15 @@ function InstructorCourseRow({ course }) {
   return (
     <Table.Row onClick={handleRowClick}>
       <div className="image-wrapper relative aspect-square h-10 w-10 overflow-hidden rounded-full">
-        <img
-          src={image}
+        <Image
+          src={
+            course?.image
+              ? `${process.env.NEXT_PUBLIC_BASE_API}/media/course/${course?.image}`
+              : "/dummyImg.svg"
+          }
           alt={title}
+          width={200}
+          height={280}
           className="h-full w-full rounded-full object-cover"
         />
       </div>

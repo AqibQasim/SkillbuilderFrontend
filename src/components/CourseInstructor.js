@@ -22,7 +22,7 @@ const CourseInstructor = ({ course, user, instructor }) => {
   }
   // console.log("first name ius ", user.first_name);
 
-  console.log(`user first name is: ${user.first_name}`)
+  console.log(`user first name is: ${user.first_name}`);
   return (
     <LayoutWidth>
       <div className="path-wrapper">
@@ -31,17 +31,19 @@ const CourseInstructor = ({ course, user, instructor }) => {
         </h1>
         <div className="mv mt-8 w-full max-w-sm rounded-bl-3xl rounded-tr-3xl border border-gray-200 bg-white shadow max-sm:mx-auto">
           <div
-            className="flex flex-col items-center pb-10 pt-5 cursor-pointer"
+            className="flex cursor-pointer flex-col items-center pb-10 pt-5"
             onClick={() => {
-
-              router.push(`/instructor/${course?.instructor_id}`)   
-
-            }
-            }
-              
+              router.push(`/instructor/${course?.instructor_id}`);
+            }}
           >
             <Image
-              src="/instructor-avatar.png"
+              src={
+                user?.profile
+                  ? `${process.env.NEXT_PUBLIC_BASE_API}/media/profile/${user?.profile}`
+                  : "/instructor-avatar.png"
+              }
+              className="rounded-full"
+              //style={{borderRadius:"50%"}}
               width={182}
               height={183}
               alt="Instructor Avatar"

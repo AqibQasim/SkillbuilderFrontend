@@ -1,6 +1,7 @@
 import { formatCurrency } from "@/utils/formatCurrency";
 import { formatDateAndTime } from "@/utils/formatDateAndTime";
 import InstructorCourseStatus from "./InstructorCourseStatus";
+import Image from "next/image";
 
 function InstructorCourseCard({ course, createdBy, className }) {
   return (
@@ -8,9 +9,15 @@ function InstructorCourseCard({ course, createdBy, className }) {
       className={`grid grid-cols-1 gap-8 lg:gap-14 xl:grid-cols-[16.875rem_1fr_max-content] xl:grid-rows-[12.5rem] ${className}`}
     >
       <div className="image-wrapper relative col-span-1 max-h-64 rounded-lg xl:col-span-1">
-        <img
-          src={course?.image}
+        <Image
+          src={
+            course?.image
+              ? `${process.env.NEXT_PUBLIC_BASE_API}/media/course/${course?.image}`
+              : "/dummyImg.svg"
+          }
           alt={`${course?.title}'s Image`}
+          width={200}
+          height={280}
           className="size-full rounded-lg object-cover object-center"
         />
         <div className="status-icon absolute bottom-2 right-2 xl:hidden">
@@ -20,10 +27,16 @@ function InstructorCourseCard({ course, createdBy, className }) {
       <div className="scrollbar-custom col-span-1 overflow-y-scroll xl:col-span-1">
         <h2 className="text-3xl font-medium capitalize"> {course?.title} </h2>
         <p className="text-lg font-semibold text-blue">
-          {formatCurrency(Number(course?.amount))}
+          {formatCurrency(
+            Number(
+              course?.discount > 0
+                ? course?.amount - course.discount
+                : course?.amount,
+            ),
+          )}
         </p>
         <p className="description mt-1 text-gray-700">
-          {course?.description ||
+          {course?.learning_outcomes ||
             "No description provided for this course yet."}
         </p>
 
