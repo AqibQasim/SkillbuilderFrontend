@@ -2,54 +2,7 @@ import Image from "next/image";
 import React from "react";
 import { useState, useRef, useEffect } from "react";
 
-// const VideoUpload = () => {
-//   const [videoFile, setVideoFile] = useState(null);
-//   const [videoUrl, setVideoUrl] = useState('');
-
-//   const handleVideoUpload = (event) => {
-//     const file = event.target.files[0];
-//     if (file) {
-//       setVideoFile(file);
-//       setVideoUrl(URL.createObjectURL(file));
-//     }
-//   };
-
-//   const handlePlayVideo = () => {
-//     const videoElement = document.getElementById('uploadedVideo');
-//     if (videoElement) {
-//       videoElement.play();
-//     }
-//   };
-
-//   return (
-//     <div className="video-upload-container">
-
-//         {/****************************************/}
-//         <div className='w-full flex flex-col gap-2'>
-//             <h3 className='font-semibold'>Upload an introduction video of yours</h3>
-//             <div className='rounded-md border-2 border-blue flex flex-col items-center gap-2 justify-center w-full h-fit py-20'>
-//                 <img src="/cloud.png" className='aspect-auto'/>
-//                 <p><input type="file" accept="video/*" placeholder='Browse' className='bg-white text-blue' onChange={handleVideoUpload} /> your File</p>
-
-//             </div>
-//         </div>
-//         {/***************************************/}
-
-//       <input type="file" accept="video/*" onChange={handleVideoUpload} />
-//       {videoFile && (
-//         <div className="video-preview">
-//           <video id="uploadedVideo" width="600" controls>
-//             <source src={videoUrl} type={videoFile.type} />
-//             Your browser does not support the video tag.
-//           </video>
-//           <button onClick={handlePlayVideo}>Play</button>
-//         </div>
-//       )}
-//     </div>
-//   );
-// };
-
-const VideoUpload = ({ setSelectedVideo, selectedVideo }) => {
+const VideoUpload = ({ setSelectedVideo, selectedVideo , courseIntroLoader}) => {
   const [videoFile, setVideoFile] = useState(null);
   const [showVideo, setshowVideo] = useState(null);
   const [videoUrl, setVideoUrl] = useState("");
@@ -57,6 +10,7 @@ const VideoUpload = ({ setSelectedVideo, selectedVideo }) => {
 
   const handleVideoUpload = (event) => {
     const file = event.target.files[0];
+    
     if (file && file.type.startsWith("video/")) {
       setVideoFile(file);
       setVideoUrl(URL.createObjectURL(file));
@@ -65,8 +19,6 @@ const VideoUpload = ({ setSelectedVideo, selectedVideo }) => {
     }else {
       alert("Invalid file type. Please select a video file.");
     }
-
-    // if(selectedVideo)
   };
 
   useEffect(() => {
@@ -75,7 +27,8 @@ const VideoUpload = ({ setSelectedVideo, selectedVideo }) => {
     }catch(err){
       console.log("[ERROR]:",err);
     }
-  },[selectedVideo])
+  },[selectedVideo]);
+
 
   const handlePlayVideo = () => {
     setshowVideo(true);

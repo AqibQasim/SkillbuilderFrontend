@@ -10,6 +10,7 @@ import { useSelector } from "react-redux";
 function DashboardHeader() {
   const router = useRouter();
   const isAdminRoute = router.pathname.includes("/admin");
+  
   const userId = useSelector((state) => state.auth.user);
   const instructorId = useSelector(
     (state) => state.instructorByUserId.instructorByUserId.id,
@@ -66,13 +67,6 @@ function DashboardHeader() {
       router.push('/course-upload');
     } 
   }, [paymentMethodAvailable]);
-
-  // useEffect(() => {
-  //   if (instructorId) {
-  //     console.log("INSTRUCTOR ID IN PAYMENTS", instructorId);
-  //     console.log("payment method avl is ", paymentMethodAvailable);
-  //   }
-  // }, [instructorId, userId, paymentMethodAvailable]);
 
   return (
     <header className="flex h-[75px] w-full items-center justify-end gap-6 border-b border-dashboard-border px-5">
