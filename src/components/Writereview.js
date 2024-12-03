@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchOneUser } from "../../redux/thunks/userInfoThunk";
@@ -8,33 +8,53 @@ const Writereview = ({openModal}) => {
   /**
    *
    */ 
-  const fetcheduserdata = useSelector((state) => state.singleUser);
+  // const fetcheduserdata = useSelector((state) => state.singleUser);
   const user = useSelector((state) => state.auth.user);
 
-  useEffect(() => {
-    dispatch(fetchOneUser(user));
-  }, []);
-  useEffect(() => {
-    console.log("Fetched User Data", fetcheduserdata.userData);
-  }, [fetcheduserdata]);
+  const [userData, setUserData] = useState(null);
+
+   useEffect(() => {
+     const fetchData = async () => {
+       try {
+         const res = await fetch(
+           `${process.env.NEXT_PUBLIC_BASE_API}/user/${user}`,
+         );
+         const data = await res.json();
+         setUserData(data?.message);
+         console.log("The user data iss", data);
+       } catch (error) {
+         console.log("Failed to fetch user: ", error);
+       }
+     };
+     fetchData();
+   }, [user]);
+  // useEffect(() => {
+  //   console.log("Fetched User Data", fetcheduserdata.userData);
+  // }, [fetcheduserdata]);
   
   return (
     <div className="flex justify-center p-10">
-      <div className="w-[75%] max-md:w-[100%] h-[6rem] rounded-md bg-white flex justify-between">
-        <div className="m-5 pr-3 pl-5 flex items-center">
+      <div className="flex h-[6rem] w-[75%] justify-between rounded-md bg-white max-md:w-[100%]">
+        <div className="m-5 flex items-center pl-5 pr-3">
           <Image
             className="rounded-full"
-            src= {fetcheduserdata?.userData?.profile || "/Avatardisplay.png"}
+            src="/Avatardisplay.png"
             alt="profile-picture"
             width={60}
             height={60}
           />
-          <div class="font-medium dark:text-bg_text_gray text-sm">
-            <p className="text-black ml-4">{fetcheduserdata?.userData?.first_name} {fetcheduserdata?.userData?.last_name}</p>
+          <div class="text-sm font-medium dark:text-bg_text_gray">
+            <p className="text-black ml-4">
+              {userData?.first_name}{" "}
+              {userData?.last_name}
+            </p>
           </div>
         </div>
-        <div className="flex max-md:w-[50%] max-md:text-xs items-center m-5 pr-5 ">
-          <button onClick={openModal} className="py-2 px-3  max-md:py-2 max-md:px-2 lg:flex justify-between items-center w-full lg:w-auto bg-blue text-white rounded-lg text-sm">
+        <div className="m-5 flex items-center pr-5 max-md:w-[50%] max-md:text-xs">
+          <button
+            onClick={openModal}
+            className="w-full items-center justify-between rounded-lg bg-blue px-3 py-2 text-sm text-white lg:flex lg:w-auto max-md:px-2 max-md:py-2"
+          >
             Write a Review
           </button>
         </div>

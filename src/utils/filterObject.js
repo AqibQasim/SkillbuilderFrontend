@@ -3,6 +3,7 @@ export function filterObject(obj, includePassword = false) {
     "id",
     "first_name",
     "last_name",
+    "profile",
     "email",
     "profession",
     "location",

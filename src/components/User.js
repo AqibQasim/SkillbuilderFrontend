@@ -45,6 +45,8 @@ function User({ cartClickHandler, cartItemsLength }) {
   );
   const [notifications, setNotifications] = useState([]);
   const isSSOUser = useSelector((state) => state.singleUser.userData.isSSOUser);
+  const profileImage = useSelector((state) => state.singleUser);
+  console.log("/////////////////////////", profile);
 
   const instructorId = useSelector(
     (state) => state.instructorByUserId.instructorByUserId.id,
@@ -59,8 +61,8 @@ function User({ cartClickHandler, cartItemsLength }) {
         //...prev,
         ...instructorNotifications?.notifications,
       ]);
-    } 
-    
+    }
+
     if (
       studentNotifications.notifications &&
       studentNotifications?.notifications?.length > 0
@@ -70,14 +72,13 @@ function User({ cartClickHandler, cartItemsLength }) {
         ...studentNotifications?.notifications,
       ]);
     }
-  }, [user,instructorId]);
+  }, [user, instructorId]);
 
   useEffect(() => {
     if (instructorId) {
       dispatch(fetchNotificationInstructorThunk(instructorId));
     }
     dispatch(fetchNotificationStudentThunk(user));
-    
   }, [instructorId, user]);
 
   useEffect(() => {

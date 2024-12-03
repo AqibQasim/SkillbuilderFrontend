@@ -6,6 +6,7 @@ import { fetchOneUser } from '../../redux/thunks/userInfoThunk';
 import { useRouter } from "next/router";
 import { removeItem } from '../../redux/slices/addToCart';
 import { fetchOneInstructor } from '../../redux/thunks/instructorThunk';
+import StarRating from './StarRating';
 
 
 const CartItem = ({
@@ -85,48 +86,20 @@ const CartItem = ({
                         <p>{user?.first_name} {user?.last_name}</p>
                     </div>
                     <div className='w-full flex gap-4 flex-wrap md:flex-nowrap lg:flex-nowrap'>
-                        <div className='text-xs'>
+                        {/* <div className='text-xs'>
                             <p>{course?.creation_duration_hours}</p>
-                        </div>
+                        </div> */}
                         <div className='w-fit gap-1 md:gap-2 lg:gap-2 flex items-center'>
                             <p className='text-xs'>
                                 {course?.rating}
                             </p>
                             <div className='w-fit h-fit'>
-                                <Image
-                                    src="/star.png"
-                                    alt="star"
-                                    height={15}
-                                    width={15} />
+                             <StarRating
+                              key={router.asPath}
+                              rating={course?.rating}
+                            />
                             </div>
-                            <div className='w-fit h-fit'>
-                                <Image
-                                    src="/star.png"
-                                    alt="star"
-                                    height={15}
-                                    width={15} />
-                            </div>
-                            <div className='w-fit h-fit'>
-                                <Image
-                                    src="/star.png"
-                                    alt="star"
-                                    height={15}
-                                    width={15} />
-                            </div>
-                            <div className='w-fit h-fit'>
-                                <Image
-                                    src="/star.png"
-                                    alt="star"
-                                    height={15}
-                                    width={15} />
-                            </div>
-                            <div className='w-fit h-fit'>
-                                <Image
-                                    src="/star.png"
-                                    alt="star"
-                                    height={15}
-                                    width={15} />
-                            </div>
+                            
                         </div>
                     </div>
                 </div>

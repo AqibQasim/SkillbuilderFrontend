@@ -3,7 +3,7 @@ import withAuth from "@/components/WithAuth";
 import { useState } from "react";
 
 function courseUpload() {
-  const steps = ["Intended learners", "Videos"];
+  const steps = ["Intended learners", "Pricing", "Videos"];
   const [currentStep, setCurrentStep] = useState(0);
 
   const handleNext = () => {

@@ -5,6 +5,7 @@ import { loginGoogleUser } from "../../redux/thunks/auththunks";
 
 function GoogleSignup() {
   const dispatch = useDispatch();
+
   async function signupSSOUser(credentialResponse) {
     console.log("Google Credential Response: ", credentialResponse);
     try {
@@ -17,14 +18,16 @@ function GoogleSignup() {
 
       const dataSend = {
         email: decoded.email,
-        fname,
-        lname,
+        first_name: fname,
+        last_name: lname,
       };
 
+      console.log(dataSend);
+
       const response = await fetch(
-        `${process.env.NEXT_PUBLIC_BASE_API}/auth/google/callback`,
+        `${process.env.NEXT_PUBLIC_BASE_API}/google-auth`,
         {
-          method: "POST",
+          method: "PUT",
           headers: {
             "Content-Type": "application/json",
           },
@@ -35,33 +38,37 @@ function GoogleSignup() {
       const data = await response.json();
       console.log("API response:", data);
 
-      if (!response.ok) {
-        throw new Error(data.message || "Unable to sign up");
+      if (response.status === 200) {
+        // const token = data?.token || data?.message;
+        // console.log("Token:", token);
+
+        // const decodedToken = jwtDecode(token);
+        // console.log("Decoded token for user profile:", decodedToken);
+
+        //const { id, email } = decodedToken;
+        const {
+          id: id,
+          given_name: first_name,
+          family_name: last_name,
+          email: email,
+        } = data.data;
+
+        const googleLoginPayload = {
+          //token,
+          user: {
+            id,
+            email,
+            first_name,
+            last_name,
+          },
+        };
+        dispatch(loginGoogleUser(googleLoginPayload));
+        return {
+          message: "Successfully signed up and logged in with Google SSO",
+        };
       }
-
-      const token = data?.token || data?.message;
-      console.log("Token:", token);
-
-      const decodedToken = jwtDecode(token);
-      console.log("Decoded token for user profile:", decodedToken);
-
-      const { id, email } = decodedToken;
-      const { given_name: first_name, family_name: last_name } = decoded;
-
-      const googleLoginPayload = {
-        token,
-        user: {
-          id,
-          email,
-          first_name,
-          last_name,
-        },
-      };
-      dispatch(loginGoogleUser(googleLoginPayload));
-      return {
-        message: "Successfully signed up and logged in with Google SSO",
-      };
     } catch (error) {
+      console.log(error);
       console.error("Signup error:", error.message);
     }
   }
