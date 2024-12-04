@@ -102,6 +102,15 @@ const Courses = ({ heading, paddingTop }) => {
   if (error) {
     return <div>Error: {error}</div>;
   }
+  const max_words = 50;
+
+  const truncateText = (text, limit) => {
+    const words = text.split(" ");
+    if (words.length > limit) {
+      return words.slice(0, limit).join(" ") + "...";
+    }
+    return text;
+  };
 
   return (
     <LayoutWidth>
@@ -201,7 +210,14 @@ const Courses = ({ heading, paddingTop }) => {
                         {course?.title}
                       </h3>
                       <p className="mb-2 text-sm">
-                        {course?.learning_outcomes}
+                        {truncateText(course?.learning_outcomes || "", max_words)}
+                        <span
+        className="text-blue-500 cursor-pointer ml-2"
+        
+      >
+        See More ... 
+      </span>
+                        {/* {course?.learning_outcomes} */}
                       </p>
                     </div>
                     <div className="flex w-[100%] justify-between pb-2">

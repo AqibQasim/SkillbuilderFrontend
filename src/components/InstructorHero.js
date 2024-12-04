@@ -10,7 +10,7 @@ function InstructorHero({ instructor }) {
         <div className="image">
           <Image
             className="rounded-full"
-            src="/instructor-avatar.png"
+            src="/Avatardisplay.png"
             height={190}
             width={190}
             alt={`${instructor.user?.first_name}'s avatar photo`}
