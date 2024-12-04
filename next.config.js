@@ -10,6 +10,6 @@
   
 module.exports = {
   images: {
-    domains: ['localhost'],
+    domains: ['localhost', 'app.skillbuilder.online'],
   },
 };
