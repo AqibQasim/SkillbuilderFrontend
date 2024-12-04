@@ -102,7 +102,7 @@ const Courses = ({ heading, paddingTop }) => {
   if (error) {
     return <div>Error: {error}</div>;
   }
-  const max_words = 50;
+  const max_words = 10;
 
   const truncateText = (text, limit) => {
     const words = text.split(" ");
@@ -215,7 +215,7 @@ const Courses = ({ heading, paddingTop }) => {
         className="text-blue-500 cursor-pointer ml-2"
         
       >
-        See More ... 
+        See More
       </span>
                         {/* {course?.learning_outcomes} */}
                       </p>

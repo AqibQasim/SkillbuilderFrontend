@@ -61,8 +61,13 @@ const CartItem = ({
                         lg:justify-normal lg:flex-nowrap'>
 
                 <div className='w-full md:w-fit lg:w-fit min-w-8 h-fit flex justify-center object-cover'>
-                    <Image src='/dummyImg.svg'
+                    <Image
                         //  className='aspect-auto'
+                        src={
+                            course?.image
+                              ? `${process.env.NEXT_PUBLIC_BASE_API}/media/course/${course?.image}`
+                              : "/dummyImg.svg"
+                          }
                         className='height'
                         width={200}
                         height={200}
