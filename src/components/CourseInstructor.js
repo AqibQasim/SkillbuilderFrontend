@@ -40,7 +40,7 @@ const CourseInstructor = ({ course, user, instructor }) => {
               src={
                 user?.profile
                   ? `${process.env.NEXT_PUBLIC_BASE_API}/media/profile/${user?.profile}`
-                  : "/instructor-avatar.png"
+                  : "/Avatardisplay.png"
               }
               className="rounded-full"
               //style={{borderRadius:"50%"}}

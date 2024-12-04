@@ -4,7 +4,6 @@ const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 export default async function handler(req, res) {
   try {
     const account = await stripe.accounts.create({
-      country: ['US' , 'ES'],
       controller: {
         fees: {
           payer: 'application',
