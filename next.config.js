@@ -8,3 +8,8 @@
 //     // Other Next.js configuration
 //   });
   
+module.exports = {
+  images: {
+    domains: ['localhost'],
+  },
+};

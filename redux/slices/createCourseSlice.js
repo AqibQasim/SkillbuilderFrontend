@@ -14,7 +14,7 @@ const initialState = {
     video_url: "temp_url",
     description: "This is a temporary description for this course; it can be changed later.",
     creation_duration_hours: 0,
-    image: "/heroImage2.png",
+    image: null,
     title: "",
   },
   successMessage: null,

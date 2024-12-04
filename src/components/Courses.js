@@ -12,6 +12,9 @@ const Courses = ({ heading, paddingTop }) => {
   const [starReady, setStarReady] = useState(false);
   const studentId = useSelector((state) => state.auth.user);
   const router = useRouter();
+  const [sortOrder, setSortOrder] = useState(null);
+  const [selectedCategory, setSelectedCategory] = useState(null);
+  const [selectedFilter, setSelectedFilter] = useState(null);
   const dispatch = useDispatch();
   const {
     courses = [],
@@ -20,10 +23,32 @@ const Courses = ({ heading, paddingTop }) => {
   } = useSelector(
     (state) => state.courses || { data: [], isLoading: false, error: null },
   );
+  console.log(courses);
+
+  // Derive filtered courses based on selectedCategory
+  let filteredCourses = courses;
 
   useEffect(() => {
     dispatch(fetchApprovedCourses());
   }, [dispatch]);
+
+  if (selectedFilter || selectedCategory) {
+    filteredCourses = courses
+      ?.filter((c) => 
+        selectedCategory ? c?.category === selectedCategory : true
+      );
+  
+    if (selectedFilter?.toLowerCase() === "low to high") {
+      filteredCourses = filteredCourses?.sort(
+        (a, b) => (a?.amount - a?.discount) - (b?.amount - b?.discount),
+      );
+    } else if (selectedFilter?.toLowerCase() === "high to low") {
+      filteredCourses = filteredCourses?.sort(
+        (a, b) => (b?.amount - b?.discount) - (a?.amount - a?.discount),
+      );
+    }
+  }
+  
 
   useEffect(() => {
     // Simulate loading and check if StarRating styles are applied
@@ -40,6 +65,7 @@ const Courses = ({ heading, paddingTop }) => {
   useEffect(() => {
     console.log("Updated cart items:", cartItems);
   }, [router?.isReady, cartItems]);
+  console.log("coursesssssss.........\n", courses);
 
   const handleAddToCart = async (course) => {
     const response = await fetch(
@@ -52,9 +78,8 @@ const Courses = ({ heading, paddingTop }) => {
       },
     );
 
-
     if (response.ok) {
-      alert('You already have purchased this course')
+      alert("You already have purchased this course");
     } else {
       if (!cartItems.some((item) => item.id === course.id)) {
         dispatch(addItem(course));
@@ -87,88 +112,134 @@ const Courses = ({ heading, paddingTop }) => {
           <h2 className="text-2xl font-semibold max-sm:mt-4 max-sm:text-xl">
             {heading}
           </h2>
-          <span
+          {/* <span
             onClick={() => router.push("/courses")}
             className="flex cursor-pointer items-center gap-3 font-semibold text-blue max-sm:mt-4 max-sm:text-sm"
           >
             View All
             <Image src="/rightArrow.svg" width={15} height={15} />
-          </span>
+          </span> */}
+          <div className="flex w-[60%] gap-4">
+            <select
+              defaultValue={"Filter"}
+              id="filter"
+              name="filter"
+              value={selectedFilter || ""}
+              required
+              onChange={(e) => setSelectedFilter(e.target.value)}
+              className="border-darkgrey mt-1 block w-full rounded-md border bg-transparent p-3 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+            >
+              <option value="">Filter</option>
+              <option value="low to high">Low to High</option>
+              <option value="high to low">High to Low</option>
+            </select>
+            <select
+              value={selectedCategory || ""}
+              defaultValue={"Select Category"}
+              id="category"
+              name="category"
+              required
+              onChange={(e) => setSelectedCategory(e.target.value)}
+              className="border-darkgrey mt-1 block w-full rounded-md border bg-transparent p-3 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+            >
+              <option value="">Select category</option>
+              <option value="development">Development</option>
+              <option value="design">Design</option>
+              <option value="marketing">Marketing</option>
+              <option value="business">Business</option>
+              <option value="others">Others</option>
+            </select>
+          </div>
         </div>
 
         <div className="flex w-full flex-col items-center justify-between">
           <div className="grid h-auto w-[100%] grid-cols-1 place-items-center gap-4 sm:grid-cols-2 lg:grid-cols-4">
-            {courses?.slice(0, 8).map((course) => (
-              <div
-                key={course?.id}
-                className="img-container mb-4 flex h-full w-full max-w-sm transform flex-col items-start rounded-2xl border border-cards_gray bg-white p-2 transition transition-shadow duration-300 hover:border-[rgb(152,159,233)] hover:shadow-lg cursor-pointer"
-                style={{ minHeight: "25rem", maxHeight: "25rem" }}
-                onClick={() =>
-                  course?.id && router.push(`/courses/${course.id}`)
-                }
-              >
-                <Image
-                  className="w-[100%] pt-1"
-                  src="/dummyImg.svg"
-                  alt={course?.title}
-                  width={280}
-                  height={260}
-                />
-                <div className="flex w-[100%] flex-grow flex-col justify-between p-2">
-                  <div>
-                    <div className="mt-2 flex w-full items-center justify-between">
-                      <div className="flex gap-2">
-                        {course?.rating ? (
-                          <>
-                            <span className="text-sm">{course?.rating}</span>
-                            <StarRating
-                              key={router.asPath}
-                              rating={course?.rating}
-                            />
-                          </>
-                        ) : (
-                          <span>Not Rated Yet</span>
+            {filteredCourses?.length > 0 ? (
+              filteredCourses?.map((course) => (
+                <div
+                  key={course?.id}
+                  className="img-container mb-4 flex h-full w-full max-w-sm transform cursor-pointer flex-col items-start rounded-2xl border border-cards_gray bg-white p-2 transition transition-shadow duration-300 hover:border-[rgb(152,159,233)] hover:shadow-lg"
+                  style={{ minHeight: "25rem", maxHeight: "25rem" }}
+                  onClick={() =>
+                    course?.id && router.push(`/courses/${course.id}`)
+                  }
+                >
+                  <Image
+                    className="h-[40%] w-[100%] pt-1"
+                    src={
+                      course?.image
+                        ? `${process.env.NEXT_PUBLIC_BASE_API}/media/course/${course?.image}`
+                        : "/dummyImg.svg"
+                    }
+                    alt={course?.title}
+                    width={280}
+                    height={260}
+                  />
+                  <div className="flex w-[100%] flex-grow flex-col justify-between p-2">
+                    <div>
+                      <div className="mt-2 flex w-full items-center justify-between">
+                        <div className="flex gap-2">
+                          {course?.rating ? (
+                            <>
+                              <span className="text-sm">{course?.rating}</span>
+                              <StarRating
+                                key={router.asPath}
+                                rating={course?.rating}
+                              />
+                            </>
+                          ) : (
+                            <span>Not Rated Yet</span>
+                          )}
+                        </div>
+                        {isCourseAddedToCart(course) && (
+                          <span className="font-semibold text-blue">
+                            Added To Cart
+                          </span>
                         )}
                       </div>
-                      {isCourseAddedToCart(course) && (
+                      <h3 className="mt-4 text-lg font-semibold">
+                        {course?.title}
+                      </h3>
+                      <p className="mb-2 text-sm">
+                        {course?.learning_outcomes}
+                      </p>
+                    </div>
+                    <div className="flex w-[100%] justify-between pb-2">
+                      <div className="flex w-[50%] items-center justify-start gap-2 lg:items-center lg:justify-start lg:gap-1">
                         <span className="font-semibold text-blue">
-                          Added To Cart
+                          $
+                          {course?.discount > 0
+                            ? course?.amount - course?.discount
+                            : course?.amount}
                         </span>
-                      )}
+                        {course?.discount > 0 && (
+                          <span className="text-[0.5rem] text-bg_text_gray">
+                            <span className="stroke-bg_text_gray line-through">
+                              {course?.amount}
+                            </span>{" "}
+                            {Math.ceil(
+                              (course?.discount / course?.amount) * 100,
+                            )}
+                            % off
+                          </span>
+                        )}
+                      </div>
+                      <button
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          handleAddToCart(course);
+                        }}
+                        className="rounded-lg bg-blue px-2 py-2 text-xs text-white"
+                      >
+                        Add To Cart
+                      </button>
                     </div>
-                    <h3 className="mt-4 text-lg font-semibold">
-                      {course?.title}
-                    </h3>
-                    <p className="mb-2 text-sm">{course?.learning_outcomes}</p>
-                  </div>
-                  <div className="flex w-[100%] justify-between pb-2">
-                    <div className="flex w-[50%] items-center justify-start gap-2 lg:items-center lg:justify-start lg:gap-1">
-                      <span className="font-semibold text-blue">
-                        ${course?.discount > 0 ? course?.amount-course?.discount : course?.amount}
-                      </span>
-                      {
-                        (course?.discount > 0) &&
-                        <span className="text-[0.5rem] text-bg_text_gray">
-                          <span className="stroke-bg_text_gray line-through">
-                            {course?.amount}
-                          </span>{" "}
-                          {Math.ceil(((course?.discount) / course?.amount) * 100)}% off
-                        </span>
-                      }
-                    </div>
-                    <button
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        handleAddToCart(course);
-                      }}
-                      className="rounded-lg bg-blue px-2 py-2 text-xs text-white"
-                    >
-                      Add To Cart
-                    </button>
                   </div>
                 </div>
-              </div>
-            ))}
+              ))
+            ) : (
+              <p>No courses found for this category.</p>
+            )}
           </div>
         </div>
       </div>

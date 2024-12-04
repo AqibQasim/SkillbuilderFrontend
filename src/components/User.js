@@ -27,10 +27,13 @@ function User({ cartClickHandler, cartItemsLength }) {
   const [showIconsOnSmallScreen, setShowIconsOnSmallScreen] = useState(false);
   const { user, isLoading } = useSelector((store) => store.auth);
   const profile = useSelector((store) => store.profile);
+  
   const ref = useOutsideClick(handleClose);
   const dispatch = useDispatch();
+  
   const { data: session, status } = useSession();
   const router = useRouter();
+  
   const userAlreadyAvailableId = useSelector(
     (state) => state.singleUser.userData.id,
   );
@@ -42,6 +45,8 @@ function User({ cartClickHandler, cartItemsLength }) {
   );
   const [notifications, setNotifications] = useState([]);
   const isSSOUser = useSelector((state) => state.singleUser.userData.isSSOUser);
+  const profileImage = useSelector((state) => state.singleUser);
+  console.log("/////////////////////////", profile);
 
   const instructorId = useSelector(
     (state) => state.instructorByUserId.instructorByUserId.id,
@@ -56,8 +61,8 @@ function User({ cartClickHandler, cartItemsLength }) {
         //...prev,
         ...instructorNotifications?.notifications,
       ]);
-    } 
-    
+    }
+
     if (
       studentNotifications.notifications &&
       studentNotifications?.notifications?.length > 0
@@ -67,14 +72,13 @@ function User({ cartClickHandler, cartItemsLength }) {
         ...studentNotifications?.notifications,
       ]);
     }
-  }, [user,instructorId]);
+  }, [user, instructorId]);
 
   useEffect(() => {
     if (instructorId) {
       dispatch(fetchNotificationInstructorThunk(instructorId));
     }
     dispatch(fetchNotificationStudentThunk(user));
-    
   }, [instructorId, user]);
 
   useEffect(() => {
@@ -132,12 +136,14 @@ function User({ cartClickHandler, cartItemsLength }) {
   }
 
   const isAdminRoute = router.pathname.includes("/admin");
+  const istutor = router.pathname.includes("/dashboard");
 
   if (status === "authenticated" || user) {
     return (
       <div className="relative inline-flex items-center justify-center gap-3 text-dark-svg">
         {!isAdminRoute && (
           <>
+          {!istutor && 
             <button className="hidden w-[100%] md:flex">
               <CartIconSvg
                 clickHandler={cartClickHandler}
@@ -149,6 +155,7 @@ function User({ cartClickHandler, cartItemsLength }) {
                 </div>
               ) : null}
             </button>
+  }
             <button
               className="hidden md:block"
               onClick={() => {
@@ -157,9 +164,6 @@ function User({ cartClickHandler, cartItemsLength }) {
               }}
             >
               <BellIconSvg className="h-7 w-7" />
-            </button>
-            <button className="hidden md:block">
-              <ChatIconSvg className="h-7 w-7" />
             </button>
           </>
         )}
@@ -212,11 +216,6 @@ function User({ cartClickHandler, cartItemsLength }) {
                 {!isAdminRoute && (
                   <>
                     <button
-                      className={`transition-all duration-300 md:hidden ${showIconsOnSmallScreen ? "scale-1 translate-x-4 opacity-100" : "translate-x-0 opacity-0"}`}
-                    >
-                      <ChatIconSvg className="h-7 w-7" />
-                    </button>
-                    <button
                       className={`transition-all delay-100 duration-300 md:hidden ${showIconsOnSmallScreen ? "scale-1 translate-x-4 opacity-100" : "translate-x-0 opacity-0"}`}
                     >
                       <BellIconSvg className="h-7 w-7" />
@@ -234,6 +233,7 @@ function User({ cartClickHandler, cartItemsLength }) {
                         </div>
                       ) : null}
                     </button>
+                    
                   </>
                 )}
               </div>
@@ -245,7 +245,9 @@ function User({ cartClickHandler, cartItemsLength }) {
               </p>
             </div>
             <ul className="space-y-1">
+              {!istutor && 
               <li>
+
                 <button
                   onClick={() => {
                     router.push("/my-learning");
@@ -256,6 +258,7 @@ function User({ cartClickHandler, cartItemsLength }) {
                   <ChevronRightIconSvg className="h-4 w-4" />
                 </button>
               </li>
+              }
               <li>
                 <button
                   onClick={() => {
@@ -276,6 +279,8 @@ function User({ cartClickHandler, cartItemsLength }) {
                   <ChevronRightIconSvg className="h-4 w-4" />
                 </Link>
               </li>
+
+              {!istutor &&
               <li>
                 <Link
                   href="/purchase-history"
@@ -285,6 +290,7 @@ function User({ cartClickHandler, cartItemsLength }) {
                   <ChevronRightIconSvg className="h-4 w-4" />
                 </Link>
               </li>
+              }
               <li>
                 {/* <Link
                   href={handleNavigation}
