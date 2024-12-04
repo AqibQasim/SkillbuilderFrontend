@@ -195,7 +195,7 @@ function MyLearningCourseCard({ id, title, image, instructor, progress }) {
       <div className="image-wrapper relative max-h-36 w-full">
         <img
           className="!m-0 block size-full rounded-2xl object-cover"
-          src={image}
+          src={`${process.env.NEXT_PUBLIC_BASE_API}/media/course/${image}`}
           alt={`Image for ${title} course`}
         />
       </div>
