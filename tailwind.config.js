@@ -17,6 +17,7 @@ module.exports = {
         "tl-br": "var(--tw-border-radius-tl-br)",
       },
       fontFamily: {
+        satoshi: ["var(--font-satoshi)"],
         poppins: ["Poppins", "sans-serif"],
       },
       backgroundImage: {

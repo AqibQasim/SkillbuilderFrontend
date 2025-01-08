@@ -1,3 +1,4 @@
+import { satoshi } from "@/fonts/font-styles";
 import { Html, Head, Main, NextScript } from "next/document";
 
 export default function Document() {
@@ -31,7 +32,7 @@ export default function Document() {
         <meta name="description" content="Skillbuilder" />
         <link rel="icon" href="/skillbuilder-logo-icon.svg" sizes="any" />
       </Head>
-      <body onLoad="initGoogleSignIn()">
+      <body onLoad="initGoogleSignIn()" className={`${satoshi.variable}`}>
         <Main />
         <NextScript />
       </body>
