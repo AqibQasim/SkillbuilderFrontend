@@ -3,8 +3,13 @@ import ButtonSecond from "./ButtonSecond";
 import ButtonWithIcon from "./ButtonWithIcon";
 import { useRouter } from "next/router";
 import Image from "next/image";
+import { useState } from "react";
+import SmallScreenButton from "./SmallScreenButton";
+import SmallScreenMenu from "./SmallScreenMenu";
+import SmallScreenSearch from "./SmallScreenSearch";
 
 function HomePageNavbar() {
+  const [menu, setMenu] = useState(false);
   const router = useRouter();
   const { pathname } = router;
   console.log("pathName", pathname);
@@ -15,12 +20,14 @@ function HomePageNavbar() {
     { href: "career", title: "Career" },
     { href: "about", title: "About" },
   ];
+
+  console.log("Menu", menu);
   return (
-    <nav className="navbar flex items-center justify-between rounded-[3.125rem] bg-[rgba(255,255,255,0.5)] py-[0.625rem] pl-6 pr-3 shadow-[inset_0_0_0_1px_#F2F2F2]">
-      <div className="logo min-w-40">
+    <nav className="navbar grid grid-cols-[1fr_max-content] grid-rows-2 rounded-[3.125rem] bg-[rgba(255,255,255,0.5)] py-[0.625rem] pl-6 pr-3 shadow-[inset_0_0_0_1px_#F2F2F2] xlg:grid-cols-[max-content_1fr_max-content] xlg:grid-rows-1">
+      <div className="logo flex min-w-40 items-center justify-start">
         <Image src="/logo.svg" width={160} height={160} alt="Logo" />
       </div>
-      <div className="links flex items-center justify-start">
+      <div className="links hidden xlg:flex xlg:items-center xlg:justify-start">
         {links.map((link, i) => (
           <Link
             className={`${pathname === link.href ? "text-[#012256]" : "text-[#969BA3]"} px-6 text-[1.125rem] font-medium capitalize`}
@@ -31,7 +38,7 @@ function HomePageNavbar() {
           </Link>
         ))}
       </div>
-      <div className="buttons flex items-center justify-center gap-[0.625rem]">
+      <div className="buttons hidden gap-[0.625rem] xlg:flex xlg:items-center xlg:justify-start">
         <ButtonSecond className="flex items-center justify-center text-nowrap">
           {" "}
           <svg
@@ -61,6 +68,13 @@ function HomePageNavbar() {
         <ButtonSecond className="text-nowrap">Sign in</ButtonSecond>
         <ButtonWithIcon className="text-nowrap" />
       </div>
+
+      {/* small Screen Button */}
+      <SmallScreenButton className="z-[9999]" menu={menu} setMenu={setMenu} />
+      {/* small screen menu */}
+      {menu ? <SmallScreenMenu className="z-[9998]" /> : null}
+      {/* Small screen search  */}
+      <SmallScreenSearch className="col-start-1 col-end-3 xlg:hidden" />
     </nav>
   );
 }
