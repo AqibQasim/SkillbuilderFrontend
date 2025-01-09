@@ -37,10 +37,21 @@ function CoursePlatforms() {
                     height={28}
                   />
                 ))}
-                {/* Duplicate the logos for seamless animation */}
+                {/* Duplicate */}
                 {images.map((image, index) => (
                   <Image
                     key={image + "-duplicate-" + index}
+                    src={image}
+                    alt="Platform Logo"
+                    width={114}
+                    height={28}
+                  />
+                ))}
+
+                {/* duplicate-2 */}
+                {images.map((image, index) => (
+                  <Image
+                    key={image + "-duplicate-2-" + index}
                     src={image}
                     alt="Platform Logo"
                     width={114}
