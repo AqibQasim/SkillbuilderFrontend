@@ -5,7 +5,7 @@ import Showcase from "@/components/Showcase";
 
 function home() {
   return (
-    <div className="home-container mx-auto max-w-[120em] font-satoshi">
+    <div className="home-container mx-auto max-w-[120em] space-y-12 font-satoshi">
       <Banner />
       <Showcase />
       <CoursePlatforms />
