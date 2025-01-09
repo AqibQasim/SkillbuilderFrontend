@@ -17,7 +17,7 @@ const images = [
 function CoursePlatforms() {
   return (
     <LayoutXPadding>
-      <div className="course-platforms mx-3 mt-12 xl:mx-5">
+      <div className="course-platforms mx-3 xl:mx-5">
         <div className="overflow-x-hidden text-center">
           <p className="mb-7 text-xl font-semibold text-[#00204D]">
             You can also access our course from various platforms
@@ -61,7 +61,6 @@ function CoursePlatforms() {
               </div>
             </div>
           </div>
-          <div className="my-12"></div>
         </div>
       </div>
     </LayoutXPadding>
