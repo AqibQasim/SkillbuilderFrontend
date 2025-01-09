@@ -11,7 +11,7 @@ function HomePageNavbar() {
     { href: "about", title: "About" },
   ];
   return (
-    <nav className="navbar flex items-center justify-between rounded-[3.125rem] border-[1.5px] bg-[rgba(255,255,255,0.5)] py-[0.625rem] pl-6 pr-3 shadow-[inset_0_0_0_1px_#FFFFFF]">
+    <nav className="navbar flex items-center justify-between rounded-[3.125rem] bg-[rgba(255,255,255,0.5)] py-[0.625rem] pl-6 pr-3 shadow-[inset_0_0_0_1px_#F2F2F2]">
       <div className="logo">LOGO</div>
       <div className="links flex items-center justify-start">
         {links.map((link, i) => (
