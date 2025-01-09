@@ -2,7 +2,7 @@ import { satoshi } from "@/fonts/font-styles";
 
 function Banner() {
   return (
-    <div className="banner mb-3 bg-[rgba(202,211,255,0.3)] p-5 text-center text-[1rem] text-[#000B1C] xl:mb-5">
+    <div className="banner mb-3 bg-[#3759FF] p-5 text-center text-[1rem] text-white xl:mb-5">
       <p className="font-medium">
         Start the year strong with unlimited learning at your fingertips. Save
         big with &nbsp;
