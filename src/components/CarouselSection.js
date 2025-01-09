@@ -1,3 +1,4 @@
+import ButtonWithIcon from "./ButtonWithIcon";
 import LayoutXPadding from "./LayoutXPadding";
 import PointerDiv from "./PointerDiv";
 
@@ -14,6 +15,10 @@ function CarouselSection() {
         </h1>
         <div className="relative mx-auto max-w-[59.5rem] font-medium text-[#5F646B]">
           <PointerDiv className="!absolute left-0 top-0 hidden -translate-x-[95%] -translate-y-[2.2rem] 2xl:!flex" />
+          <PointerDiv
+            cursorPosition="left"
+            className="!absolute !bottom-0 !right-0 hidden translate-x-[45%] translate-y-[85%] 2xl:!flex"
+          />
           <span>
             SkillBuilder offers a diverse range of flexible Courses and
             immersive Bootcamps, designed to cater to your unique learning
@@ -23,6 +28,8 @@ function CarouselSection() {
             schedule.
           </span>
         </div>
+        {/* <ButtonWithIcon className="">Explore courses</ButtonWithIcon> */}
+        <div className="my-14"></div>
       </div>
     </LayoutXPadding>
   );
