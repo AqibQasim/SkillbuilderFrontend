@@ -61,7 +61,6 @@ function CoursePlatforms() {
               </div>
             </div>
           </div>
-          <div className="my-12"></div>
         </div>
       </div>
     </LayoutXPadding>

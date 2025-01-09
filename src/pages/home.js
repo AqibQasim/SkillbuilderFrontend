@@ -1,4 +1,5 @@
 import Banner from "@/components/Banner";
+import CarouselSection from "@/components/CarouselSection";
 import CoursePlatforms from "@/components/CoursePlatforms";
 import Showcase from "@/components/Showcase";
 
@@ -8,6 +9,7 @@ function home() {
       <Banner />
       <Showcase />
       <CoursePlatforms />
+      <CarouselSection />
     </div>
   );
 }
