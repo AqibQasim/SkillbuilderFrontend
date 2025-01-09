@@ -12,6 +12,7 @@ module.exports = {
       },
       boxShadow: {
         "custom-input": "0 4px 6px rgba(56, 71, 255, 0.11)",
+        "inner-custom": "inset 0 0 4px 2px rgba(0, 0, 0, 0.25)",
       },
       borderRadius: {
         "tl-br": "var(--tw-border-radius-tl-br)",
