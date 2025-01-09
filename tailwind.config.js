@@ -7,6 +7,10 @@ module.exports = {
   ],
   theme: {
     extend: {
+      backgroundImage: {
+        "custom-radial":
+          "radial-gradient(circle, rgba(206, 206, 206, 0.82), #f9f9f9 60%, #fff)",
+      },
       container: {
         padding: "25px",
       },
