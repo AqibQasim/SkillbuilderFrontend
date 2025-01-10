@@ -1,9 +1,9 @@
-function ButtonWithIcon({ className }) {
+function ButtonWithIcon({ className, text }) {
   return (
     <button
       className={`${className} button relative flex items-center justify-center gap-2 rounded-[2.5rem] bg-gradient-to-br from-[#6B73FF] to-[#000DFF] py-1.5 pl-5 pr-1.5 font-bold text-white`}
     >
-      Talk to mentor
+      {text}
       <span className="icon flex h-[34px] w-[38px] items-center justify-center rounded-[9.375rem] bg-white">
         <svg
           width="11"

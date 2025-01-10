@@ -66,7 +66,7 @@ function HomePageNavbar() {
           </svg>
         </ButtonSecond>
         <ButtonSecond className="text-nowrap">Sign in</ButtonSecond>
-        <ButtonWithIcon className="text-nowrap" />
+        <ButtonWithIcon text="talk to mentor" className="text-nowrap" />
       </div>
 
       {/* small Screen Button */}
