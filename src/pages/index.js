@@ -43,10 +43,7 @@ const index = () => {
     // } else {
     //   console.error("Notifications are not supported in this browser.");
     // }
-    if (
-      "serviceWorker" in navigator &&
-      "PushManager" in window
-    ) {
+    if ("serviceWorker" in navigator && "PushManager" in window) {
       navigator.serviceWorker
         .register("/sw.js", {
           scope: "/",
