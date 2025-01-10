@@ -1,6 +1,7 @@
 import React from "react";
 import Image from "next/image";
 import ButtonWithIcon from "./ButtonWithIcon";
+import PointerDiv from "./PointerDiv";
 
 const CareerCounselling = () => {
   return (
@@ -41,18 +42,10 @@ const CareerCounselling = () => {
 
           {/* Floating Labels */}
           <div className="absolute left-4 top-1/2 -translate-y-1/2 transform rounded-full bg-white px-4 py-2 shadow-lg">
-            <div className="flex items-center space-x-2">
-              <span className="material-icons text-purple-500">flag</span>
-              <p className="text-sm text-gray-600">Work on career goals</p>
-            </div>
+            <PointerDiv />
           </div>
           <div className="absolute right-4 top-1/2 -translate-y-1/2 transform rounded-full bg-white px-4 py-2 shadow-lg">
-            <div className="flex items-center space-x-2">
-              <span className="material-icons text-purple-500">
-                person_search
-              </span>
-              <p className="text-sm text-gray-600">Personalized mentorship</p>
-            </div>
+            <PointerDiv cursorPosition="left" />
           </div>
         </div>
       </div>
