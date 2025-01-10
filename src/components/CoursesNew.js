@@ -128,7 +128,7 @@ const CoursesNew = ({ heading, paddingTop }) => {
             filteredCourses.map((course) => (
               <div
                 key={course.id}
-                className="img-container mb-4 flex h-full w-full max-w-sm transform cursor-pointer flex-col items-start rounded-2xl border border-cards_gray bg-white p-2 transition-shadow duration-300 hover:border-[rgb(152,159,233)] hover:shadow-lg"
+                className="img-container mb-4 flex h-full w-full max-w-sm transform cursor-pointer flex-col items-start rounded-2xl border border-[#F0F0F0] bg-white p-2 transition-shadow duration-300 hover:border-[rgb(152,159,233)] hover:shadow-lg"
                 style={{ minHeight: "25rem", maxHeight: "25rem" }}
                 onClick={() =>
                   course.id && router.push(`/courses/${course.id}`)
@@ -160,7 +160,7 @@ const CoursesNew = ({ heading, paddingTop }) => {
                         </span>
                       )} */}
                     </div>
-                    <h3 className="text-md text-[#2C2C2C] m-0 font-semibold">
+                    <h3 className="text-md m-0 font-semibold text-[#2C2C2C] ">
                       {course.title}
                     </h3>
                     <p className="mb-2 text-[0.6rem] text-[#5C5C5C]">
@@ -169,13 +169,15 @@ const CoursesNew = ({ heading, paddingTop }) => {
                   </div>
                   <div className="text-xs">
                     By{" "}
-                    <span className="font-semibold">{course.instructor}</span>{" "}
+                    <span className="font-semibold text-[#2C2C2C]">
+                      {course.instructor}
+                    </span>{" "}
                   </div>
-                  <div className="mt-2 flex text-xs">
+                  <div className="mt-2 flex justify-start text-xs">
                     <div className="w-3">
                       <Image src={"/course_level.png"} width={1} height={1} />
                     </div>
-                    <span className="ms-1">
+                    <span className="mb-1 ms-1 self-start text-[#2C2C2C]">
                       <span className="text-[#929292]">Level: </span> Beginner
                     </span>
                   </div>
