@@ -36,9 +36,7 @@ function CarouselSection() {
             />
           </div>
         </div>
-        <ButtonWithIcon className="mx-auto mb-8">
-          Explore courses
-        </ButtonWithIcon>
+        <ButtonWithIcon text="Explore courses" className="mx-auto" />
         {/* Carousel */}
         <HomepageCarousel />
       </div>
