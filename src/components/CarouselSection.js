@@ -1,4 +1,5 @@
 import ButtonWithIcon from "./ButtonWithIcon";
+import HomepageCarousel from "./HomepageCarousel";
 import LayoutXPadding from "./LayoutXPadding";
 import PointerDiv from "./PointerDiv";
 
@@ -35,7 +36,11 @@ function CarouselSection() {
             />
           </div>
         </div>
-        <ButtonWithIcon className="mx-auto">Explore courses</ButtonWithIcon>
+        <ButtonWithIcon className="mx-auto mb-8">
+          Explore courses
+        </ButtonWithIcon>
+        {/* Carousel */}
+        <HomepageCarousel />
       </div>
     </LayoutXPadding>
   );

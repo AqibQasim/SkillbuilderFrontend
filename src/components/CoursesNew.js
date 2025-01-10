@@ -19,8 +19,8 @@ const CoursesNew = ({ heading, paddingTop }) => {
       id: 1,
       title: "Introduction to Programming",
       category: "Programming",
-      amount: 100.00,
-      discount: 20.00,
+      amount: 100.0,
+      discount: 20.0,
       learning_outcomes:
         "Learn the basics of programming and algorithms. loreanm afsf asf asf asf asf asf asf asfas ",
       image: "person_laptop.png",
@@ -30,8 +30,8 @@ const CoursesNew = ({ heading, paddingTop }) => {
       id: 2,
       title: "Advanced JavaScript",
       category: "Programming",
-      amount: 150.00,
-      discount: 30.00,
+      amount: 150.0,
+      discount: 30.0,
       learning_outcomes:
         "Deep dive into advanced JavaScript concepts.loreanm afsf asf asf asf asf asf asf asfas ",
       image: "person_laptop.png",
@@ -41,8 +41,8 @@ const CoursesNew = ({ heading, paddingTop }) => {
       id: 3,
       title: "Data Science with Python",
       category: "Data Science",
-      amount: 200.00,
-      discount: 50.00,
+      amount: 200.0,
+      discount: 50.0,
       learning_outcomes:
         "Master data analysis and visualization techniques.loreanm afsf asf asf asf asf asf asf asfas ",
       image: "person_laptop.png",
@@ -52,8 +52,8 @@ const CoursesNew = ({ heading, paddingTop }) => {
       id: 5,
       title: "Mastering Python for Data Science",
       image: "person_laptop.png",
-      amount: 129.00,
-      discount: 29.00,
+      amount: 129.0,
+      discount: 29.0,
       category: "Programming",
       learning_outcomes:
         "Understand Python essentials, analyze data, and build predictive models. loreanm afsf asf asf asf asf asf asf asfas ",
@@ -160,7 +160,7 @@ const CoursesNew = ({ heading, paddingTop }) => {
                         </span>
                       )} */}
                     </div>
-                    <h3 className="text-md m-0 font-semibold text-[#2C2C2C] ">
+                    <h3 className="text-md m-0 font-semibold text-[#2C2C2C]">
                       {course.title}
                     </h3>
                     <p className="mb-2 text-[0.6rem] text-[#5C5C5C]">
