@@ -37,7 +37,75 @@ const CareerCounselling = () => {
               challenges and strategize for improvement.
             </p>
             <br />
-            <ButtonWithIcon text="Book a career counselling" />
+            <form
+              className="w-full"
+              action="/api/checkout_session_counseling"
+              method="POST"
+            >
+              <input type="hidden" name="studentId" value={4} />
+              <input
+                type="hidden"
+                name="items"
+                value={JSON.stringify([
+                  {
+                    id: 21,
+                    instructor_id: 4,
+                    title: "Career Counselling By Zubair Alam",
+                    description:
+                      "You will get career counselling by Syed Muhammad Zubair Alam.",
+                    creation_duration_hours: 0,
+                    learning_outcomes: "hhfh",
+                    category: "development",
+                    modulesCount: 0,
+                    amount: "25",
+                    discount: "0",
+                    charges: "0.6",
+                    active: false,
+                    status: "approved",
+                    enrolled_customers: [],
+                    image: "c4d72670-b0d7-40e3-9663-f93ca7436f0b.png",
+                    rating: null,
+                    created_at: "2025-01-08T15:13:39.147Z",
+                    updated_at: null,
+                    reason: null,
+                    status_desc: null,
+                    updated_by: null,
+                    video_url: "1045027946",
+                    skills: null,
+                    instructor: {
+                      id: 4,
+                      user_id: 4,
+                      experience: ["web"],
+                      specialization: "eevveryyythingg",
+                      video_url: "1044981421",
+                      status: "pending",
+                      created_at: "2025-01-08T12:46:39.537Z",
+                      user: {
+                        id: 4,
+                        status: null,
+                        status_desc: null,
+                        profile: null,
+                        first_name: "Sanjay",
+                        last_name: "Kumar",
+                        email: "sanjaybaghtwani@gmail.com",
+                        password: null,
+                        profession: null,
+                        location: null,
+                        facebook_profile: null,
+                        twitter_profile: null,
+                        linkedin_profile: null,
+                        is_active: true,
+                        role: "student",
+                        source: "app",
+                        created_at: "2025-01-08T12:45:38.225Z",
+                        updated_at: "2025-01-08T07:45:38.232Z",
+                      },
+                    },
+                  },
+                ])}
+              />
+              <ButtonWithIcon text="Book a career counselling" />
+            </form>
           </div>
 
           {/* Floating Labels */}
