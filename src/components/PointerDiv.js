@@ -2,8 +2,9 @@ import Image from "next/image";
 
 function PointerDiv({ className = "", cursorPosition = "right" }) {
   const cursor = {
-    left: "group is-left -left-[18px] -top-[25px]",
-    right: "-right-[15px] -top-[28px]",
+    left: "group is-left -left-[18px] -top-[25px] shadow-[-10px_-20px_81px_rgba(186,186,186,0.3)]",
+    right:
+      "-right-[15px] -top-[28px] shadow-[10px_20px_81px_rgba(186,186,186,0.3)]",
   };
   return (
     <div
