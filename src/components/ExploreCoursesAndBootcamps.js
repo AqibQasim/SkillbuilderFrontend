@@ -2,6 +2,7 @@ import Image from "next/image";
 import LayoutXPadding from "./LayoutXPadding";
 import PointerDiv from "./PointerDiv";
 import ImageCssBg from "./ImageCssBg";
+import Link from "next/link";
 
 function ExploreCoursesAndBootcamps() {
   return (
@@ -37,11 +38,11 @@ export default ExploreCoursesAndBootcamps;
 
 function ExploreCoursesCard() {
   return (
-    <div className="grid grid-cols-[25.25rem] grid-rows-[13.375rem_1fr] overflow-hidden rounded-[0.875rem]">
+    <div className="explore-courses-card relative grid max-w-[25.25rem] grid-rows-[13.375rem_1fr] overflow-hidden rounded-[0.875rem]">
       <div className="explore-courses-card-image relative row-span-1 rounded-[0.875rem] bg-slate-400">
         <ImageCssBg className="rounded-t-[0.875rem]" src="/dummyImg.svg" />
       </div>
-      <div className="explore-courses-card-content relative -top-4 h-[calc(100%+1rem)] rounded-[0.875rem] bg-[#B0B1F2] px-5 py-4">
+      <div className="explore-courses-card-content inverted-radius relative -top-4 h-[calc(100%+1rem)] rounded-[0.875rem] bg-[#B0B1F2] px-5 py-4 !pb-0">
         <h2 className="text-xl font-bold text-[#2C2C2C]">
           Master Interaction Design: Creating Seamless use...
         </h2>
@@ -66,7 +67,28 @@ function ExploreCoursesCard() {
             <span className="text-[#929292]">Level: </span> Beginner
           </span>
         </div>
+        <div className="mt-5 flex w-[calc(100%-3.5rem)] items-center justify-between">
+          <Image
+            src="/course_people.png"
+            alt="enrolled students images"
+            height={29}
+            width={117}
+          />
+          <div className="flex items-center justify-start gap-2 rounded-[1.6875rem] bg-white p-2 text-sm">
+            <span className="text-black">
+              <span className="stroke-bg_text_black line-through">69.00</span> -
+            </span>
+            <span className="text-sm font-semibold text-blue">$49.00</span>
+          </div>
+        </div>
       </div>
+      {/* <div className="inverted-radius !w-full">something</div> */}
+      <Link
+        href={"/home"}
+        className="link absolute bottom-0 right-0 flex size-[3.75rem] items-center justify-center rounded-[0.875rem] rounded-tl-[3rem] bg-[#B0B1F2] text-black-shade-1"
+      >
+        <Image src="/link_arrow.svg" height={18.5} width={18.5} />
+      </Link>
     </div>
   );
 }
