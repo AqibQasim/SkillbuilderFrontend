@@ -118,6 +118,7 @@ iframe {
 
 .explore-courses-swiper > div {
   max-width: 25.25rem;
+  border-radius: 0.875rem;
 }
 
 @keyframes l5 {
