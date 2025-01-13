@@ -33,7 +33,14 @@ function ExploreCoursesSlider() {
         // }}
         className="explore-courses-swiper"
       >
-        <SwiperSlide>
+        {Array.from({ length: 7 }).map((_, index) => (
+          <SwiperSlide key={index}>
+            <ExploreCoursesCard
+              className={`${index % 2 === 0 ? "is-odd group" : "is-even group"}`}
+            />
+          </SwiperSlide>
+        ))}
+        {/* <SwiperSlide>
           <ExploreCoursesCard />
         </SwiperSlide>
         <SwiperSlide>
@@ -44,7 +51,7 @@ function ExploreCoursesSlider() {
         </SwiperSlide>
         <SwiperSlide>
           <ExploreCoursesCard />
-        </SwiperSlide>
+        </SwiperSlide> */}
       </Swiper>
     </div>
   );
@@ -52,13 +59,15 @@ function ExploreCoursesSlider() {
 
 export default ExploreCoursesSlider;
 
-export function ExploreCoursesCard() {
+export function ExploreCoursesCard({ className }) {
   return (
-    <div className="explore-courses-card relative grid max-w-[25.25rem] grid-rows-[13.375rem_1fr] overflow-hidden rounded-[0.875rem]">
+    <div
+      className={`${className} explore-courses-card group relative grid max-w-[25.25rem] grid-rows-[13.375rem_1fr] overflow-hidden rounded-[0.875rem]`}
+    >
       <div className="explore-courses-card-image relative row-span-1 rounded-[0.875rem] bg-slate-400">
         <ImageCssBg className="rounded-t-[0.875rem]" src="/dummyImg.svg" />
       </div>
-      <div className="explore-courses-card-content inverted-radius relative -top-4 h-[calc(100%+1rem)] rounded-[0.875rem] bg-[#B0B1F2] px-5 py-4 !pb-0">
+      <div className="explore-courses-card-content inverted-radius relative -top-4 h-[calc(100%+1rem)] rounded-[0.875rem] px-5 py-4 !pb-0 group-[.is-even]:bg-[#B0f1F2] group-[.is-odd]:bg-[#B0B1F2]">
         <h2 className="text-xl font-bold text-[#2C2C2C]">
           Master Interaction Design: Creating Seamless use...
         </h2>
@@ -100,7 +109,7 @@ export function ExploreCoursesCard() {
       </div>
       <Link
         href={"/home"}
-        className="link absolute bottom-0 right-0 flex size-[3.75rem] items-center justify-center rounded-[0.875rem] rounded-tl-[3rem] bg-[#B0B1F2] text-black-shade-1"
+        className="link absolute bottom-0 right-0 flex size-[3.75rem] items-center justify-center rounded-[0.875rem] rounded-tl-[3rem] bg-[#B0B1F2] text-black-shade-1 group-[.is-even]:bg-[#B0f1F2]"
       >
         <Image src="/link_arrow.svg" height={18.5} width={18.5} />
       </Link>
