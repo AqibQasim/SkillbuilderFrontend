@@ -13,24 +13,6 @@ function ExploreCoursesSlider() {
         slidesPerView={"auto"}
         spaceBetween={20}
         grabCursor={true}
-        // breakpoints={{
-        //   640: {
-        //     slidesPerView: 1,
-        //     spaceBetween: 20,
-        //   },
-        //   768: {
-        //     slidesPerView: 2,
-        //     spaceBetween: 20,
-        //   },
-        //   //   1024: {
-        //   //     slidesPerView: 2,
-        //   //     spaceBetween: 100,
-        //   //   },
-        //   1440: {
-        //     slidesPerView: 3,
-        //     spaceBetween: 20,
-        //   },
-        // }}
         className="explore-courses-swiper"
       >
         {Array.from({ length: 7 }).map((_, index) => (
@@ -40,18 +22,6 @@ function ExploreCoursesSlider() {
             />
           </SwiperSlide>
         ))}
-        {/* <SwiperSlide>
-          <ExploreCoursesCard />
-        </SwiperSlide>
-        <SwiperSlide>
-          <ExploreCoursesCard />
-        </SwiperSlide>
-        <SwiperSlide>
-          <ExploreCoursesCard />
-        </SwiperSlide>
-        <SwiperSlide>
-          <ExploreCoursesCard />
-        </SwiperSlide> */}
       </Swiper>
     </div>
   );
