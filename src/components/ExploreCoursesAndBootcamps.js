@@ -1,13 +1,14 @@
 import Image from "next/image";
+import Link from "next/link";
+import ImageCssBg from "./ImageCssBg";
 import LayoutXPadding from "./LayoutXPadding";
 import PointerDiv from "./PointerDiv";
-import ImageCssBg from "./ImageCssBg";
-import Link from "next/link";
+import ExploreCoursesSlider from "./ExploreCoursesSlider";
 
 function ExploreCoursesAndBootcamps() {
   return (
     <LayoutXPadding>
-      <div className="explore-courses-and-bootcamps grid grid-cols-[38.75rem_1fr] bg-[#F2F3FF] py-8 lg:py-10 xlg:py-16">
+      <div className="explore-courses-and-bootcamps grid grid-cols-[40%_60%] grid-rows-1 items-center justify-start gap-4 overflow-x-hidden bg-[#F2F3FF] py-8 lg:py-10 xlg:py-16">
         <div className="content">
           <div className="mb-1.5 w-max rounded-[3.25rem] border border-[#4000FF] bg-white px-4 py-1 text-xs font-medium text-[#4000FF]">
             Why you need Skillbuilder
@@ -26,8 +27,8 @@ function ExploreCoursesAndBootcamps() {
           </div>
         </div>
         {/* <div className="cards row-span-2 bg-yellow-300"> */}
-        <div className="cards row-span-2">
-          <ExploreCoursesCard />
+        <div className="cards row-span-2 size-full">
+          <ExploreCoursesSlider />
         </div>
       </div>
     </LayoutXPadding>
@@ -36,7 +37,7 @@ function ExploreCoursesAndBootcamps() {
 
 export default ExploreCoursesAndBootcamps;
 
-function ExploreCoursesCard() {
+export function ExploreCoursesCard() {
   return (
     <div className="explore-courses-card relative grid max-w-[25.25rem] grid-rows-[13.375rem_1fr] overflow-hidden rounded-[0.875rem]">
       <div className="explore-courses-card-image relative row-span-1 rounded-[0.875rem] bg-slate-400">

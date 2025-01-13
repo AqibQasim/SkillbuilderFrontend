@@ -116,6 +116,10 @@ iframe {
     );
 }
 
+.explore-courses-swiper > div {
+  max-width: 25.25rem;
+}
+
 @keyframes l5 {
   to {
     transform: rotate(0.5turn);
@@ -125,6 +129,12 @@ iframe {
 .logos {
   display: flex;
   animation: scroll 40s linear infinite;
+}
+
+@media (max-width: 1440px) {
+  .explore-courses-swiper > div {
+    max-width: 21rem;
+  }
 }
 
 @keyframes scroll {
