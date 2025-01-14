@@ -37,7 +37,7 @@ const Footer = () => {
                   height={30}
                 />
               </div>
-              <p className="mt-4 text-black max-sm:w-[100%] max-sm:text-center">
+              <p className="text-black mt-4 max-sm:w-[100%] max-sm:text-center">
                 Venture your Educational dreams.{" "}
               </p>
               <div className="mt-4 flex justify-between gap-0 lg:justify-start lg:gap-6 max-sm:w-full max-sm:justify-center max-sm:gap-7">
@@ -62,7 +62,7 @@ const Footer = () => {
               {/* Right columns */}
               {/* <div className="flex justify-between gap-24 max-sm:justify-center"> */}
               {/* First column in the right side */}
-              <div className="mb-4 text-black md:mb-0">
+              <div className="text-black mb-4 md:mb-0">
                 <h3 className="mb-2 text-lg font-semibold">Company</h3>
                 <ul className="p-2 text-sm text-gray_footer_text">
                   <li className="mb-4">Home</li>
@@ -72,7 +72,7 @@ const Footer = () => {
               </div>
               {/* Second column in the right side */}
               <div className="">
-                <h3 className="mb-4 text-lg font-semibold text-black">
+                <h3 className="text-black mb-4 text-lg font-semibold">
                   Contact Us
                 </h3>
                 <p className="mt-4 flex items-center gap-3 text-sm text-gray_footer_text max-sm:gap-2 max-sm:text-xs">

@@ -2,6 +2,8 @@ import Banner from "@/components/Banner";
 import CareerCounselling from "@/components/CareerCounselling";
 import CoursePlatforms from "@/components/CoursePlatforms";
 import ExploreCoursesAndBootcamps from "@/components/ExploreCoursesAndBootcamps";
+import Footer from "@/components/Footer";
+import HomepageFooter from "@/components/HomepageFooter";
 import HomePageReviews from "@/components/HomePageReviews";
 import LearningSection from "@/components/LearningSection";
 import Showcase from "@/components/Showcase";
@@ -16,6 +18,7 @@ function home() {
       <ExploreCoursesAndBootcamps />
       <LearningSection />
       <HomePageReviews />
+      <HomepageFooter />
 
       {/* <CarouselSection /> */}
     </div>
