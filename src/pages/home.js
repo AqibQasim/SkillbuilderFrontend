@@ -1,6 +1,7 @@
 import Banner from "@/components/Banner";
 import CareerCounselling from "@/components/CareerCounselling";
 import CoursePlatforms from "@/components/CoursePlatforms";
+import CoursesSection from "@/components/CoursesSection";
 import ExploreCoursesAndBootcamps from "@/components/ExploreCoursesAndBootcamps";
 import Footer from "@/components/Footer";
 import HomepageFooter from "@/components/HomepageFooter";
@@ -16,6 +17,8 @@ function home() {
       <CoursePlatforms />
       <CareerCounselling />
       <ExploreCoursesAndBootcamps />
+      <CoursesSection />
+
       {/* Globe section remaining */}
       {/* <LearningSection /> */}
       <HomePageReviews />
