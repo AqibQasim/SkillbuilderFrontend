@@ -1,3 +1,5 @@
+import ButtonSecond from "./ButtonSecond";
+import ButtonWithIcon from "./ButtonWithIcon";
 import HeadingSection from "./HeadingSection";
 import ImageCssBg from "./ImageCssBg";
 import LayoutXPadding from "./LayoutXPadding";
@@ -33,6 +35,15 @@ function HomePageReviews() {
         />
       </LayoutXPadding>
       <ReviewsSlider />
+      <LayoutXPadding>
+        <div className="btn w-full">
+          <div className="wrapper box-shad !mx-auto w-max rounded-[2.5rem] bg-transparent shadow-[10px_20px_81px_rgba(186,186,186,0.5)]">
+            <ButtonSecond withIcon className="">
+              See 157+ reviews on Trustpilot
+            </ButtonSecond>
+          </div>
+        </div>
+      </LayoutXPadding>
     </>
   );
 }
