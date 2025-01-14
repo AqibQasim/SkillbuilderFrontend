@@ -53,9 +53,9 @@ export default HomePageReviews;
 export function HomePageReviewCard({ review, className = "" }) {
   return (
     <div
-      className={`${className} review-card flex max-w-[36.5rem] flex-col rounded-2xl border border-[#DEDEDE] p-4 text-[#4D5156] shadow-[10px_20px_81px_rgba(186,186,186,0.3)] group-odd:!bg-slate-600 xlg:p-6`}
+      className={`${className} review-card flex max-w-[25.5rem] flex-col rounded-2xl border border-[#DEDEDE] p-4 text-[#4D5156] shadow-[10px_20px_81px_rgba(186,186,186,0.3)] group-odd:!bg-slate-600 2xl:max-w-[36.5rem] xlg:p-6`}
     >
-      <p className="review overflow-y-auto !text-lg font-medium xlg:text-xl">
+      <p className="review overflow-y-auto font-medium 2xl:text-xl">
         {review?.review}
       </p>
       <div className="review-info mt-8 flex items-center justify-between group-[.is-odd]:mt-auto">
