@@ -33,22 +33,20 @@ const Courses = ({ heading, paddingTop }) => {
   }, [dispatch]);
 
   if (selectedFilter || selectedCategory) {
-    filteredCourses = courses
-      ?.filter((c) => 
-        selectedCategory ? c?.category === selectedCategory : true
-      );
-  
+    filteredCourses = courses?.filter((c) =>
+      selectedCategory ? c?.category === selectedCategory : true,
+    );
+
     if (selectedFilter?.toLowerCase() === "low to high") {
       filteredCourses = filteredCourses?.sort(
-        (a, b) => (a?.amount - a?.discount) - (b?.amount - b?.discount),
+        (a, b) => a?.amount - a?.discount - (b?.amount - b?.discount),
       );
     } else if (selectedFilter?.toLowerCase() === "high to low") {
       filteredCourses = filteredCourses?.sort(
-        (a, b) => (b?.amount - b?.discount) - (a?.amount - a?.discount),
+        (a, b) => b?.amount - b?.discount - (a?.amount - a?.discount),
       );
     }
   }
-  
 
   useEffect(() => {
     // Simulate loading and check if StarRating styles are applied
@@ -210,13 +208,13 @@ const Courses = ({ heading, paddingTop }) => {
                         {course?.title}
                       </h3>
                       <p className="mb-2 text-sm">
-                        {truncateText(course?.learning_outcomes || "", max_words)}
-                        <span
-        className="text-blue-500 cursor-pointer ml-2"
-        
-      >
-        See More
-      </span>
+                        {truncateText(
+                          course?.learning_outcomes || "",
+                          max_words,
+                        )}
+                        <span className="ml-2 cursor-pointer text-blue-500">
+                          See More
+                        </span>
                         {/* {course?.learning_outcomes} */}
                       </p>
                     </div>

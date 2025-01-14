@@ -94,6 +94,33 @@ iframe {
   overflow: hidden;
 }
 
+.inverted-radius {
+  /* --r: 25px; the radius */
+  --r: 0.875rem; /* the radius */
+  --s: 3.5rem; /* the size of the corner*/
+  border-radius: var(--r);
+  --_m: /calc(2 * var(--r)) calc(2 * var(--r)) radial-gradient(
+      #000 70%,
+      #0000 72%
+    ) no-repeat;
+  mask:
+    right 0 bottom calc(var(--s) + var(--r)) var(--_m),
+    right calc(var(--s) + var(--r)) bottom 0 var(--_m),
+    radial-gradient(var(--s) at 100% 100%, #0000 99%, #000 101%)
+      calc(-1 * var(--r)) calc(-1 * var(--r)) no-repeat,
+    conic-gradient(
+      from 90deg at calc(100% - var(--s) - 2 * var(--r))
+        calc(100% - var(--s) - 2 * var(--r)),
+      #0000 25%,
+      #000 0
+    );
+}
+
+.explore-courses-swiper > div {
+  max-width: 25.25rem;
+  border-radius: 0.875rem;
+}
+
 @keyframes l5 {
   to {
     transform: rotate(0.5turn);
@@ -103,6 +130,12 @@ iframe {
 .logos {
   display: flex;
   animation: scroll 40s linear infinite;
+}
+
+@media (max-width: 1440px) {
+  .explore-courses-swiper > div {
+    max-width: 21rem;
+  }
 }
 
 @keyframes scroll {
