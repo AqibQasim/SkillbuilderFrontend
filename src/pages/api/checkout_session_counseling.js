@@ -64,7 +64,7 @@ export default async function handler(req, res) {
         //   },
         // },
 
-        success_url: `${req.headers.origin}/counseling`,
+        success_url: `${req.headers.origin}/counseling_payment_success?student_id=${studentId}&instructor_id=${parsedItems[0]?.instructor_id}`,
         cancel_url: `${req.headers.origin}/counseling`,
       });
 
