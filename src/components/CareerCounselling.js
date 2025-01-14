@@ -20,8 +20,8 @@ const CareerCounselling = () => {
             profile.
           </p>
         </div>
-        <div className="relative mx-auto max-w-3xl">
-          <div className="border-grey -700 mx-auto max-w-4xl overflow-hidden rounded-lg p-4 shadow-lg">
+        <div className="relative mx-auto max-w-2xl">
+          <div className="relative overflow-hidden rounded-lg border border-gray-200 shadow-lg">
             <Image
               src="/Career.png"
               alt="Career Counseling Session"
@@ -87,7 +87,7 @@ const CareerCounselling = () => {
                         profile: null,
                         first_name: "Sanjay",
                         last_name: "Kumar",
-                        email: "sanjaybaghtwani@gmail.com",
+                        email: "sanjaybaghtwani@gmail.com", 
                         password: null,
                         profession: null,
                         location: null,
@@ -108,11 +108,10 @@ const CareerCounselling = () => {
             </form>
           </div>
 
-          {/* Floating Labels */}
-          <div className="absolute left-4 top-1/2 -translate-y-1/2 transform rounded-full bg-white px-4 py-2 shadow-lg">
+          <div className="absolute left-0 top-3/4 -translate-x-full -translate-y-1/2 transform max-lg:hidden">
             <PointerDiv />
           </div>
-          <div className="absolute right-4 top-1/2 -translate-y-1/2 transform rounded-full bg-white px-4 py-2 shadow-lg">
+          <div className="absolute right-0 top-1/4 -translate-y-1/2 translate-x-full transform max-lg:hidden">
             <PointerDiv cursorPosition="left" />
           </div>
         </div>
@@ -120,4 +119,5 @@ const CareerCounselling = () => {
     </section>
   );
 };
+
 export default CareerCounselling;
