@@ -16,7 +16,8 @@ function home() {
       <CoursePlatforms />
       <CareerCounselling />
       <ExploreCoursesAndBootcamps />
-      <LearningSection />
+      {/* Globe section remaining */}
+      {/* <LearningSection /> */}
       <HomePageReviews />
       <HomepageFooter />
 
