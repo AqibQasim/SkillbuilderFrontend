@@ -121,6 +121,14 @@ iframe {
   border-radius: 0.875rem;
 }
 
+.reviews-swiper > div {
+  overflow: visible;
+  max-width: 36.5rem;
+}
+.reviews-swiper > div:first-child {
+  margin-left: 0 !important;
+}
+
 @keyframes l5 {
   to {
     transform: rotate(0.5turn);
