@@ -2,6 +2,7 @@ import Banner from "@/components/Banner";
 import CareerCounselling from "@/components/CareerCounselling";
 import CoursePlatforms from "@/components/CoursePlatforms";
 import ExploreCoursesAndBootcamps from "@/components/ExploreCoursesAndBootcamps";
+import LearningSection from "@/components/LearningSection";
 import Showcase from "@/components/Showcase";
 
 function home() {
@@ -12,6 +13,8 @@ function home() {
       <CoursePlatforms />
       <CareerCounselling />
       <ExploreCoursesAndBootcamps />
+      <LearningSection />
+
       {/* <CarouselSection /> */}
     </div>
   );
