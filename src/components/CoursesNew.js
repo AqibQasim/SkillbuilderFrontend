@@ -1,81 +1,49 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import StarRating from "./StarRating";
 import Image from "next/image";
 import { useDispatch, useSelector } from "react-redux";
+import { fetchApprovedCourses } from "../../redux/thunks/approvedCoursesThunk";
+import LayoutWidth from "./LayoutWidth";
 import { addItem } from "../../redux/slices/addToCart";
 
 const CoursesNew = ({ heading, paddingTop }) => {
   const [loading, setLoading] = useState(true);
   const [starReady, setStarReady] = useState(false);
+  const studentId = useSelector((state) => state.auth.user);
   const router = useRouter();
+  const [sortOrder, setSortOrder] = useState(null);
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [selectedFilter, setSelectedFilter] = useState(null);
   const dispatch = useDispatch();
+  const {
+    courses = [],
+    isLoading,
+    error,
+  } = useSelector(
+    (state) => state.courses || { data: [], isLoading: false, error: null },
+  );
+  console.log(courses);
 
-  // Static courses list
-  const courses = [
-    {
-      id: 1,
-      title: "Introduction to Programming",
-      category: "Programming",
-      amount: 100.0,
-      discount: 20.0,
-      learning_outcomes:
-        "Learn the basics of programming and algorithms. loreanm afsf asf asf asf asf asf asf asfas ",
-      image: "person_laptop.png",
-      instructor: "Zubair Alam",
-    },
-    {
-      id: 2,
-      title: "Advanced JavaScript",
-      category: "Programming",
-      amount: 150.0,
-      discount: 30.0,
-      learning_outcomes:
-        "Deep dive into advanced JavaScript concepts.loreanm afsf asf asf asf asf asf asf asfas ",
-      image: "person_laptop.png",
-      instructor: "Zubair Alam",
-    },
-    {
-      id: 3,
-      title: "Data Science with Python",
-      category: "Data Science",
-      amount: 200.0,
-      discount: 50.0,
-      learning_outcomes:
-        "Master data analysis and visualization techniques.loreanm afsf asf asf asf asf asf asf asfas ",
-      image: "person_laptop.png",
-      instructor: "Zubair Alam",
-    },
-    {
-      id: 5,
-      title: "Mastering Python for Data Science",
-      image: "person_laptop.png",
-      amount: 129.0,
-      discount: 29.0,
-      category: "Programming",
-      learning_outcomes:
-        "Understand Python essentials, analyze data, and build predictive models. loreanm afsf asf asf asf asf asf asf asfas ",
-      instructor: "Zubair Alam",
-    },
-    // Add more static courses here
-  ];
-
+  // Derive filtered courses based on selectedCategory
   let filteredCourses = courses;
 
+  useEffect(() => {
+    dispatch(fetchApprovedCourses());
+  }, [dispatch]);
+
   if (selectedFilter || selectedCategory) {
-    filteredCourses = courses.filter((c) =>
-      selectedCategory ? c.category === selectedCategory : true,
+    filteredCourses = courses?.filter((c) =>
+      selectedCategory ? c?.category === selectedCategory : true,
     );
 
     if (selectedFilter?.toLowerCase() === "low to high") {
-      filteredCourses = filteredCourses.sort(
-        (a, b) => a.amount - a.discount - (b.amount - b.discount),
+      filteredCourses = filteredCourses?.sort(
+        (a, b) => a?.amount - a?.discount - (b?.amount - b?.discount),
       );
     } else if (selectedFilter?.toLowerCase() === "high to low") {
-      filteredCourses = filteredCourses.sort(
-        (a, b) => b.amount - b.discount - (a.amount - a.discount),
+      filteredCourses = filteredCourses?.sort(
+        (a, b) => b?.amount - b?.discount - (a?.amount - a?.discount),
       );
     }
   }
@@ -92,9 +60,28 @@ const CoursesNew = ({ heading, paddingTop }) => {
 
   const cartItems = useSelector((state) => state.cart.items);
 
-  const handleAddToCart = (course) => {
-    if (!cartItems.some((item) => item.id === course.id)) {
-      dispatch(addItem(course));
+  useEffect(() => {
+    console.log("Updated cart items:", cartItems);
+  }, [router?.isReady, cartItems]);
+  console.log("coursesssssss.........\n", courses);
+
+  const handleAddToCart = async (course) => {
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_BASE_API}/is-course-purchased?course_id=${course.id}&student_id=${studentId}`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      },
+    );
+
+    if (response.ok) {
+      alert("You already have purchased this course");
+    } else {
+      if (!cartItems.some((item) => item.id === course.id)) {
+        dispatch(addItem(course));
+      }
     }
   };
 
@@ -102,7 +89,7 @@ const CoursesNew = ({ heading, paddingTop }) => {
     return cartItems.some((item) => item.id === course.id);
   };
 
-  if (loading) {
+  if (isLoading || loading) {
     return (
       <div className="flex h-[100vh] w-[100vw] items-center justify-center bg-bg_gray">
         <div className="loader">Loading...</div>
@@ -110,6 +97,9 @@ const CoursesNew = ({ heading, paddingTop }) => {
     );
   }
 
+  if (error) {
+    return <div>Error: {error}</div>;
+  }
   const max_words = 10;
 
   const truncateText = (text, limit) => {
@@ -125,7 +115,7 @@ const CoursesNew = ({ heading, paddingTop }) => {
       <div className="flex w-full flex-col items-center">
         <div className="grid h-auto w-[100%] grid-cols-1 place-items-center gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {filteredCourses.length > 0 ? (
-            filteredCourses.map((course) => (
+            filteredCourses.slice(0, 4).map((course) => (
               <div
                 key={course.id}
                 className="img-container mb-4 flex h-full w-full max-w-sm transform cursor-pointer flex-col items-start rounded-2xl border border-[#F0F0F0] bg-white p-2 transition-shadow duration-300 hover:border-[rgb(152,159,233)] hover:shadow-lg"
@@ -136,7 +126,11 @@ const CoursesNew = ({ heading, paddingTop }) => {
               >
                 <Image
                   className="h-[40%] w-[100%]"
-                  src={course.image ? `/${course.image}` : "/dummyImg.svg"}
+                  src={
+                    course?.image
+                      ? `${process.env.NEXT_PUBLIC_BASE_API}/media/course/${course?.image}`
+                      : "/dummyImg.svg"
+                  }
                   alt={course.title}
                   width={280}
                   height={260}
@@ -170,7 +164,8 @@ const CoursesNew = ({ heading, paddingTop }) => {
                   <div className="text-xs">
                     By{" "}
                     <span className="font-semibold text-[#2C2C2C]">
-                      {course.instructor}
+                      {course.instructor.user.first_name}{" "}
+                      {course.instructor.user.last_name}
                     </span>{" "}
                   </div>
                   <div className="mt-2 flex justify-start text-xs">
