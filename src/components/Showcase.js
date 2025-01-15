@@ -15,10 +15,11 @@ function Showcase() {
             Rate 5/4.9 from over 157+ review
           </div>
 
-          <h1 className="mb-[1.125rem] mt-[1.125rem] max-w-[59rem] text-2xl font-bold text-[#00204D] md:text-3xl lg:text-5xl">
+          <h1 className="z-[1] mb-[1.125rem] mt-[1.125rem] max-w-[59rem] text-2xl font-bold text-[#00204D] md:text-3xl lg:text-5xl">
             Your Partner in Building Skill, Confidence, and Endless
             opportunities
           </h1>
+
           <p className="max-w-[56rem] font-medium text-[#4D5156] md:text-xl">
             SkillBuilder offers expert-led courses to help you master skills,
             achieve goals, and transform ambitions into success.
@@ -29,6 +30,8 @@ function Showcase() {
           className="showcase-image relative mx-auto h-52 max-w-[1380px] md:h-80 lg:h-[25rem] 2xl:h-[35rem]"
           style={{ perspective: "1000px" }}
         >
+          <div className="border-shape absolute -top-48 left-0 size-12 bg-[#2A6ED4] mix-blend-overlay md:-top-52 lg:-top-60 xl:size-16 2xl:-top-64"></div>
+
           <div
             style={{
               transform: "rotateX(5deg)",

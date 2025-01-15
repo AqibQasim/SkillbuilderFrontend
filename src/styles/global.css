@@ -122,6 +122,28 @@ iframe {
     );
 }
 
+/* HTML: <div class="sector"></div> */
+.sector {
+  --s: 0deg; /* starting angle */
+  --p: 270deg; /* filling angle */
+
+  height: 250px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: #659bfd;
+  /* switch #0000 and #000 to get the opposite shape */
+  mask: conic-gradient(
+    from var(--s),
+    #0000,
+    #000 1deg var(--p),
+    #0000 calc(var(--p) + 1deg)
+  );
+}
+
+.border-shape {
+  border-radius: 100% 0% 0% 100% / 100% 0% 100% 0%;
+}
+
 .explore-courses-swiper > div {
   max-width: 25.25rem;
   border-radius: 0.875rem;
