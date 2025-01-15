@@ -1,3 +1,4 @@
+import { Router } from "next/router";
 import ButtonSecond from "./ButtonSecond";
 import ButtonWithIcon from "./ButtonWithIcon";
 import HeadingSection from "./HeadingSection";
@@ -5,6 +6,7 @@ import ImageCssBg from "./ImageCssBg";
 import LayoutXPadding from "./LayoutXPadding";
 import ReviewsSlider from "./ReviewsSlider";
 import StarRating from "./StarRating";
+
 export const reviews = [
   {
     review: `SkillBuilder is trusted by thousands for its 90+ courses, user-friendly design, and engaging features like quizzes and progress trackers. Its personalized learning paths and practical content make it a go-to platform for career advancement.`,
@@ -38,7 +40,10 @@ function HomePageReviews() {
       <LayoutXPadding>
         <div className="btn w-full">
           <div className="wrapper box-shad !mx-auto w-max rounded-[2.5rem] bg-transparent shadow-[10px_20px_81px_rgba(186,186,186,0.5)]">
-            <ButtonSecond withIcon className="">
+            <ButtonSecond withIcon className="" onClick={() => {window.open(
+              "https://www.trustpilot.com/review/skillbuilder.online",
+              "_blank",
+            );}}>
               See 157+ reviews on Trustpilot
             </ButtonSecond>
           </div>
