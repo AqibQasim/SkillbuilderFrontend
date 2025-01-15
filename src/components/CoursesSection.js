@@ -4,11 +4,10 @@ import CoursesNew from "./CoursesNew";
 import Image from "next/image";
 import LayoutXPadding from "./LayoutXPadding";
 import ButtonSecond from "./ButtonSecond";
-import { useRouter } from 'next/router';
-
+import { useRouter } from "next/router";
 
 const CoursesSection = () => {
-  const router = useRouter()
+  const router = useRouter();
   return (
     <LayoutXPadding>
       <div className="mx-auto">
