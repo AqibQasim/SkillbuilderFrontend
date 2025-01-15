@@ -37,6 +37,11 @@ function Showcase() {
             <div className="sector !size-52"></div>
             <div className="bg-[rgba(255, 255, 255, 0.5)] absolute inset-[2.3rem] size-60 rounded-full backdrop-blur-[7px]"></div>
           </div>
+          {/* Shape 3 */}
+          <div className="shape-2 absolute -top-[12rem] right-0 flex size-64 items-start justify-end bg-[#F3F7FA]">
+            <div className="border-shape-2 size-36 bg-[#2A6ED4]"></div>
+            <div className="bg-[rgba(255, 255, 255, 0.5)] absolute inset-[2.3rem] size-60 rounded-full backdrop-blur-[7px]"></div>
+          </div>
 
           <div
             style={{

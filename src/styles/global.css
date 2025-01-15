@@ -140,8 +140,27 @@ iframe {
   );
 }
 
+/* HTML: <div class="curved-rectangle"></div> */
+.curved-rectangle {
+  --c: 85; /* control the curvature (a percentage value without unit bigger than 50%)*/
+
+  height: 250px;
+  aspect-ratio: 2/3;
+  /* background: #a7237b; */
+  mask: radial-gradient(
+    100% calc(var(--c) * 1%) at calc(100% + 100% * cos(asin(50 / var(--c)))),
+    #0000 calc(100% - 1px),
+    #000
+  );
+  clip-path: ellipse(100% calc(var(--c) * 1%) at right);
+}
+
 .border-shape {
   border-radius: 100% 0% 0% 100% / 100% 0% 100% 0%;
+}
+
+.border-shape-2 {
+  border-radius: 0% 100% 100% 0% / 100% 0% 100% 0%;
 }
 
 .explore-courses-swiper > div {
