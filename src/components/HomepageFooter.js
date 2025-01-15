@@ -51,7 +51,7 @@ const HomepageFooter = () => {
           </div>
         </div>
         {/* Bottom */}
-        <div className="bottom flex flex-wrap justify-center gap-4 sm:items-end sm:justify-between">
+        <div className="bottom flex flex-wrap justify-center gap-4 sm:flex-nowrap sm:items-end sm:justify-between">
           <div className="left sm-w-[unset] flex w-full items-center justify-around gap-6 sm:justify-start">
             <a
               className="gdWidget"
