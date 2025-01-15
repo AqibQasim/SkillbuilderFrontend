@@ -23,7 +23,7 @@ const CoursesSection = () => {
           <CoursesNew />
         </div>
         <div
-          className='text-md border-primary hover:bg-primary text-white" mx-auto mb-4 mt-4 flex w-[25%] min-w-fit cursor-pointer justify-between gap-2 rounded-full border border-[#F6EBEB] bg-gradient-to-r from-[#fff] to-[#CECECE] px-4 py-2 text-start text-[#313131] drop-shadow-xl'
+          className='text-md border-primary hover:bg-primary text-white" mx-auto mb-4 mt-4 flex w-[20%] min-w-fit cursor-pointer justify-between gap-1 rounded-full border border-[#F6EBEB] bg-gradient-to-r from-[#fff] from-50% to-[#CECECE] px-4 py-2 text-start text-[#313131] drop-shadow-xl'
           onClick={() => router.push("/courses")}
         >
           View all courses
