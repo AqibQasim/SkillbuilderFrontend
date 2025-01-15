@@ -144,15 +144,15 @@ iframe {
 .curved-rectangle {
   --c: 85; /* control the curvature (a percentage value without unit bigger than 50%)*/
 
-  height: 250px;
-  aspect-ratio: 2/3;
-  /* background: #a7237b; */
+  width: 250px;
+  aspect-ratio: 3/2;
+  background: #a7237b;
   mask: radial-gradient(
-    100% calc(var(--c) * 1%) at calc(100% + 100% * cos(asin(50 / var(--c)))),
+    calc(var(--c) * 1%) 100% at 50% calc(-100% * cos(asin(50 / var(--c)))),
     #0000 calc(100% - 1px),
     #000
   );
-  clip-path: ellipse(100% calc(var(--c) * 1%) at right);
+  clip-path: ellipse(calc(var(--c) * 1%) 100% at top);
 }
 
 .border-shape {
