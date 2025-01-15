@@ -1,9 +1,10 @@
 import Banner from "@/components/Banner";
 import CareerCounselling from "@/components/CareerCounselling";
-import CarouselSection from "@/components/CarouselSection";
 import CoursePlatforms from "@/components/CoursePlatforms";
 import CoursesSection from "@/components/CoursesSection";
+import ExploreCoursesAndBootcamps from "@/components/ExploreCoursesAndBootcamps";
 import Showcase from "@/components/Showcase";
+import CarouselSection from "@/components/CarouselSection";
 
 function home() {
   return (
@@ -12,7 +13,7 @@ function home() {
       <Showcase />
       <CoursePlatforms />
       <CareerCounselling />
-      <CarouselSection />
+      <ExploreCoursesAndBootcamps />
       <CoursesSection />
     </div>
   );
