@@ -9,6 +9,7 @@ import HomePageReviews from "@/components/HomePageReviews";
 import LearningSection from "@/components/LearningSection";
 import Showcase from "@/components/Showcase";
 import User from "@/components/User";
+import CarouselSection from "@/components/CarouselSection";
 
 function home() {
   return (
