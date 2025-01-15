@@ -1,7 +1,8 @@
 import ButtonWithIcon from "./ButtonWithIcon";
+
 export default function BootcampSection() {
   return (
-    <section className="bg-gray-50 px-6 py-12 md:px-12 lg:px-20 lg:py-16">
+    <section className="bg-gray-50 px-6 md:px-12 lg:px-20">
       <div className="mx-auto grid max-w-7xl grid-cols-1 items-center gap-10 md:grid-cols-2">
         {/* Left Content */}
         <div>
@@ -67,6 +68,7 @@ export default function BootcampSection() {
           <img
             src="/bootcampVideo2.png"
             alt="Computer Science Bootcamp"
+            className="border-black h-full w-full border pt-40"
             // className="rounded-lg shadow-lg"
           />
         </div>

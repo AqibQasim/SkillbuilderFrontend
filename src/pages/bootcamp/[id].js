@@ -4,6 +4,9 @@ import BootcampHero from "@/components/bootcampHero";
 import HomePageNavbar from "@/components/HomePageNavbar";
 import Showcase from "@/components/Showcase";
 import BootcampSection from "@/components/BootcampSection";
+import BootcampOutcome from "@/components/BootcampOutcome";
+import CourseModules from "@/components/CourseModule";
+import BootcampModule from "@/components/BootcampModule";
 
 const page = () => {
   return (
@@ -12,6 +15,8 @@ const page = () => {
       <HomePageNavbar />
       <BootcampHero />
       <BootcampSection />
+      <BootcampOutcome />
+      <BootcampModule />
     </div>
   );
 };

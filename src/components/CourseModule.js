@@ -7,7 +7,7 @@ import { useSelector } from "react-redux";
 
 function ModuleAccordion({ title, lectures, duration, children }) {
   const [isOpen, setIsOpen] = useState(false);
-  
+
   return (
     // <div className="container mt-4">
     <div className="mt-4">
@@ -30,7 +30,11 @@ function ModuleAccordion({ title, lectures, duration, children }) {
   );
 }
 
-export default function CourseModules({ course, course_id, heading = "Course outline" }) {
+export default function CourseModules({
+  course,
+  course_id,
+  heading = "Course outline",
+}) {
   const [isclick, setisclick] = useState(false);
   const userId = useSelector((state) => state.auth.user);
   const [courseLock, setCourseLock] = useState(true);
@@ -39,41 +43,36 @@ export default function CourseModules({ course, course_id, heading = "Course out
     setisclick(index);
   };
 
-
-
-async function getCourseStatus(){
-
-  if(course_id && course && userId){
-    const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/check-lock-status?course_id=${course_id}&user_id=${userId}`)
-    const data = await response.json()
-    console.log("APU RES is ", data.lock)
-    setCourseLock(data.lock)
+  async function getCourseStatus() {
+    if (course_id && course && userId) {
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_BASE_API}/check-lock-status?course_id=${course_id}&user_id=${userId}`,
+      );
+      const data = await response.json();
+      console.log("APU RES is ", data.lock);
+      setCourseLock(data.lock);
+    }
   }
-}
-  
 
-useEffect( () => { 
-  }, [course_id, userId])
+  useEffect(() => {}, [course_id, userId]);
 
   useEffect(() => {
     console.log("#########", courseLock);
   }, [course]);
 
   useEffect(() => {
-    
-    const localData = localStorage.getItem('adminAuth');
-    const data = JSON.parse(localData)
-    console.log("Admin Auth iss", data);  
+    const localData = localStorage.getItem("adminAuth");
+    const data = JSON.parse(localData);
+    console.log("Admin Auth iss", data);
 
-    if(data){
-       const lock = data == true ? false : true
-        console.log("Lock iss ", lock)
-        setCourseLock(lock);
-    }else{
-      getCourseStatus()
+    if (data) {
+      const lock = data == true ? false : true;
+      console.log("Lock iss ", lock);
+      setCourseLock(lock);
+    } else {
+      getCourseStatus();
     }
-   
-}, [course]);
+  }, [course]);
 
   return (
     <LayoutWidth>
@@ -109,12 +108,16 @@ useEffect( () => {
                               <span className="ml-2">{content?.title}</span>
                             </span>
                             <span className="text-blue-500">
-                              {courseLock ? 'locked' : 'unlocked'} {content?.duration}
+                              {courseLock ? "locked" : "unlocked"}{" "}
+                              {content?.duration}
                             </span>
                           </div>
-                          {isclick ===  index && !courseLock ? (
+                          {isclick === index && !courseLock ? (
                             <div>
-                              <InstructorIntro video={content?.content} course_content_id = {content?.id} />
+                              <InstructorIntro
+                                video={content?.content}
+                                course_content_id={content?.id}
+                              />
                             </div>
                           ) : null}
                         </>
