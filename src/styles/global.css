@@ -19,6 +19,12 @@
   @apply bg-delete text-delete-text;
 }
 
+.skew-top {
+  position: relative;
+  background-color: lightblue;
+  clip-path: polygon(56px 0, calc(100% - 56px) 0, 100% 100%, 0 100%);
+}
+
 progress {
   border-radius: 7px;
   height: 5px;
