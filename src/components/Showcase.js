@@ -27,10 +27,16 @@ function Showcase() {
         </div>
 
         <div
-          className="showcase-image relative mx-auto h-52 max-w-[1380px] md:h-80 lg:h-[25rem] 2xl:h-[35rem]"
+          className="showcase-image relative mx-auto h-52 sm:max-w-[96%] md:h-80 lg:h-[25rem] lg:max-w-[90%] 2xl:h-[35rem] 2xl:max-w-[86.25rem]"
           style={{ perspective: "1000px" }}
         >
+          {/* Shape */}
           <div className="border-shape absolute -top-48 left-0 size-12 bg-[#2A6ED4] mix-blend-overlay md:-top-52 lg:-top-60 xl:size-16 2xl:-top-64"></div>
+          {/* Shape2 */}
+          <div className="shape-2 absolute -left-[5.6rem] -top-[4.1rem] bg-[#F3F7FA]">
+            <div className="sector !size-52"></div>
+            <div className="bg-[rgba(255, 255, 255, 0.5)] absolute inset-[2.3rem] size-60 rounded-full backdrop-blur-[7px]"></div>
+          </div>
 
           <div
             style={{
