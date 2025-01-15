@@ -34,20 +34,20 @@ export default async function handler(req, res) {
         payment_method_types: ["card"],
         mode: "payment",
         line_items: [
-  {
-    price_data: {
-      currency: "usd",
-      product_data: {
-        name: course_title,
-        description: course_description || "No Description",
-        // images: [
-        //   "https://example.com/image.jpg",
-        // ],
-            },
-            unit_amount: amount * 100, // Ensure 'amount' is a number
+          {
+            price_data: {
+              currency: "usd",
+              product_data: {
+                name: course_title,
+                description: course_description || "No Description",
+                // images: [
+                //   "https://example.com/image.jpg",
+                // ],
+              },
+              unit_amount: amount * 100, // Ensure 'amount' is a number
             },
             quantity: 1,
-        },
+          },
         ],
         metadata: {
           student_id: student_id,
@@ -64,7 +64,7 @@ export default async function handler(req, res) {
         //   },
         // },
 
-        success_url: `${req.headers.origin}/bootcamp_payment_success?student_id=${student_id}&instructor_id=${instructor_id}&course_id=${course_id}`,
+        success_url: `${req.headers.origin}/bootcamp_payment_success?student_id=${student_id}&instructor_id=${instructor_id}&course_id=${course_id}&amount=${amount}`,
         cancel_url: `${req.headers.origin}/bootcamp/${course_id}`,
       });
 
