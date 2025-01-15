@@ -1,9 +1,32 @@
+import { useEffect } from "react";
 import ButtonWithIcon from "./ButtonWithIcon";
 import { useSelector } from "react-redux";
+import { useState } from "react";
 
 
 export default function BootcampSection({course}) {
   const userId = useSelector((state) => state.auth.user);
+  const [coursePurchased, setCoursePurchased] = useState(false)
+
+  useEffect(() => {
+    if (userId && course?.course_id) {
+      const fetchData = async () => {
+        const res = await fetch(
+          `${process.env.NEXT_PUBLIC_BASE_API}/get-live-session-course-payment-of-student?student_id=${userId}&course_id=${course?.course_id}`,
+        );
+
+        const data = await res.json();
+
+        if(data?.message === "live courses"){
+          setCoursePurchased(true)
+        }
+      }
+
+      fetchData()
+    }
+  }, [userId, course?.course_id])
+
+
   return (
     <section className="bg-gray-50 px-6 py-12 md:px-12 lg:px-20 lg:py-16">
       <div className="mx-auto grid max-w-7xl grid-cols-1 items-center gap-10 md:grid-cols-2">
@@ -78,7 +101,7 @@ export default function BootcampSection({course}) {
             <input type="hidden" name="student_id" value={userId} />
             <input type="hidden" name="course_id" value={course?.course_id} />
 
-            <ButtonWithIcon text="Enroll now" className="text-nowrap" />
+            { !coursePurchased ? <ButtonWithIcon text="Enroll now" className="text-nowrap" /> : <span>You have already purchased this course!</span>}
           </form>
 
           {/* <button className="rounded-lg bg-blue-600 px-6 py-3 text-lg text-white shadow-lg hover:bg-blue-700">
