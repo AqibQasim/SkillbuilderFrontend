@@ -4,8 +4,11 @@ import CoursesNew from "./CoursesNew";
 import Image from "next/image";
 import LayoutXPadding from "./LayoutXPadding";
 import ButtonSecond from "./ButtonSecond";
+import { useRouter } from 'next/router';
+
 
 const CoursesSection = () => {
+  const router = useRouter()
   return (
     <LayoutXPadding>
       <div className="mx-auto">
@@ -19,7 +22,10 @@ const CoursesSection = () => {
         <div className="mt-10">
           <CoursesNew />
         </div>
-        <div className='text-md border-primary hover:bg-primary text-white" mx-auto mb-4 mt-4 flex w-[25%] min-w-fit cursor-pointer justify-between gap-2 rounded-full border border-[#F6EBEB] bg-gradient-to-r from-[#fff] to-[#CECECE] px-4 py-2 text-start text-[#313131] drop-shadow-xl'>
+        <div
+          className='text-md border-primary hover:bg-primary text-white" mx-auto mb-4 mt-4 flex w-[20%] min-w-fit cursor-pointer justify-between gap-1 rounded-full border border-[#F6EBEB] bg-gradient-to-r from-[#fff] from-50% to-[#CECECE] px-4 py-2 text-start text-[#313131] drop-shadow-xl'
+          onClick={() => router.push("/courses")}
+        >
           View all courses
           <Image
             src="/right_arrow.png"
