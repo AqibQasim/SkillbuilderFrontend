@@ -10,7 +10,8 @@ function ImageCssBg({ src, alt, className, quality = 80, noSize = false }) {
           ? ""
           : "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
       }
-      placehoder="blur"
+      placeholder="blur"
+      blurDataURL="/showcase-image"
       quality={quality}
       className={`${className} object-cover`}
       alt={alt || "an image"}
