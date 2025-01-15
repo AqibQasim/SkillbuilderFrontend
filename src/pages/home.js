@@ -3,6 +3,10 @@ import CareerCounselling from "@/components/CareerCounselling";
 import CoursePlatforms from "@/components/CoursePlatforms";
 import CoursesSection from "@/components/CoursesSection";
 import ExploreCoursesAndBootcamps from "@/components/ExploreCoursesAndBootcamps";
+import Footer from "@/components/Footer";
+import HomepageFooter from "@/components/HomepageFooter";
+import HomePageReviews from "@/components/HomePageReviews";
+import LearningSection from "@/components/LearningSection";
 import Showcase from "@/components/Showcase";
 import CarouselSection from "@/components/CarouselSection";
 
@@ -15,6 +19,13 @@ function home() {
       <CareerCounselling />
       <ExploreCoursesAndBootcamps />
       <CoursesSection />
+
+      {/* Globe section remaining */}
+      {/* <LearningSection /> */}
+      <HomePageReviews />
+      <HomepageFooter />
+
+      {/* <CarouselSection /> */}
     </div>
   );
 }

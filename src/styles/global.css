@@ -116,6 +116,19 @@ iframe {
     );
 }
 
+.explore-courses-swiper > div {
+  max-width: 25.25rem;
+  border-radius: 0.875rem;
+}
+
+.reviews-swiper > div {
+  overflow: visible;
+  max-width: 36.5rem;
+}
+.reviews-swiper > div:first-child {
+  margin-left: 0 !important;
+}
+
 @keyframes l5 {
   to {
     transform: rotate(0.5turn);
@@ -125,6 +138,18 @@ iframe {
 .logos {
   display: flex;
   animation: scroll 40s linear infinite;
+}
+
+@media (max-width: 1536px) {
+  .reviews-swiper > div {
+    max-width: 25.5rem;
+  }
+}
+
+@media (max-width: 1440px) {
+  .explore-courses-swiper > div {
+    max-width: 21rem;
+  }
 }
 
 @keyframes scroll {
