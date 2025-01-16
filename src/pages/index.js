@@ -17,6 +17,8 @@ import CoursesSection from "@/components/CoursesSection";
 import ExploreCoursesAndBootcamps from "@/components/ExploreCoursesAndBootcamps";
 import CareerCounselling from "@/components/CareerCounselling";
 import CoursePlatforms from "@/components/CoursePlatforms";
+import Showcase from "@/components/Showcase";
+import Banner from "@/components/Banner";
 
 const index = () => {
   // Set current tab on mount
@@ -124,6 +126,8 @@ const index = () => {
   // );
   return (
     <div className="home-container home-container mx-auto max-w-[120em] space-y-12 font-satoshi">
+      <Banner />
+      <Showcase />
       <CoursePlatforms />
       <CareerCounselling />
       <ExploreCoursesAndBootcamps />
