@@ -9,6 +9,9 @@ import CourseModules from "@/components/CourseModule";
 import BootcampModule from "@/components/BootcampModule";
 import { useRouter } from "next/router";
 import { useState } from "react";
+import BootcampTutor from "@/components/BootcampTutor";
+import BootcampRecommended from "@/components/BootcampRecommendedd";
+import HomepageFooter from "@/components/HomepageFooter";
 
 const page = () => {
   const router = useRouter();
@@ -47,6 +50,9 @@ const page = () => {
       <BootcampSection />
       <BootcampOutcome course={course} />
       <BootcampModule />
+      <BootcampTutor />
+      <BootcampRecommended />
+      <HomepageFooter />
     </div>
   );
 };

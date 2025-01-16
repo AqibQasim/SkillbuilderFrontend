@@ -17,7 +17,7 @@ const BootcampModule = () => {
 
   return (
     <div className="mx-auto w-full max-w-[80%] p-4">
-      <h2 className="mb-4 text-xl font-bold">Course Details:</h2>
+      <h2 className="mb-4 text-2xl font-bold">Course Details:</h2>
       <div className="space-y-2">
         {courseSections.map((section, index) => (
           <div
@@ -28,7 +28,7 @@ const BootcampModule = () => {
               className="flex w-full items-center justify-between bg-gray-100 p-4 transition hover:bg-gray-200 focus:outline-none"
               onClick={() => toggleSection(index)}
             >
-              <span>{section}</span>
+              <span className="text-xl font-semibold">{section}</span>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 className={`h-5 w-5 transition-transform ${
