@@ -3,7 +3,12 @@ import { useEffect } from "react";
 import "../styles/footer.css";
 import LayoutWidth from "./LayoutWidth";
 import LayoutXPadding from "./LayoutXPadding";
+import { useRouter } from "next/router";
+
 const HomepageFooter = () => {
+
+  const router = useRouter();
+
   useEffect(() => {
     const script = document.createElement("script");
     script.src = "https://www.glassdoor.com/static/js/api/widget/v1.js";
@@ -25,12 +30,13 @@ const HomepageFooter = () => {
             <div className="text-black">
               <h3 className="mb-2 text-xl font-bold text-[#012456]">Company</h3>
               <ul className="space-y-4 p-2 text-sm text-gray_footer_text">
-                {["Home", "Courses", "About Us"].map((item, index) => (
+                {[{text:"Home", link:"/"}, {text:"Courses", link:"/courses"}, {text:"About Us", link:"/about"}].map((item, index) => (
                   <li
                     key={index}
-                    className="text-lg font-medium text-[#9AA5B8]"
+                    className="text-lg font-medium text-[#9AA5B8] cursor-pointer"
+                    onClick={() => {router.push(item.link)}}
                   >
-                    {item}
+                    {item.text}
                   </li>
                 ))}
               </ul>

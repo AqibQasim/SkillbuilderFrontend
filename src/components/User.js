@@ -20,6 +20,8 @@ import {
   fetchNotificationInstructorThunk,
   fetchNotificationStudentThunk,
 } from "../../redux/thunks/notificationThunk";
+import ButtonSecond from "./ButtonSecond";
+import ButtonWithIcon from "./ButtonWithIcon";
 
 function User({ cartClickHandler, cartItemsLength }) {
   const [show, setShow] = useState(false);
@@ -352,12 +354,17 @@ function User({ cartClickHandler, cartItemsLength }) {
   }
 
   return (
-    <Link
-      href="/login"
-      className="hidden w-full items-center justify-between rounded-lg bg-blue px-4 py-2 text-white lg:flex lg:w-auto"
-    >
-      Get started
-    </Link>
+    <div className="buttons hidden gap-[0.625rem] xlg:flex xlg:items-center xlg:justify-start">
+      <Link
+        href="/login"
+        // className="hidden w-full items-center justify-between rounded-lg bg-blue px-4 py-2 text-white lg:flex lg:w-auto"
+      >
+        <ButtonSecond className="text-nowrap">Sign in</ButtonSecond>
+      </Link>
+      <Link href="/counseling">
+        <ButtonWithIcon text="talk to mentor" className="text-nowrap" />
+      </Link>
+    </div>
   );
 }
 
