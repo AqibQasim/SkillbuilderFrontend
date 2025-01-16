@@ -6,12 +6,6 @@ import LayoutXPadding from "@/components/LayoutXPadding";
 const Counselling = () => {
   return (
     <>
-      {/* add this for now */}
-      {/* <LayoutXPadding>
-        <div className="s">
-          <HomePageNavbar />
-        </div>
-      </LayoutXPadding> */}
       <CareerCounselling />
     </>
   );

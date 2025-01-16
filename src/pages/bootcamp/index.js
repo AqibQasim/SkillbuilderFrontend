@@ -1,31 +1,17 @@
-import { useRouter } from "next/router";
-import Navbar from "@/components/Navbar";
-import CourseInstructor from "@/components/CourseInstructor";
-import CourseHero from "@/components/CourseHero";
-import CurrentPath from "@/components/CurrentPath";
-import Footer from "@/components/Footer";
 import BootcampHero from "@/components/bootcampHero";
-import CourseReviews from "@/components/CourseReviews";
-import CourseModule from "@/components/CourseModule";
-import { useSelector, useDispatch } from "react-redux";
-import { useEffect, useState } from "react";
-import { fetchOneCourse } from "../../../redux/thunks/coursesThunks";
-import { fetchOneInstructor } from "../../../redux/thunks/instructorThunk";
-import { fetchOneUser } from "../../../redux/thunks/userInfoThunk";
-import { fetchAllReviews } from "../../../redux/thunks/reviewsThunk";
-import Loader from "@/components/Loader";
-import ExploreCourses from "@/components/ExploreCourses";
+import Footer from "@/components/Footer";
+import HomePageNavbar from "@/components/HomePageNavbar";
+import LayoutXPadding from "@/components/LayoutXPadding";
 import LiveCoursesCard from "@/components/LiveCoursesCard";
+import Loader from "@/components/Loader";
+import Navbar from "@/components/Navbar";
 import Image from "next/image";
+import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
 const Bootcamp = () => {
   const router = useRouter();
-  const { id } = router?.query;
-  const dispatch = useDispatch();
-
-  const { data: course, isLoading: courseLoading } = useSelector(
-    (state) => state.singleCourse || { data: {}, isLoading: true },
-  );
 
   const { user, isInstLoading } = useSelector(
     (state) => state.singleInstructor || { user: {}, isInstLoading: true },
@@ -43,31 +29,7 @@ const Bootcamp = () => {
     setIsClient(true);
   }, [router?.isReady, courses]);
 
-  useEffect(() => {
-    if (id) {
-      dispatch(fetchOneCourse(id));
-    }
-  }, [id]);
-
-  useEffect(() => {
-    if (course && course.instructor_id) {
-      dispatch(fetchOneInstructor(course.instructor_id));
-    }
-  }, [course]);
-
-  useEffect(() => {
-    if (course && course.instructor_id) {
-      dispatch(fetchOneUser(course.instructor_id));
-    }
-  }, [course]);
-
-  useEffect(() => {
-    if (course && course.id) {
-      dispatch(fetchAllReviews(course.id));
-    }
-  }, [course]);
-
-  if (!isClient || courseLoading || isInstLoading || isReviewsLoading) {
+  if (!isClient) {
     return (
       <div className="flex min-h-screen w-full items-center justify-center">
         <Loader />
@@ -76,8 +38,14 @@ const Bootcamp = () => {
   }
 
   return (
-    <div className="h-full w-full bg-bg_gray">
-      <Navbar cartItemsLength={courses?.length} />
+    <div className="h-full w-full bg-bg_gray pt-4">
+      {/* <Navbar cartItemsLength={courses?.length} /> */}
+      {/* add this for now */}
+      <LayoutXPadding>
+        <div className="s">
+          <HomePageNavbar className="!mb-4 !mt-0" />
+        </div>
+      </LayoutXPadding>
 
       <BootcampHero
         title={"Introduce SkillBuilder and the range of courses available."}
@@ -103,7 +71,7 @@ const Bootcamp = () => {
                   filter === "Most Popular" ? "New Arrivals" : "Most Popular",
                 )
               }
-              className="bg-pink flex items-center rounded-full border border-gray-300 px-4 py-2 text-sm text-gray-600 hover:bg-pink-300"
+              className="flex items-center rounded-full border border-gray-300 bg-pink px-4 py-2 text-sm text-gray-600 hover:bg-pink-300"
             >
               <Image
                 src="/filter-tick.png"
@@ -122,7 +90,7 @@ const Bootcamp = () => {
                     : "Most Popular",
                 )
               }
-              className="bg-pink flex items-center rounded-full border border-gray-300 px-4 py-2 text-sm text-gray-600 hover:bg-pink-300"
+              className="flex items-center rounded-full border border-gray-300 bg-pink px-4 py-2 text-sm text-gray-600 hover:bg-pink-300"
             >
               Sort by <span className="ml-1 mr-4 font-bold"> {sortOrder}</span>
               <Image
