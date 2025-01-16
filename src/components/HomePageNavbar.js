@@ -25,7 +25,7 @@ function HomePageNavbar({ className }) {
 
   console.log("Menu", menu);
 
-  const courses = useSelector((state) => state.cart.items);
+  const cartItems = useSelector((state) => state.cart.items);
 
   const routeToShoppingCartHandler = () => {
     router.push("/shoppingcart");
@@ -33,7 +33,7 @@ function HomePageNavbar({ className }) {
 
   return (
     <nav
-      className={`${className} navbar mt-4 grid grid-cols-[1fr_max-content] grid-rows-2 rounded-[3.125rem] bg-white py-[0.625rem] pl-6 pr-3 shadow-[inset_0_0_0_1px_#F2F2F2] md:mt-11 xlg:grid-cols-[max-content_1fr_max-content] xlg:grid-rows-1`}
+      className={`${className} navbar mt-4 grid grid-cols-[1fr_max-content] grid-rows-2 rounded-[3.125rem] bg-white py-[0.625rem] pl-6 pr-3 shadow-[inset_0_0_0_1px_#F2F2F2] xlg:grid-cols-[max-content_1fr_max-content] xlg:grid-rows-1`}
     >
       <div className="logo flex min-w-40 items-center justify-start">
         <Image src="/logo.svg" width={160} height={160} alt="Logo" />
@@ -78,7 +78,7 @@ function HomePageNavbar({ className }) {
         </ButtonSecond>
         <div className="hidden lg:block">
           <User
-            cartItemsLength={courses.length}
+            cartItemsLength={cartItems.length}
             cartClickHandler={routeToShoppingCartHandler}
           />
         </div>
