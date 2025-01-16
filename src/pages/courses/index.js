@@ -1,32 +1,14 @@
-import { useRouter } from "next/router";
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
-import BootcampHero from "@/components/bootcampHero";
-import { useSelector, useDispatch } from "react-redux";
-import { useEffect, useState } from "react";
-import { fetchOneCourse } from "../../../redux/thunks/coursesThunks";
-import { fetchOneInstructor } from "../../../redux/thunks/instructorThunk";
-import { fetchOneUser } from "../../../redux/thunks/userInfoThunk";
-import { fetchAllReviews } from "../../../redux/thunks/reviewsThunk";
-import Loader from "@/components/Loader";
 import ExploreCourses from "@/components/ExploreCourses";
+import Footer from "@/components/Footer";
+import Loader from "@/components/Loader";
+import Navbar from "@/components/Navbar";
+import BootcampHero from "@/components/bootcampHero";
+import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 
 const CourseDetails = () => {
   const router = useRouter();
-  const { id } = router?.query;
-  const dispatch = useDispatch();
-
-  const { data: course, isLoading: courseLoading } = useSelector(
-    (state) => state.singleCourse || { data: {}, isLoading: true },
-  );
-
-  const { user, isInstLoading } = useSelector(
-    (state) => state.singleInstructor || { user: {}, isInstLoading: true },
-  );
-
-  const { reviewsData: reviews, isReviewsLoading } = useSelector(
-    (state) => state.allReviews || { reviewsData: [], isReviewsLoading: true },
-  );
 
   const courses = useSelector((state) => state.cart.items);
   const [isClient, setIsClient] = useState(false);
@@ -35,31 +17,7 @@ const CourseDetails = () => {
     setIsClient(true);
   }, [router?.isReady, courses]);
 
-  useEffect(() => {
-    if (id) {
-      dispatch(fetchOneCourse(id));
-    }
-  }, [id]);
-
-  useEffect(() => {
-    if (course && course.instructor_id) {
-      dispatch(fetchOneInstructor(course.instructor_id));
-    }
-  }, [course]);
-
-  useEffect(() => {
-    if (course && course.instructor_id) {
-      dispatch(fetchOneUser(course.instructor_id));
-    }
-  }, [course]);
-
-  useEffect(() => {
-    if (course && course.id) {
-      dispatch(fetchAllReviews(course.id));
-    }
-  }, [course]);
-
-  if (!isClient || courseLoading || isInstLoading || isReviewsLoading) {
+  if (!isClient) {
     return (
       <div className="flex min-h-screen w-full items-center justify-center">
         <Loader />
@@ -126,7 +84,6 @@ const CourseDetails = () => {
       </div>
 
       <ExploreCourses />
-
       <Footer />
     </div>
   );
