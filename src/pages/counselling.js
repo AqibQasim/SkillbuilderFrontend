@@ -7,6 +7,11 @@ import HomepageFooter from "@/components/HomepageFooter";
 const Counselling = () => {
   return (
     <>
+      <LayoutXPadding>
+        <div className="s">
+          <HomePageNavbar />
+        </div>
+      </LayoutXPadding>
       <CareerCounselling />
       <HomepageFooter />
     </>
