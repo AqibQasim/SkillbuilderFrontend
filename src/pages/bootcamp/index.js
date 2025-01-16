@@ -10,9 +10,15 @@ import Image from "next/image";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { getAllLiveSessionCourses } from "../../../redux/thunks/liveSessionCoursesThunk";
 
 const Bootcamp = () => {
   const router = useRouter();
+  const dispatch = useDispatch();
+
+  const liveSessionCourses = useSelector(
+    (state) => state.liveSessionCourses.liveSessionCourses,
+  );
 
   const { user, isInstLoading } = useSelector(
     (state) => state.singleInstructor || { user: {}, isInstLoading: true },
@@ -29,6 +35,10 @@ const Bootcamp = () => {
   useEffect(() => {
     setIsClient(true);
   }, [router?.isReady, courses]);
+
+  useEffect(() => {
+    dispatch(getAllLiveSessionCourses());
+  }, [dispatch]);
 
   if (!isClient) {
     return (
