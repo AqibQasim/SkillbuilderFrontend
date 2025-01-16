@@ -87,7 +87,7 @@ const CareerCounselling = () => {
                         profile: null,
                         first_name: "Sanjay",
                         last_name: "Kumar",
-                        email: "sanjaybaghtwani@gmail.com", 
+                        email: "sanjaybaghtwani@gmail.com",
                         password: null,
                         profession: null,
                         location: null,

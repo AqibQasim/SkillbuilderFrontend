@@ -27,6 +27,7 @@ function ReviewsSlider() {
       >
         {reviews.map((review, i) => (
           <SwiperSlide
+            key={review?.review + i}
             style={{
               display: "flex",
               alignItems: "flex-end",

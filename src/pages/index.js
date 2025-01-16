@@ -11,6 +11,12 @@ import Footer from "@/components/Footer";
 import { useRouter } from "next/router";
 import { useSelector } from "react-redux";
 import urlBase64ToUint8Array from "@/utils/urlBase64ToUint8Array";
+import HomepageFooter from "@/components/HomepageFooter";
+import HomePageReviews from "@/components/HomePageReviews";
+import CoursesSection from "@/components/CoursesSection";
+import ExploreCoursesAndBootcamps from "@/components/ExploreCoursesAndBootcamps";
+import CareerCounselling from "@/components/CareerCounselling";
+import CoursePlatforms from "@/components/CoursePlatforms";
 
 const index = () => {
   // Set current tab on mount
@@ -104,17 +110,30 @@ const index = () => {
     return null;
   }
 
+  // return (
+  //   <>
+  //     <div className="flex h-[100%] w-[100%] flex-col items-center bg-bg_gray">
+  //       <Navbar cartItemsLength={courses?.length} />
+  //       <HeroSection />
+  //       <SkillsList />
+  //       <Courses heading="Find the courses that fit you" />
+  //       <PromotionalList />
+  //       <Footer />
+  //     </div>
+  //   </>
+  // );
   return (
-    <>
-      <div className="flex h-[100%] w-[100%] flex-col items-center bg-bg_gray">
-        <Navbar cartItemsLength={courses?.length} />
-        <HeroSection />
-        <SkillsList />
-        <Courses heading="Find the courses that fit you" />
-        <PromotionalList />
-        <Footer />
-      </div>
-    </>
+    <div className="home-container home-container mx-auto max-w-[120em] space-y-12 font-satoshi">
+      {/* <CoursePlatforms /> */}
+      <CareerCounselling />
+      <ExploreCoursesAndBootcamps />
+      <CoursesSection />
+
+      {/* Globe section remaining */}
+      {/* <LearningSection /> */}
+      <HomePageReviews />
+      <HomepageFooter />
+    </div>
   );
 };
 
