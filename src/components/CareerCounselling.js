@@ -2,11 +2,13 @@ import React from "react";
 import Image from "next/image";
 import ButtonWithIcon from "./ButtonWithIcon";
 import PointerDiv from "./PointerDiv";
+import HomePageNavbar from "./HomePageNavbar";
 
 const CareerCounselling = () => {
   return (
-    <section className="relative bg-gray-50 px-4 py-16 lg:px-20">
-      <div className="mx-auto max-w-7xl">
+    <section className="relative bg-gray-50 px-4 py-16 !pt-4 lg:px-20">
+      <HomePageNavbar className={"!mt-0"} />
+      <div className="mx-auto mt-8 max-w-7xl">
         <div className="mb-12 text-center">
           <span className="rounded-full border border-purple-500 p-2 px-4 text-sm font-semibold text-purple-500">
             Career Counselling
