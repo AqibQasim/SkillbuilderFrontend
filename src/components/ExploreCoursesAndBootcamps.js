@@ -13,7 +13,6 @@ function ExploreCoursesAndBootcamps() {
   );
 
   useEffect(() => {
-    console.log("effect to run?");
     dispatch(getAllLiveSessionCourses());
   }, []);
 

@@ -38,7 +38,7 @@ const Bootcamp = () => {
 
   useEffect(() => {
     dispatch(getAllLiveSessionCourses());
-  }, [dispatch]);
+  }, []);
 
   if (!isClient) {
     return (
@@ -115,11 +115,14 @@ const Bootcamp = () => {
           </div>
         </div>
         <div className="mx-auto mt-16 grid max-w-screen-xl gap-3 xl:grid-cols-4 max-xlg:grid-cols-3">
-          {Array(8)
+          {liveSessionCourses?.map((course, i) => (
+            <LiveCoursesCard course={course} />
+          ))}
+          {/* {Array(8)
             .fill(null)
             .map((_, index) => (
-              <LiveCoursesCard key={index} />
-            ))}
+              <LiveCoursesCard course={course} key={index} />
+            ))} */}
         </div>
         <div class="bg-gray-50 py-12">
           <div class="mx-auto max-w-screen-xl px-4">
