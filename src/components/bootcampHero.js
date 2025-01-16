@@ -1,7 +1,7 @@
 import React from "react";
 import Image from "next/image";
 
-const BootcampHero = ({title, subtitle, tagline}) => {
+const BootcampHero = ({ title, subtitle, tagline }) => {
   return (
     <div className="mx-auto w-[95%]">
       <div className="relative overflow-hidden rounded-xl">
@@ -13,12 +13,11 @@ const BootcampHero = ({title, subtitle, tagline}) => {
           height={1080}
           className="rounded-xl"
         />
-        {/* Black Overlay */}
-        <div className="bg-black absolute inset-0 z-10 opacity-50"></div>
-        {/* Text */}
-        <div className="absolute inset-0 z-20 flex w-[35%] flex-col items-start justify-center">
+        <div className="bg-black pointer-events-none absolute inset-0 z-10 rounded-xl bg-opacity-60"></div>
+
+        <div className="absolute inset-0 z-20 flex w-[35%] flex-col items-start justify-center max-lsm:w-[100%]">
           <span className="mx-8 mb-1 rounded-full border border-white p-1 px-3 text-xs font-semibold text-white">
-            { tagline || "Why you need SkillBuilder" }
+            {tagline || "Why you need SkillBuilder"}
           </span>
           <h1 className="px-8 text-start text-3xl font-bold text-white">
             {title ||
