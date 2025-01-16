@@ -5,7 +5,7 @@ import LayoutWidth from "./LayoutWidth";
 import LayoutXPadding from "./LayoutXPadding";
 import { useRouter } from "next/router";
 
-const HomepageFooter = () => {
+const HomepageFooter = ({ className }) => {
   const router = useRouter();
 
   useEffect(() => {
@@ -20,7 +20,7 @@ const HomepageFooter = () => {
 
   return (
     <LayoutXPadding>
-      <footer className="">
+      <footer className={`${className} `}>
         <div className="top flex items-start justify-between max-sm:flex-wrap max-sm:gap-4">
           <div className="left">
             <Image src="/logo.svg" className="imba" width={180} height={35} />
