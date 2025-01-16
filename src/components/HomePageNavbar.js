@@ -10,29 +10,31 @@ import SmallScreenMenu from "./SmallScreenMenu";
 import SmallScreenSearch from "./SmallScreenSearch";
 import User from "./User";
 
-function HomePageNavbar() {
+function HomePageNavbar({ className }) {
   const [menu, setMenu] = useState(false);
   const router = useRouter();
   const { pathname } = router;
   console.log("pathName", pathname);
   const links = [
-    { href: "/home", title: "Home" },
-    { href: "courses", title: "Courses" },
-    { href: "counseling", title: "Counseling" },
-    { href: "career", title: "Career" },
-    { href: "about", title: "About" },
+    { href: "/", title: "Home" },
+    { href: "/courses", title: "Courses" },
+    { href: "/counseling", title: "Counseling" },
+    { href: "/live-session", title: "Live session" },
+    { href: "/about", title: "About" },
   ];
 
   console.log("Menu", menu);
 
   const courses = useSelector((state) => state.cart.items);
-  
+
   const routeToShoppingCartHandler = () => {
     router.push("/shoppingcart");
   };
 
   return (
-    <nav className="navbar grid grid-cols-[1fr_max-content] grid-rows-2 rounded-[3.125rem] bg-white py-[0.625rem] pl-6 pr-3 shadow-[inset_0_0_0_1px_#F2F2F2] xlg:grid-cols-[max-content_1fr_max-content] xlg:grid-rows-1">
+    <nav
+      className={`${className} navbar mt-4 grid grid-cols-[1fr_max-content] grid-rows-2 rounded-[3.125rem] bg-white py-[0.625rem] pl-6 pr-3 shadow-[inset_0_0_0_1px_#F2F2F2] md:mt-11 xlg:grid-cols-[max-content_1fr_max-content] xlg:grid-rows-1`}
+    >
       <div className="logo flex min-w-40 items-center justify-start">
         <Image src="/logo.svg" width={160} height={160} alt="Logo" />
       </div>
@@ -75,13 +77,12 @@ function HomePageNavbar() {
           </svg>
         </ButtonSecond>
         <div className="hidden lg:block">
-              <User
-                cartItemsLength={courses.length}
-                cartClickHandler={routeToShoppingCartHandler}
-              />
-            </div>
+          <User
+            cartItemsLength={courses.length}
+            cartClickHandler={routeToShoppingCartHandler}
+          />
+        </div>
         {/* <ButtonSecond className="text-nowrap">Sign in</ButtonSecond> */}
-   
       </div>
 
       <SmallScreenButton className="z-[9999]" menu={menu} setMenu={setMenu} />
