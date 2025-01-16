@@ -1,5 +1,6 @@
 import BootcampHero from "@/components/bootcampHero";
 import Footer from "@/components/Footer";
+import HomepageFooter from "@/components/HomepageFooter";
 import HomePageNavbar from "@/components/HomePageNavbar";
 import LayoutXPadding from "@/components/LayoutXPadding";
 import LiveCoursesCard from "@/components/LiveCoursesCard";
@@ -110,89 +111,90 @@ const Bootcamp = () => {
               <LiveCoursesCard key={index} />
             ))}
         </div>
-           <div class="bg-gray-50 py-12">
-           <div class="max-w-screen-xl mx-auto px-4">
-             <h2 class="text-3xl font-bold text-gray-900 ">
-               Why 100+ designers train with Memorise.ly
-             </h2>
-             <p class="mt-3 text-gray-600 ">
-               Explore courses from experienced, real-world experts.
-             </p>
-             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mt-10">
-               {/* <!-- Card 1 --> */}
-               <div class="bg-white rounded-lg shadow-md p-6">
-                 <div class=" mb-4">
-                   <div class="w-3 h-3 rounded-full mb-4 bg-red-500"></div>
-                   <h3 class="text-lg font-semibold text-gray-900">Live Figma classes</h3>
-                 </div>
-                 <p class="text-sm text-gray-600 mb-12">
-                   Study practical UX/UI skills with live classes that are 100% practical.
-                 </p>
-                 <div class="w-full overflow-hidden rounded-lg">
-                       <Image
-                                     className="size-full"
-                                     src={"/live-session.png"}
-                                     width={500}
-                                     height={250}
-                                   />
-                   
-                 </div>
-               </div>
-               {/* <!-- Card 2 --> */}
-               <div class="bg-white rounded-lg shadow-md p-6">
-                 <div class=" mb-4">
-                   <div class="w-3 h-3 rounded-full mb-4 bg-red-500"></div>
-                   <h3 class="text-lg font-semibold text-gray-900">Career mentorship</h3>
-                 </div>
-                 <p class="text-sm text-gray-600 mb-12">
-                   Gain career mentorship from real teams and community in 90+ countries.
-                 </p>
-                 <div class="w-full h-[57.5%]  overflow-hidden rounded-lg">
-                 <Image
-                                     className="size-full "
-                                     src={"/live-session2.png"}
-                                     width={500}
-                                     height={400} 
-                                   />
-                   
-                   
-                 </div>
-               </div>
-               {/* <!-- Card 3 --> */}
-               <div class="bg-white rounded-lg shadow-md px-6 pb-6 pt-4">
-                
-                   <div class=" rounded-full mb-1">
-                   <Image
-                                     className=""
-                                     src={"/cape.png"}
-                                     width={50}
-                                     height={30}
-                                   />
-                   
-                   </div>
-         
-                   <h3 class="text-lg font-semibold text-gray-900 mb-2">Certification</h3>
-                 <p class="text-sm text-gray-600 mb-10">
-                   Graduate with a UX/UI Design certification from Memorise.ly.
-                 </p>
-                 <div class="w-full overflow-hidden rounded-lg">
-                 <Image
-                                     className="size-full"
-                                     src={"/live-session1.png"}
-                                     width={500}
-                                     height={250}
-                                   />
-                   
-                 </div>
-               </div>
-             </div>
-           </div>
-         </div>
-          
+        <div class="bg-gray-50 py-12">
+          <div class="mx-auto max-w-screen-xl px-4">
+            <h2 class="text-3xl font-bold text-gray-900">
+              Why 100+ designers train with Memorise.ly
+            </h2>
+            <p class="mt-3 text-gray-600">
+              Explore courses from experienced, real-world experts.
+            </p>
+            <div class="mt-10 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
+              {/* <!-- Card 1 --> */}
+              <div class="rounded-lg bg-white p-6 shadow-md">
+                <div class="mb-4">
+                  <div class="mb-4 h-3 w-3 rounded-full bg-red-500"></div>
+                  <h3 class="text-lg font-semibold text-gray-900">
+                    Live Figma classes
+                  </h3>
+                </div>
+                <p class="mb-12 text-sm text-gray-600">
+                  Study practical UX/UI skills with live classes that are 100%
+                  practical.
+                </p>
+                <div class="w-full overflow-hidden rounded-lg">
+                  <Image
+                    className="size-full"
+                    src={"/live-session.png"}
+                    width={500}
+                    height={250}
+                  />
+                </div>
+              </div>
+              {/* <!-- Card 2 --> */}
+              <div class="rounded-lg bg-white p-6 shadow-md">
+                <div class="mb-4">
+                  <div class="mb-4 h-3 w-3 rounded-full bg-red-500"></div>
+                  <h3 class="text-lg font-semibold text-gray-900">
+                    Career mentorship
+                  </h3>
+                </div>
+                <p class="mb-12 text-sm text-gray-600">
+                  Gain career mentorship from real teams and community in 90+
+                  countries.
+                </p>
+                <div class="h-[57.5%] w-full overflow-hidden rounded-lg">
+                  <Image
+                    className="size-full"
+                    src={"/live-session2.png"}
+                    width={500}
+                    height={400}
+                  />
+                </div>
+              </div>
+              {/* <!-- Card 3 --> */}
+              <div class="rounded-lg bg-white px-6 pb-6 pt-4 shadow-md">
+                <div class="mb-1 rounded-full">
+                  <Image
+                    className=""
+                    src={"/cape.png"}
+                    width={50}
+                    height={30}
+                  />
+                </div>
 
+                <h3 class="mb-2 text-lg font-semibold text-gray-900">
+                  Certification
+                </h3>
+                <p class="mb-10 text-sm text-gray-600">
+                  Graduate with a UX/UI Design certification from Memorise.ly.
+                </p>
+                <div class="w-full overflow-hidden rounded-lg">
+                  <Image
+                    className="size-full"
+                    src={"/live-session1.png"}
+                    width={500}
+                    height={250}
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
 
-      <Footer />
+      {/* <Footer /> */}
+      <HomepageFooter />
     </div>
   );
 };
