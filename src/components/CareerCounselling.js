@@ -9,14 +9,14 @@ const CareerCounselling = () => {
       <div className="mx-auto max-w-7xl">
         <div className="mb-12 text-center">
           <span className="rounded-full border border-purple-500 p-2 px-4 text-sm font-semibold text-purple-500">
-            Career Counseling
+            Career Counselling
           </span>
           <h2 className="mx-auto mt-4 max-w-[70%] text-3xl font-bold text-gray-900 lg:text-5xl">
             1-on-1 sessions with certified career coaches.
           </h2>
           <p className="mx-auto mt-4 text-gray-400">
             Struggling to understand where to focus? A personalized career
-            counseling session can provide clear guidance tailored to your
+            Counselling session can provide clear guidance tailored to your
             profile.
           </p>
         </div>
@@ -24,7 +24,7 @@ const CareerCounselling = () => {
           <div className="relative overflow-hidden rounded-lg border border-gray-200 shadow-lg">
             <Image
               src="/Career.png"
-              alt="Career Counseling Session"
+              alt="Career Counselling Session"
               width={400}
               height={225}
               className="h-auto w-full object-cover"

@@ -18,8 +18,8 @@ function HomePageNavbar({ className }) {
   const links = [
     { href: "/", title: "Home" },
     { href: "/courses", title: "Courses" },
-    { href: "/counseling", title: "Counseling" },
-    { href: "/live-session", title: "Live session" },
+    { href: "/counselling", title: "Counselling" },
+    { href: "/bootcamp", title: "Live session" },
     { href: "/about", title: "About" },
   ];
 

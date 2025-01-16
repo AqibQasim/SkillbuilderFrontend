@@ -3,7 +3,7 @@ import CareerCounselling from "@/components/CareerCounselling";
 import HomePageNavbar from "@/components/HomePageNavbar";
 import LayoutXPadding from "@/components/LayoutXPadding";
 
-const counseling = () => {
+const Counselling = () => {
   return (
     <>
       {/* <HomePageNavbar /> */}
@@ -12,4 +12,4 @@ const counseling = () => {
   );
 };
 
-export default counseling;
+export default Counselling;
