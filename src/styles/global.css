@@ -19,6 +19,12 @@
   @apply bg-delete text-delete-text;
 }
 
+.skew-top {
+  position: relative;
+  background-color: lightblue;
+  clip-path: polygon(56px 0, calc(100% - 56px) 0, 100% 100%, 0 100%);
+}
+
 progress {
   border-radius: 7px;
   height: 5px;
@@ -114,6 +120,47 @@ iframe {
       #0000 25%,
       #000 0
     );
+}
+
+/* HTML: <div class="sector"></div> */
+.sector {
+  --s: 0deg; /* starting angle */
+  --p: 270deg; /* filling angle */
+
+  height: 250px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: #659bfd;
+  /* switch #0000 and #000 to get the opposite shape */
+  mask: conic-gradient(
+    from var(--s),
+    #0000,
+    #000 1deg var(--p),
+    #0000 calc(var(--p) + 1deg)
+  );
+}
+
+/* HTML: <div class="curved-rectangle"></div> */
+.curved-rectangle {
+  --c: 85; /* control the curvature (a percentage value without unit bigger than 50%)*/
+
+  width: 250px;
+  aspect-ratio: 3/2;
+  background: #a7237b;
+  mask: radial-gradient(
+    calc(var(--c) * 1%) 100% at 50% calc(-100% * cos(asin(50 / var(--c)))),
+    #0000 calc(100% - 1px),
+    #000
+  );
+  clip-path: ellipse(calc(var(--c) * 1%) 100% at top);
+}
+
+.border-shape {
+  border-radius: 100% 0% 0% 100% / 100% 0% 100% 0%;
+}
+
+.border-shape-2 {
+  border-radius: 0% 100% 100% 0% / 100% 0% 100% 0%;
 }
 
 .explore-courses-swiper > div {

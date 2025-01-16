@@ -1,6 +1,32 @@
+import { useEffect } from "react";
 import ButtonWithIcon from "./ButtonWithIcon";
+import { useSelector } from "react-redux";
+import { useState } from "react";
 
-export default function BootcampSection() {
+
+export default function BootcampSection({course}) {
+  const userId = useSelector((state) => state.auth.user);
+  const [coursePurchased, setCoursePurchased] = useState(false)
+
+  useEffect(() => {
+    if (userId && course?.course_id) {
+      const fetchData = async () => {
+        const res = await fetch(
+          `${process.env.NEXT_PUBLIC_BASE_API}/get-live-session-course-payment-of-student?student_id=${userId}&course_id=${course?.course_id}`,
+        );
+
+        const data = await res.json();
+
+        if(data?.message === "live courses"){
+          setCoursePurchased(true)
+        }
+      }
+
+      fetchData()
+    }
+  }, [userId, course?.course_id])
+
+
   return (
     <section className="bg-gray-50 px-6 md:px-12 lg:px-20">
       <div className="mx-auto grid max-w-7xl grid-cols-1 items-center gap-10 md:grid-cols-2">
@@ -23,15 +49,13 @@ export default function BootcampSection() {
               ))}
             </div>
           </div>
-          <h1 className="mb-6 text-4xl font-bold text-gray-900">
-            Computer Science Bootcamp
-          </h1>
+          {course && (
+            <h1 className="mb-6 text-4xl font-bold text-gray-900">
+              {course?.title || "title not found"}
+            </h1>
+          )}
           <p className="mb-4 font-medium leading-relaxed text-gray-600">
-            In-depth intensive study of Computer Science foundational topics,
-            for building your knowledge of key computing principles. An
-            excellent introduction to the fundamentals of computer science for
-            those looking to pursue further study in a specialized field like
-            computer degree courses in the future.
+            {course?.description || "description not found"}
           </p>
           <p className="mb-6 text-lg font-semibold text-gray-700">
             60% Live Instructor-led online training, 40% On-demand flexible
@@ -57,7 +81,29 @@ export default function BootcampSection() {
             </div>
           </div>
           {/* Enroll Now Button */}
-          <ButtonWithIcon text="Enroll now" className="text-nowrap" />
+          <form
+            className="w-full"
+            action="/api/checkout_session_bootcamp"
+            method="POST"
+          >
+            <input
+              type="hidden"
+              name="instructor_id"
+              value={course?.instructor_id}
+            />
+            <input type="hidden" name="course_title" value={course?.title} />
+            <input
+              type="hidden"
+              name="course_description"
+              value={course?.description}
+            />
+            <input type="hidden" name="amount" value={course?.price} />
+            <input type="hidden" name="student_id" value={userId} />
+            <input type="hidden" name="course_id" value={course?.course_id} />
+
+            { !coursePurchased ? <ButtonWithIcon text="Enroll now" className="text-nowrap" /> : <span>You have already purchased this course!</span>}
+          </form>
+
           {/* <button className="rounded-lg bg-blue-600 px-6 py-3 text-lg text-white shadow-lg hover:bg-blue-700">
             Enroll Now →
           </button> */}

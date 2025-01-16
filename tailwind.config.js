@@ -17,9 +17,11 @@ module.exports = {
       boxShadow: {
         "custom-input": "0 4px 6px rgba(56, 71, 255, 0.11)",
         "inner-custom": "inset 0 0 4px 2px rgba(0, 0, 0, 0.25)",
+        "showcase-inner": "inset 0 -36px 80px 0 rgba(148, 184, 255, 0.9)",
       },
       borderRadius: {
         "tl-br": "var(--tw-border-radius-tl-br)",
+        "showcase-image": "5% 5% 0% 0% / 100% 100% 0% 0%",
       },
       fontFamily: {
         satoshi: ["var(--font-satoshi)"],
