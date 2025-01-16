@@ -99,6 +99,18 @@ const Navbar = ({ cartItemsLength }) => {
               </Link>
               <Link
                 // className={
+                //   // currentTab === "courses"
+                //   pathname === "/courses"
+                //     ? `rounded-lg bg-bg_gray px-[1.2rem] py-2 font-semibold text-blue lg:px-[0.5rem] lg:px-[0.8rem]`
+                //     : `px-[1.2rem] py-2 lg:px-[0.5rem]`
+                // }
+                className={`rounded-lg px-[1.2rem] py-2 font-semibold lg:px-[0.8rem] ${pathname === "/recordedcourses" ? `bg-bg_gray text-blue` : ""} `}
+                href="/recordedcourses"
+              >
+                RecordedCourses
+              </Link>
+              <Link
+                // className={
                 //   // currentTab === "about"
                 //   pathname === "/about"
                 //     ? `rounded-lg bg-bg_gray px-[1.2rem] py-2 font-semibold text-blue lg:px-[0.5rem] lg:px-[0.8rem]`
@@ -175,6 +187,9 @@ const Navbar = ({ cartItemsLength }) => {
               </Link>
               <Link className="px-[1.2rem] py-2 lg:px-[0.5rem]" href="/courses">
                 Courses
+              </Link>
+              <Link className="px-[1.2rem] py-2 lg:px-[0.5rem]" href="/recordedcourses">
+               Recorded Courses
               </Link>
               <Link className="px-[1.2rem] py-2 lg:px-[0.5rem]" href="/about">
                 About Us

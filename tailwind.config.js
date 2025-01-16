@@ -92,6 +92,9 @@ module.exports = {
         bg_gray: {
           DEFAULT: "#F3F5FA",
         },
+        pink: {
+          DEFAULT: "#F9F2F2",
+        },
         blue: {
           DEFAULT: "#0038FF",
         },
