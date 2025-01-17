@@ -37,7 +37,10 @@ export function ExploreCoursesCard({ className, course }) {
       className={`${className} explore-courses-card group relative grid max-w-[25.25rem] grid-rows-[13.375rem_1fr] overflow-hidden rounded-[0.875rem]`}
     >
       <div className="explore-courses-card-image relative row-span-1 rounded-[0.875rem] bg-slate-400">
-        <ImageCssBg className="rounded-t-[0.875rem]" src="/dummyImg.svg" />
+        <ImageCssBg
+          className="rounded-t-[0.875rem]"
+          src={course?.image || "/live_session_dummy_image.png"}
+        />
       </div>
       <div className="explore-courses-card-content inverted-radius relative -top-4 h-[calc(100%+1rem)] rounded-[0.875rem] px-5 py-4 !pb-0 group-[.is-even]:bg-[#B0f1F2] group-[.is-odd]:bg-[#B0B1F2]">
         <h2 className="text-xl font-bold text-[#2C2C2C]">
