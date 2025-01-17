@@ -2,10 +2,12 @@ import { useEffect } from "react";
 import ButtonWithIcon from "./ButtonWithIcon";
 import { useSelector } from "react-redux";
 import { useState } from "react";
+import StarRating from "./StarRating";
 
 export default function BootcampSection({ course }) {
   const userId = useSelector((state) => state.auth.user);
   const [coursePurchased, setCoursePurchased] = useState(false);
+  console.log("course is here?", course);
 
   useEffect(() => {
     if (userId && course?.course_id) {
@@ -30,23 +32,28 @@ export default function BootcampSection({ course }) {
       <div className="mx-auto grid max-w-7xl grid-cols-1 items-center gap-10 md:grid-cols-2">
         {/* Left Content */}
         <div>
-          <div className="mb-4 flex w-[8rem] items-center gap-2 rounded-3xl bg-gray-200 px-2 py-1">
-            <span className="text-md font-semibold">4.8</span>
-            <div className="flex text-yellow-400">
-              {/* Star Rating */}
-              {Array.from({ length: 5 }).map((_, i) => (
-                <svg
-                  key={i}
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="currentColor"
-                  viewBox="0 0 24 24"
-                  className="h-4 w-4"
-                >
-                  <path d="M12 2.25l2.788 8.568h9.012L16.9 15.307l3.374 9.443-7.274-5.239-7.274 5.239 3.374-9.443L.2 10.818h9.012L12 2.25z" />
-                </svg>
-              ))}
+          {/* rating */}
+          {course?.rating ? (
+            <div className="mb-4 flex w-max items-center gap-2 rounded-3xl bg-gray-200 px-2 py-1">
+              <span className="text-md font-semibold">{course?.rating}</span>
+              <div className="flex text-yellow-400">
+                <StarRating rating={course?.rating || 0} />
+                {/* Star Rating */}
+                {/* {Array.from({ length: 5 }).map((_, i) => (
+                  <svg
+                    key={i}
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="currentColor"
+                    viewBox="0 0 24 24"
+                    className="h-4 w-4"
+                  >
+                    <path d="M12 2.25l2.788 8.568h9.012L16.9 15.307l3.374 9.443-7.274-5.239-7.274 5.239 3.374-9.443L.2 10.818h9.012L12 2.25z" />
+                  </svg>
+                ))} */}
+              </div>
             </div>
-          </div>
+          ) : null}
+
           {course && (
             <h1 className="mb-6 text-4xl font-bold text-gray-900">
               {course?.title || "title not found"}
