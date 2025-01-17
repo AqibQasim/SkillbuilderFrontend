@@ -27,7 +27,7 @@ function CoursePlatforms() {
             <div className="left-shadow pointer-events-none absolute bottom-0 left-0 z-[2] h-full w-28 bg-gradient-to-r from-white from-15%"></div>
             <div className="right-shadow pointer-events-none absolute bottom-0 right-0 z-[2] h-full w-28 bg-gradient-to-l from-white from-15%"></div>
             <div className="icons relative z-[1] flex items-center overflow-hidden whitespace-nowrap">
-              <div className={`logos flex gap-8 md:gap-10 xl:gap-16`}>
+              <div className={`logos2 flex gap-8 md:gap-10 xl:gap-16`}>
                 {images.map((image, index) => (
                   <Image
                     key={image + index}
