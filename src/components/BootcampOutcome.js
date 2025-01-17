@@ -11,7 +11,8 @@ const CourseCard = ({ course }) => {
             This course includes:
           </h2>
           <h1 className="mt-2 text-2xl font-bold text-gray-900 md:text-3xl">
-            Computer Science Bootcamp
+            {/* Computer Science Bootcamp */}
+            {course?.title || "Title"}
           </h1>
           <p className="mt-1 text-sm text-gray-600 md:text-base">
             Weekly breakdown: 8 sessions per week. Approximately 19 hours of

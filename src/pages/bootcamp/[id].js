@@ -16,6 +16,7 @@ const page = () => {
   const { id } = router.query;
   const dispatch = useDispatch();
   const course = useSelector((state) => state.liveSessionSingleCourse.data);
+  const tutor = course?.instructor;
 
   useEffect(() => {
     if (!id || course?.id === id) return;
@@ -31,8 +32,8 @@ const page = () => {
       <BootcampHero />
       <BootcampSection course={course} />
       <BootcampOutcome course={course} />
-      <BootcampModule />
-      <BootcampTutor />
+      <BootcampModule course={course} />
+      <BootcampTutor tutor={tutor || {}} />
       <BootcampRecommended />
       <HomepageFooter />
     </div>
