@@ -98,7 +98,8 @@ export function ExploreCoursesCard({ className, course }) {
         </div>
       </div>
       <Link
-        href={"/home"}
+        // href={"/home"}
+        href={`/bootcamp/${course?.id}`}
         className="link absolute bottom-0 right-0 flex size-[3.75rem] items-center justify-center rounded-[0.875rem] rounded-tl-[3rem] bg-[#B0B1F2] text-black-shade-1 group-[.is-even]:bg-[#B0f1F2]"
       >
         <Image src="/link_arrow.svg" height={18.5} width={18.5} />
