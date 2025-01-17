@@ -4,6 +4,7 @@ import ytAuthReducer from "../slices/accessToken.js";
 import cartReducer from "../slices/addToCart";
 import coursesReducer from "../slices/allCoursesSlice";
 import liveSessionCoursesReducer from "../slices/liveSessionCoursesSlice";
+import liveSessionSingleCourseReducer from "../slices/liveSessionSingleCourseSlice";
 import approvedCoursesReducer from "../slices/allApprovedCoursesSlice";
 import allInstructorsReducer from "../slices/allInstructorsSlice";
 import studentsSlice from "../slices/allStudentsSlice";
@@ -106,6 +107,7 @@ export const store = configureStore({
     instructorIntroVideo: instructorIntroVideoSlice,
     approvedCourses: approvedCoursesReducer,
     liveSessionCourses: liveSessionCoursesReducer,
+    liveSessionSingleCourse: liveSessionSingleCourseReducer,
     studentEnrolledCoursesForOneInstructor:
       studentEnrolledCoursesForOneInstructorSlice,
     fetchNotificationStudent: fetchNotificationStudentSlice,

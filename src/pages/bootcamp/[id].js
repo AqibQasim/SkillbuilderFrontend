@@ -1,53 +1,35 @@
-import React, { useEffect } from "react";
-import Banner from "@/components/Banner";
 import BootcampHero from "@/components/bootcampHero";
-import HomePageNavbar from "@/components/HomePageNavbar";
-import Showcase from "@/components/Showcase";
-import BootcampSection from "@/components/BootcampSection";
-import BootcampOutcome from "@/components/BootcampOutcome";
-import CourseModules from "@/components/CourseModule";
 import BootcampModule from "@/components/BootcampModule";
-import { useRouter } from "next/router";
-import { useState } from "react";
-import BootcampTutor from "@/components/BootcampTutor";
+import BootcampOutcome from "@/components/BootcampOutcome";
 import BootcampRecommended from "@/components/BootcampRecommendedd";
+import BootcampSection from "@/components/BootcampSection";
+import BootcampTutor from "@/components/BootcampTutor";
 import HomepageFooter from "@/components/HomepageFooter";
+import HomePageNavbar from "@/components/HomePageNavbar";
+import { useRouter } from "next/router";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { getOneLiveSessionCourse } from "../../../redux/thunks/liveSessionCourseThunk";
 
 const page = () => {
   const router = useRouter();
   const { id } = router.query;
-  const [course, setCourse] = useState(null);
+  const dispatch = useDispatch();
+  const course = useSelector((state) => state.liveSessionSingleCourse.data);
 
   useEffect(() => {
-    if (id) {
-      const fetchData = async () => {
-        const res = await fetch(
-          `${process.env.NEXT_PUBLIC_BASE_API}/get-live-session-course/${id}`,
-        );
-
-        const data = await res.json();
-
-        // Transform the data to match the structure expected by the component
-        setCourse({
-          instructor_id: data?.data?.instructor_id,
-          course_id: data?.data?.id,
-          title: data?.data?.title,
-          description: data?.data?.description,
-          price: parseFloat(data?.data?.amount),
-          buyDate: new Date(data?.data?.created_at).toLocaleDateString(),
-        });
-      };
-
-      fetchData();
-    }
+    if (!id || course?.id === id) return;
+    dispatch(getOneLiveSessionCourse(id));
   }, [id]);
 
   return (
     <div className="home-container mx-auto max-w-[120em] space-y-12 font-satoshi">
-      <Banner />
-      <HomePageNavbar />
+      {/* <Banner /> */}
+      <div className="mx-auto max-w-[95%]">
+        <HomePageNavbar />
+      </div>
       <BootcampHero />
-      <BootcampSection />
+      <BootcampSection course={course} />
       <BootcampOutcome course={course} />
       <BootcampModule />
       <BootcampTutor />
