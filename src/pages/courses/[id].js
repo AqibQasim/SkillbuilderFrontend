@@ -13,7 +13,8 @@ import { fetchOneInstructor } from "../../../redux/thunks/instructorThunk";
 import { fetchOneUser } from "../../../redux/thunks/userInfoThunk";
 import { fetchAllReviews } from "../../../redux/thunks/reviewsThunk";
 import Loader from "@/components/Loader";
-
+import HomePageNavbar from "@/components/HomePageNavbar";
+import LayoutXPadding from "@/components/LayoutXPadding";
 
 const CourseDetails = () => {
   const router = useRouter();
@@ -72,8 +73,14 @@ const CourseDetails = () => {
   }
 
   return (
-    <div className="h-full w-full bg-bg_gray">
-      <Navbar cartItemsLength={courses?.length} />
+    <div className="w-full bg-bg_gray">
+      {/* <Navbar cartItemsLength={courses?.length} /> */}
+      <LayoutXPadding>
+        <div className="pt-4">
+          <HomePageNavbar className="!mt-0" />
+        </div>
+      </LayoutXPadding>
+
       <div className="path-wrapper mx-auto mb-8 mt-16 w-[90%] max-w-screen-2xl">
         <CurrentPath dynamicPath={course.title} />
       </div>
