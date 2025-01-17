@@ -1,6 +1,7 @@
 import React from "react";
 
-const CourseCard = () => {
+const CourseCard = ({ course }) => {
+  const learningOutcome = course?.learning_outcomes || [];
   return (
     <div className="mx-auto max-w-[80%] rounded-lg border-4 border-gray-200 bg-white p-6 shadow-lg md:p-10">
       <div className="flex flex-col gap-8 md:flex-row">
@@ -46,42 +47,16 @@ const CourseCard = () => {
             By joining this course, you will be able to:
           </h3>
           <ul className="mt-4 space-y-3">
-            <li className="flex items-start">
-              <span className="mt-1 text-green-500">
-                <i className="fas fa-check-circle"></i>
-              </span>
-              <p className="ml-2 text-sm text-gray-700 md:text-base">
-                Describe in general terms the components of a computer and
-                operating systems, their functions and purposes
-              </p>
-            </li>
-            <li className="flex items-start">
-              <span className="mt-1 text-green-500">
-                <i className="fas fa-check-circle"></i>
-              </span>
-              <p className="ml-2 text-sm text-gray-700 md:text-base">
-                Provide definitions and uses of a CPU, memory, and the bus
-                system
-              </p>
-            </li>
-            <li className="flex items-start">
-              <span className="mt-1 text-green-500">
-                <i className="fas fa-check-circle"></i>
-              </span>
-              <p className="ml-2 text-sm text-gray-700 md:text-base">
-                Solve process scheduling and other resource-sharing problems
-                common to operating systems
-              </p>
-            </li>
-            <li className="flex items-start">
-              <span className="mt-1 text-green-500">
-                <i className="fas fa-check-circle"></i>
-              </span>
-              <p className="ml-2 text-sm text-gray-700 md:text-base">
-                Demonstrate an understanding of visualization tools and their
-                usefulness to a user
-              </p>
-            </li>
+            {learningOutcome.map((outcome) => (
+              <li className="flex items-start">
+                <span className="mt-1 text-green-500">
+                  <i className="fas fa-check-circle"></i>
+                </span>
+                <p className="ml-2 text-sm text-gray-700 md:text-base">
+                  {outcome}
+                </p>
+              </li>
+            ))}
           </ul>
         </div>
       </div>

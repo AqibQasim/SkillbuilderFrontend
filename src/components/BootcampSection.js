@@ -33,13 +33,12 @@ export default function BootcampSection({ course }) {
         {/* Left Content */}
         <div>
           {/* rating */}
-          {course?.rating ? (
-            <div className="mb-4 flex w-max items-center gap-2 rounded-3xl bg-gray-200 px-2 py-1">
-              <span className="text-md font-semibold">{course?.rating}</span>
-              <div className="flex text-yellow-400">
-                <StarRating rating={course?.rating || 0} />
-                {/* Star Rating */}
-                {/* {Array.from({ length: 5 }).map((_, i) => (
+          <div className="mb-4 flex w-max items-center gap-2 rounded-3xl bg-gray-200 px-2 py-1">
+            <span className="text-md font-semibold">{course?.rating || 0}</span>
+            <div className="flex text-yellow-400">
+              <StarRating rating={course?.rating || 0} />
+              {/* Star Rating */}
+              {/* {Array.from({ length: 5 }).map((_, i) => (
                   <svg
                     key={i}
                     xmlns="http://www.w3.org/2000/svg"
@@ -50,9 +49,8 @@ export default function BootcampSection({ course }) {
                     <path d="M12 2.25l2.788 8.568h9.012L16.9 15.307l3.374 9.443-7.274-5.239-7.274 5.239 3.374-9.443L.2 10.818h9.012L12 2.25z" />
                   </svg>
                 ))} */}
-              </div>
             </div>
-          ) : null}
+          </div>
 
           {course && (
             <h1 className="mb-6 text-4xl font-bold text-gray-900">
