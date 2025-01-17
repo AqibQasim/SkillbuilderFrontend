@@ -65,7 +65,7 @@ const Bootcamp = () => {
         }
         tagline={"Courses"}
       />
-      <div class="bg-gray-50 py-10">
+      <div class="bg-gray-50 pt-10">
         <div className="mx-auto max-w-screen-xl px-4">
           <h2 class="text-3xl font-bold text-gray-900">
             Live online UX/UI Design <br /> Bootcamps
