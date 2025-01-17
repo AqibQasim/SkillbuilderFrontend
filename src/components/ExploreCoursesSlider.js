@@ -4,6 +4,7 @@ import "swiper/css";
 import "swiper/css/pagination";
 import { Swiper, SwiperSlide } from "swiper/react";
 import ImageCssBg from "./ImageCssBg";
+import cardBottomImage from "../../public/subtract.png";
 
 function ExploreCoursesSlider({ liveSessionCourses }) {
   return (
@@ -42,7 +43,16 @@ export function ExploreCoursesCard({ className, course }) {
           src={course?.image || "/live_session_dummy_image.png"}
         />
       </div>
-      <div className="explore-courses-card-content inverted-radius relative -top-4 h-[calc(100%+1rem)] rounded-[0.875rem] px-5 py-4 !pb-0 group-[.is-even]:bg-[#B0f1F2] group-[.is-odd]:bg-[#B0B1F2]">
+      {/* <div className="explore-courses-card-content inverted-radius relative -top-4 h-[calc(100%+1rem)] rounded-[0.875rem] px-5 py-4 !pb-0 group-[.is-even]:bg-[#B0f1F2] group-[.is-odd]:bg-[#B0B1F2]"> */}
+      <div className="explore-courses-card-content relative -top-4 h-[calc(100%+1rem)] rounded-[0.875rem] px-5 py-4 !pb-0">
+        <div className="image absolute bottom-0 left-0 z-[-1] size-full rounded-t-[0.875rem] bg-[rgba(186,186,186,0.2)]">
+          <div className="absolute -top-5 left-0 h-10 w-full bg-[#B0B1F2]"></div>
+          <ImageCssBg
+            src={cardBottomImage}
+            alt={"card bottom bg image"}
+            className="object-cover object-bottom"
+          />
+        </div>
         <h2 className="text-xl font-bold text-[#2C2C2C]">
           {course?.title ||
             `Master Interaction Design: Creating Seamless use...`}
@@ -103,7 +113,8 @@ export function ExploreCoursesCard({ className, course }) {
       <Link
         // href={"/home"}
         href={`/bootcamp/${course?.id}`}
-        className="link absolute bottom-0 right-0 flex size-[3.75rem] items-center justify-center rounded-[0.875rem] rounded-tl-[3rem] bg-[#B0B1F2] text-black-shade-1 group-[.is-even]:bg-[#B0f1F2]"
+        // className="link absolute bottom-0 right-0 flex size-[3.75rem] items-center justify-center rounded-[0.875rem] rounded-tl-[3rem] bg-[#B0B1F2] text-black-shade-1 group-[.is-even]:bg-[#B0f1F2]"
+        className="absolute bottom-0 right-0 flex size-[3.75rem] items-center justify-center rounded-[0.875rem] bg-[#B0B1F2] text-black-shade-1"
       >
         <Image src="/link_arrow.svg" height={18.5} width={18.5} />
       </Link>
