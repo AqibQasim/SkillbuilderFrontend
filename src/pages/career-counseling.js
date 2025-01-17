@@ -64,7 +64,7 @@ const Page = () => {
     </div>
 
     {/* Steps Grid */}
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
       {/* Step Component */}
       {[
         {
@@ -214,13 +214,13 @@ const Page = () => {
       </div>
 
       {/* <!-- Image Content --> */}
-      <div class="w-full md:w-1/2 flex justify-end p-2">
+      <div class="w-full md:w-1/2  md:pt-20 lg-pt:0 flex justify-center  md:justify-end p-2">
       <Image
                             src="/carrer.png"
                              alt="1 to 1 Education Consultancy"
                             width={450}
                             height={400}
-                            className="rounded-lg  "
+                            className="rounded-lg   "
                           />
         
       </div>

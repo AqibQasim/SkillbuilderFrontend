@@ -16,15 +16,15 @@ const BootcampHero = ({title, subtitle, tagline}) => {
         {/* Black Overlay */}
         <div className="bg-black absolute inset-0 z-10 opacity-50"></div>
         {/* Text */}
-        <div className="absolute inset-0 z-20 flex w-[35%] flex-col items-start justify-center">
-          <span className="mx-8 mb-1 rounded-full border border-white p-1 px-3 text-xs font-semibold text-white">
+        <div className="absolute inset-0 z-20 flex max-sm:w-[80%] lg:w-[50%] xl:[35%] flex-col items-start justify-center">
+          <span className="mx-8 mb-1 rounded-full border max-sm:hidden lg:block border-white p-1 px-3 text-xs font-semibold text-white">
             { tagline || "Why you need SkillBuilder" }
           </span>
-          <h1 className="px-8 text-start text-3xl font-bold text-white">
+          <h1 className="px-8 text-start   max:sm::text-xl  md:text-3xl font-bold text-white">
             {title ||
               "Explore SkillBuilder Courses and Bootcamps Tailored for You"}
           </h1>
-          <p className="mt-3 px-8 text-start text-xs text-[#D0D6E0]">
+          <p className="mt-3 px-8 text-start text-xs   max-sm:hidden lg:block  text-[#D0D6E0]">
             {subtitle ||
               "SkillBuilder offers flexible courses and immersive bootcamps tailored to your learning style, career goals, and schedule, ensuring a personalized and impactful experience."}
           </p>
