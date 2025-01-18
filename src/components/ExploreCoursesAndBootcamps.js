@@ -1,8 +1,21 @@
+import { useEffect } from "react";
 import ExploreCoursesSlider from "./ExploreCoursesSlider";
 import LayoutXPadding from "./LayoutXPadding";
 import PointerDiv from "./PointerDiv";
+import { useDispatch, useSelector } from "react-redux";
+import { getAllLiveSessionCourses } from "../../redux/thunks/liveSessionCoursesThunk";
 
 function ExploreCoursesAndBootcamps() {
+  const dispatch = useDispatch();
+
+  const liveSessionCourses = useSelector(
+    (state) => state.liveSessionCourses.liveSessionCourses,
+  );
+
+  useEffect(() => {
+    dispatch(getAllLiveSessionCourses());
+  }, []);
+
   return (
     <LayoutXPadding>
       <div className="explore-courses-and-bootcamps grid grid-cols-1 grid-rows-[1fr_23rem] items-center justify-start gap-4 overflow-x-hidden bg-[#F2F3FF] py-8 lg:py-10 xlg:grid-cols-[40%_60%] xlg:grid-rows-1 xlg:py-16">
@@ -25,7 +38,7 @@ function ExploreCoursesAndBootcamps() {
         </div>
         {/* <div className="cards row-span-2 bg-yellow-300"> */}
         <div className="cards row-span-2 size-full bg-[#F2F3FF]">
-          <ExploreCoursesSlider />
+          <ExploreCoursesSlider liveSessionCourses={liveSessionCourses} />
         </div>
       </div>
     </LayoutXPadding>

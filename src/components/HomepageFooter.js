@@ -5,8 +5,7 @@ import LayoutWidth from "./LayoutWidth";
 import LayoutXPadding from "./LayoutXPadding";
 import { useRouter } from "next/router";
 
-const HomepageFooter = () => {
-
+const HomepageFooter = ({ className }) => {
   const router = useRouter();
 
   useEffect(() => {
@@ -21,7 +20,7 @@ const HomepageFooter = () => {
 
   return (
     <LayoutXPadding>
-      <footer className="">
+      <footer className={`${className} `}>
         <div className="top flex items-start justify-between max-sm:flex-wrap max-sm:gap-4">
           <div className="left">
             <Image src="/logo.svg" className="imba" width={180} height={35} />
@@ -30,11 +29,17 @@ const HomepageFooter = () => {
             <div className="text-black">
               <h3 className="mb-2 text-xl font-bold text-[#012456]">Company</h3>
               <ul className="space-y-4 p-2 text-sm text-gray_footer_text">
-                {[{text:"Home", link:"/"}, {text:"Courses", link:"/courses"}, {text:"About Us", link:"/about"}].map((item, index) => (
+                {[
+                  { text: "Home", link: "/" },
+                  { text: "Courses", link: "/courses" },
+                  { text: "About Us", link: "/about" },
+                ].map((item, index) => (
                   <li
                     key={index}
-                    className="text-lg font-medium text-[#9AA5B8] cursor-pointer"
-                    onClick={() => {router.push(item.link)}}
+                    className="cursor-pointer text-lg font-medium text-[#9AA5B8]"
+                    onClick={() => {
+                      router.push(item.link);
+                    }}
                   >
                     {item.text}
                   </li>
@@ -102,7 +107,7 @@ const HomepageFooter = () => {
           </div>
         </div>
         <div className="py-4 text-center">
-          <span className="text-lg font-bold text-[#778193]">
+          <span className="font-normal text-[#778193] 2xl:font-bold">
             &copy; {new Date().getFullYear()} Skill Builder. All Rights
             Reserved.
           </span>

@@ -40,10 +40,16 @@ function HomePageReviews() {
       <LayoutXPadding>
         <div className="btn w-full">
           <div className="wrapper box-shad !mx-auto w-max rounded-[2.5rem] bg-transparent shadow-[10px_20px_81px_rgba(186,186,186,0.5)]">
-            <ButtonSecond withIcon className="" onClick={() => {window.open(
-              "https://www.trustpilot.com/review/skillbuilder.online",
-              "_blank",
-            );}}>
+            <ButtonSecond
+              withIcon
+              className=""
+              onClick={() => {
+                window.open(
+                  "https://www.trustpilot.com/review/skillbuilder.online",
+                  "_blank",
+                );
+              }}
+            >
               See 157+ reviews on Trustpilot
             </ButtonSecond>
           </div>
@@ -66,7 +72,7 @@ export function HomePageReviewCard({ review, className = "" }) {
       <div className="review-info mt-8 flex items-center justify-between group-[.is-odd]:mt-auto">
         <div className="person flex items-center justify-center gap-2">
           <div className="icon-wrapper relative size-14 rounded-full bg-[#F5F5F5]">
-            <ImageCssBg src="/review_avatar.svg" />
+            <ImageCssBg src="/review_avatar.svg" alt="review avatar image" />
           </div>
           <div className="person-info">
             <h3 className="font-medium text-[#170D23]">Jesper Hale</h3>

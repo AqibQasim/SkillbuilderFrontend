@@ -1,30 +1,23 @@
-import { useRouter } from "next/router";
-import Navbar from "@/components/Navbar";
-import CourseInstructor from "@/components/CourseInstructor";
-import CourseHero from "@/components/CourseHero";
-import CurrentPath from "@/components/CurrentPath";
-import Footer from "@/components/Footer";
 import BootcampHero from "@/components/bootcampHero";
-import CourseReviews from "@/components/CourseReviews";
-import CourseModule from "@/components/CourseModule";
-import { useSelector, useDispatch } from "react-redux";
-import { useEffect, useState } from "react";
-import { fetchOneCourse } from "../../../redux/thunks/coursesThunks";
-import { fetchOneInstructor } from "../../../redux/thunks/instructorThunk";
-import { fetchOneUser } from "../../../redux/thunks/userInfoThunk";
-import { fetchAllReviews } from "../../../redux/thunks/reviewsThunk";
-import Loader from "@/components/Loader";
-import ExploreCourses from "@/components/ExploreCourses";
+import Footer from "@/components/Footer";
+import HomepageFooter from "@/components/HomepageFooter";
+import HomePageNavbar from "@/components/HomePageNavbar";
+import LayoutXPadding from "@/components/LayoutXPadding";
 import LiveCoursesCard from "@/components/LiveCoursesCard";
+import Loader from "@/components/Loader";
+import Navbar from "@/components/Navbar";
 import Image from "next/image";
+import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { getAllLiveSessionCourses } from "../../../redux/thunks/liveSessionCoursesThunk";
 
 const Bootcamp = () => {
   const router = useRouter();
-  const { id } = router?.query;
   const dispatch = useDispatch();
 
-  const { data: course, isLoading: courseLoading } = useSelector(
-    (state) => state.singleCourse || { data: {}, isLoading: true },
+  const liveSessionCourses = useSelector(
+    (state) => state.liveSessionCourses.liveSessionCourses,
   );
 
   const { user, isInstLoading } = useSelector(
@@ -44,30 +37,10 @@ const Bootcamp = () => {
   }, [router?.isReady, courses]);
 
   useEffect(() => {
-    if (id) {
-      dispatch(fetchOneCourse(id));
-    }
-  }, [id]);
+    dispatch(getAllLiveSessionCourses());
+  }, []);
 
-  useEffect(() => {
-    if (course && course.instructor_id) {
-      dispatch(fetchOneInstructor(course.instructor_id));
-    }
-  }, [course]);
-
-  useEffect(() => {
-    if (course && course.instructor_id) {
-      dispatch(fetchOneUser(course.instructor_id));
-    }
-  }, [course]);
-
-  useEffect(() => {
-    if (course && course.id) {
-      dispatch(fetchAllReviews(course.id));
-    }
-  }, [course]);
-
-  if (!isClient || courseLoading || isInstLoading || isReviewsLoading) {
+  if (!isClient) {
     return (
       <div className="flex min-h-screen w-full items-center justify-center">
         <Loader />
@@ -76,8 +49,14 @@ const Bootcamp = () => {
   }
 
   return (
-    <div className="h-full w-full bg-bg_gray">
-      <Navbar cartItemsLength={courses?.length} />
+    <div className="h-full w-full bg-bg_gray pt-4">
+      {/* <Navbar cartItemsLength={courses?.length} /> */}
+      {/* add this for now */}
+      <LayoutXPadding>
+        <div className="s">
+          <HomePageNavbar className="!mb-4 !mt-0" />
+        </div>
+      </LayoutXPadding>
 
       <BootcampHero
         title={"Introduce SkillBuilder and the range of courses available."}
@@ -135,13 +114,15 @@ const Bootcamp = () => {
             </button>
           </div>
         </div>
-        <div className="mx-auto mt-16 grid max-xsm:w-full  items-center w-[90%] gap-3 xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1">
-
-          {Array(8)
+        <div className="mx-auto mt-16 grid max-w-screen-xl gap-3 xl:grid-cols-4 max-xlg:grid-cols-3">
+          {liveSessionCourses?.map((course, i) => (
+            <LiveCoursesCard course={course} />
+          ))}
+          {/* {Array(8)
             .fill(null)
             .map((_, index) => (
-              <LiveCoursesCard key={index} />
-            ))}
+              <LiveCoursesCard course={course} key={index} />
+            ))} */}
         </div>
         <div class="bg-gray-50 py-12">
           <div class="mx-auto max-w-screen-xl px-4">
@@ -225,7 +206,8 @@ const Bootcamp = () => {
         </div>
       </div>
 
-      <Footer />
+      {/* <Footer /> */}
+      <HomepageFooter />
     </div>
   );
 };

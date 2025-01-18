@@ -19,6 +19,7 @@ function PointerDiv({
           <Image
             className="group-[.is-left]:-rotate-[75deg]"
             src="/cursor.svg"
+            alt="course icon"
             height={48}
             width={44}
           />
@@ -26,7 +27,7 @@ function PointerDiv({
       )}
 
       <span className="rounded-full bg-[#F5F5F5] p-2">
-        <Image src="/cup.svg" height={30} width={30} />
+        <Image src="/cup.svg" alt="cup icon" height={30} width={30} />
       </span>
       <p className="text-sm font-medium">
         Master in-demand skills with expert guidance

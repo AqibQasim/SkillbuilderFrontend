@@ -1,6 +1,8 @@
 import Image from "next/image";
 
-const BootcampTutor = () => {
+const BootcampTutor = ({ tutor }) => {
+  const name =
+    tutor?.user?.first_name + " " + tutor?.user?.last_name || "Zubair Alam";
   return (
     <div className="mx-auto w-full max-w-[80%] p-4">
       <h2 className="mb-4 text-2xl font-bold">Meet our Expert Educators</h2>
@@ -13,9 +15,7 @@ const BootcampTutor = () => {
           <div className="mb-4 flex items-center space-x-4">
             <Image src="/teacher.png" alt="mentor" width={24} height={24} />
             <div>
-              <h2 className="text-xl font-semibold text-gray-500">
-                Zubair Alam
-              </h2>
+              <h2 className="text-xl font-semibold text-gray-500">{name}</h2>
               <p className="text-sm text-gray-500">Mentor</p>
             </div>
           </div>
