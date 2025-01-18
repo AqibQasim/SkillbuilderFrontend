@@ -14,14 +14,14 @@ const Page = () => {
       <Banner />
       <HomePageNavbar />
       <BootcampHero
-        title={"Introduce SkillBuilder and the range of courses available."}
+        title={"Shape Your Career Today!"}
         subtitle={
-          "Explore top-rated courses designed to help you master in-demand skills and achieve your goals."
+          "SkillBuilder offers flexible courses and immersive bootcamps tailored to your learning style, career goals, and schedule, ensuring a personalized and impactful experience."
         }
-        tagline={"Courses"}
+        tagline={"Career Counseling"}
       />
-      <div className="max-w-7xl mx-auto px-4 ">
-        <div className=" p-6 md:p-12 ">
+      <div className="max-w-[90%] mx-auto ">
+        <div className=" pt-6 md:p-12 ">
           <div className="inline-block border-solid border-2 border-black-shade-1 text-sm font-medium rounded-full px-4 py-1 mb-4">
             Career Counseling
           </div>
@@ -52,7 +52,7 @@ const Page = () => {
       </div>
 
  <div className=" pt5">
-  <div className="max-w-7xl mx-auto px-6">
+  <div className="max-w-[90%] mx-auto px-6">
     {/* Section Header */}
     <div className="text-center mb-10">
       <span className="inline-block text-blue-700 border-solid border-2 border-blue-700 text-sm font-medium rounded-full px-4 py-1">
@@ -126,7 +126,7 @@ const Page = () => {
 </div>
 
 <div class=" pt-5">
-  <div class="max-w-6xl mx-auto px-6">
+  <div class="max-w-[90%] mx-auto px-6">
     <div class=" mb-8">
       <span class="inline-block border-solid border-2 border-black-shade-1 text-sm font-medium rounded-full px-4 py-1">
         Career Counseling
@@ -214,7 +214,7 @@ const Page = () => {
       </div>
 
       {/* <!-- Image Content --> */}
-      <div class="w-full md:w-1/2  md:pt-20 lg-pt:0 flex justify-center  md:justify-end p-2">
+      <div class="w-full md:w-1/2  md:pt-20 lg:pt-8 xl:pt-0 flex justify-center  md:justify-end p-2">
       <Image
                             src="/carrer.png"
                              alt="1 to 1 Education Consultancy"

@@ -87,7 +87,7 @@ const Bootcamp = () => {
         tagline={"Courses"}
       />
       <div class="bg-gray-50 pt-10">
-        <div className="mx-auto max-w-screen-xl px-4">
+        <div className="mx-auto max-w-[92%] max-xsm:w-[80%] px-4">
           <h2 class="text-3xl font-bold text-gray-900">
             Live online UX/UI Design <br /> Bootcamps
           </h2>
@@ -95,7 +95,7 @@ const Bootcamp = () => {
             Explore courses from experienced, real-world experts.
           </p>
         </div>
-        <div className="mx-auto mt-12 flex max-w-screen-xl justify-end">
+        <div className="mx-auto mt-12 flex max-w-[92%] justify-end">
           <div className="flex gap-3">
             <button
               onClick={() =>
@@ -135,7 +135,8 @@ const Bootcamp = () => {
             </button>
           </div>
         </div>
-        <div className="mx-auto mt-16 grid max-xsm:w-full  items-center w-[90%] gap-3 xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1">
+       
+        <div className="mx-auto mt-16  max-xsm:w-[80%] items-center grid h-auto w-[95%] grid-cols-1 place-items-center gap-x-2 gap-y-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 ">
 
           {Array(8)
             .fill(null)
@@ -144,7 +145,7 @@ const Bootcamp = () => {
             ))}
         </div>
         <div class="bg-gray-50 py-12">
-          <div class="mx-auto max-w-screen-xl px-4">
+          <div class="mx-auto max-w-[92%] max-xsm:w-[80%] px-4">
             <h2 class="text-3xl font-bold text-gray-900">
               Why 100+ designers train with Memorise.ly
             </h2>
@@ -181,11 +182,11 @@ const Bootcamp = () => {
                     Career mentorship
                   </h3>
                 </div>
-                <p class="mb-12 text-sm text-gray-600">
+                <p class="max-sm:mb-12 max-lsm:mb-9   lg:mb-10 md:mb-7 xl:mb-12 text-sm text-gray-600">
                   Gain career mentorship from real teams and community in 90+
                   countries.
                 </p>
-                <div class="h-[57.5%] w-full overflow-hidden rounded-lg">
+                <div class="max-xsm:h-[30%]  sm:h-[45.5%] md:h-[57%] lg:h-[50.5%] xl:[59.5%] w-full overflow-hidden rounded-lg">
                   <Image
                     className="size-full"
                     src={"/live-session2.png"}

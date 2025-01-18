@@ -60,7 +60,7 @@ export default function BootcampSection({ course }) {
             learning <span className="font-normal">(Best of both worlds!)</span>
           </p>
           {/* Features */}
-          <div className="mb-8 flex flex-col gap-4 sm:flex-row">
+          <div className="mb-8 flex sm:flex-col gap-4 xl:flex-row">
             <div className="flex items-center gap-3 rounded-full bg-white p-4 shadow-md">
               <span className="rounded-full bg-blue-100 p-2 text-blue-500">
                 🔑
