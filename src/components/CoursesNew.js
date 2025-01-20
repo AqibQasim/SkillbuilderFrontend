@@ -7,13 +7,13 @@ import { fetchApprovedCourses } from "../../redux/thunks/approvedCoursesThunk";
 import LayoutWidth from "./LayoutWidth";
 import { addItem } from "../../redux/slices/addToCart";
 
-const CoursesNew = ({ heading, paddingTop }) => {
+const CoursesNew = ({ selectedCategory }) => {
   const [loading, setLoading] = useState(true);
   const [starReady, setStarReady] = useState(false);
   const studentId = useSelector((state) => state.auth.user);
   const router = useRouter();
   const [sortOrder, setSortOrder] = useState(null);
-  const [selectedCategory, setSelectedCategory] = useState(null);
+  //const [selectedCategory, setSelectedCategory] = useState(null);
   const [selectedFilter, setSelectedFilter] = useState(null);
   const dispatch = useDispatch();
   const {

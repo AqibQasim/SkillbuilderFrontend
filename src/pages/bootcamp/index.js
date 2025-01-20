@@ -15,6 +15,7 @@ import { getAllLiveSessionCourses } from "../../../redux/thunks/liveSessionCours
 const Bootcamp = () => {
   const router = useRouter();
   const dispatch = useDispatch();
+  const [filter,setFilter]= useState(null);
 
   const liveSessionCourses = useSelector(
     (state) => state.liveSessionCourses.liveSessionCourses,
@@ -68,7 +69,7 @@ const Bootcamp = () => {
       <div class="bg-gray-50 pt-10">
         <div className="mx-auto max-w-screen-xl px-4">
           <h2 class="text-3xl font-bold text-gray-900">
-            Live online UX/UI Design <br /> Bootcamps
+            Live Online Bootcamps
           </h2>
           <p class="mt-3 text-gray-600">
             Explore courses from experienced, real-world experts.
@@ -85,7 +86,7 @@ const Bootcamp = () => {
               className="flex items-center rounded-full border border-gray-300 bg-pink px-4 py-2 text-sm text-gray-600 hover:bg-pink-300"
             >
               <Image
-                src="/filter-tick.png"
+                src="/filter-tick.svg"
                 alt="dropdown-Image"
                 width={20}
                 height={20}

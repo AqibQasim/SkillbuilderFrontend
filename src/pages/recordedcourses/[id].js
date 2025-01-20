@@ -70,61 +70,62 @@ const CourseDetails = () => {
   return (
     <div className="h-full w-full bg-bg_gray">
       <Navbar cartItemsLength={courses?.length} />
-       
-      <BootcampHero 
-      title={ "Introduce SkillBuilder and the range of courses available."}
-      subtitle={"Explore top-rated courses designed to help you master in-demand skills and achieve your goals."}
-      tagline={"Courses" }
+
+      <BootcampHero
+        title={"Introduce SkillBuilder and the range of courses available."}
+        subtitle={
+          "Explore top-rated courses designed to help you master in-demand skills and achieve your goals."
+        }
+        tagline={"Courses"}
       />
-    <div class="bg-gray-50 py-10">
-    <div className="max-w-screen-xl mx-auto px-4">
-    <h2 class="text-2xl font-bold text-gray-900">Popular topics</h2>
-    <p class="mt-2 text-gray-600">
-      Explore courses from experienced, real-world experts.
-    </p>
-    </div>
-    <div class="max-w-screen-lg mx-auto px-4">
-     {/* Title Section  */}
-   
+      <div class="bg-gray-50 py-10">
+        <div className="mx-auto max-w-screen-xl px-4">
+          <h2 class="text-2xl font-bold text-gray-900">Popular topics</h2>
+          <p class="mt-2 text-gray-600">
+            Explore courses from experienced, real-world experts.
+          </p>
+        </div>
+        <div class="mx-auto max-w-screen-lg px-4">
+          {/* Title Section  */}
 
-     {/* Topics Section  */}
-     <div class="mt-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
-      {/* <!-- Topic Buttons --> */}
-      <span class="px-4 py-2 rounded-full text-center border border-gray-300 text-gray-800 bg-pink cursor-pointer hover:bg-gray-100">
-        Data Science
-      </span>
-      <span class="px-4 py-2 rounded-full border  text-center border-gray-300 text-gray-800 bg-pink cursor-pointer hover:bg-gray-100">
-        Python
-      </span>
-      <span class="px-4 py-2 rounded-full border  text-center border-gray-300 text-gray-800 bg-pink cursor-pointer hover:bg-gray-100">
-        Machine Learning
-      </span>
-      <span class="px-4 py-2 rounded-full border  text-center border-gray-300 text-gray-800 bg-pink cursor-pointer hover:bg-gray-100">
-        Generate AI
-      </span>
-      <span class="px-4 py-2 rounded-full border  text-center border-gray-300 text-gray-800 bg-pink cursor-pointer hover:bg-gray-100">
-        Data Analysis
-      </span>
-      <span class="px-4 py-2 rounded-full border  text-center border-gray-300 text-gray-800 bg-pink cursor-pointer hover:bg-gray-100">
-        JavaScript
-      </span>
-      <span class="px-4 py-2 rounded-full border  text-center border-gray-300 text-gray-800 bg-pink cursor-pointer hover:bg-gray-100">
-        Data Science
-      </span>
-      <span class="px-4 py-2 rounded-full border  text-center border-gray-300 text-gray-800 bg-pink cursor-pointer hover:bg-gray-100">
-        Python
-      </span>
-      <span class="px-4 py-2 rounded-full border  text-center border-gray-300 text-gray-800 bg-pink cursor-pointer hover:bg-gray-100">
-        Machine Learning
-      </span>
-      <span class="px-4 py-2 rounded-full border  text-center border-gray-300 text-gray-800 bg-pink cursor-pointer hover:bg-gray-100">
-        Data Science
-      </span>
-    </div>
-  </div>
-</div>
+          {/* Topics Section  */}
+          <div class="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5">
+            {/* <!-- Topic Buttons --> */}
+            <span class="cursor-pointer rounded-full border border-gray-300 bg-pink px-4 py-2 text-center text-gray-800 hover:bg-gray-100">
+              Data Science
+            </span>
+            <span class="cursor-pointer rounded-full border border-gray-300 bg-pink px-4 py-2 text-center text-gray-800 hover:bg-gray-100">
+              Python
+            </span>
+            <span class="cursor-pointer rounded-full border border-gray-300 bg-pink px-4 py-2 text-center text-gray-800 hover:bg-gray-100">
+              Machine Learning
+            </span>
+            <span class="cursor-pointer rounded-full border border-gray-300 bg-pink px-4 py-2 text-center text-gray-800 hover:bg-gray-100">
+              Generate AI
+            </span>
+            <span class="cursor-pointer rounded-full border border-gray-300 bg-pink px-4 py-2 text-center text-gray-800 hover:bg-gray-100">
+              Data Analysis
+            </span>
+            <span class="cursor-pointer rounded-full border border-gray-300 bg-pink px-4 py-2 text-center text-gray-800 hover:bg-gray-100">
+              JavaScript
+            </span>
+            <span class="cursor-pointer rounded-full border border-gray-300 bg-pink px-4 py-2 text-center text-gray-800 hover:bg-gray-100">
+              Data Science
+            </span>
+            <span class="cursor-pointer rounded-full border border-gray-300 bg-pink px-4 py-2 text-center text-gray-800 hover:bg-gray-100">
+              Python
+            </span>
+            <span class="cursor-pointer rounded-full border border-gray-300 bg-pink px-4 py-2 text-center text-gray-800 hover:bg-gray-100">
+              Machine Learning
+            </span>
+            <span class="cursor-pointer rounded-full border border-gray-300 bg-pink px-4 py-2 text-center text-gray-800 hover:bg-gray-100">
+              Data Science
+            </span>
+          </div>
+        </div>
+      </div>
 
-           <ExploreCourses/>
+      <ExploreCourses />
 
       <Footer />
     </div>

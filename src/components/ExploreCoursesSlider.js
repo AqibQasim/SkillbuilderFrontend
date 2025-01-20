@@ -57,11 +57,11 @@ export function ExploreCoursesCard({ className, course }) {
         </p>
         <div className="text-xs">
           By:
-          <span className="font-semibold text-[#2C2C2C]">
+          <span className="font-semibold text-[#2C2C2C]" style={{textTransform:"capitalize"}}>
             {/* Zubair Alam */}
             {course?.instructor?.user?.first_name +
               " " +
-              course?.instructor?.user?.first_name || "Zubair Alam"}
+              course?.instructor?.user?.last_name || "Zubair Alam"}
           </span>
         </div>
         <div className="mt-1 flex justify-start text-xs">
@@ -73,7 +73,7 @@ export function ExploreCoursesCard({ className, course }) {
               height={9.6}
             />
           </div>
-          <span className="ms-1 self-start text-[#2C2C2C]">
+          <span className="ms-1 self-start text-[#2C2C2C]" style={{textTransform:"capitalize"}}>
             <span className="capitalize text-[#929292]">Level: </span>{" "}
             {course?.level || "Beginner"}
           </span>
