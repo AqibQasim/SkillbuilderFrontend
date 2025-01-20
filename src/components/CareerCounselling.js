@@ -1,23 +1,29 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import ButtonWithIcon from "./ButtonWithIcon";
 import PointerDiv from "./PointerDiv";
-import HomePageNavbar from "./HomePageNavbar";
 
 const CareerCounselling = () => {
+
+  const [studentProfile,setStudentProfile]= useState(null);
+
+  useEffect(()=>{
+    setStudentProfile(JSON.parse(localStorage.getItem("profile")));
+  },[])
+
   return (
     <section className="relative bg-gray-50 px-4 py-16 lg:px-20">
-      <div className="mx-auto mt-8 max-w-7xl">
+      <div className="mx-auto max-w-7xl">
         <div className="mb-12 text-center">
           <span className="rounded-full border border-purple-500 p-2 px-4 text-sm font-semibold text-purple-500">
-            Career Counselling
+            Career Counseling
           </span>
           <h2 className="mx-auto mt-4 max-w-[70%] text-3xl font-bold text-gray-900 lg:text-5xl">
             1-on-1 sessions with certified career coaches.
           </h2>
           <p className="mx-auto mt-4 text-gray-400">
             Struggling to understand where to focus? A personalized career
-            Counselling session can provide clear guidance tailored to your
+            counseling session can provide clear guidance tailored to your
             profile.
           </p>
         </div>
@@ -25,7 +31,7 @@ const CareerCounselling = () => {
           <div className="relative overflow-hidden rounded-lg border border-gray-200 shadow-lg">
             <Image
               src="/Career.png"
-              alt="Career Counselling Session"
+              alt="Career Counseling Session"
               width={400}
               height={225}
               className="h-auto w-full object-cover"
@@ -40,10 +46,11 @@ const CareerCounselling = () => {
             <br />
             <form
               className="w-full"
-              action="/api/checkout_session_counseling"
+              action={"/api/checkout_session_counseling"}
               method="POST"
             >
-              <input type="hidden" name="studentId" value={4} />
+              <input type="hidden" name="studentId" value={studentProfile?.id} />
+              <input type="hidden" name="candidateEmail" value={studentProfile?.email} />
               <input
                 type="hidden"
                 name="items"

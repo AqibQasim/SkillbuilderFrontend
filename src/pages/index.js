@@ -72,13 +72,13 @@ const index = () => {
           });
           console.log("Push subscription:", subscription);
           // Send the subscription object to your backend
-          fetch(`${process.env.NEXT_PUBLIC_BASE_API}/subscribe`, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(subscription),
-          }).then(async (res) => {
-            console.log(await res.json());
-          });
+          // fetch(`${process.env.NEXT_PUBLIC_BASE_API}/subscribe`, {
+          //   method: "POST",
+          //   headers: { "Content-Type": "application/json" },
+          //   body: JSON.stringify(subscription),
+          // }).then(async (res) => {
+          //   console.log(await res.json());
+          // });
         })
         .catch((error) => {
           console.error("Service Worker registration failed:", error);

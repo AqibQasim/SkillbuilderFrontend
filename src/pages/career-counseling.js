@@ -1,3 +1,4 @@
+"use client";
 import React, { useEffect, useState } from "react";
 import Banner from "@/components/Banner";
 import BootcampHero from "@/components/bootcampHero";
@@ -7,7 +8,11 @@ import HomepageFooter from "@/components/HomepageFooter";
 import Image from "next/image";
 
 const Page = () => {
-  const router = useRouter();
+  const [studentProfile,setStudentProfile]= useState(null);
+  
+    useEffect(()=>{
+      setStudentProfile(JSON.parse(localStorage.getItem("profile")));
+    },[])
 
   return (
     <div className="home-container mx-auto max-w-[120em] space-y-12 font-satoshi">
@@ -20,15 +25,15 @@ const Page = () => {
         }
         tagline={"Courses"}
       />
-      <div className="max-w-7xl mx-auto px-4 ">
-        <div className=" p-6 md:p-12 ">
-          <div className="inline-block border-solid border-2 border-black-shade-1 text-sm font-medium rounded-full px-4 py-1 mb-4">
+      <div className="mx-auto max-w-7xl px-4">
+        <div className="p-6 md:p-12">
+          <div className="mb-4 inline-block rounded-full border-2 border-solid border-black-shade-1 px-4 py-1 text-sm font-medium">
             Career Counseling
           </div>
-          <h2 className="text-2xl md:text-4xl font-bold text-gray-900 mb-4">
+          <h2 className="mb-4 text-2xl font-bold text-gray-900 md:text-4xl">
             Career Counselling and Guidance
           </h2>
-          <p className="text-gray-600 leading-relaxed mb-4">
+          <p className="mb-4 leading-relaxed text-gray-600">
             Choosing a career is one of the most important decisions in a
             student’s life. With the world becoming increasingly competitive,
             making the right career choice can seem challenging. This is where
@@ -36,198 +41,273 @@ const Page = () => {
             strengths and interests towards suitable career paths aligned with
             their personality and goals.
           </p>
-          <p className="text-gray-600 leading-relaxed">
+          <p className="leading-relaxed text-gray-600">
             Our career counseling services are designed to provide personalized
             support to students throughout their journey of career exploration,
             planning, and development.
           </p>
         </div>
         <BootcampHero
-        title={"Empower Your Career with Expert Guidance!"}
-        subtitle={
-          "Discover the career path that aligns with your skills and aspirations. Our experts are here to help you unlock your full potential."
-        }
-        tagline={"Skillbuilder"}
-      />
+          title={"Empower Your Career with Expert Guidance!"}
+          subtitle={
+            "Discover the career path that aligns with your skills and aspirations. Our experts are here to help you unlock your full potential."
+          }
+          tagline={"Skillbuilder"}
+        />
       </div>
 
- <div className=" pt5">
-  <div className="max-w-7xl mx-auto px-6">
-    {/* Section Header */}
-    <div className="text-center mb-10">
-      <span className="inline-block text-blue-700 border-solid border-2 border-blue-700 text-sm font-medium rounded-full px-4 py-1">
-        Career Counseling
-      </span>
-      <h2 className="mt-4 text-3xl md:text-4xl font-bold text-gray-900">
-        Process of Career Counselling and Guidance
-      </h2>
-    </div>
+      <div className="pt5">
+        <div className="mx-auto max-w-7xl px-6">
+          {/* Section Header */}
+          <div className="mb-10 text-center">
+            <span className="inline-block rounded-full border-2 border-solid border-blue-700 px-4 py-1 text-sm font-medium text-blue-700">
+              Career Counseling
+            </span>
+            <h2 className="mt-4 text-3xl font-bold text-gray-900 md:text-4xl">
+              Process of Career Counselling and Guidance
+            </h2>
+          </div>
 
-    {/* Steps Grid */}
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
-      {/* Step Component */}
-      {[
-        {
-          step: "01",
-          title: "Career Counseling",
-          description:
-            "Discover the career path that aligns with your skills and aspirations. Our experts are here to help you unlock your full potential!",
-          icon: "/cape1.png",
-        },
-        {
-          step: "02",
-          title: "Payment",
-          description:
-            "Choose your preferred payment method and confirm your booking in a few simple steps.",
-          icon: "/cape2.png",
-        },
-        {
-          step: "03",
-          title: "Career Insight",
-          description:
-            "Based on our analysis, here are your tailored recommendations to achieve your career goals.",
-          icon: "/cape3.png",
-        },
-        {
-          step: "04",
-          title: "Calendly (Schedule Your Session)",
-          description:
-            "Select a date and time that works best for you. Our experts are ready to guide you.",
-          icon: "/cape4.png",
-        },
-      ].map((item, index) => (
-        <div
-          key={index}
-          className=" shadow-lg  bg-gray-shade-4 rounded-lg p-6"
-        >
-          <div className="flex justify-between border-solid border-[1px] p-1 px-2 mb-10 border-neutral-700  rounded-2xl ">
-            <div className="text-sm font-medium ">
-              Step
-            </div>
-            <div className="text-sm ">{item.step}</div>
+          {/* Steps Grid */}
+          <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+            {/* Step Component */}
+            {[
+              {
+                step: "01",
+                title: "Career Counseling",
+                description:
+                  "Discover the career path that aligns with your skills and aspirations. Our experts are here to help you unlock your full potential!",
+                icon: "/cape1.png",
+              },
+              {
+                step: "02",
+                title: "Payment",
+                description:
+                  "Choose your preferred payment method and confirm your booking in a few simple steps.",
+                icon: "/cape2.png",
+              },
+              {
+                step: "03",
+                title: "Career Insight",
+                description:
+                  "Based on our analysis, here are your tailored recommendations to achieve your career goals.",
+                icon: "/cape3.png",
+              },
+              {
+                step: "04",
+                title: "Calendly (Schedule Your Session)",
+                description:
+                  "Select a date and time that works best for you. Our experts are ready to guide you.",
+                icon: "/cape4.png",
+              },
+            ].map((item, index) => (
+              <div
+                key={index}
+                className="rounded-lg bg-gray-shade-4 p-6 shadow-lg"
+              >
+                <div className="mb-10 flex justify-between rounded-2xl border-[1px] border-solid border-neutral-700 p-1 px-2">
+                  <div className="text-sm font-medium">Step</div>
+                  <div className="text-sm">{item.step}</div>
+                </div>
+                <div className="mb-4">
+                  <Image
+                    src={item.icon}
+                    alt="dropdown-Image"
+                    width={40}
+                    height={40}
+                    className=""
+                  />
+                </div>
+                <h3 className="mb-3 text-xl font-semibold text-gray-900">
+                  {item.title}
+                </h3>
+                <p className="text-sm text-gray-600">{item.description}</p>
+              </div>
+            ))}
           </div>
-          <div className="mb-4">
-             <Image
-                            src={item.icon}
-                            alt="dropdown-Image"
-                            width={40}
-                            height={40}
-                            className=""
-                          />
-          </div>
-          <h3 className="text-xl font-semibold text-gray-900 mb-3">
-            {item.title}
-          </h3>
-          <p className="text-sm text-gray-600">{item.description}</p>
         </div>
-      ))}
-    </div>
-  </div>
-</div>
-
-<div class=" pt-5">
-  <div class="max-w-6xl mx-auto px-6">
-    <div class=" mb-8">
-      <span class="inline-block border-solid border-2 border-black-shade-1 text-sm font-medium rounded-full px-4 py-1">
-        Career Counseling
-      </span>
-      <h2 class="mt-4 text-3xl md:text-4xl font-bold text-gray-900">
-        Why Choose 1 to 1 Education Consultancy?
-      </h2>
-    </div>
-    <div class="space-y-6">
-
-      <div>
-        <h3 class="text-xl font-semibold text-gray-900">
-          Individualized Attention:
-        </h3>
-        <p class="mt-2 text-sm text-gray-600">
-          We believe in quality over quantity. As a boutique consultancy, we offer individualized attention to each student, ensuring that their goals and dreams take center stage in our guidance.
-        </p>
       </div>
 
-      
-      <div>
-        <h3 class="text-xl font-semibold text-gray-900">
-          Customized Solutions:
-        </h3>
-        <p class="mt-2 text-sm text-gray-600">
-          Your educational path is unlike anyone else’s. Our consultancy crafts personalized solutions, be it in course selection, university choices, or career planning, to align perfectly with your aspirations.
-        </p>
-      </div>
+      <div class="pt-5">
+        <div class="mx-auto max-w-6xl px-6">
+          <div class="mb-8">
+            <span class="inline-block rounded-full border-2 border-solid border-black-shade-1 px-4 py-1 text-sm font-medium">
+              Career Counseling
+            </span>
+            <h2 class="mt-4 text-3xl font-bold text-gray-900 md:text-4xl">
+              Why Choose 1 to 1 Education Consultancy?
+            </h2>
+          </div>
+          <div class="space-y-6">
+            <div>
+              <h3 class="text-xl font-semibold text-gray-900">
+                Individualized Attention:
+              </h3>
+              <p class="mt-2 text-sm text-gray-600">
+                We believe in quality over quantity. As a boutique consultancy,
+                we offer individualized attention to each student, ensuring that
+                their goals and dreams take center stage in our guidance.
+              </p>
+            </div>
 
-     
-      <div>
-        <h3 class="text-xl font-semibold text-gray-900">
-          Experienced Advisors:
-        </h3>
-        <p class="mt-2 text-sm text-gray-600">
-          Our team of experienced educational advisors brings a wealth of knowledge and insights. Benefit from their extensive experience in academia and industry as they guide you toward making informed decisions.
-        </p>
-      </div>
+            <div>
+              <h3 class="text-xl font-semibold text-gray-900">
+                Customized Solutions:
+              </h3>
+              <p class="mt-2 text-sm text-gray-600">
+                Your educational path is unlike anyone else’s. Our consultancy
+                crafts personalized solutions, be it in course selection,
+                university choices, or career planning, to align perfectly with
+                your aspirations.
+              </p>
+            </div>
 
-      <div>
-        <h3 class="text-xl font-semibold text-gray-900">
-          End-to-End Support:
-        </h3>
-        <p class="mt-2 text-sm text-gray-600">
-          From the initial consultation to post-graduation advice, we provide end-to-end support. Our commitment doesn’t end with enrollment; it extends to your ongoing success in academia and beyond.
-        </p>
-      </div>
-    </div>
-  </div>
-</div>
-<div class="bg-white pt-5">
-  <div class="max-w-[90%] mx-auto px-6">
-    <div class="bg-gray-50 shadow-lg rounded-lg flex flex-col md:flex-row items-center md:items-start">
-      {/* <!-- Text Content --> */}
-      <div class="w-full md:w-1/2 p-8">
-        <span class="inline-block border-solid border-2 border-black-shade-1  text-sm font-medium rounded-full px-4 py-1">
-          Career Counseling
-        </span>
-        <h2 class="mt-4 text-3xl md:text-4xl font-bold text-gray-900">
-          1 to 1 Education Consultancy
-        </h2>
-        <p class="mt-4 text-gray-600 text-sm md:text-base">
-          Our career counseling services are designed to provide personalized support to students throughout their journey of career exploration, planning, and development.
-        </p>
-        <a
-          href="#"
-          class="mt-6 inline-flex items-center px-6 py-2 bg-blue-600 text-white text-sm font-medium rounded-full shadow hover:bg-blue-700 transition"
-        >
-          Book Now
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            class="h-4 w-4 ml-2"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-            stroke-width="2"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              d="M14 5l7 7m0 0l-7 7m7-7H3"
-            />
-          </svg>
-        </a>
-      </div>
+            <div>
+              <h3 class="text-xl font-semibold text-gray-900">
+                Experienced Advisors:
+              </h3>
+              <p class="mt-2 text-sm text-gray-600">
+                Our team of experienced educational advisors brings a wealth of
+                knowledge and insights. Benefit from their extensive experience
+                in academia and industry as they guide you toward making
+                informed decisions.
+              </p>
+            </div>
 
-      {/* <!-- Image Content --> */}
-      <div class="w-full md:w-1/2  md:pt-20 lg-pt:0 flex justify-center  md:justify-end p-2">
-      <Image
-                            src="/carrer.png"
-                             alt="1 to 1 Education Consultancy"
-                            width={450}
-                            height={400}
-                            className="rounded-lg   "
-                          />
-        
+            <div>
+              <h3 class="text-xl font-semibold text-gray-900">
+                End-to-End Support:
+              </h3>
+              <p class="mt-2 text-sm text-gray-600">
+                From the initial consultation to post-graduation advice, we
+                provide end-to-end support. Our commitment doesn’t end with
+                enrollment; it extends to your ongoing success in academia and
+                beyond.
+              </p>
+            </div>
+          </div>
+        </div>
       </div>
-    </div>
-  </div>
-</div>
+      <div class="bg-white pt-5">
+        <div class="mx-auto max-w-[90%] px-6">
+          <div class="flex flex-col items-center rounded-lg bg-gray-50 shadow-lg md:flex-row md:items-start">
+            {/* <!-- Text Content --> */}
+            <div class="w-full p-8 md:w-1/2">
+              <span class="inline-block rounded-full border-2 border-solid border-black-shade-1 px-4 py-1 text-sm font-medium">
+                Career Counseling
+              </span>
+              <h2 class="mt-4 text-3xl font-bold text-gray-900 md:text-4xl">
+                1 to 1 Education Consultancy
+              </h2>
+              <p class="mt-4 text-sm text-gray-600 md:text-base">
+                Our career counseling services are designed to provide
+                personalized support to students throughout their journey of
+                career exploration, planning, and development.
+              </p>
+              <form
+              className="w-full"
+              action={"/api/checkout_session_counseling"}
+              method="POST"
+            >
+              <input type="hidden" name="studentId" value={studentProfile?.id} />
+              <input type="hidden" name="candidateEmail" value={studentProfile?.email} />
+              <input
+                type="hidden"
+                name="items"
+                value={JSON.stringify([
+                  {
+                    id: 21,
+                    instructor_id: 4,
+                    title: "Career Counselling By Zubair Alam",
+                    description:
+                      "You will get career counselling by Syed Muhammad Zubair Alam.",
+                    creation_duration_hours: 0,
+                    learning_outcomes: "hhfh",
+                    category: "development",
+                    modulesCount: 0,
+                    amount: "25",
+                    discount: "0",
+                    charges: "0.6",
+                    active: false,
+                    status: "approved",
+                    enrolled_customers: [],
+                    image: "c4d72670-b0d7-40e3-9663-f93ca7436f0b.png",
+                    rating: null,
+                    created_at: "2025-01-08T15:13:39.147Z",
+                    updated_at: null,
+                    reason: null,
+                    status_desc: null,
+                    updated_by: null,
+                    video_url: "1045027946",
+                    skills: null,
+                    instructor: {
+                      id: 4,
+                      user_id: 4,
+                      experience: ["web"],
+                      specialization: "eevveryyythingg",
+                      video_url: "1044981421",
+                      status: "pending",
+                      created_at: "2025-01-08T12:46:39.537Z",
+                      user: {
+                        id: 4,
+                        status: null,
+                        status_desc: null,
+                        profile: null,
+                        first_name: "Sanjay",
+                        last_name: "Kumar",
+                        email: "sanjaybaghtwani@gmail.com",
+                        password: null,
+                        profession: null,
+                        location: null,
+                        facebook_profile: null,
+                        twitter_profile: null,
+                        linkedin_profile: null,
+                        is_active: true,
+                        role: "student",
+                        source: "app",
+                        created_at: "2025-01-08T12:45:38.225Z",
+                        updated_at: "2025-01-08T07:45:38.232Z",
+                      },
+                    },
+                  },
+                ])}
+              />
+              <button
+                href="#"
+                class="mt-6 inline-flex items-center rounded-full bg-blue-600 px-6 py-2 text-sm font-medium text-white shadow transition hover:bg-blue-700"
+              >
+                Book Now
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="ml-2 h-4 w-4"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M14 5l7 7m0 0l-7 7m7-7H3"
+                  />
+                </svg>
+              </button>
+            </form>
+            </div>
 
+            {/* <!-- Image Content --> */}
+            <div class="lg-pt:0 flex w-full justify-center p-2 md:w-1/2 md:justify-end md:pt-20">
+              <Image
+                src="/carrer.png"
+                alt="1 to 1 Education Consultancy"
+                width={450}
+                height={400}
+                className="rounded-lg"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
 
       <HomepageFooter />
     </div>
