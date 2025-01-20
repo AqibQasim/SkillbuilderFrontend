@@ -8,13 +8,13 @@ import LayoutWidth from "./LayoutWidth";
 import { addItem } from "../../redux/slices/addToCart";
 import { filterRepeatedStudents } from "@/utils/filterRepeatedStudents";
 
-const CoursesNew = ({ heading, paddingTop, showallCourses }) => {
+const CoursesNew = ({ selectedCategory, showallCourses }) => {
   const [loading, setLoading] = useState(true);
   const [starReady, setStarReady] = useState(false);
   const studentId = useSelector((state) => state.auth.user);
   const router = useRouter();
   const [sortOrder, setSortOrder] = useState(null);
-  const [selectedCategory, setSelectedCategory] = useState(null);
+  //const [selectedCategory, setSelectedCategory] = useState(null);
   const [selectedFilter, setSelectedFilter] = useState(null);
   const dispatch = useDispatch();
   const {
@@ -66,29 +66,29 @@ const CoursesNew = ({ heading, paddingTop, showallCourses }) => {
   }, [router?.isReady, cartItems]);
   console.log("coursesssssss.........\n", courses);
 
-  const handleAddToCart = async (course) => {
-    const response = await fetch(
-      `${process.env.NEXT_PUBLIC_BASE_API}/is-course-purchased?course_id=${course.id}&student_id=${studentId}`,
-      {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      },
-    );
+  // const handleAddToCart = async (course) => {
+  //   const response = await fetch(
+  //     `${process.env.NEXT_PUBLIC_BASE_API}/is-course-purchased?course_id=${course.id}&student_id=${studentId}`,
+  //     {
+  //       method: "GET",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //       },
+  //     },
+  //   );
 
-    if (response.ok) {
-      alert("You already have purchased this course");
-    } else {
-      if (!cartItems.some((item) => item.id === course.id)) {
-        dispatch(addItem(course));
-      }
-    }
-  };
+  //   if (response.ok) {
+  //     alert("You already have purchased this course");
+  //   } else {
+  //     if (!cartItems.some((item) => item.id === course.id)) {
+  //       dispatch(addItem(course));
+  //     }
+  //   }
+  // };
 
-  const isCourseAddedToCart = (course) => {
-    return cartItems.some((item) => item.id === course.id);
-  };
+  // const isCourseAddedToCart = (course) => {
+  //   return cartItems.some((item) => item.id === course.id);
+  // };
 
   if (isLoading || loading) {
     return (

@@ -57,7 +57,7 @@ export function ExploreCoursesCard({ className, course }) {
         </p>
         <div className="text-xs">
           By:
-          <span className="font-semibold text-[#2C2C2C]">
+          <span className="font-semibold text-[#2C2C2C]" style={{textTransform:"capitalize"}}>
             {/* Zubair Alam */}
             { " "+ course?.instructor?.user?.first_name +
               " " +
@@ -68,7 +68,7 @@ export function ExploreCoursesCard({ className, course }) {
           <div className="my-auto h-[9.6px] w-[11.6px]">
             <Image src={"/course_level.png"} width={11.6} height={9.1} />
           </div>
-          <span className="ms-1 self-start text-[#2C2C2C]">
+          <span className="ms-1 self-start text-[#2C2C2C]" style={{textTransform:"capitalize"}}>
             <span className="capitalize text-[#929292]">Level: </span>{" "}
             {course?.level || "Beginner"}
           </span>
