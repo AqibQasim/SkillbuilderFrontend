@@ -1,5 +1,4 @@
 import { useRouter } from "next/router";
-import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import BootcampHero from "@/components/bootcampHero";
 import { useSelector, useDispatch } from "react-redux";
@@ -10,6 +9,7 @@ import { fetchOneUser } from "../../../redux/thunks/userInfoThunk";
 import { fetchAllReviews } from "../../../redux/thunks/reviewsThunk";
 import Loader from "@/components/Loader";
 import ExploreCourses from "@/components/ExploreCourses";
+import HomePageNavbar from "@/components/HomePageNavbar";
 
 const CourseDetails = () => {
   const router = useRouter();
@@ -69,7 +69,7 @@ const CourseDetails = () => {
 
   return (
     <div className="h-full w-full bg-bg_gray">
-      <Navbar cartItemsLength={courses?.length} />
+      <HomePageNavbar cartItemsLength={courses?.length} />
 
       <BootcampHero
         title={"Introduce SkillBuilder and the range of courses available."}

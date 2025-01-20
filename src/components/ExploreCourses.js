@@ -5,7 +5,7 @@ import CoursesNew from "./CoursesNew";
 function ExploreCourses({ filter }) {
   const [activeTab, setActiveTab] = useState("Most Popular");
   const [sortOrder, setSortOrder] = useState("Most Popular");
-  const [selectedCategory, setSelectedCategory] = useState("development");
+  const [selectedCategory, setSelectedCategory] = useState("");
   
 
   const handleTabClick = (tabName) => {
@@ -98,7 +98,7 @@ function ExploreCourses({ filter }) {
         {/* Main Content */}
         <div className="mt-8">
           {/* Pass the activeTab and sortOrder to CoursesNew */}
-          <CoursesNew selectedCategory={selectedCategory} //activeTab={activeTab} sortOrder={sortOrder} 
+          <CoursesNew selectedCategory={selectedCategory} showallCourses={true}
           />
         </div>
       </div>

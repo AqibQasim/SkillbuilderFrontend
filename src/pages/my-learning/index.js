@@ -3,7 +3,7 @@ import Footer from "@/components/Footer";
 import LayoutWidth from "@/components/LayoutWidth";
 import MyLearningCourses from "@/components/MyLearningCourses";
 import MyLearningHero from "@/components/MyLearningHero";
-import Navbar from "@/components/Navbar";
+import HomePageNavbar from "@/components/HomePageNavbar";
 import withAuth from "@/components/WithAuth";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
@@ -25,7 +25,9 @@ function MyLearning() {
   return (
     <>
       <div className="h-[100%] w-[100%] bg-bg_gray">
-        <Navbar cartItemsLength={courses?.length} />
+        <LayoutWidth>
+          <HomePageNavbar cartItemsLength={courses?.length} />
+        </LayoutWidth>
         <LayoutWidth>
           <div className="path-wrapper mb-8 mt-16">
             <CurrentPath />

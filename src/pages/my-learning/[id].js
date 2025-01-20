@@ -16,6 +16,7 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchAllReviews } from "../../../redux/thunks/reviewsThunk";
 import { fetchOneCourse } from "../../../redux/thunks/coursesThunks";
+import HomePageNavbar from "@/components/HomePageNavbar";
 
 const courseProgress = 100;
 
@@ -74,7 +75,9 @@ function EnrolledCourseDetails() {
   return (
     <>
       <div className="h-[100%] w-[100%] bg-bg_gray">
-        <Navbar cartItemsLength={courses?.length} />
+        <LayoutWidth>
+          <HomePageNavbar cartItemsLength={courses?.length} />
+        </LayoutWidth>
         <LayoutWidth>
           <div className="path-wrapper mb-8 mt-16">
             <CurrentPath dynamicPath={course?.title} />
@@ -87,9 +90,13 @@ function EnrolledCourseDetails() {
             purchasedCourses={course?.purchased_course}
           />
           <EnrolledCourseSkills enrolledCourse={course?.skills} />
-          <CourseModules course={course?.modules} course_id={course.id} heading="Videos" />
+          <CourseModules
+            course={course?.modules}
+            course_id={course.id}
+            heading="Videos"
+          />
           <EnrolledCourseRatingAndReviews reviews={reviews} />
-          <CourseReviews reviews={reviews} CourseId = {course?.id}/>
+          <CourseReviews reviews={reviews} CourseId={course?.id} />
           <CourseCertificate course={course} />
         </div>
         <Footer />

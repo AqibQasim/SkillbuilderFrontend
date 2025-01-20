@@ -7,7 +7,7 @@ import ButtonSecond from "./ButtonSecond";
 import { useRouter } from "next/router";
 
 const CoursesSection = () => {
-  const [selectedCategory, setSelectedCategory] = useState("development");
+  const [selectedCategory, setSelectedCategory] = useState("");
   const router = useRouter();
 
   return (

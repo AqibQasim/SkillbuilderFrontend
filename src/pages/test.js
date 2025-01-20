@@ -1,7 +1,7 @@
 "use client";
 import React, { useCallback } from "react";
 import HeroSection from "@/components/HeroSection";
-import Navbar from "@/components/Navbar";
+import HomePageNavbar from "@/components/HomePageNavbar";
 import { useEffect, useState } from "react";
 import { setCurrentTab } from "../utils/currentTabMethods";
 import SkillsList from "@/components/SkillsList";
@@ -115,7 +115,7 @@ const index = () => {
   return (
     <>
       <div className="flex h-[100%] w-[100%] flex-col items-center bg-bg_gray">
-        <Navbar cartItemsLength={courses?.length} />
+        <HomePageNavbar cartItemsLength={courses?.length} />
         <HeroSection />
         <SkillsList />
         <Courses heading="Find the courses that fit you" />
