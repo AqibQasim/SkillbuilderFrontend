@@ -1,7 +1,9 @@
 import { useState } from "react";
 
-const BootcampModule = () => {
+const BootcampModule = ({ course }) => {
   const [openIndex, setOpenIndex] = useState(null);
+
+  const courseModules = course?.modules || [];
 
   const toggleSection = (index) => {
     setOpenIndex(openIndex === index ? null : index);
@@ -19,7 +21,7 @@ const BootcampModule = () => {
     <div className="mx-auto w-full max-w-[80%] p-4">
       <h2 className="mb-4 text-2xl font-bold">Course Details:</h2>
       <div className="space-y-2">
-        {courseSections.map((section, index) => (
+        {courseModules.map((section, index) => (
           <div
             key={index}
             className="overflow-hidden rounded-lg border shadow-sm"
@@ -28,7 +30,7 @@ const BootcampModule = () => {
               className="flex w-full items-center justify-between bg-gray-100 p-4 transition hover:bg-gray-200 focus:outline-none"
               onClick={() => toggleSection(index)}
             >
-              <span className="text-xl font-semibold">{section}</span>
+              <span className="text-xl font-semibold">{section?.title}</span>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 className={`h-5 w-5 transition-transform ${
@@ -48,10 +50,7 @@ const BootcampModule = () => {
             </button>
             {openIndex === index && (
               <div className="border-t bg-white p-4">
-                <p className="text-sm text-gray-600">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                  Vivamus lacinia odio vitae vestibulum.
-                </p>
+                <p className="text-sm text-gray-600">{section?.description}</p>
               </div>
             )}
           </div>

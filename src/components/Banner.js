@@ -1,5 +1,3 @@
-import { satoshi } from "@/fonts/font-styles";
-
 function Banner() {
   return (
     <div className="banner mb-3 hidden bg-[#3759FF] p-5 text-center text-[1rem] text-white xl:mb-5 xlg:block">

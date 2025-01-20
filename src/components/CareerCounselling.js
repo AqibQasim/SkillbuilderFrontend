@@ -1,9 +1,16 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import ButtonWithIcon from "./ButtonWithIcon";
 import PointerDiv from "./PointerDiv";
 
 const CareerCounselling = () => {
+
+  const [studentProfile,setStudentProfile]= useState(null);
+
+  useEffect(()=>{
+    setStudentProfile(JSON.parse(localStorage.getItem("profile")));
+  },[])
+
   return (
     <section className="relative bg-gray-50 px-4 py-16 lg:px-20">
       <div className="mx-auto max-w-7xl">
@@ -39,10 +46,11 @@ const CareerCounselling = () => {
             <br />
             <form
               className="w-full"
-              action="/api/checkout_session_counseling"
+              action={"/api/checkout_session_counseling"}
               method="POST"
             >
-              <input type="hidden" name="studentId" value={4} />
+              <input type="hidden" name="studentId" value={studentProfile?.id} />
+              <input type="hidden" name="candidateEmail" value={studentProfile?.email} />
               <input
                 type="hidden"
                 name="items"
@@ -87,7 +95,7 @@ const CareerCounselling = () => {
                         profile: null,
                         first_name: "Sanjay",
                         last_name: "Kumar",
-                        email: "sanjaybaghtwani@gmail.com", 
+                        email: "sanjaybaghtwani@gmail.com",
                         password: null,
                         profession: null,
                         location: null,
