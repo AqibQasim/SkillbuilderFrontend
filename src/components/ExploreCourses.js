@@ -81,7 +81,7 @@ function ExploreCourses() {
         {/* Main Content */}
         <div className="mt-8">
           {/* Pass the activeTab and sortOrder to CoursesNew */}
-          <CoursesNew activeTab={activeTab} sortOrder={sortOrder} />
+          <CoursesNew activeTab={activeTab} sortOrder={sortOrder} showallCourses={true}/>
         </div>
       </div>
     </div>

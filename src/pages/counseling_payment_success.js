@@ -57,16 +57,22 @@ const CounselingPaymentSuccess = () => {
   useEffect(() => {
     
     if (router.isReady && student_id && instructor_id) {
-      setEmail(JSON.parse(localStorage.getItem('profile'))?.email);
+      // setEmail(JSON.parse(localStorage.getItem('profile'))?.email);
       addCounseling();
     }
-  }, [router?.isReady, student_id, instructor_id,email]);
+  }, [router?.isReady, student_id, instructor_id]);
 
   useEffect(()=>{
     if(redirectTo && email){
       router.push(redirectTo);
     }
-  },[redirectTo,email])
+  },[redirectTo])
+
+
+  useEffect(() => {
+     setEmail(JSON.parse(localStorage.getItem("profile"))?.email);
+
+  }, [email])
 
   return (
     <>
