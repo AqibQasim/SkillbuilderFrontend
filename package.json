@@ -44,6 +44,7 @@
     "stripe": "^16.5.0",
     "swiper": "^11.1.4",
     "tailwind-scrollbar": "^3.1.0",
+    "three": "^0.172.0",
     "vimeo": "^2.3.1"
   },
   "devDependencies": {

@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
-import HEX_DATA from "../data/countries_hex_data.json";
 import Globe from "react-globe.gl";
+import * as THREE from "three";
+import HEX_DATA from "../data/countries_hex_data.json";
 
 function CustomGlobe() {
   const [reviews, setReviews] = useState([]);
@@ -36,8 +37,8 @@ function CustomGlobe() {
 
   useEffect(() => {
     globeEl.current.controls().enableZoom = false;
-    // globeEl.current.controls().autoRotate = true;
-    // globeEl.current.controls().autoRotateSpeed = 0.7;
+    globeEl.current.controls().autoRotate = true;
+    globeEl.current.controls().autoRotateSpeed = 0.7;
   }, []);
 
   useEffect(() => {
@@ -57,10 +58,19 @@ function CustomGlobe() {
       <div className="pointer-events-none absolute bottom-0 left-0 z-[99] h-28 w-full bg-gradient-to-t from-white"></div>
       <Globe
         ref={globeEl}
+        globeMaterial={
+          new THREE.MeshBasicMaterial({
+            color: "#373668",
+            transparent: false,
+          })
+        }
+        atmosphereColor="white"
+        atmosphereAltitude="2"
         pointAltitude={3}
         backgroundColor="rgba(0,0,0,0)"
         height={600}
         labelsData={reviews}
+        labelText={(d) => d.text}
         labelSize={1.2}
         // labelColor={() => "#4B92E4"}
         labelColor={() => "white"}
@@ -70,7 +80,8 @@ function CustomGlobe() {
         hexPolygonUseDots={true}
         hexPolygonResolution={3}
         hexPolygonMargin={0.62}
-        hexPolygonColor={useCallback(() => "#5568EF")}
+        // hexPolygonColor={useCallback(() => "#5568EF")}
+        hexPolygonColor={useCallback(() => "white")}
       />
     </div>
   );
