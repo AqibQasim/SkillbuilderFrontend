@@ -27,8 +27,8 @@ const CareerCounselling = () => {
             profile.
           </p>
         </div>
-        <div className="relative mx-auto max-w-2xl">
-          <div className="relative overflow-hidden rounded-lg border border-gray-200 shadow-lg">
+        <div className="relative   mx-auto  px-12   max-w-[40rem]">
+          <div className="relative overflow-hidden  rounded-lg border border-gray-200 shadow-lg">
             <Image
               src="/Career.png"
               alt="Career Counseling Session"
@@ -36,19 +36,19 @@ const CareerCounselling = () => {
               height={225}
               className="h-auto w-full object-cover"
             />
-            <h3 className="mt-4 text-xl font-bold text-gray-900 lg:text-2xl">
+            <h3 className="mt-4 text-xl text-center font-bold text-gray-900 lg:text-2xl">
               Career Counselling
             </h3>
-            <p>
+            <p className="text-center">
               Offer professional career guidance to help the candidate navigate
               challenges and strategize for improvement.
             </p>
             <br />
             <form
-              className="w-full"
+              className="w-full mx-layout-lg  mb-3 "
               action={"/api/checkout_session_counseling"}
               method="POST"
-            >
+            > 
               <input type="hidden" name="studentId" value={studentProfile?.id} />
               <input type="hidden" name="candidateEmail" value={studentProfile?.email} />
               <input
@@ -104,7 +104,7 @@ const CareerCounselling = () => {
                         linkedin_profile: null,
                         is_active: true,
                         role: "student",
-                        source: "app",
+                        source: "app", 
                         created_at: "2025-01-08T12:45:38.225Z",
                         updated_at: "2025-01-08T07:45:38.232Z",
                       },
@@ -116,7 +116,7 @@ const CareerCounselling = () => {
             </form>
           </div>
 
-          <div className="absolute left-0 top-3/4 -translate-x-full -translate-y-1/2 transform max-lg:hidden">
+          <div className="absolute  left-0 top-3/4 -translate-x-full -translate-y-1/2 transform max-lg:hidden">
             <PointerDiv />
           </div>
           <div className="absolute right-0 top-1/4 -translate-y-1/2 translate-x-full transform max-lg:hidden">

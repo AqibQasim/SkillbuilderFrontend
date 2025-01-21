@@ -25,15 +25,9 @@ const Page = () => {
         }
         tagline={"Career Counseling"}
       />
-<<<<<<< HEAD
-      <div className="max-w-[90%] mx-auto ">
-        <div className=" pt-6 md:p-12 ">
-          <div className="inline-block border-solid border-2 border-black-shade-1 text-sm font-medium rounded-full px-4 py-1 mb-4">
-=======
       <div className="mx-auto max-w-7xl px-4">
         <div className="p-6 md:p-12">
           <div className="mb-4 inline-block rounded-full border-2 border-solid border-black-shade-1 px-4 py-1 text-sm font-medium">
->>>>>>> f13c818e8747c89ac56ded0be5baeda9a9e7ad94
             Career Counseling
           </div>
           <h2 className="mb-4 text-2xl font-bold text-gray-900 md:text-4xl">
@@ -62,19 +56,6 @@ const Page = () => {
         />
       </div>
 
-<<<<<<< HEAD
- <div className=" pt5">
-  <div className="max-w-[90%] mx-auto px-6">
-    {/* Section Header */}
-    <div className="text-center mb-10">
-      <span className="inline-block text-blue-700 border-solid border-2 border-blue-700 text-sm font-medium rounded-full px-4 py-1">
-        Career Counseling
-      </span>
-      <h2 className="mt-4 text-3xl md:text-4xl font-bold text-gray-900">
-        Process of Career Counselling and Guidance
-      </h2>
-    </div>
-=======
       <div className="pt5">
         <div className="mx-auto max-w-7xl px-6">
           {/* Section Header */}
@@ -86,7 +67,6 @@ const Page = () => {
               Process of Career Counselling and Guidance
             </h2>
           </div>
->>>>>>> f13c818e8747c89ac56ded0be5baeda9a9e7ad94
 
           {/* Steps Grid */}
           <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
@@ -146,33 +126,6 @@ const Page = () => {
             ))}
           </div>
         </div>
-<<<<<<< HEAD
-      ))}
-    </div>
-  </div>
-</div>
-
-<div class=" pt-5">
-  <div class="max-w-[90%] mx-auto px-6">
-    <div class=" mb-8">
-      <span class="inline-block border-solid border-2 border-black-shade-1 text-sm font-medium rounded-full px-4 py-1">
-        Career Counseling
-      </span>
-      <h2 class="mt-4 text-3xl md:text-4xl font-bold text-gray-900">
-        Why Choose 1 to 1 Education Consultancy?
-      </h2>
-    </div>
-    <div class="space-y-6">
-
-      <div>
-        <h3 class="text-xl font-semibold text-gray-900">
-          Individualized Attention:
-        </h3>
-        <p class="mt-2 text-sm text-gray-600">
-          We believe in quality over quantity. As a boutique consultancy, we offer individualized attention to each student, ensuring that their goals and dreams take center stage in our guidance.
-        </p>
-=======
->>>>>>> f13c818e8747c89ac56ded0be5baeda9a9e7ad94
       </div>
 
       <div class="pt-5">
@@ -221,18 +174,6 @@ const Page = () => {
               </p>
             </div>
 
-<<<<<<< HEAD
-      {/* <!-- Image Content --> */}
-      <div class="w-full md:w-1/2  md:pt-20 lg:pt-8 xl:pt-0 flex justify-center  md:justify-end p-2">
-      <Image
-                            src="/carrer.png"
-                             alt="1 to 1 Education Consultancy"
-                            width={450}
-                            height={400}
-                            className="rounded-lg   "
-                          />
-        
-=======
             <div>
               <h3 class="text-xl font-semibold text-gray-900">
                 End-to-End Support:
@@ -246,7 +187,6 @@ const Page = () => {
             </div>
           </div>
         </div>
->>>>>>> f13c818e8747c89ac56ded0be5baeda9a9e7ad94
       </div>
       <div class="bg-white pt-5">
         <div class="mx-auto max-w-[90%] px-6">

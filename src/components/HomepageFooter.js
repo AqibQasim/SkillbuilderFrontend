@@ -50,13 +50,19 @@ const HomepageFooter = ({ className }) => {
             <div className="">
               <h3 className="mb-2 text-xl font-bold text-[#012456]">Contact</h3>
               <ul className="space-y-4 p-2 text-sm text-[#9AA5B8]">
-                {["+92 304 3870323", "info@co-ventech.com"].map(
-                  (item, index) => (
-                    <li key={index} className="text-lg font-medium">
-                      {item}
-                    </li>
-                  ),
-                )}
+                {[
+                  { type: "tel", value: "+92 304 3870323" },
+                  { type: "mailto", value: "info@co-ventech.com" },
+                ].map((item, index) => (
+                  <li key={index} className="text-lg font-medium">
+                    <a
+                      href={`${item.type}:${item.value}`}
+                      className="text-inherit hover:underline"
+                    >
+                      {item.value}
+                    </a>
+                  </li>
+                ))}
               </ul>
             </div>
           </div>
