@@ -22,7 +22,7 @@ const ScheduleSession = () => {
                 body: JSON.stringify({
                   booking_date: startDate,
                   booking_time: startTime,
-                  instructor_id: 2,
+                  instructor_id: 4,
                   student_id: profile.id,
                 }),
               },
