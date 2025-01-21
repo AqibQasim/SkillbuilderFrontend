@@ -12,7 +12,7 @@ function Showcase() {
         <HomePageNavbar className="!mt-0" />
         <div className="content mb-8 mt-5 flex flex-col items-center justify-center text-center md:mb-11 lg:mt-10 2xl:mt-24">
           <div className="highlight relative w-max rounded-[2.2rem] border border-[#000DFF] bg-gradient-to-br from-[#E8E9FF] from-50% to-[rgba(193,197,255,0.5)] px-4 py-2 text-[0.9375rem] text-xs font-medium text-[#313131] md:px-5 xlg:mx-[unset]">
-            Rate 5/4.9 from over 157+ review
+            Rate 4.9/5 from over 157+ review
           </div>
 
           <h1 className="z-[1] mb-[1.125rem] mt-[1.125rem] max-w-[59rem] text-2xl font-bold text-[#00204D] md:text-3xl lg:text-5xl">

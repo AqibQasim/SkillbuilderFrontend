@@ -6,6 +6,8 @@ import { useRouter } from "next/router";
 import { useSelector, useDispatch } from "react-redux";
 import { clearCart } from "../../redux/slices/addToCart";
 import urlBase64ToUint8Array from "@/utils/urlBase64ToUint8Array";
+import HomePageNavbar from "@/components/HomePageNavbar";
+
 const PaymentSuccess = () => {
   const router = useRouter();
   const dispatch = useDispatch();
@@ -93,7 +95,7 @@ const PaymentSuccess = () => {
   return (
     <>
       <div className="flex h-[100%] w-[100%] flex-col items-center bg-bg_gray">
-        <Navbar cartItemsLength={courses?.length} />
+        <HomePageNavbar cartItemsLength={courses?.length} />
         <div>Payment Success!</div>
         <Footer />
       </div>

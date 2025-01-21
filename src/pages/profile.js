@@ -1,6 +1,6 @@
 import CurrentPath from "@/components/CurrentPath";
 import LayoutWidth from "@/components/LayoutWidth";
-import Navbar from "@/components/Navbar";
+import HomePageNavbar from "@/components/HomePageNavbar";
 import Profile from "@/components/Profile";
 import withAuth from "@/components/WithAuth";
 import { useSelector } from "react-redux";
@@ -16,7 +16,7 @@ const profile = () => {
   return (
     <>
       <div className="flex h-[100%] w-[100%] flex-col items-center bg-bg_gray">
-        <Navbar cartItemsLength={courses?.length}/>
+        <HomePageNavbar cartItemsLength={courses?.length} />
         <LayoutWidth>
           <div className="path-wrapper mb-8 mt-8">
             <CurrentPath />
