@@ -77,11 +77,7 @@ const Bootcamp = () => {
         <div className="mx-auto mt-12 flex max-w-[92%] justify-end">
           <div className="flex gap-3">
             <button
-              onClick={() =>
-                setSortOrder(
-                  filter === "Most Popular" ? "New Arrivals" : "Most Popular",
-                )
-              }
+           
               className="flex items-center rounded-full border border-gray-300 bg-pink px-4 py-2 text-sm text-gray-600 hover:bg-pink-300"
             >
               <Image
@@ -114,18 +110,11 @@ const Bootcamp = () => {
             </button>
           </div>
         </div>
-<<<<<<< HEAD
-       
-        <div className="mx-auto mt-16  max-xsm:w-[80%] items-center grid h-auto w-[95%] grid-cols-1 place-items-center gap-x-2 gap-y-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 ">
-
-          {Array(8)
-=======
         <div className="mx-auto mt-16 grid max-w-screen-xl gap-3 xl:grid-cols-4 max-xlg:grid-cols-3">
           {liveSessionCourses?.map((course, i) => (
             <LiveCoursesCard course={course} />
           ))}
           {/* {Array(8)
->>>>>>> f13c818e8747c89ac56ded0be5baeda9a9e7ad94
             .fill(null)
             .map((_, index) => (
               <LiveCoursesCard course={course} key={index} />
@@ -134,7 +123,7 @@ const Bootcamp = () => {
         <div class="bg-gray-50 py-12">
           <div class="mx-auto max-w-[92%] max-xsm:w-[80%] px-4">
             <h2 class="text-3xl font-bold text-gray-900">
-              Why 100+ designers train with Memorise.ly
+              Why 100+ designers train with Memorisely
             </h2>
             <p class="mt-3 text-gray-600">
               Explore courses from experienced, real-world experts.

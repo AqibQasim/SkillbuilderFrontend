@@ -18,7 +18,7 @@ function HomePageNavbar({ className }) {
   const links = [
     { href: "/", title: "Home" },
     { href: "/courses", title: "Courses" },
-    { href: "/counselling", title: "Counselling" },
+    { href: "/career-counseling", title: "Counselling" },
     { href: "/bootcamp", title: "Live session" },
     { href: "/about", title: "About" },
   ];
@@ -38,10 +38,10 @@ function HomePageNavbar({ className }) {
       <div className="logo flex min-w-40 items-center justify-start">
         <Image src="/logo.svg" width={160} height={160} alt="Logo" />
       </div>
-      <div className="links hidden xlg:flex xlg:items-center xlg:justify-start">
+      <div className="links hidden xlg:flex xlg:items-center xlg:justify-center">
         {links.map((link, i) => (
           <Link
-            className={`${pathname === link.href ? "text-[#012256]" : "text-[#969BA3]"} px-6 text-[1.125rem] font-medium capitalize`}
+            className={`${pathname === link.href ? "text-[#012256]" : "text-[#969BA3]"} px-4 text-[1.125rem] font-medium capitalize`}
             href={link.href}
             key={i}
           >
