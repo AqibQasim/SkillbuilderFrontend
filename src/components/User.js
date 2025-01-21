@@ -20,6 +20,8 @@ import {
   fetchNotificationInstructorThunk,
   fetchNotificationStudentThunk,
 } from "../../redux/thunks/notificationThunk";
+import ButtonSecond from "./ButtonSecond";
+import ButtonWithIcon from "./ButtonWithIcon";
 
 function User({ cartClickHandler, cartItemsLength }) {
   const [show, setShow] = useState(false);
@@ -27,13 +29,13 @@ function User({ cartClickHandler, cartItemsLength }) {
   const [showIconsOnSmallScreen, setShowIconsOnSmallScreen] = useState(false);
   const { user, isLoading } = useSelector((store) => store.auth);
   const profile = useSelector((store) => store.profile);
-  
+
   const ref = useOutsideClick(handleClose);
   const dispatch = useDispatch();
-  
+
   const { data: session, status } = useSession();
   const router = useRouter();
-  
+
   const userAlreadyAvailableId = useSelector(
     (state) => state.singleUser.userData.id,
   );
@@ -143,19 +145,19 @@ function User({ cartClickHandler, cartItemsLength }) {
       <div className="relative inline-flex items-center justify-center gap-3 text-dark-svg">
         {!isAdminRoute && (
           <>
-          {!istutor && 
-            <button className="hidden w-[100%] md:flex">
-              <CartIconSvg
-                clickHandler={cartClickHandler}
-                className="h-7 w-7"
-              />
-              {cartItemsLength ? (
-                <div className="flex h-[1.25rem] w-[1.25rem] items-center justify-center rounded-[100%] bg-red-600 text-sm text-white">
-                  {cartItemsLength}
-                </div>
-              ) : null}
-            </button>
-  }
+            {!istutor && (
+              <button className="hidden w-[100%] md:flex">
+                <CartIconSvg
+                  clickHandler={cartClickHandler}
+                  className="h-7 w-7"
+                />
+                {cartItemsLength ? (
+                  <div className="flex h-[1.25rem] w-[1.25rem] items-center justify-center rounded-[100%] bg-red-600 text-sm text-white">
+                    {cartItemsLength}
+                  </div>
+                ) : null}
+              </button>
+            )}
             <button
               className="hidden md:block"
               onClick={() => {
@@ -233,7 +235,6 @@ function User({ cartClickHandler, cartItemsLength }) {
                         </div>
                       ) : null}
                     </button>
-                    
                   </>
                 )}
               </div>
@@ -245,20 +246,19 @@ function User({ cartClickHandler, cartItemsLength }) {
               </p>
             </div>
             <ul className="space-y-1">
-              {!istutor && 
-              <li>
-
-                <button
-                  onClick={() => {
-                    router.push("/my-learning");
-                  }}
-                  className="mt-4 inline-flex w-full items-center justify-between px-5 py-2 text-gray-700 hover:bg-gray-100"
-                >
-                  My Learning
-                  <ChevronRightIconSvg className="h-4 w-4" />
-                </button>
-              </li>
-              }
+              {!istutor && (
+                <li>
+                  <button
+                    onClick={() => {
+                      router.push("/my-learning");
+                    }}
+                    className="mt-4 inline-flex w-full items-center justify-between px-5 py-2 text-gray-700 hover:bg-gray-100"
+                  >
+                    My Learning
+                    <ChevronRightIconSvg className="h-4 w-4" />
+                  </button>
+                </li>
+              )}
               <li>
                 <button
                   onClick={() => {
@@ -280,17 +280,17 @@ function User({ cartClickHandler, cartItemsLength }) {
                 </Link>
               </li>
 
-              {!istutor &&
-              <li>
-                <Link
-                  href="/purchase-history"
-                  className="inline-flex w-full items-center justify-between px-5 py-2 text-gray-700 hover:bg-gray-100"
-                >
-                  Purchase History
-                  <ChevronRightIconSvg className="h-4 w-4" />
-                </Link>
-              </li>
-              }
+              {!istutor && (
+                <li>
+                  <Link
+                    href="/purchase-history"
+                    className="inline-flex w-full items-center justify-between px-5 py-2 text-gray-700 hover:bg-gray-100"
+                  >
+                    Purchase History
+                    <ChevronRightIconSvg className="h-4 w-4" />
+                  </Link>
+                </li>
+              )}
               <li>
                 {/* <Link
                   href={handleNavigation}
@@ -352,12 +352,17 @@ function User({ cartClickHandler, cartItemsLength }) {
   }
 
   return (
-    <Link
-      href="/login"
-      className="hidden w-full items-center justify-between rounded-lg bg-blue px-4 py-2 text-white lg:flex lg:w-auto"
-    >
-      Get started
-    </Link>
+    <div className="buttons hidden gap-[0.625rem] xlg:flex xlg:items-center xlg:justify-start">
+      <Link
+        href="/login"
+        // className="hidden w-full items-center justify-between rounded-lg bg-blue px-4 py-2 text-white lg:flex lg:w-auto"
+      >
+        <ButtonSecond className="text-nowrap">Sign in</ButtonSecond>
+      </Link>
+      <Link href="/counselling">
+        <ButtonWithIcon text="talk to mentor" className="text-nowrap" />
+      </Link>
+    </div>
   );
 }
 

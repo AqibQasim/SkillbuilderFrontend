@@ -10,6 +10,8 @@ import { useRouter } from "next/router";
 import Footer from "@/components/Footer";
 import LayoutWidth from "@/components/LayoutWidth";
 import { useState, useEffect } from "react";
+import HomePageNavbar from "@/components/HomePageNavbar";
+import HomepageFooter from "@/components/HomepageFooter";
 
 const about = () => {
   const router = useRouter();
@@ -41,7 +43,12 @@ const about = () => {
   return (
     <>
       <div className="flex h-[100%] w-[100%] flex-col items-center bg-bg_gray">
-        <Navbar cartItemsLength={courses?.length} />
+        {/* <Navbar cartItemsLength={courses?.length} /> */}
+        <LayoutWidth>
+          <div className="s">
+            <HomePageNavbar />
+          </div>
+        </LayoutWidth>
         <LayoutWidth>
           <div className="path-wrapper mx-auto mb-8 mt-16 w-[90%] max-w-screen-2xl">
             <CurrentPath />
@@ -51,8 +58,9 @@ const about = () => {
         <AboutGoals />
         <AboutVision />
         <AboutTeam />
-        <Footer />
+        {/* <Footer /> */}
       </div>
+      <HomepageFooter />
     </>
   );
 };

@@ -1,4 +1,4 @@
-import Navbar from "@/components/Navbar";
+import HomePageNavbar from "@/components/Navbar";
 import { useEffect, useState } from "react";
 import { setCurrentTab } from "@/utils/currentTabMethods";
 // import { useEffect } from "react";
@@ -25,10 +25,13 @@ const courses = () => {
   if (!isClient) {
     return null;
   }
+
+  return null;
+
   return (
     <>
       <div className="flex h-[100%] w-[100%] flex-col items-center bg-bg_gray">
-        <Navbar cartItemsLength={courses?.length} />
+        <HomePageNavbar />
         <div className="path-wrapper mx-auto mb-8 mt-16 w-[90%] max-w-screen-2xl">
           <CurrentPath />
         </div>

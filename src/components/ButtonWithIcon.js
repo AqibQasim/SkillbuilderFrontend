@@ -1,6 +1,7 @@
-function ButtonWithIcon({ className, text, onClick }) {
+function ButtonWithIcon({ className, text, type, onClick }) {
   return (
     <button
+    type={type}
     onClick={onClick}
       className={`${className} button relative flex items-center justify-center gap-2 rounded-[2.5rem] bg-gradient-to-br from-[#6B73FF] to-[#000DFF] py-1.5 pl-5 pr-1.5 font-bold text-white`}
     >

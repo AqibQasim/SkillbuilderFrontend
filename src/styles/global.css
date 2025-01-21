@@ -12,11 +12,17 @@
 }
 
 .suspend {
-  @apply hover:!bg-suspend-hover-bg !text-suspend;
+  @apply !text-suspend hover:!bg-suspend-hover-bg;
 }
 
 .delete {
   @apply bg-delete text-delete-text;
+}
+
+.skew-top {
+  position: relative;
+  background-color: lightblue;
+  clip-path: polygon(56px 0, calc(100% - 56px) 0, 100% 100%, 0 100%);
 }
 
 progress {
@@ -84,7 +90,7 @@ body {
   animation: l5 1s infinite;
 }
 
-iframe{
+iframe {
   width: 800px;
   height: 400px;
   border-radius: 24px;
@@ -93,7 +99,82 @@ iframe{
   border-radius: 15px;
   overflow: hidden;
 }
-      
+
+.inverted-radius {
+  /* --r: 25px; the radius */
+  --r: 0.875rem; /* the radius */
+  --s: 3.5rem; /* the size of the corner*/
+  border-radius: var(--r);
+  --_m: /calc(2 * var(--r)) calc(2 * var(--r)) radial-gradient(
+      #000 70%,
+      #0000 72%
+    ) no-repeat;
+  mask:
+    right 0 bottom calc(var(--s) + var(--r)) var(--_m),
+    right calc(var(--s) + var(--r)) bottom 0 var(--_m),
+    radial-gradient(var(--s) at 100% 100%, #0000 99%, #000 101%)
+      calc(-1 * var(--r)) calc(-1 * var(--r)) no-repeat,
+    conic-gradient(
+      from 90deg at calc(100% - var(--s) - 2 * var(--r))
+        calc(100% - var(--s) - 2 * var(--r)),
+      #0000 25%,
+      #000 0
+    );
+}
+
+/* HTML: <div class="sector"></div> */
+.sector {
+  --s: 0deg; /* starting angle */
+  --p: 270deg; /* filling angle */
+
+  height: 250px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: #659bfd;
+  /* switch #0000 and #000 to get the opposite shape */
+  mask: conic-gradient(
+    from var(--s),
+    #0000,
+    #000 1deg var(--p),
+    #0000 calc(var(--p) + 1deg)
+  );
+}
+
+/* HTML: <div class="curved-rectangle"></div> */
+.curved-rectangle {
+  --c: 85; /* control the curvature (a percentage value without unit bigger than 50%)*/
+
+  width: 250px;
+  aspect-ratio: 3/2;
+  background: #a7237b;
+  mask: radial-gradient(
+    calc(var(--c) * 1%) 100% at 50% calc(-100% * cos(asin(50 / var(--c)))),
+    #0000 calc(100% - 1px),
+    #000
+  );
+  clip-path: ellipse(calc(var(--c) * 1%) 100% at top);
+}
+
+.border-shape {
+  border-radius: 100% 0% 0% 100% / 100% 0% 100% 0%;
+}
+
+.border-shape-2 {
+  border-radius: 0% 100% 100% 0% / 100% 0% 100% 0%;
+}
+
+.explore-courses-swiper > div {
+  max-width: 25.25rem;
+  border-radius: 0.875rem;
+}
+
+.reviews-swiper > div {
+  overflow: visible;
+  max-width: 36.5rem;
+}
+.reviews-swiper > div:first-child {
+  margin-left: 0 !important;
+}
 
 @keyframes l5 {
   to {
@@ -101,3 +182,28 @@ iframe{
   }
 }
 
+.logos2 {
+  display: flex;
+  animation: scroll 40s linear infinite;
+}
+
+@media (max-width: 1536px) {
+  .reviews-swiper > div {
+    max-width: 25.5rem;
+  }
+}
+
+@media (max-width: 1440px) {
+  .explore-courses-swiper > div {
+    max-width: 21rem;
+  }
+}
+
+@keyframes scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-100%);
+  }
+}

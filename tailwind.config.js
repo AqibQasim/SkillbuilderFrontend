@@ -7,16 +7,24 @@ module.exports = {
   ],
   theme: {
     extend: {
+      backgroundImage: {
+        "custom-radial":
+          "radial-gradient(circle, rgba(206, 206, 206, 0.82), #f9f9f9 60%, #fff)",
+      },
       container: {
         padding: "25px",
       },
       boxShadow: {
         "custom-input": "0 4px 6px rgba(56, 71, 255, 0.11)",
+        "inner-custom": "inset 0 0 4px 2px rgba(0, 0, 0, 0.25)",
+        "showcase-inner": "inset 0 -36px 80px 0 rgba(148, 184, 255, 0.9)",
       },
       borderRadius: {
         "tl-br": "var(--tw-border-radius-tl-br)",
+        "showcase-image": "5% 5% 0% 0% / 100% 100% 0% 0%",
       },
       fontFamily: {
+        satoshi: ["var(--font-satoshi)"],
         poppins: ["Poppins", "sans-serif"],
       },
       backgroundImage: {
@@ -84,6 +92,9 @@ module.exports = {
         bg_gray: {
           DEFAULT: "#F3F5FA",
         },
+        pink: {
+          DEFAULT: "#F9F2F2",
+        },
         blue: {
           DEFAULT: "#0038FF",
         },
@@ -112,6 +123,7 @@ module.exports = {
           "shade-1": "#878A99",
           "shade-2": "#D5D5D5",
           "shade-3": "#F0F1F5",
+          "shade-4": "#EDEFF0",
           // this is max ignore other shades if exists use one of these instead!.
         },
         approve: {

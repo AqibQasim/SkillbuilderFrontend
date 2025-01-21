@@ -30,6 +30,7 @@ const InstructorVideos = ({ onNext, onPrev }) => {
     (state) => state.createCourse.courseDetails,
   );
   const [updatedCourse, setUpdatedCourse] = useState(false);
+  const [videoUploadFailed, setVideoUploadFailed] = useState(false);
 
   const dispatch = useDispatch();
   const router = useRouter();
@@ -54,6 +55,7 @@ const InstructorVideos = ({ onNext, onPrev }) => {
       url: URL.createObjectURL(file),
       videoId: null,
       loading: true, // Initially set loader to true
+      failed: false,
     }));
   
     setModules((prevModules) =>
@@ -88,6 +90,8 @@ const InstructorVideos = ({ onNext, onPrev }) => {
       } catch (error) {
 
         console.error("Failed to upload video:", error);
+        setModuleVideoUploading((c) => ({ ...c, loading: false, failed: true }));
+        
         // Ensure the loader is removed even if the upload fails
         setModules((prevModules) =>
           prevModules.map((module, modIndex) =>
@@ -96,7 +100,7 @@ const InstructorVideos = ({ onNext, onPrev }) => {
                   ...module,
                   videos: module.videos.map((video, vidIndex) =>
                     vidIndex === module.videos.length - videoFiles.length + index
-                      ? { ...video, loading: false }
+                      ? { ...video, loading: false, failed: true}
                       : video
                   ),
                 }
@@ -161,7 +165,11 @@ const InstructorVideos = ({ onNext, onPrev }) => {
   const uploadVideoHandler = async (selectedVideo) => {
     if (!selectedVideo) return;
 
-    setModuleVideoUploading(true);
+    setModuleVideoUploading((prevState) => ({
+      ...prevState,
+      loading: true,
+      failed: false,
+    }));
 
     const formData = new FormData();
     formData.append("video", selectedVideo);
@@ -173,7 +181,6 @@ const InstructorVideos = ({ onNext, onPrev }) => {
       });
 
       if (!response.ok) {
-        setModuleVideoUploading(false);
         const errorData = await response.json();
         throw new Error(errorData.error || "Unable to post video");
       }
@@ -181,15 +188,24 @@ const InstructorVideos = ({ onNext, onPrev }) => {
 
       if (data.uri) {
         const videoId = data.uri.split("/").pop();
-        setModuleVideoUploading(false)
+       setModuleVideoUploading((prevState) => ({
+         ...prevState,
+         loading: false,
+         failed: false,
+       }));
         return videoId;
       } else {
-        setModuleVideoUploading(false)
         throw new Error("Failed to get video URI from response");
       }
     } catch (error) {
       setIsLoading(false);
-      console.error("Failed to upload video:", error.message);
+      setModuleVideoUploading((prevState) => ({
+        ...prevState,
+        loading: false,
+        failed: true,
+      }));
+      selectedVideo.failed = true;
+      console.error("Failed to upload video vroo:", error.message);
     }
   };
 
@@ -267,7 +283,7 @@ const InstructorVideos = ({ onNext, onPrev }) => {
       <VideoUpload
         selectedVideo={selectedVideo}
         setSelectedVideo={setSelectedVideo}
-        courseIntroLoader = {courseIntroLoader}
+        courseIntroLoader={courseIntroLoader}
       />
       <div className="accordion mt-8 overflow-hidden rounded-md border-2 border-[#BBBBBB] px-4 py-2">
         {modules.map((item, moduleIndex) => (
@@ -306,55 +322,77 @@ const InstructorVideos = ({ onNext, onPrev }) => {
             >
               <div className="border-[#BBBBBB] py-5">
                 <div className="flex w-full flex-col items-center">
-                {item.videos.map((videoFile, videoIndex) => (
+                  {item.videos.map((videoFile, videoIndex) => (
+                    <React.Fragment key={videoIndex}>
+                      <div className="mt-4 flex h-fit w-full flex-row justify-between rounded-md border-2 border-[#BBBBBB] bg-bg_gray p-4 max-md:flex-col">
+                        <div className="flex h-full w-fit gap-3">
+                          <div className="flex justify-center">
+                            <button
+                              className="rounded text-white"
+                              onClick={() =>
+                                handlePlayVideo(moduleIndex, videoIndex)
+                              }
+                            >
+                              <Image
+                                alt="Play"
+                                height={40}
+                                width={40}
+                                src="/Play.png"
+                              />
+                            </button>
+                          </div>
+                          <div className="flex flex-col gap-2">
+                            <div className="flex flex-wrap">
+                              <p className="me-3 font-semibold">
+                                {videoFile.file.name}
+                              </p>
+                            </div>
+                            <div>
+                              <p className="text-sm text-[#7C7C7C]">
+                                {formatFileSize(videoFile.file.size)}
+                              </p>
+                            </div>
+                          </div>
+                        </div>
 
-  <React.Fragment key={videoIndex}>
-    <div className="mt-4 flex h-fit w-full flex-row justify-between rounded-md border-2 border-[#BBBBBB] bg-bg_gray p-4 max-md:flex-col">
-      <div className="flex h-full w-fit gap-3">
-        <div className="flex justify-center">
-          <button
-            className="rounded text-white"
-            onClick={() => handlePlayVideo(moduleIndex, videoIndex)}
-          >
-            <Image alt="Play" height={40} width={40} src="/Play.png" />
-          </button>
-        </div>
-        <div className="flex flex-col gap-2">
-          <div className="flex flex-wrap">
-            <p className="me-3 font-semibold">{videoFile.file.name}</p>
-          </div>
-          <div>
-            <p className="text-sm text-[#7C7C7C]">
-              {formatFileSize(videoFile.file.size)}
-            </p>
-          </div>
-        </div>
-      </div>
-
-      <div className="cancelUploadedVideo flex items-center">
-        {videoFile.loading ? (
-          <Loader />
-        ) : (
-          <button className="rounded border-0 bg-transparent px-4 py-2 text-sm font-semibold text-blue">
-            Uploaded Successfully
-          </button>
-        )}
-        <button
-          className="text-red-500"
-          onClick={() => handleRemoveVideo(moduleIndex, videoIndex)}
-        >
-          <Image height={30} width={30} alt="cross" src="/Cross.png" />
-        </button>
-      </div>
-    </div>
-    {showVideos[`${moduleIndex}-${videoIndex}`] && (
-      <video className="mt-4 h-2/6 w-6/12" controls>
-        <source src={videoFile.url} type={videoFile.file.type} />
-        Your browser does not support the video tag.
-      </video>
-    )}
-  </React.Fragment>
-))}
+                        <div className="cancelUploadedVideo flex items-center">
+                          {videoFile.loading ? (
+                            <Loader />
+                          ) : moduleVideoUploading.failed ? (
+                            <div className="flex items-center gap-2 text-red-500">
+                              <span>Upload failed</span>
+                            </div>
+                          ) : (
+                            <button className="rounded border-0 bg-transparent px-4 py-2 text-sm font-semibold text-green-500">
+                              Uploaded Successfully
+                            </button>
+                          )}
+                          <button
+                            className="text-red-500"
+                            onClick={() =>
+                              handleRemoveVideo(moduleIndex, videoIndex)
+                            }
+                          >
+                            <Image
+                              height={30}
+                              width={30}
+                              alt="cross"
+                              src="/Cross.png"
+                            />
+                          </button>
+                        </div>
+                      </div>
+                      {showVideos[`${moduleIndex}-${videoIndex}`] && (
+                        <video className="mt-4 h-2/6 w-6/12" controls>
+                          <source
+                            src={videoFile.url}
+                            type={videoFile.file.type}
+                          />
+                          Your browser does not support the video tag.
+                        </video>
+                      )}
+                    </React.Fragment>
+                  ))}
                 </div>
                 <div className="mt-4 flex justify-end">
                   <button
@@ -399,12 +437,21 @@ const InstructorVideos = ({ onNext, onPrev }) => {
             </button>
           </div>
           <div>
-            
             <button
               type="button"
               className="rounded-md bg-blue px-10 py-2 font-normal text-white hover:bg-blue-600 max-lsm:mt-4 max-lsm:w-full"
               // onClick={onNext}
               onClick={uploadCourseDetailsAndVideo}
+              disabled={moduleVideoUploading.loading === true ? true : false}
+              style={{
+                cursor:
+                  moduleVideoUploading.loading === true
+                    ? "not-allowed"
+                    : "pointer",
+                color: moduleVideoUploading.loading === true ? "gray" : "white",
+                backgroundColor:
+                  moduleVideoUploading.loading === true ? "#BBBBBB" : "#2563EB",
+              }}
             >
               {courseIntroLoader ? <Loader /> : "Continue"}
               {}

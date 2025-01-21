@@ -1,0 +1,63 @@
+import { useState } from "react";
+
+const BootcampModule = ({ course }) => {
+  const [openIndex, setOpenIndex] = useState(null);
+
+  const courseModules = course?.modules || [];
+
+  const toggleSection = (index) => {
+    setOpenIndex(openIndex === index ? null : index);
+  };
+
+  const courseSections = [
+    "Module 1",
+    "Module 2",
+    "Module 3",
+    "Module 4",
+    "Module 5",
+  ];
+
+  return (
+    <div className="mx-auto w-full max-w-[80%] p-4">
+      <h2 className="mb-4 text-2xl font-bold">Course Details:</h2>
+      <div className="space-y-2">
+        {courseModules.map((section, index) => (
+          <div
+            key={index}
+            className="overflow-hidden rounded-lg border shadow-sm"
+          >
+            <button
+              className="flex w-full items-center justify-between bg-gray-100 p-4 transition hover:bg-gray-200 focus:outline-none"
+              onClick={() => toggleSection(index)}
+            >
+              <span className="text-xl font-semibold">{section?.title}</span>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className={`h-5 w-5 transition-transform ${
+                  openIndex === index ? "rotate-180" : "rotate-0"
+                }`}
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M19 9l-7 7-7-7"
+                />
+              </svg>
+            </button>
+            {openIndex === index && (
+              <div className="border-t bg-white p-4">
+                <p className="text-sm text-gray-600">{section?.description}</p>
+              </div>
+            )}
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+};
+
+export default BootcampModule;
