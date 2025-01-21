@@ -16,7 +16,7 @@ const profile = () => {
   return (
     <>
       <div className="flex h-[100%] w-[100%] flex-col items-center bg-bg_gray">
-        <HomePageNavbar cartItemsLength={courses?.length} />
+        <HomePageNavbar />
         <LayoutWidth>
           <div className="path-wrapper mb-8 mt-8">
             <CurrentPath />

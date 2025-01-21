@@ -115,7 +115,7 @@ const index = () => {
   return (
     <>
       <div className="flex h-[100%] w-[100%] flex-col items-center bg-bg_gray">
-        <HomePageNavbar cartItemsLength={courses?.length} />
+        <HomePageNavbar />
         <HeroSection />
         <SkillsList />
         <Courses heading="Find the courses that fit you" />

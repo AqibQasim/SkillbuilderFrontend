@@ -31,7 +31,7 @@ const courses = () => {
   return (
     <>
       <div className="flex h-[100%] w-[100%] flex-col items-center bg-bg_gray">
-        <HomePageNavbar cartItemsLength={courses?.length} />
+        <HomePageNavbar />
         <div className="path-wrapper mx-auto mb-8 mt-16 w-[90%] max-w-screen-2xl">
           <CurrentPath />
         </div>

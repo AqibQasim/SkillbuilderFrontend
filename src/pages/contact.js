@@ -47,7 +47,7 @@ const contact = () => {
     <>
       <div className="h-[100%] w-[100%] bg-bg_gray">
         <LayoutWidth>
-          <HomePageNavbar cartItemsLength={courses?.length} />
+          <HomePageNavbar />
         </LayoutWidth>
         <LayoutWidth>
           <div className="path-wrapper mx-auto mb-8 mt-16 w-[90%] max-w-screen-2xl">
