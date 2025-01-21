@@ -69,7 +69,7 @@ const CourseDetails = () => {
 
   return (
     <div className="h-full w-full bg-bg_gray">
-      <HomePageNavbar cartItemsLength={courses?.length} />
+      <HomePageNavbar />
 
       <BootcampHero
         title={"Introduce SkillBuilder and the range of courses available."}

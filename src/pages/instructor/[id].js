@@ -61,7 +61,7 @@ function InstructorDetails() {
 
   return (
     <div className="min-h-screen bg-bg_gray">
-      <HomePageNavbar cartItemsLength={courses?.length} />
+      <HomePageNavbar />
       <div className="path-wrapper mx-auto mb-8 mt-16 w-[90%] max-w-screen-2xl">
         <CurrentPath
           dynamicPath={`${instructor.user?.first_name} ${instructor.user?.last_name}`}

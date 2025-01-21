@@ -139,7 +139,7 @@ const coursereviews = () => {
     <main>
       {" "}
       <div className="w-full bg-bg_gray">
-        <HomePageNavbar cartItemsLength={courses?.length} />
+        <HomePageNavbar  />
         <div>
           <Reviews rating={result} total={total_count} counts={rating_counts} />
         </div>

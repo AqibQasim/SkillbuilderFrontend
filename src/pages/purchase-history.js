@@ -12,7 +12,7 @@ const courses = useSelector((state) => state.cart.items);
     <>
       <div className="flex h-[100%] w-[100%] flex-col bg-bg_gray">
       <LayoutWidth>
-      <HomePageNavbar cartItemsLength={courses?.length} />
+      <HomePageNavbar/>
       </LayoutWidth>
         <LayoutWidth>
           <div className="path-wrapper mx-auto mb-8 mt-8 max-w-screen-2xl first-line:w-[90%]">

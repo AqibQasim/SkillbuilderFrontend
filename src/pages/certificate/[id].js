@@ -65,7 +65,7 @@ function CertificatePage() {
 
   return (
     <>
-      <HomePageNavbar cartItemsLength={courses?.length} />
+      <HomePageNavbar />
       {/* Buttons for Download */}
       <div className="me-5 mt-8 flex justify-end space-x-4">
         <button
