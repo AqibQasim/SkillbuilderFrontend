@@ -1,14 +1,14 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
-import StarRating from "./StarRating";
+//import StarRating from "./StarRating";
 import Image from "next/image";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchApprovedCourses } from "../../redux/thunks/approvedCoursesThunk";
-import LayoutWidth from "./LayoutWidth";
-import { addItem } from "../../redux/slices/addToCart";
-import { filterRepeatedStudents } from "@/utils/filterRepeatedStudents";
+// import LayoutWidth from "./LayoutWidth";
+// import { addItem } from "../../redux/slices/addToCart";
+// import { filterRepeatedStudents } from "@/utils/filterRepeatedStudents";
 
-const CoursesNew = ({ selectedCategory, showallCourses }) => {
+const CoursesNew = ({ selectedCategory, showallCourses, popularTopicsSelected }) => {
   const [loading, setLoading] = useState(true);
   const [starReady, setStarReady] = useState(false);
   const studentId = useSelector((state) => state.auth.user);
