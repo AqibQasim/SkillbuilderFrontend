@@ -1,3 +1,4 @@
+import CustomGlobe from "./InstructorGlobe";
 import LayoutXPadding from "./LayoutXPadding";
 
 function LearningSection() {
@@ -20,9 +21,7 @@ function LearningSection() {
         </div>
       </LayoutXPadding>
       {/* Globe */}
-      {/* <div className="h-96 w-full bg-slate-600">
-        <CustomGlobe />
-      </div> */}
+      <CustomGlobe />
     </>
   );
 }

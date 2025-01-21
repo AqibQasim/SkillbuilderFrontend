@@ -19,6 +19,7 @@ import CareerCounselling from "@/components/CareerCounselling";
 import CoursePlatforms from "@/components/CoursePlatforms";
 import Showcase from "@/components/Showcase";
 import Banner from "@/components/Banner";
+import LearningSection from "@/components/LearningSection";
 
 const index = () => {
   // Set current tab on mount
@@ -125,7 +126,7 @@ const index = () => {
   //   </>
   // );
   return (
-    <div className="home-container home-container mx-auto max-w-[120em] space-y-12 font-satoshi">
+    <div className="home-container home-container mx-auto max-w-[120em] space-y-12 overflow-x-hidden font-satoshi">
       {/* <Banner /> */}
       <Showcase />
       <CoursePlatforms />
@@ -134,7 +135,8 @@ const index = () => {
       <CoursesSection />
 
       {/* Globe section remaining */}
-      {/* <LearningSection /> */}
+      <LearningSection />
+      {/* dsds */}
       <HomePageReviews />
       <HomepageFooter />
     </div>
