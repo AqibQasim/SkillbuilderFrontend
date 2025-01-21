@@ -3,7 +3,7 @@ import Footer from "@/components/Footer";
 import InstructorHero from "@/components/InstructorHero";
 import InstructorIntro from "@/components/InstructorIntro";
 import InstructorTopCourses from "@/components/InstructorTopCourses";
-import Navbar from "@/components/Navbar";
+import HomePageNavbar from "@/components/HomePageNavbar";
 import { useRouter } from "next/router";
 import { fetchOneInstructor } from "../../../redux/thunks/instructorThunk";
 import { useDispatch, useSelector } from "react-redux";
@@ -61,7 +61,7 @@ function InstructorDetails() {
 
   return (
     <div className="min-h-screen bg-bg_gray">
-      <Navbar />
+      <HomePageNavbar />
       <div className="path-wrapper mx-auto mb-8 mt-16 w-[90%] max-w-screen-2xl">
         <CurrentPath
           dynamicPath={`${instructor.user?.first_name} ${instructor.user?.last_name}`}
@@ -72,9 +72,7 @@ function InstructorDetails() {
         <InstructorHero instructor={instructor} />
       )}
 
-      {instructor &&  (
-        <InstructorIntro video={instructor.video_url} />
-      )}
+      {instructor && <InstructorIntro video={instructor.video_url} />}
       <InstructorTopCourses courses={instructor_courses.approvedCourses} />
       <Footer />
     </div>

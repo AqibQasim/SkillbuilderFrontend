@@ -11,7 +11,6 @@ import { useSelector } from "react-redux";
 
 const CourseDetails = () => {
   const router = useRouter();
-
   const cartItems = useSelector((state) => state.cart.items);
   const [isClient, setIsClient] = useState(false);
 

@@ -100,9 +100,9 @@ export default function BootcampSection({ course }) {
               name="course_description"
               value={course?.description}
             />
-            <input type="hidden" name="amount" value={course?.price} />
+            <input type="hidden" name="amount" value={course?.amount} />
             <input type="hidden" name="student_id" value={userId} />
-            <input type="hidden" name="course_id" value={course?.course_id} />
+            <input type="hidden" name="course_id" value={course?.id} />
 
             {!coursePurchased ? (
               <ButtonWithIcon text="Enroll now" className="text-nowrap" />

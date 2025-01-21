@@ -1,6 +1,6 @@
 import CourseReview from "@/components/CourseReview";
 import Footer from "@/components/Footer";
-import Navbar from "@/components/Navbar";
+import HomePageNavbar from "@/components/HomePageNavbar";
 import React from "react";
 import Writereview from "@/components/Writereview";
 import Reviews from "@/components/Reviews";
@@ -111,7 +111,7 @@ const coursereviews = () => {
     <main>
       {" "}
       <div className="w-full bg-bg_gray">
-        <Navbar />
+        <HomePageNavbar />
         <div>
           <Reviews rating={result} total={total_count} counts={rating_counts} />
         </div>

@@ -1,4 +1,4 @@
-import Navbar from "@/components/Navbar";
+import HomePageNavbar from "@/components/HomePageNavbar";
 import { useEffect, useState } from "react";
 import { setCurrentTab } from "../utils/currentTabMethods";
 import Courses from "../components/Courses";
@@ -36,13 +36,13 @@ const ShoppingCart = () => {
 
   return (
     <>
-      <div className="h-[100%] w-[100%] flex flex-col items-center bg-bg_gray">
-        <Navbar cartItemsLength={courses?.length} />
-        <div className="path-wrapper w-[90%] max-w-screen-2xl mx-auto mt-16 mb-8">
+      <div className="flex h-[100%] w-[100%] flex-col items-center bg-bg_gray">
+        <HomePageNavbar />
+        <div className="path-wrapper mx-auto mb-8 mt-16 w-[90%] max-w-screen-2xl">
           <CurrentPath />
         </div>
-        <div className="path-wrapper w-[90%] max-w-screen-2xl mx-auto mb-8">
-          <ShopCheckout courses={courses}  />
+        <div className="path-wrapper mx-auto mb-8 w-[90%] max-w-screen-2xl">
+          <ShopCheckout courses={courses} />
         </div>
 
         <Courses

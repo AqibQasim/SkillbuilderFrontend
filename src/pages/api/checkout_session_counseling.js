@@ -95,9 +95,9 @@ export default async function handler(req, res) {
         //     instructor_id: parsedItems[0].instructor_id,
         //   },
         // },
-  
+
         success_url: `${req.headers.origin}/counseling_payment_success?student_id=${studentId}&instructor_id=${parsedItems[0]?.instructor_id}`,
-        cancel_url: `${req.headers.origin}/counseling`,
+        cancel_url: `${req.headers.origin}/career-counseling`,
       });
   
       res.redirect(303, session.url);

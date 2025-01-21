@@ -22,20 +22,15 @@ export function LiveCoursesCard({ className, course }) {
         </p>
         <div className="text-xs">
           By:
-          <span className="font-semibold text-[#2C2C2C]">
+          <span className="ms-1 font-semibold text-[#2C2C2C]">
             {course?.instructor?.user?.first_name +
               " " +
-              course?.instructor?.user?.first_name || "Zubair Alam"}
+              course?.instructor?.user?.last_name || "Zubair Alam"}
           </span>
         </div>
         <div className="mt-1 flex justify-start text-xs">
           <div className="my-auto h-[9.6px] w-[11.6px]">
-            <Image
-              className="size-full"
-              src={course?.image || `/dummyImg.svg`}
-              width={11.6}
-              height={9.6}
-            />
+            <Image src={"/course_level.png"} width={11.6} height={9.6} />
           </div>
           <span className="ms-1 self-start text-[#2C2C2C]">
             <span className="capitalize text-[#929292]">Level: </span>{" "}
@@ -52,11 +47,11 @@ export function LiveCoursesCard({ className, course }) {
           <div className="flex items-center justify-start gap-2 rounded-[1.6875rem] bg-white p-2 text-sm">
             <span className="stroke-bg_text_black line-through">
               {" "}
-              {`$${course?.amount}:00` || "69:00"}{" "}
+              {`$${course?.amount}.00` || "1.00"}{" "}
             </span>{" "}
             <span className="text-sm font-semibold text-blue">
               {" "}
-              {`$${course?.discount}:00` || `$49.00`}{" "}
+              {`$${course?.amount - course?.discount}.00` || `$49.00`}{" "}
             </span>
           </div>
         </div>
