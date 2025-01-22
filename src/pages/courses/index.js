@@ -14,6 +14,37 @@ const CourseDetails = () => {
   const cartItems = useSelector((state) => state.cart.items);
   const [isClient, setIsClient] = useState(false);
 
+  const [popularTopics, setPopularTopics] = useState([
+    {
+      topic: "Data Science",
+      checked: false,
+    },
+    {
+      topic: "Python",
+      checked: false,
+    },
+    {
+      topic: "JavaScript",
+      checked: false,
+    },
+  ]);
+
+  // const togglePopularTopicsClickedByUser = (e) => {
+  //   const valueSelected = e.target?.textContent;
+
+  //   if (popularTopicsTicked?.length > 0) {
+  //     for (let i = 0; i < popularTopicsTicked?.length; i++) {
+  //       if (popularTopicsTicked[i] !== valueSelected) {
+  //         setPopularTopicsTicked((c) => [...c, valueSelected]);
+  //       } else {
+  //         const copyPopularTopicsClicked = popularTopicsTicked;
+  //         copyPopularTopicsClicked?.slice(i, 1);
+  //         setPopularTopicsTicked(copyPopularTopicsClicked);
+  //       }
+  //     }
+  //   }
+  // };
+
   useEffect(() => {
     setIsClient(true);
   }, [router?.isReady, cartItems]);
@@ -54,41 +85,82 @@ const CourseDetails = () => {
           {/* Topics Section  */}
           <div class="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5">
             {/* <!-- Topic Buttons --> */}
-            <span class="cursor-pointer rounded-full border border-gray-300 bg-pink px-4 py-2 text-center text-gray-800 hover:bg-gray-100">
-              Data Science
-            </span>
-            <span class="cursor-pointer rounded-full border border-gray-300 bg-pink px-4 py-2 text-center text-gray-800 hover:bg-gray-100">
+            {popularTopics?.map((popularTopic, index) => (
+              <div
+                onClick={(e) => {
+                  setPopularTopics((v) => {
+                    const updatedTopics = [...v]; // Create a shallow copy of the array
+                    if (updatedTopics[index]) {
+                      updatedTopics[index].checked =
+                        !updatedTopics[index].checked; // Toggle the `checked` property
+                    }
+                    return updatedTopics; // Return the new array
+                  });
+                }}
+                class={`cursor-pointer rounded-full border border-gray-300 ${popularTopic?.checked ? "bg-blue-400" : "bg-pink"} px-4 py-2 text-center text-gray-800 hover:bg-gray-100`}
+              >
+                {popularTopic?.topic}
+              </div>
+            ))}
+            {/* <span
+              onClick={togglePopularTopicsClickedByUser}
+              class="cursor-pointer rounded-full border border-gray-300 bg-pink px-4 py-2 text-center text-gray-800 hover:bg-gray-100"
+            >
               Python
             </span>
-            <span class="cursor-pointer rounded-full border border-gray-300 bg-pink px-4 py-2 text-center text-gray-800 hover:bg-gray-100">
+            <span
+              onClick={togglePopularTopicsClickedByUser}
+              class="cursor-pointer rounded-full border border-gray-300 bg-pink px-4 py-2 text-center text-gray-800 hover:bg-gray-100"
+            >
               Machine Learning
             </span>
-            <span class="cursor-pointer rounded-full border border-gray-300 bg-pink px-4 py-2 text-center text-gray-800 hover:bg-gray-100">
+            <span
+              onClick={togglePopularTopicsClickedByUser}
+              class="cursor-pointer rounded-full border border-gray-300 bg-pink px-4 py-2 text-center text-gray-800 hover:bg-gray-100"
+            >
               Generate AI
             </span>
-            <span class="cursor-pointer rounded-full border border-gray-300 bg-pink px-4 py-2 text-center text-gray-800 hover:bg-gray-100">
+            <span
+              onClick={togglePopularTopicsClickedByUser}
+              class="cursor-pointer rounded-full border border-gray-300 bg-pink px-4 py-2 text-center text-gray-800 hover:bg-gray-100"
+            >
               Data Analysis
             </span>
-            <span class="cursor-pointer rounded-full border border-gray-300 bg-pink px-4 py-2 text-center text-gray-800 hover:bg-gray-100">
+            <span
+              onClick={togglePopularTopicsClickedByUser}
+              class="cursor-pointer rounded-full border border-gray-300 bg-pink px-4 py-2 text-center text-gray-800 hover:bg-gray-100"
+            >
               JavaScript
             </span>
-            <span class="cursor-pointer rounded-full border border-gray-300 bg-pink px-4 py-2 text-center text-gray-800 hover:bg-gray-100">
+            <span
+              onClick={togglePopularTopicsClickedByUser}
+              class="cursor-pointer rounded-full border border-gray-300 bg-pink px-4 py-2 text-center text-gray-800 hover:bg-gray-100"
+            >
               Data Science
             </span>
-            <span class="cursor-pointer rounded-full border border-gray-300 bg-pink px-4 py-2 text-center text-gray-800 hover:bg-gray-100">
+            <span
+              onClick={togglePopularTopicsClickedByUser}
+              class="cursor-pointer rounded-full border border-gray-300 bg-pink px-4 py-2 text-center text-gray-800 hover:bg-gray-100"
+            >
               Python
             </span>
-            <span class="cursor-pointer rounded-full border border-gray-300 bg-pink px-4 py-2 text-center text-gray-800 hover:bg-gray-100">
+            <span
+              onClick={togglePopularTopicsClickedByUser}
+              class="cursor-pointer rounded-full border border-gray-300 bg-pink px-4 py-2 text-center text-gray-800 hover:bg-gray-100"
+            >
               Machine Learning
             </span>
-            <span class="cursor-pointer rounded-full border border-gray-300 bg-pink px-4 py-2 text-center text-gray-800 hover:bg-gray-100">
+            <span
+              onClick={togglePopularTopicsClickedByUser}
+              class="cursor-pointer rounded-full border border-gray-300 bg-pink px-4 py-2 text-center text-gray-800 hover:bg-gray-100"
+            >
               Data Science
-            </span>
+            </span> */}
           </div>
         </div>
       </div>
 
-      <ExploreCourses />
+      <ExploreCourses popularTopics={popularTopics}/>
       <Footer />
     </div>
   );
