@@ -10,16 +10,79 @@ function InstructorGlobe() {
   const globeRef = useRef(null);
   const [hex, setHex] = useState({ features: [] });
 
-  const gData = [
+  const radius = 3;
+  const centralLocation = {
+    lat: -8.206418231550687,
+    lng: -66.04680121804626,
+    pos: 0,
+  };
+
+  const surroundingLocations = [
     {
-      lat: 69.834573,
-      lng: -46.931788,
-      pos: 0,
+      ...centralLocation,
+      subLocations: {
+        lat: centralLocation.lat + radius,
+        lng: centralLocation.lng,
+      },
     },
+    {
+      lat: centralLocation.lat,
+      lng: centralLocation.lng + radius,
+      pos: 2,
+    },
+    {
+      lat: centralLocation.lat - radius,
+      lng: centralLocation.lng,
+      pos: 3,
+    },
+    {
+      lat: centralLocation.lat,
+      lng: centralLocation.lng - radius,
+      pos: 4,
+    },
+  ];
+
+  const markersData = [
+    {
+      lat: -8.206418231550687,
+      lng: -66.04680121804626,
+      pos: 0,
+      tutor: true,
+    },
+    {
+      lat: -8.206418231550687 + radius,
+      lng: -66.04680121804626,
+      // lng: -66.04680121804626 - radius,
+      num: 1,
+      imageUrl: "/review_avatar.svg",
+      tutor: false,
+    },
+    {
+      lat: -8.206418231550687,
+      lng: -66.04680121804626 + radius,
+      tutor: false,
+    },
+    {
+      lat: -8.206418231550687,
+      lng: -66.04680121804626,
+      tutor: false,
+    },
+    {
+      // lat: -8.206418231550687 + radius / 2,
+      lat: -8.206418231550687,
+      lng: -66.04680121804626 - radius - 1,
+      tutor: false,
+    },
+    // {
+    //   lat: -11.709616,
+    //   lng: -30.188601,
+    //   pos: 0,
+    // },
     {
       lat: 5.42644,
       lng: 23.636377,
       pos: 1,
+      tutor: true,
     },
   ];
 
@@ -52,14 +115,29 @@ function InstructorGlobe() {
         hexPolygonMargin={0.5}
         hexPolygonColor={useCallback(() => "white", [])}
         // Variant
-        htmlElementsData={gData}
+        htmlElementsData={markersData}
         htmlElement={(d) => {
           const el = document.createElement("div");
-          // el.innerHTML = globeInstructorCardMarkup
-          el.innerHTML = markups.at(d.pos);
-          el.className = "globe-instructor-details";
-          el.onclick = () => console.info(d);
+          if (d.tutor) {
+            console.log("TUTOR TIMES:", d.pos);
+            el.innerHTML = markups.at(d.pos);
+            el.className = "globe-instructor-details";
+            el.onclick = () => console.info(d);
+          } else if (!d.tutor) {
+            console.log("StudentTIMES");
+            el.innerHTML = `<div> </div>`;
+            el.className = "globe-student-details";
+          }
+
+          // } else {
+          //   el.innerHTML = `<h1>SOMETHING FOR EVERY BODY </h1>`;
+          //   el.className = "globe-student-details";
+          // }
           return el;
+        }}
+        htmlAltitude={(d) => {
+          if (d?.tutor) return 0.25;
+          return 0;
         }}
       />
     </div>
