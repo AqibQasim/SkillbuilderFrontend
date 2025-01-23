@@ -42,4 +42,26 @@ export const globeMarkersData = tutors.reduce((acc, tutor) => {
   return [...acc, tutor, ...students];
 }, []);
 
-// console.log(globeMarkersData);
+export const globeArcsData = [
+  {
+    startLat: globeMarkersData[11].lat,
+    startLng: globeMarkersData[11].lng,
+    endLat: globeMarkersData[1].lat + 40,
+    endLng: globeMarkersData[1].lng - 8,
+    color: "#fff",
+  },
+  {
+    startLat: globeMarkersData[6].lat,
+    startLng: globeMarkersData[6].lng,
+    endLat: globeMarkersData[6].lat - 2,
+    endLng: globeMarkersData[6].lng - 100,
+    color: "#fff",
+  },
+  {
+    startLat: globeMarkersData[13].lat,
+    startLng: globeMarkersData[13].lng,
+    endLat: globeMarkersData[3].lat - 27,
+    endLng: globeMarkersData[3].lng + 50,
+    color: "#fff",
+  },
+];

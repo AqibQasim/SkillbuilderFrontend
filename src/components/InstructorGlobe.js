@@ -1,29 +1,15 @@
-import React, { useState, useEffect, useRef, useCallback } from "react";
 import dynamic from "next/dynamic";
+import { useCallback, useEffect, useRef, useState } from "react";
 import * as THREE from "three";
 import HEX_DATA from "../data/countries_hex_data.json";
-import { globeInstructorCardMarkup, markups } from "./GlobeInstructorCard";
-import { globeMarkersData } from "../data/globeMarkersData";
+import { globeArcsData, globeMarkersData } from "../data/globeMarkersData";
+import { markups } from "./GlobeInstructorCard";
 
 const Globe = dynamic(import("react-globe.gl"), { ssr: false });
 
 function InstructorGlobe() {
   const globeRef = useRef(null);
   const [hex, setHex] = useState({ features: [] });
-
-  console.log("DATA MARKERS", globeMarkersData);
-
-  // const radius = 3;
-
-  // const arcsData = [
-  //   {
-  //     startLat: -8.206418231550687 - radius,
-  //     startLng: -66.04680121804626,
-  //     endLat: 5.42644,
-  //     endLng: 23.636377,
-  //     color: "#fff",
-  //   },
-  // ];
 
   // Countries
   useEffect(() => {
@@ -54,7 +40,6 @@ function InstructorGlobe() {
         hexPolygonMargin={0.5}
         hexPolygonColor={useCallback(() => "white", [])}
         // Variant
-        // htmlElementsData={markersData}
         htmlElementsData={globeMarkersData}
         htmlElement={(d) => {
           const el = document.createElement("div");
@@ -69,11 +54,6 @@ function InstructorGlobe() {
             el.className = "globe-student-details";
             el.style.backgroundColor = d.bgColor;
           }
-
-          // } else {
-          //   el.innerHTML = `<h1>SOMETHING FOR EVERY BODY </h1>`;
-          //   el.className = "globe-student-details";
-          // }
           return el;
         }}
         htmlAltitude={(d) => {
@@ -81,10 +61,10 @@ function InstructorGlobe() {
           return 0;
         }}
         // Arcs Data
-        // arcsData={arcsData}
-        // arcColor={"color"}
-        // arcDashLength={1}
-        // arcAltitude={0}
+        arcsData={globeArcsData}
+        arcColor={"color"}
+        arcDashLength={1}
+        arcAltitude={0}
       />
     </div>
   );
