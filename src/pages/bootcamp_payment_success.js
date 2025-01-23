@@ -1,5 +1,9 @@
 import React, { useEffect } from "react";
 import { useRouter } from "next/router";
+import HomePageNavbar from "@/components/HomePageNavbar";
+import LayoutWidth from "@/components/LayoutWidth";
+import HomepageFooter from "@/components/HomepageFooter";
+
 
 const   BootcampPaymentSuccess = () => {
   const router = useRouter();
@@ -35,14 +39,24 @@ const   BootcampPaymentSuccess = () => {
   useEffect(() => {
     if (router.isReady && student_id && instructor_id) {
       addCounseling();
+
     }
   }, [router?.isReady, student_id, instructor_id]);
 
   return (
     <>
-      <div>Live bootcamp Payment Success!</div>
-      <div>Student ID: {student_id}</div>
-      <div>Instructor ID: {instructor_id}</div>
+      <LayoutWidth>
+        <HomePageNavbar />
+      </LayoutWidth>
+
+      <LayoutWidth>
+        <div className="my-20">
+          <div>Your payment was successfull!</div>
+         
+          <div>You will soon be added to relevant groups and contacted by our Account Executive.</div>
+        </div>
+      </LayoutWidth>
+      <HomepageFooter />
     </>
   );
 };
