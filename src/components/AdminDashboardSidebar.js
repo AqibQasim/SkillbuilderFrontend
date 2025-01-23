@@ -21,6 +21,16 @@ const links = [
       { href: "/admin/courses/decline", name: "Decline" },
     ],
   },
+  {
+    href: "/admin/live-courses",
+    icon: <CourseSvg />,
+    name: "Live Courses",
+  },
+  {
+    href: "/admin/career-counselling",
+    icon: <CourseSvg />,
+    name: "Career Counselling",
+  },
   { href: "/admin/students", icon: <PersonSvg />, name: "Students" },
   { href: "/admin/instructors", icon: <InstructorSvg />, name: "Instructors" },
   {

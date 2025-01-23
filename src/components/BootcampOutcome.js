@@ -48,16 +48,22 @@ const CourseCard = ({ course }) => {
             By joining this course, you will be able to:
           </h3>
           <ul className="mt-4 space-y-3">
-            {learningOutcome.map((outcome) => (
-              <li className="flex items-start">
-                <span className="mt-1 text-green-500">
-                  <i className="fas fa-check-circle"></i>
-                </span>
-                <p className="ml-2 text-sm text-gray-700 md:text-base">
-                  {outcome}
-                </p>
-              </li>
-            ))}
+            {Array.isArray(learningOutcome) && learningOutcome.length > 0 ? (
+              learningOutcome.map((outcome, index) => (
+                <li key={index} className="flex items-start">
+                  <span className="mt-1 text-green-500">
+                    <i className="fas fa-check-circle"></i>
+                  </span>
+                  <p className="ml-2 text-sm text-gray-700 md:text-base">
+                    {outcome}
+                  </p>
+                </li>
+              ))
+            ) : (
+              <p className="text-sm text-gray-500">
+                No learning outcomes available.
+              </p>
+            )}
           </ul>
         </div>
       </div>
