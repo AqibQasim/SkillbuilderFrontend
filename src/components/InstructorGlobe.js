@@ -89,6 +89,16 @@ function InstructorGlobe() {
     },
   ];
 
+  const arcsData = [
+    {
+      startLat: -8.206418231550687 - radius,
+      startLng: -66.04680121804626,
+      endLat: 5.42644,
+      endLng: 23.636377,
+      color: "#fff",
+    },
+  ];
+
   // Countries
   useEffect(() => {
     setHex(HEX_DATA);
@@ -143,6 +153,11 @@ function InstructorGlobe() {
           if (d?.tutor) return 0.25;
           return 0;
         }}
+        // Arcs Data
+        arcsData={arcsData}
+        arcColor={"color"}
+        arcDashLength={1}
+        arcAltitude={0}
       />
     </div>
   );

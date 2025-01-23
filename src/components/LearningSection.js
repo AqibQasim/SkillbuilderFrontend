@@ -7,7 +7,7 @@ function LearningSection() {
     <>
       <LayoutXPadding>
         <div>
-          <div className="content mb-4 text-center">
+          <div className="content text-center">
             <div className="mx-auto mb-1.5 w-max rounded-[3.25rem] border border-[#4000FF] bg-white px-4 py-1 text-xs font-medium text-[#4000FF]">
               Build up the community
             </div>
