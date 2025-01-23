@@ -63,13 +63,11 @@ function EnrolledCourseDetails() {
       return 0;
     }
   };
-  
-  
 
-  const handleViewAllButton = () => {
-    console.log("View All Button is clicked!!");
-    router.replace(`coursereview/${enrolledCourseId}`);
-  };
+  // const handleViewAllButton = () => {
+  //   console.log("View All Button is clicked!!");
+  //   router.replace(`coursereview/${enrolledCourseId}`);
+  // };
 
   
 
