@@ -1,76 +1,72 @@
-import React from 'react'
-import AdminDashboardLayout from '@/components/AdminDashboardLayout';
-import { useRouter } from 'next/router';
-import { useState } from 'react';
-import { useEffect } from 'react';
+import React from "react";
+import AdminDashboardLayout from "@/components/AdminDashboardLayout";
+import { useRouter } from "next/router";
+import { useState } from "react";
+import { useEffect } from "react";
 
 const liveCourseData = () => {
-    const router = useRouter();
-    const { id } = router.query;
-    const [liveCourse, setLiveCourse] = useState(null);
-    const [liveStudents, setLiveStudents] = useState(null)
+  const router = useRouter();
+  const { id } = router.query;
+  const [liveCourse, setLiveCourse] = useState(null);
+  const [liveStudents, setLiveStudents] = useState(null);
 
-    async function getLiveCourse(){
-        try{
-
-           const response = await fetch(
-             `${process.env.NEXT_PUBLIC_BASE_API}/get-live-session-course/${id}`,
-             {
-               method: "GET",
-               headers: {
-                 "Content-Type": "application/json",
-               },
-             },
-           );
-           const data = await response.json();
-            console.log("Live course is ", data?.data);
-            setLiveCourse(data?.data);
-
-        }catch(error){
-            console.log("error: ", error)
-        }
+  async function getLiveCourse() {
+    try {
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_BASE_API}/get-live-session-course/${id}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        },
+      );
+      const data = await response.json();
+      console.log("Live course is ", data?.data);
+      setLiveCourse(data?.data);
+    } catch (error) {
+      console.log("error: ", error);
     }
+  }
 
-    async function getEnrolledStudents(){
-        try{
-            const response = await fetch(
-              `${process.env.NEXT_PUBLIC_BASE_API}/get-live-session-course-enrolled-students?course_id=${id}`,
-              {
-                method: "GET",
-                headers: {
-                  "Content-Type": "application/json",
-                },
-              },
-            );
-            const data = await response.json();
-            console.log("students enrolled in course are ", data?.data);
-            setLiveStudents(data?.data);
-        }catch(error){
-            console.log("Error", error)
-        }
+  async function getEnrolledStudents() {
+    try {
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_BASE_API}/get-live-session-course-enrolled-students?course_id=${id}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        },
+      );
+      const data = await response.json();
+      console.log("students enrolled in course are ", data?.data);
+      setLiveStudents(data?.data);
+    } catch (error) {
+      console.log("Error", error);
     }
+  }
 
+  useEffect(() => {
+    if (id) {
+      getLiveCourse();
+      getEnrolledStudents();
+    }
+  }, [id]);
 
-    useEffect(() => {
-        if(id){
-            getLiveCourse();
-            getEnrolledStudents();
-        }
-    }, [id]);
+  useEffect(() => {
+    if (liveCourse) {
+      console.log("Updated liveCourse2222: ", liveCourse);
+      console.log("Live courses Length", liveCourse.length);
+    }
+  }, [liveCourse]);
 
-    useEffect(() => {
-      if (liveCourse) {
-        console.log("Updated liveCourse2222: ", liveCourse);
-        console.log("Live courses Length", liveCourse.length);
-      }
-    }, [liveCourse]);
-
-     useEffect(() => {
-       if (liveStudents) {
-         console.log("live students: ", liveStudents);
-       }
-     }, [liveStudents]);
-
+  useEffect(() => {
+    if (liveStudents) {
+      console.log("live students: ", liveStudents);
+    }
+  }, [liveStudents]);
 
   return (
     <AdminDashboardLayout>
@@ -142,7 +138,9 @@ const liveCourseData = () => {
             </li>
           ) : (
             <li>
-              <div className='mt-2 font-bold'>No students found for this course</div>
+              <div className="mt-2 font-bold">
+                No students found for this course
+              </div>
             </li>
           )}
         </ul>
@@ -151,4 +149,4 @@ const liveCourseData = () => {
   );
 };
 
-export default liveCourseData
+export default liveCourseData;

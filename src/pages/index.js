@@ -126,15 +126,12 @@ const index = () => {
   // );
   return (
     <div className="home-container home-container mx-auto max-w-[120em] space-y-12 font-satoshi">
-      {/* <Banner /> */}
       <Showcase />
       <CoursePlatforms />
       <CareerCounselling />
       <ExploreCoursesAndBootcamps />
       <CoursesSection />
 
-      {/* Globe section remaining */}
-      {/* <LearningSection /> */}
       <HomePageReviews />
       <HomepageFooter />
     </div>
