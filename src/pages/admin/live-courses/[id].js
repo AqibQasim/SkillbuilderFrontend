@@ -8,6 +8,7 @@ const liveCourseData = () => {
     const router = useRouter();
     const { id } = router.query;
     const [liveCourse, setLiveCourse] = useState(null);
+    const [liveStudents, setLiveStudents] = useState(null)
 
     async function getLiveCourse(){
         try{
@@ -30,18 +31,45 @@ const liveCourseData = () => {
         }
     }
 
+    async function getEnrolledStudents(){
+        try{
+            const response = await fetch(
+              `${process.env.NEXT_PUBLIC_BASE_API}/get-live-session-course-enrolled-students?course_id=${id}`,
+              {
+                method: "GET",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+              },
+            );
+            const data = await response.json();
+            console.log("students enrolled in course are ", data?.data);
+            setLiveStudents(data?.data);
+        }catch(error){
+            console.log("Error", error)
+        }
+    }
+
 
     useEffect(() => {
         if(id){
             getLiveCourse();
+            getEnrolledStudents();
         }
     }, [id]);
 
     useEffect(() => {
       if (liveCourse) {
         console.log("Updated liveCourse2222: ", liveCourse);
+        console.log("Live courses Length", liveCourse.length);
       }
     }, [liveCourse]);
+
+     useEffect(() => {
+       if (liveStudents) {
+         console.log("live students: ", liveStudents);
+       }
+     }, [liveStudents]);
 
 
   return (
@@ -72,6 +100,10 @@ const liveCourseData = () => {
             <span className="font-bold">Course Outcome:</span>{" "}
             {liveCourse?.learning_outcomes}
           </li>
+          <li>
+            <span className="font-bold">Course Price:</span>{" "}
+            {liveCourse?.amount}$
+          </li>
 
           <li className="mt-4">
             <span className="font-bold">Course Modules:</span>
@@ -86,6 +118,33 @@ const liveCourseData = () => {
               </div>
             ))}
           </li>
+
+          {liveStudents && liveStudents.length > 0 ? (
+            <li>
+              <div className="mt-2">
+                <span className="font-bold"> Enrolled Students:</span>
+                <div className="grid grid-cols-3">
+                  <span className="font-bold">Name</span>
+                  <span className="font-bold">Email</span>
+                  <span className="font-bold">Joining Date</span>
+                </div>
+                {liveStudents?.map((student, index) => (
+                  <div key={index} className="mt-2 grid grid-cols-3">
+                    <div>
+                      {index + 1}. {student?.student?.first_name}{" "}
+                      {student?.student?.last_name}
+                    </div>
+                    <div>{student?.student?.email}</div>
+                    <div>{student?.created_at.split("T")[0]}</div>
+                  </div>
+                ))}
+              </div>
+            </li>
+          ) : (
+            <li>
+              <div className='mt-2 font-bold'>No students found for this course</div>
+            </li>
+          )}
         </ul>
       </div>
     </AdminDashboardLayout>
