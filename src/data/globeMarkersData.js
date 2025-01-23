@@ -6,7 +6,8 @@ const tutors = [
     tutor: true,
   },
   {
-    lat: 1.42,
+    // lat: 1.42,
+    lat: -10.42,
     lng: -20.636377,
     pos: 1,
     tutor: true,
