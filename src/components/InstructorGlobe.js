@@ -55,16 +55,19 @@ function InstructorGlobe() {
       // lng: -66.04680121804626 - radius,
       num: 1,
       imageUrl: "/review_avatar.svg",
+      bgColor: "yellow",
       tutor: false,
     },
     {
       lat: -8.206418231550687,
       lng: -66.04680121804626 + radius,
+      bgColor: "aqua",
       tutor: false,
     },
     {
-      lat: -8.206418231550687,
+      lat: -8.206418231550687 - radius,
       lng: -66.04680121804626,
+      bgColor: "green",
       tutor: false,
     },
     {
@@ -127,6 +130,7 @@ function InstructorGlobe() {
             console.log("StudentTIMES");
             el.innerHTML = `<div> </div>`;
             el.className = "globe-student-details";
+            el.style.backgroundColor = d.bgColor;
           }
 
           // } else {
