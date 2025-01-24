@@ -13,7 +13,7 @@ function InstructorGlobe() {
   const [globeReady, setGlobeReady] = useState(false);
   const [dimensions, setDimensions] = useState({
     width: window.innerWidth,
-    height: window.innerHeight * 0.6,
+    height: window.innerWidth < 600 ? 350 : 650,
   });
   const globeRef = useRef(null);
   const [hex, setHex] = useState({ features: [] });
