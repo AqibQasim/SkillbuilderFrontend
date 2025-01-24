@@ -11,6 +11,10 @@ if (typeof window !== "undefined") Globe = require("react-globe.gl").default;
 
 function InstructorGlobe() {
   const [globeReady, setGlobeReady] = useState(false);
+  const [dimensions, setDimensions] = useState({
+    width: window.innerWidth,
+    height: window.innerHeight * 0.6,
+  });
   const globeRef = useRef(null);
   const [hex, setHex] = useState({ features: [] });
 
@@ -33,9 +37,23 @@ function InstructorGlobe() {
     );
     globeRef.current.controls().enableZoom = false;
     // Auto-rotate
-    globeRef.current.controls().autoRotate = true;
-    globeRef.current.controls().autoRotateSpeed = 1;
+    // globeRef.current.controls().autoRotate = true;
+    // globeRef.current.controls().autoRotateSpeed = 1;
   }, [globeReady]);
+
+  // handle globe size
+  useEffect(() => {
+    function handleResize() {
+      setDimensions({
+        width: window.innerWidth,
+        height: window.innerWidth < 600 ? 350 : 650,
+      });
+    }
+    window.addEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
 
   return (
     <div className="wrapper-globe relative !mt-0">
@@ -45,7 +63,9 @@ function InstructorGlobe() {
         // Globe config
         ref={globeRef}
         onGlobeReady={() => setGlobeReady(true)}
-        height={650}
+        // height={650}
+        height={dimensions.height}
+        width={dimensions.width}
         animateIn={true}
         backgroundColor="rgba(0, 0, 0, 0)"
         globeMaterial={
@@ -66,12 +86,10 @@ function InstructorGlobe() {
         htmlElement={(d) => {
           const el = document.createElement("div");
           if (d.tutor) {
-            console.log("TUTOR TIMES:", d.pos);
             el.innerHTML = markups.at(d.pos);
             el.className = "globe-instructor-details";
             el.onclick = () => console.info(d);
           } else if (!d.tutor) {
-            console.log("StudentTIMES");
             el.innerHTML = `<div> </div>`;
             el.className = "globe-student-details";
             el.style.backgroundColor = d.bgColor;
