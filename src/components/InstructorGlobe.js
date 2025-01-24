@@ -69,9 +69,10 @@ function InstructorGlobe() {
         animateIn={true}
         backgroundColor="rgba(0, 0, 0, 0)"
         globeMaterial={
-          new THREE.MeshBasicMaterial({
+          new THREE.MeshPhongMaterial({
             color: "#373668",
-            transparent: false,
+            opacity: 0.9,
+            transparent: true,
           })
         }
         atmosphereColor="#91B4F5"
