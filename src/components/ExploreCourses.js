@@ -2,7 +2,7 @@ import Image from "next/image";
 import { useState } from "react";
 import CoursesNew from "./CoursesNew";
 
-function ExploreCourses({ filter }) {
+function ExploreCourses({ popularTopics }) {
   const [activeTab, setActiveTab] = useState("Most Popular");
   const [sortOrder, setSortOrder] = useState("Most Popular");
   const [selectedCategory, setSelectedCategory] = useState("");

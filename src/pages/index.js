@@ -133,10 +133,9 @@ const index = () => {
       <CareerCounselling />
       <ExploreCoursesAndBootcamps />
       <CoursesSection />
-
       {/* Globe section remaining */}
       <LearningSection />
-      {/* dsds */}
+
       <HomePageReviews />
       <HomepageFooter />
     </div>

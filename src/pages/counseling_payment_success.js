@@ -15,7 +15,9 @@ const CounselingPaymentSuccess = () => {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        candidateEmail:email
+        candidateEmail:email,
+        student_id,
+        instructor_id
       })
     });
 
