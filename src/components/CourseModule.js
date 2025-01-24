@@ -34,6 +34,7 @@ export default function CourseModules({
   course,
   course_id,
   heading = "Course outline",
+  through_instructor,
 }) {
   const [isclick, setisclick] = useState(false);
   const userId = useSelector((state) => state.auth.user);
@@ -107,12 +108,12 @@ export default function CourseModules({
                               />
                               <span className="ml-2">{content?.title}</span>
                             </span>
-                            <span className="text-blue-500">
-                              {courseLock ? "locked" : "unlocked"}{" "}
+                            { !through_instructor && <span className="text-blue-500">
+                              {( courseLock )? "locked" : "unlocked"}{" "}
                               {content?.duration}
-                            </span>
+                            </span>}
                           </div>
-                          {isclick === index && !courseLock ? (
+                          {isclick === index && (!courseLock || through_instructor) ? (
                             <div>
                               <InstructorIntro
                                 video={content?.content}
