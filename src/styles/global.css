@@ -268,3 +268,16 @@ iframe {
     transform: translateX(-100%);
   }
 }
+
+@media (max-width: 600px) {
+  .globe-instructor-details > :first-child {
+    padding: 0.5rem;
+    font-size: 62.5%;
+    border-radius: 0.8rem;
+  }
+
+  .globe-instructor-details > :first-child > :first-child > :first-child {
+    height: 2rem;
+    width: 2rem;
+  }
+}
