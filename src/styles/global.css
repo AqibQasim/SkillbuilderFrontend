@@ -280,4 +280,9 @@ iframe {
     height: 2rem;
     width: 2rem;
   }
+
+  .globe-student-details {
+    height: 12.5px;
+    width: 12.5px;
+  }
 }
