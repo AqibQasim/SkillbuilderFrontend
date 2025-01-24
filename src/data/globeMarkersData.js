@@ -43,7 +43,17 @@ export const globeMarkersData = tutors.reduce((acc, tutor) => {
   return [...acc, tutor, ...students];
 }, []);
 
-export const globeArcsData = [
+// Gen random data
+const N = 20;
+export const randomArcsData = [...Array(N).keys()].map(() => ({
+  startLat: (Math.random() - 0.5) * 180,
+  startLng: (Math.random() - 0.5) * 360,
+  endLat: (Math.random() - 0.5) * 180,
+  endLng: (Math.random() - 0.5) * 360,
+  color: "white",
+}));
+
+export const myArcsData = [
   {
     startLat: globeMarkersData[11].lat,
     startLng: globeMarkersData[11].lng,
@@ -66,3 +76,6 @@ export const globeArcsData = [
     color: "#fff",
   },
 ];
+
+// Combine the data correctly
+// export const globeArcsData = [...myArcsData, ...randomArcsData];

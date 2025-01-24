@@ -2,7 +2,11 @@ import dynamic from "next/dynamic";
 import { useCallback, useEffect, useRef, useState } from "react";
 import * as THREE from "three";
 import HEX_DATA from "../data/countries_hex_data.json";
-import { globeArcsData, globeMarkersData } from "../data/globeMarkersData";
+import {
+  globeArcsData,
+  globeMarkersData,
+  randomArcsData,
+} from "../data/globeMarkersData";
 import { markups } from "./GlobeInstructorCard";
 
 // const Globe = dynamic(import("react-globe.gl"), { ssr: false });
@@ -102,10 +106,13 @@ function InstructorGlobe() {
           return 0;
         }}
         // Arcs Data
-        arcsData={globeArcsData}
+        // arcsData={globeArcsData}
+        arcsData={randomArcsData}
         arcColor={"color"}
-        arcDashLength={1}
-        arcAltitude={0}
+        arcAltitude={0.3}
+        arcDashLength={() => Math.random()}
+        arcDashGap={() => Math.random()}
+        arcDashAnimateTime={() => Math.random() * 4000 + 500}
       />
     </div>
   );
