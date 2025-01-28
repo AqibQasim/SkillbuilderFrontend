@@ -18,10 +18,15 @@ const   HomepageFooter = ({ className }) => {
     };
   }, []);
 
+ const onSocialClick = (url) => {
+    window.open(url, "_blank");
+  };
+
+
   return (
     <LayoutXPadding>
       <footer className={`${className} `}>
-        <div className="top flex items-start justify-between max-sm:flex-wrap max-sm:gap-4">
+        <div className="top flex items-start justify-between max-sm:flex-wrap max-sm:gap-4 pt-6">
           <div className="left">
             <Image src="/logo.svg" className="imba" width={180} height={35} />
           </div>
@@ -91,24 +96,30 @@ const   HomepageFooter = ({ className }) => {
               className="cursor-pointer"
               width={40}
               height={40}
+              onClick={() => onSocialClick("https://instagram.com")}
             />
             <Image
               src="/linkedin (2).png"
               className="cursor-pointer"
               width={40}
               height={40}
+              onClick={() => onSocialClick("https://www.facebook.com/people/SkillBuilder/61557538478424/")}
+
+              
             />
             <Image
               src="/facebook (2).png"
               className="cursor-pointer"
               width={40}
               height={40}
+              onClick={() => onSocialClick("https://www.linkedin.com/company/skill-builderss/ ")}
             />
             <Image
               src="/insta (2).png"
               className="cursor-pointer"
               width={40}
               height={40}
+              onClick={() => onSocialClick("https://twitter.com")}
             />
           </div>
         </div>
