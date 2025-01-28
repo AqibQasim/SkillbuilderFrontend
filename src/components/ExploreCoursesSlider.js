@@ -4,6 +4,7 @@ import "swiper/css";
 import "swiper/css/pagination";
 import { Swiper, SwiperSlide } from "swiper/react";
 import ImageCssBg from "./ImageCssBg";
+import { useRouter } from "next/router";
 
 function ExploreCoursesSlider({ liveSessionCourses }) {
   return (
@@ -32,9 +33,10 @@ export default ExploreCoursesSlider;
 
 export function ExploreCoursesCard({ className, course }) {
   console.log("this is it", course);
+  const router = useRouter();
   return (
-    <div
-      className={`${className} explore-courses-card group relative grid max-w-[25.25rem] grid-rows-[13.375rem_1fr] overflow-hidden rounded-[0.875rem]`}
+    <div onClick={() => router.push(`/bootcamp/${course?.id}`)}
+      className={`${className}  explore-courses-card group relative grid max-w-[25.25rem] grid-rows-[13.375rem_1fr] overflow-hidden rounded-[0.875rem]`}
     >
       <div className="explore-courses-card-image relative row-span-1 rounded-[0.875rem] bg-slate-400">
         <ImageCssBg

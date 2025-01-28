@@ -5,7 +5,7 @@ import LayoutWidth from "./LayoutWidth";
 import LayoutXPadding from "./LayoutXPadding";
 import { useRouter } from "next/router";
 
-const HomepageFooter = ({ className }) => {
+const   HomepageFooter = ({ className }) => {
   const router = useRouter();
 
   useEffect(() => {
