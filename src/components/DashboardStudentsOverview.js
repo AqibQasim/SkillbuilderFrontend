@@ -25,7 +25,9 @@ function DashboardStudentsOverview({
     <div className="">
       <div className="header flex items-center justify-between">
         <h2 className="text-2xl font-medium">Students</h2>
-        {expand && <ViewAll onClick={handleViewAllClick} />}
+        {expand && (
+          <ViewAll onClick={handleViewAllClick} disabled={!students?.length} />
+        )}
       </div>
       <div className="scrollbar-custom mt-4 flex min-h-12 w-full space-x-4 overflow-x-scroll rounded-sm bg-white px-7 py-8">
         {!students?.length ? <p>{message}</p> : null}
