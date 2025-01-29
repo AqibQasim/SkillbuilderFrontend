@@ -39,14 +39,14 @@ function EnrolledCourseDetails() {
 
   useEffect(() => {
     const fetchUserProgress = async () => {
-      const userId = localStorage.getItem("user_id");
+      const userId = JSON.parse(localStorage.getItem("profile")).id;
       console.log("uuuuu",userId);
       if (userId && enrolledCourseId) {
         const progress = await fetchProgress(userId, enrolledCourseId);
         setProgress(progress || 0); // Set fetched progress or fallback to 0
       }
     };
-   console.log("/////",progress)
+  
     fetchUserProgress();
   }, [enrolledCourseId]);
   
@@ -238,10 +238,11 @@ function CourseCertificate({ course, progress }) {
       
      
         <>
+        {progress === 100 && (
           <H2 className="ms-16">Certificate </H2>
+        )}
         
-        
-
+        {progress === 100 && (
           <button
         className={`ms-16 rounded-md bg-blue p-2 font-medium text-white ${
           progress !== 100 ? "opacity-70 cursor-not-allowed" : ""
@@ -250,7 +251,8 @@ function CourseCertificate({ course, progress }) {
         disabled={progress !== 100} // Disable the button if progress is not 100
       >
          View Certificate
-      </button>
+      </button> )}
+        
         </>
      
     </LayoutWidth>
