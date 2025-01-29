@@ -20,7 +20,7 @@ function Showcase() {
             opportunities
           </h1>
 
-          <p className="max-w-[56rem] font-medium text-[#4D5156] md:text-xl">
+          <p className="z-[1] max-w-[56rem] font-medium text-[#4D5156] md:text-xl">
             SkillBuilder offers expert-led courses to help you master skills,
             achieve goals, and transform ambitions into success.
           </p>
