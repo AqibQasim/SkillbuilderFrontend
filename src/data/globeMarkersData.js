@@ -2,7 +2,7 @@ const tutors = [
   {
     lat: 38.299996,
     lng: 2.70257,
-    pos: 1,
+    pos: 2,
     tutor: true,
   },
   {

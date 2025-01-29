@@ -9,11 +9,19 @@ const reviews = [
     ],
   },
   {
-    name: "John Doe",
-    role: "Mentor",
+    name: "Michael Lee",
+    role: "Instructor",
     experience: [
-      "10+ Years of average mentor experience.",
-      "Access to live Q&A, workshops, and 1-on-1 sessions.",
+      "7+ Years of experience in web development.",
+      "Expert in front-end technologies like React and Angular.",
+    ],
+  },
+  {
+    name: "Mark Johnson",
+    role: "Instructor",
+    experience: [
+      "5+ Years of data science experience.",
+      "Specializes in machine learning and AI projects.",
     ],
   },
 ];
