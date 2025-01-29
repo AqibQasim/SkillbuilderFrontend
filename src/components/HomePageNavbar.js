@@ -19,7 +19,7 @@ function HomePageNavbar({ className }) {
     { href: "/", title: "Home" },
     { href: "/courses", title: "Courses" },
     { href: "/career-counseling", title: "Counselling" },
-    { href: "/bootcamp", title: "Live session" },
+    { href: "/bootcamp", title: "Live Courses" },
     { href: "/about", title: "About" },
   ];
 
@@ -41,7 +41,7 @@ function HomePageNavbar({ className }) {
       <div className="links hidden xlg:flex xlg:items-center xlg:justify-center">
         {links.map((link, i) => (
           <Link
-            className={`${pathname === link.href ? "text-[#012256]" : "text-[#969BA3]"} px-4 text-[1.125rem] font-medium capitalize`}
+            className={`${pathname === link.href ? "text-[#012256]" : "text-[#969BA3]"} px-3 text-[1.125rem] font-medium capitalize`}
             href={link.href}
             key={i}
           >
