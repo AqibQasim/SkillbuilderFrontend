@@ -60,11 +60,11 @@ const CourseDetails = () => {
 
   return (
     <>
-      <Banner />
-      <div className="h-full w-full bg-bg_gray">
+      {/* <Banner /> */}
+      <div className="h-full w-full bg-bg_gray pt-4">
         <LayoutXPadding>
           <div className="t">
-            <HomePageNavbar className="mb-4" />
+            <HomePageNavbar className="!mt-0 mb-4" />
           </div>
         </LayoutXPadding>
 

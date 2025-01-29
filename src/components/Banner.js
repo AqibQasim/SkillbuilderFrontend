@@ -25,7 +25,7 @@ const shouldShowBanner = () => {
   return !item.dismissed;
 };
 
-function Banner() {
+function Banner({ className = "" }) {
   const [showBanner, setShowBanner] = useState(false);
 
   useEffect(() => {
@@ -40,7 +40,9 @@ function Banner() {
   if (!showBanner) return null;
 
   return (
-    <div className="banner relative mb-3 flex bg-[#3759FF] p-2 text-center text-white xl:mb-5 xlg:p-5">
+    <div
+      className={`${className} banner relative mb-3 flex bg-[#3759FF] p-2 text-center text-white xl:mb-5 xlg:p-5`}
+    >
       <p className="text-[0.625rem] font-medium md:text-sm lg:text-[1rem]">
         Start the year strong with unlimited learning at your fingertips. Save
         big with &nbsp;
