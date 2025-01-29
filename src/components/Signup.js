@@ -21,6 +21,7 @@ const Signup = () => {
   const [showError, setShowError] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [termsAgreed, setTermsAgreed] = useState(false);
 
   const { data, status } = useSession();
   const dispatch = useDispatch();
@@ -224,21 +225,25 @@ const Signup = () => {
               type="checkbox"
               className="form-checkbox h-4 w-4 text-blue-500"
               required
+              value={termsAgreed}
+              onChange={(e) => setTermsAgreed(e.target.checked)}
             />
             <span className="text-black ml-2 text-sm font-semibold">
               I agree to all our{" "}
-              <a onClick={()=>{router.push("/terms-&-conditions")}} className="text-blue-600 hover:underline cursor-pointer">
+              <a onClick={()=>{
+                router.push("/terms-&-conditions")}} className="text-blue-600 hover:underline cursor-pointer">
                 Terms & Conditions
               </a>
             </span>
           </label>
         </div>
 
-        {/* Sign Up Button */}
-        <div className="mb-4">
+        {/* Sign Up Button disabdle  */}
+        <div className="mb-4 ">
           <button
             type="submit"
-            className="w-full rounded-lg bg-blue-700 p-2 text-white hover:bg-blue-600"
+            className="w-full rounded-lg bg-blue-700 p-2 text-white hover:bg-blue-600 disabled:opacity-40 cursor-not-allowed "
+            disabled= {password === "" || email === "" || first_name === "" || last_name === "" || confirmPassword === "" || termsAgreed === false} 
           >
             {isLoading ? "Signing up..." : "Sign Up"}
           </button>
