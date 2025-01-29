@@ -20,3 +20,14 @@ export function filterRepeatedStudents(students) {
     return acc;
   }, []);
 }
+
+export function getUniqueStudents(students = []) {
+  const seen = new Set();
+  return students.filter((student) => {
+    if (!student || typeof student.id === "undefined") return false;
+    const id = student.id.toString();
+    if (seen.has(id)) return false;
+    seen.add(id);
+    return true;
+  });
+}
