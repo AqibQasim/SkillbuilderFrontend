@@ -75,7 +75,7 @@ const Signup = () => {
   }
 
   return (
-    <div className="w-full max-w-md rounded-md bg-white px-6 py-4 shadow-md">
+    <div className="w-full max-w-md rounded-2xl bg-white px-8 py-6 shadow-md">
       {formError ? (
         <ErrorMessage
           showError={formError}
@@ -90,7 +90,13 @@ const Signup = () => {
           errorMessage={error}
         />
       )}
+      <div className="flex items-center justify-between">
       <h2 className="text-2xl font-bold text-darkgray">Create Your Account</h2>
+      <Link href="/login" className="text-blue-600 hover:underline">
+            {" "}
+            Login
+          </Link>
+      </div>
       <p className="text-lightgray">Start your learning journey with us </p>
       {/* Form */}
       <form className="mt-4" onSubmit={handleSubmit}>
@@ -241,7 +247,7 @@ const Signup = () => {
       </form>
 
       {/* Login Link */}
-      <div className="text-center">
+      {/* <div className="text-center">
         <p>
           Already have an account?
           <Link href="/login" className="text-blue-600 hover:underline">
@@ -249,7 +255,7 @@ const Signup = () => {
             Login
           </Link>
         </p>
-      </div>
+      </div> */}
 
       {/* Social Logins */}
       <div className="mt-4">

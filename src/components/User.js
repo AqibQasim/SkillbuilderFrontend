@@ -360,7 +360,7 @@ function User({ cartClickHandler, cartItemsLength }) {
         <ButtonSecond className="text-nowrap">Sign in</ButtonSecond>
       </Link>
       <Link href="/counselling">
-        <ButtonWithIcon text="talk to mentor" className="text-nowrap" />
+        <ButtonWithIcon text="Talk To Mentor" className="text-nowrap" />
       </Link>
     </div>
   );
