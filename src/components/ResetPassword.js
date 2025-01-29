@@ -29,8 +29,9 @@ const ResetPassword = () => {
   const paragraphs = getParagraphs(email);
 
   return (
-    <div className="w-full max-w-md rounded-md bg-white p-6 shadow-md">
-      <h2 className="mb-7 text-center text-2xl font-bold capitalize text-darkgray">
+    <div className="w-full max-w-md rounded-xl bg-white py-10 px-8   shadow-md mx-auto mt-10">
+      
+      <h2 className="mb-2 text-start text-2xl font-bold capitalize text-darkgray">
         {headings[index]}
       </h2>
       <p className="text-lightgray">{paragraphs[index]}</p>

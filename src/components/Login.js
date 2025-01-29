@@ -87,7 +87,7 @@ const Login = () => {
   
       <div className="flex items-center justify-between">
         <h2 className="text-center text-2xl font-bold text-darkgray">
-          Welcome Back
+          Login
         </h2>
         <Link href="/signup" className="text-blue-600 hover:underline">
           Register
