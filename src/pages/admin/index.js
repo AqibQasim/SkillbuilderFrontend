@@ -149,7 +149,7 @@ const admin = () => {
 
   return (
     <AdminDashboardLayout >
-      {monthlyTotals.length > 0 && (<AdminRevenueStatistics current_balance={totalPlatformFee} chartData={monthlyTotals} />)}
+      {monthlyTotals.length > 0 && (<AdminRevenueStatistics current_balance={totalPlatformFee.toFixed(2) } chartData={monthlyTotals} />)}
       <br />
       <br />
       <AdminCoursesTable
