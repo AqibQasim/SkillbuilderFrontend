@@ -39,14 +39,14 @@ function EnrolledCourseDetails() {
 
   useEffect(() => {
     const fetchUserProgress = async () => {
-      const userId = localStorage.getItem("user_id");
+      const userId = JSON.parse(localStorage.getItem("profile")).id;
       console.log("uuuuu",userId);
       if (userId && enrolledCourseId) {
         const progress = await fetchProgress(userId, enrolledCourseId);
         setProgress(progress || 0); // Set fetched progress or fallback to 0
       }
     };
-   console.log("/////",progress)
+  
     fetchUserProgress();
   }, [enrolledCourseId]);
   
