@@ -2,11 +2,11 @@ import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import { setCourseDetails } from "../../redux/slices/createCourseSlice";
 import { useDispatch, useSelector } from "react-redux";
-
+import { useMemo } from "react";
 
 const InstructorPricing = ({ onNext, onPrev }) => {
   const router = useRouter();
-  const dispatch= useDispatch();
+  const dispatch = useDispatch();
 
   const instructorId = useSelector(
     (state) => state.instructorByUserId.instructorByUserId.id,
@@ -33,7 +33,7 @@ const InstructorPricing = ({ onNext, onPrev }) => {
     learning_outcomes,
     modulesCount: 0,
     amount,
-    charges:0,
+    charges: 0,
     discount,
   };
 
@@ -44,8 +44,7 @@ const InstructorPricing = ({ onNext, onPrev }) => {
     const dataWithInstructorId = { ...formData, instructor_id: instructorId };
     const { instructor_id, title, category, learning_outcomes } =
       dataWithInstructorId;
-    if (!instructor_id || !title || !category || !learning_outcomes)
-      return;
+    if (!instructor_id || !title || !category || !learning_outcomes) return;
 
     console.log("submit this data?", dataWithInstructorId);
 
@@ -70,12 +69,17 @@ const InstructorPricing = ({ onNext, onPrev }) => {
   const continueHandler = () => {
     router.push("/congratulations?source=courseUpload");
   };
+  // Dynamic calculation for earnings
+  const calculatedEarnings = useMemo(() => {
+    const effectiveAmount = formData.amount - formData.discount;
+    return effectiveAmount > 0 ? (effectiveAmount * 0.8).toFixed(2) : "0.00";
+  }, [formData.amount, formData.discount]);
   return (
     <div className="container mt-20">
       <form onSubmit={submitHandler} className="relative space-y-4">
         <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
           <div>
-          <label
+            <label
               htmlFor="amount"
               className="text-md mb-4 block font-semibold text-gray-700"
             >
@@ -93,7 +97,7 @@ const InstructorPricing = ({ onNext, onPrev }) => {
             />
           </div>
           <div>
-          <label
+            <label
               htmlFor="learning"
               className="text-md mb-4 block font-semibold text-gray-700"
             >
@@ -110,6 +114,9 @@ const InstructorPricing = ({ onNext, onPrev }) => {
               placeholder="Discount"
             />
           </div>
+        </div>
+        <div>
+          You'll get 80% for each purchase which is: ${calculatedEarnings}
         </div>
         <br /> <br />
         <div className="mt-4 flex justify-end">
