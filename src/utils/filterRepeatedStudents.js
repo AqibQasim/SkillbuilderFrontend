@@ -14,9 +14,20 @@ export function filterRepeatedStudents(students) {
   }
 
   return students.reduce((acc, student) => {
-    if (!acc.some((s) => s?.studentId === student?.studentId)) {
+    if (!acc.some((s) => s?.id === student?.id)) {
       acc.push(student);
     }
     return acc;
   }, []);
+}
+
+export function getUniqueStudents(students = []) {
+  const seen = new Set();
+  return students.filter((student) => {
+    if (!student || typeof student.id === "undefined") return false;
+    const id = student.id.toString();
+    if (seen.has(id)) return false;
+    seen.add(id);
+    return true;
+  });
 }

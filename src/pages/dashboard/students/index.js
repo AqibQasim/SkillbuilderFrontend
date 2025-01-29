@@ -2,7 +2,10 @@ import DashboardLayout from "@/components/DashboardLayout";
 import InstructorsStudentsTable from "@/components/InstructorsStudentsTable";
 import Loader from "@/components/Loader";
 import withAuth from "@/components/WithAuth";
-import { filterRepeatedStudents } from "@/utils/filterRepeatedStudents";
+import {
+  filterRepeatedStudents,
+  getUniqueStudents,
+} from "@/utils/filterRepeatedStudents";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -28,9 +31,6 @@ function Students() {
 
   const uniqueStudents = filterRepeatedStudents(studentsByInstructor);
 
-  // ===Logs
-  console.log("Students on dashboard", studentsByInstructor);
-
   useEffect(() => {
     if (!userId || instructorId) return;
     dispatch(fetchInstructorByUserId(userId));
@@ -40,6 +40,9 @@ function Students() {
     if (!instructorId || studentsByInstructor?.length > 0) return;
     dispatch(fetchStudentsByInstructor(instructorId));
   }, [instructorId, studentsByInstructor?.length]);
+
+  // ===Logs
+  console.log("Students By instructor", studentsByInstructor);
 
   if (studentsStatus === "loading")
     return (
