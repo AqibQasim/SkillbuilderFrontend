@@ -29,8 +29,7 @@ function Students() {
     (state) => state.studentsByInstructor.error,
   );
 
-  // const uniqueStudents = filterRepeatedStudents(studentsByInstructor);
-  const uniqueStudents = getUniqueStudents(studentsByInstructor);
+  const uniqueStudents = filterRepeatedStudents(studentsByInstructor);
 
   useEffect(() => {
     if (!userId || instructorId) return;

@@ -14,7 +14,7 @@ export function filterRepeatedStudents(students) {
   }
 
   return students.reduce((acc, student) => {
-    if (!acc.some((s) => s?.studentId === student?.studentId)) {
+    if (!acc.some((s) => s?.id === student?.id)) {
       acc.push(student);
     }
     return acc;
