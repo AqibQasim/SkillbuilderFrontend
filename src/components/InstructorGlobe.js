@@ -112,7 +112,8 @@ function InstructorGlobe() {
         arcAltitude={0.3}
         arcDashLength={() => Math.random()}
         arcDashGap={() => Math.random()}
-        arcDashAnimateTime={() => Math.random() * 4000 + 500}
+        // arcDashAnimateTime={() => Math.random() * 4000 + 500}
+        arcDashAnimateTime={3800}
       />
     </div>
   );
