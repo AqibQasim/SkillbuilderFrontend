@@ -127,7 +127,7 @@ const index = () => {
   // );
   return (
     <div className="home-container home-container mx-auto max-w-[120em] space-y-12 overflow-x-hidden font-satoshi">
-      {/* <Banner /> */}
+      <Banner />
       <Showcase />
       <CoursePlatforms />
       <CareerCounselling />
