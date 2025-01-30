@@ -20,6 +20,7 @@ import CoursePlatforms from "@/components/CoursePlatforms";
 import Showcase from "@/components/Showcase";
 import Banner from "@/components/Banner";
 import LearningSection from "@/components/LearningSection";
+import LandingFAQs from "@/components/LandingFAQs";
 
 const index = () => {
   // Set current tab on mount
@@ -113,18 +114,7 @@ const index = () => {
     return null;
   }
 
-  // return (
-  //   <>
-  //     <div className="flex h-[100%] w-[100%] flex-col items-center bg-bg_gray">
-  //       <Navbar cartItemsLength={courses?.length} />
-  //       <HeroSection />
-  //       <SkillsList />
-  //       <Courses heading="Find the courses that fit you" />
-  //       <PromotionalList />
-  //       <Footer />
-  //     </div>
-  //   </>
-  // );
+  
   return (
     <div className="home-container home-container mx-auto max-w-[120em] space-y-12 overflow-x-hidden font-satoshi">
       <Banner />
@@ -137,6 +127,7 @@ const index = () => {
       <LearningSection />
 
       <HomePageReviews />
+      <LandingFAQs />
       <HomepageFooter />
     </div>
   );

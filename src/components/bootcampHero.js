@@ -1,13 +1,13 @@
 import React from "react";
 import Image from "next/image";
 
-const BootcampHero = ({title, subtitle, tagline}) => {
+const BootcampHero = ({title, subtitle, tagline ,src}) => {
   return (
     <div className="mx-auto w-[95%]">
       <div className="relative overflow-hidden rounded-xl">
         {/* Image */}
         <Image
-          src="/bootcamp-heroimage.svg"
+         src={src || "/bootcamp-heroimage.svg"}
           alt="Bootcamp Hero"
           width={1920}
           height={1080}

@@ -3,15 +3,16 @@ import LayoutXPadding from "./LayoutXPadding";
 
 const images = [
   //   "/frame2.png",
-  "/frame1.png",
-  "/frame2.png",
-  "/frame3.png",
-  "/frame4.png",
-  "/frame5.png",
-  "/frame6.png",
-  "/frame7.png",
-  "/frame8.png",
-  "/frame9.png",
+  "/IBM.png", 
+  "/habib-uni.png",
+  "/fast-uni.png",
+  "/IBM.png", 
+  "/habib-uni.png",      
+  "/fast-uni.png",
+  "/IBM.png", 
+  "/habib-uni.png",
+  "/fast-uni.png",  
+  
 ];
 
 function CoursePlatforms() {
@@ -33,8 +34,8 @@ function CoursePlatforms() {
                     key={image + index}
                     src={image}
                     alt="Platform Logo"
-                    width={114}
-                    height={28}
+                    width={150}
+                    height={40 }
                   />
                 ))}
                 {/* Duplicate */}
