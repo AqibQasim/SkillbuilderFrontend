@@ -50,7 +50,9 @@ function HomePageNavbar({ className }) {
         ))}
       </div>
       <div className="buttons hidden gap-[0.625rem] xlg:flex xlg:items-center xlg:justify-start">
-        <ButtonSecond className="flex items-center justify-center text-nowrap">
+
+        {/* button for search */}
+        {/* <ButtonSecond className="flex items-center justify-center text-nowrap">
           {" "}
           <svg
             className="block h-6"
@@ -75,7 +77,7 @@ function HomePageNavbar({ className }) {
               stroke-linejoin="round"
             />
           </svg>
-        </ButtonSecond>
+        </ButtonSecond> */}
         <div className="hidden lg:block">
           <User
             cartItemsLength={cartItems.length}

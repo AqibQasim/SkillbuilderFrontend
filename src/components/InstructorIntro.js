@@ -22,6 +22,7 @@ function InstructorIntro({ video, introFor = "instructor", course_content_id }) 
       </style>
     `;
     return html.replace('</head>', `${style}</head>`);
+    
   };
 
   useEffect(() => {
@@ -110,9 +111,9 @@ function InstructorIntro({ video, introFor = "instructor", course_content_id }) 
         <div dangerouslySetInnerHTML={{ __html: embedHtml }} />
       </div>
 
-      <div className="mt-4">
+      {/* <div className="mt-4">
         <p>Progress: {Math.round(progress)}%</p>
-      </div>
+      </div> */}
     </div>
   );
 }
