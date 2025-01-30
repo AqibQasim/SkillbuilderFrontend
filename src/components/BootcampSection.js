@@ -65,7 +65,7 @@ export default function BootcampSection({ course }) {
             learning <span className="font-normal">(Best of both worlds!)</span>
           </p>
           {/* Features */}
-          <div className="mb-8 flex sm:flex-col gap-4 xl:flex-row">
+          <div className="mb-8 flex gap-4 sm:flex-col xl:flex-row">
             <div className="flex items-center gap-3 rounded-full bg-white p-4 shadow-md">
               <span className="rounded-full bg-blue-100 p-2 text-blue-500">
                 🔑
@@ -84,6 +84,7 @@ export default function BootcampSection({ course }) {
             </div>
           </div>
           {/* Enroll Now Button */}
+          <div>{course?.amount - course?.discount}</div>
           <form
             className="w-full"
             action="/api/checkout_session_bootcamp"

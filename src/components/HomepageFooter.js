@@ -51,6 +51,7 @@ const   HomepageFooter = ({ className }) => {
                 ))}
               </ul>
             </div>
+            
             {/* Second column in the right side */}
             <div className="">
               <h3 className="mb-2 text-xl font-bold text-[#012456]">Contact</h3>
@@ -69,7 +70,10 @@ const   HomepageFooter = ({ className }) => {
                   </li>
                 ))}
               </ul>
+                
+              
             </div>
+            
           </div>
         </div>
         {/* Bottom */}
@@ -123,6 +127,8 @@ const   HomepageFooter = ({ className }) => {
             />
           </div>
         </div>
+            
+
         <div className="py-4 text-center">
           <span className="font-normal text-[#778193] 2xl:font-bold">
             &copy; {new Date().getFullYear()} Skill Builder. All Rights

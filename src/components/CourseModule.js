@@ -109,7 +109,7 @@ export default function CourseModules({
                               <span className="ml-2">{content?.title}</span>
                             </span>
                             { !through_instructor && <span className="text-blue-500">
-                              {( courseLock )? "locked" : "unlocked"}{" "}
+                              {( courseLock )? "locked" : ""}{" "}
                               {content?.duration}
                             </span>}
                           </div>

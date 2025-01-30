@@ -66,19 +66,10 @@ const Courses = ({ heading, paddingTop }) => {
   console.log("coursesssssss.........\n", courses);
 
   const handleAddToCart = async (course) => {
-    const response = await fetch(
-      `${process.env.NEXT_PUBLIC_BASE_API}/is-course-purchased?course_id=${course.id}&student_id=${studentId}`,
-      {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      },
-    );
-
-    if (response.ok) {
-      alert("You already have purchased this course");
-    } else {
+    const response = await checkIfStudentHasPurchasedCourse(course,studentId);
+    if(response){
+      alert('You already have purchased this course')
+    }else{
       if (!cartItems.some((item) => item.id === course.id)) {
         dispatch(addItem(course));
       }
