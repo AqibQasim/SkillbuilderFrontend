@@ -108,12 +108,29 @@ export default function CourseModules({
                               />
                               <span className="ml-2">{content?.title}</span>
                             </span>
-                            { !through_instructor && <span className="text-blue-500">
-                              {( courseLock )? "locked" : ""}{" "}
-                              {content?.duration}
-                            </span>}
+                            {!through_instructor && (
+                              <span className="text-blue-500">
+                                {courseLock && (
+                                  <div className="group relative inline-block">
+                                    <Image
+                                      src="/lock.png"
+                                      height={10}
+                                      width={20}
+                                      alt="Locked"
+                                      className="cursor-pointer"
+                                    />
+                                    <div className="text-black absolute left-1/2 top-full z-10 mt-1 hidden  w-40 -translate-x-1/2 transform whitespace-pre-wrap rounded bg-white px-2 py-1 text-xs shadow-md group-hover:flex">
+                                      You need to purchase this course to view
+                                      this content.
+                                    </div>
+                                  </div>
+                                )}{" "}
+                                {content?.duration}
+                              </span>
+                            )}
                           </div>
-                          {isclick === index && (!courseLock || through_instructor) ? (
+                          {isclick === index &&
+                          (!courseLock || through_instructor) ? (
                             <div>
                               <InstructorIntro
                                 video={content?.content}
