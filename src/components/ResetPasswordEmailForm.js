@@ -85,7 +85,7 @@ function ResetPasswordEmailForm() {
           Submit
         </ButtonLarge>
         <ButtonLarge variant="secondary" onClick={handleCancel}>
-          Cancel
+          Back To Login
         </ButtonLarge>
       </div>
     </form>

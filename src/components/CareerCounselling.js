@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import ButtonWithIcon from "./ButtonWithIcon";
 import PointerDiv from "./PointerDiv";
+import { useRouter } from "next/router";
 
 const CareerCounselling = () => {
   const [studentProfile, setStudentProfile] = useState(null);
@@ -9,6 +10,8 @@ const CareerCounselling = () => {
   useEffect(() => {
     setStudentProfile(JSON.parse(localStorage.getItem("profile")));
   }, []);
+
+  const router = useRouter();
 
   return (
     <section className="relative bg-gray-50 px-4 py-16 lg:px-20">
@@ -43,7 +46,7 @@ const CareerCounselling = () => {
               challenges and strategize for improvement.
             </p>
             <br />
-            <form
+            {/* <form
               className="mx-layout-lg mb-3 w-full"
               action={"/api/checkout_session_counseling"}
               method="POST"
@@ -118,9 +121,9 @@ const CareerCounselling = () => {
                     },
                   },
                 ])}
-              />
-              <ButtonWithIcon text="Book a career counselling" />
-            </form>
+              /> */}
+              <ButtonWithIcon onClick={() => {router.push("/career-counseling");}} text="Book a career counselling" />
+            {/* </form> */}
           </div>
 
           <div className="absolute left-0 top-3/4 -translate-x-full -translate-y-1/2 transform max-lg:hidden">

@@ -25,12 +25,13 @@ function AdminCounsellingTable({
 
   return (
     <>
-      <Table className="mb-7" columns="grid-cols-[2.5rem_1.1fr_1.25fr_1fr]">
+      <Table className="mb-7" columns="grid-cols-[2.5rem_1.1fr_1.25fr_1fr_1fr]">
         <Table.Header>
           <div></div>
           <div>Name</div>
           <div>Email</div>
-          <div>Joining Data</div>
+          <div>Booking Date</div>
+          <div>Booking Time</div>
         </Table.Header>
         <Table.Body
           data={students}

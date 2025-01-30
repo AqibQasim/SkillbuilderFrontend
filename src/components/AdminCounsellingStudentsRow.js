@@ -12,6 +12,8 @@ function AdminCounsellingStudentsRow({ student }) {
     " " +
     student?.student?.last_name;
 
+  const bookinDate = student?.booking_date || "Pending" ;
+
   const handleRowClick = () => {
     router.push(`/admin/career-counselling/${student?.student?.id}`);
   };
@@ -28,7 +30,8 @@ function AdminCounsellingStudentsRow({ student }) {
       {/* <div className="title">{title}</div> */}
       <div>{name}</div>
       <div>{student?.student?.email}</div>
-      <div>{student?.created_at.split("T")[0]}</div>
+      <div>{bookinDate}</div>
+      <div>{student?.booking_time?.split(".")[0] || "Pending"}</div>
     </Table.Row>
   );
 }
