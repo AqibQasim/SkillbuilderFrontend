@@ -307,7 +307,7 @@ function CourseCardOnAdminDashboard({ course }) {
           </div>
         </div>
         <h3 className="mt-4 text-lg font-semibold">{course?.title}</h3>
-        <p className="mb-2 text-sm">{course?.learning_outcomes}</p>
+        <p className="mb-2 text-sm">{course?.description}</p>
         <span className="float-right font-semibold text-blue">
           ${course?.amount - course?.discount}
         </span>

@@ -16,6 +16,7 @@ import Loader from "@/components/Loader";
 import HomePageNavbar from "@/components/HomePageNavbar";
 import LayoutXPadding from "@/components/LayoutXPadding";
 import InstructorIntro from "@/components/InstructorIntro";
+import Image from "next/image";
 
 const CourseDetails = () => {
   const router = useRouter();
@@ -86,11 +87,35 @@ const CourseDetails = () => {
         <CurrentPath dynamicPath={course.title} />
       </div>
       <CourseHero course={course} />
-      <CourseInstructor course={course} user={user} />
+      <div className="path-wrapper mx-auto mb-8 mt-2 w-[90%] max-w-screen-2xl text-2xl font-semibold">
+        <div>What You'll Learn:</div>
+      </div>
+      <div className="path-wrapper mx-auto mb-8 mt-2 w-[90%] max-w-screen-2xl">
+        <ul className="grid grid-cols-2 text-wrap">
+          {course?.learning_outcomes?.map((outcome, index) => (
+            <li key={index} className="flex gap-2">
+              <div className="text-6xl mt-1 ">
+                <svg
+                  aria-hidden="true"
+                  focusable="false"
+                  className="text-black h-4 w-4"
+                  viewBox="0 0 16 16"
+                  fill="currentColor"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path d="M6 10l-3-3 1.4-1.4L6 7.2 11.6 1.6 13 3z" />
+                </svg>
+              </div>
+              {outcome}
+            </li>
+          ))}
+        </ul>
+      </div>
       <div className="path-wrapper mx-auto mb-8 mt-16 w-[90%] max-w-screen-2xl text-2xl font-semibold">
         <div>Course Introduction</div>
       </div>
       <InstructorIntro video={course?.video_url} />
+      <CourseInstructor course={course} user={user} />
       <CourseModule course={course?.modules} course_id={id} />
       <CourseReviews reviews={reviews} CourseId={id} />
       <Footer />
