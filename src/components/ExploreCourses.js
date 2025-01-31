@@ -18,7 +18,7 @@ function ExploreCourses({ popularTopics }) {
 
   return (
     <div className="bg-gray-50 py-10">
-      <div className="mx-auto max-w-screen-xl px-4">
+      <div className="mx-auto w-[92%] px-4">
         {/* Title Section */}
         <h2 className="text-2xl font-bold text-gray-900">
           Courses to get you started
@@ -45,8 +45,11 @@ function ExploreCourses({ popularTopics }) {
             ))}
           </ul>
 
-          {/* Sort Button */}
-          <div className="flex gap-3">
+          
+        </div>
+           {/* Sort Button */}
+           <div  className="flex justify-end " >
+          <div className="flex my-6 gap-3">
             <select
               // onClick={() =>
               //   // setSortOrder(
@@ -93,8 +96,7 @@ function ExploreCourses({ popularTopics }) {
               />
             </button>
           </div>
-        </div>
-
+          </div>
         {/* Main Content */}
         <div className="mt-8">
           {/* Pass the activeTab and sortOrder to CoursesNew */}
