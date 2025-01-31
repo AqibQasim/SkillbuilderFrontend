@@ -4,6 +4,7 @@ import Footer from "@/components/Footer";
 import HomePageNavbar from "@/components/HomePageNavbar";
 import LayoutXPadding from "@/components/LayoutXPadding";
 import Loader from "@/components/Loader";
+import MyLearningCourses from "@/components/MyLearningCourses";
 import Navbar from "@/components/Navbar";
 import BootcampHero from "@/components/bootcampHero";
 import { useRouter } from "next/router";
@@ -164,6 +165,7 @@ const CourseDetails = () => {
         </div>
 
         <ExploreCourses popularTopics={popularTopics} />
+        <MyLearningCourses />
         <Footer />
       </div>
     </>
