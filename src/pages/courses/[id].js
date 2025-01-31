@@ -15,6 +15,7 @@ import { fetchAllReviews } from "../../../redux/thunks/reviewsThunk";
 import Loader from "@/components/Loader";
 import HomePageNavbar from "@/components/HomePageNavbar";
 import LayoutXPadding from "@/components/LayoutXPadding";
+import InstructorIntro from "@/components/InstructorIntro";
 
 const CourseDetails = () => {
   const router = useRouter();
@@ -86,6 +87,10 @@ const CourseDetails = () => {
       </div>
       <CourseHero course={course} />
       <CourseInstructor course={course} user={user} />
+      <div className="path-wrapper mx-auto mb-8 mt-16 w-[90%] max-w-screen-2xl text-2xl font-semibold">
+        <div>Course Introduction</div>
+      </div>
+      <InstructorIntro video={course?.video_url} />
       <CourseModule course={course?.modules} course_id={id} />
       <CourseReviews reviews={reviews} CourseId={id} />
       <Footer />
