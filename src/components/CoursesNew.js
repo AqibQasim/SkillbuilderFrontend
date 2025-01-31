@@ -8,7 +8,7 @@ import { fetchApprovedCourses } from "../../redux/thunks/approvedCoursesThunk";
 // import { addItem } from "../../redux/slices/addToCart";
 // import { filterRepeatedStudents } from "@/utils/filterRepeatedStudents";
 
-const CoursesNew = ({ selectedCategory, showallCourses, popularTopicsSelected }) => {
+const  CoursesNew = ({ selectedCategory, showallCourses, popularTopicsSelected }) => {
   const [loading, setLoading] = useState(true);
   const [starReady, setStarReady] = useState(false);
   const studentId = useSelector((state) => state.auth.user);

@@ -5,7 +5,7 @@ export function LiveCoursesCard({ className, course }) {
   console.log(course);
   return (
     <div
-      className={`${className} is-odd explore-courses-card group relative grid max-w-[25.25rem] grid-rows-[13.375rem_1fr] overflow-hidden rounded-[0.875rem]`}
+      className={`${className} is-odd explore-courses-card group relative grid max-w-[25.25rem] max-md:min-w-[20.25rem]  grid-rows-[13.375rem_1fr] overflow-hidden rounded-[0.875rem]`}
     >
       <div className="explore-courses-card-image relative row-span-1 rounded-[0.875rem] bg-slate-400">
         <ImageCssBg className="rounded-t-[0.875rem]" src="/dummyImg.svg" />
