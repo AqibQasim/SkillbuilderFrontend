@@ -36,7 +36,7 @@ function InstructorCourseCard({ course, createdBy, className }) {
           )}
         </p>
         <p className="description mt-1 text-gray-700">
-          {course?.learning_outcomes ||
+          {course?.description ||
             "No description provided for this course yet."}
         </p>
 

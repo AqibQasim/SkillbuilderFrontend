@@ -31,7 +31,7 @@ function StudentEnrolledCourses({ className, href, enrolledCourses }) {
 export default StudentEnrolledCourses;
 
 function StudentEnrolledCoursesCard({ course, href = "" }) {
-  const { id, title, rating, learning_outcomes, amount, discount , image } = course;
+  const { id, title, rating, description, amount, discount , image } = course;
 
   const router = useRouter();
 
@@ -47,7 +47,7 @@ function StudentEnrolledCoursesCard({ course, href = "" }) {
   return (
     <div
       onClick={handleClick}
-      className={`cursor-pointer course-card img-container flex h-auto w-full max-w-sm transform flex-col items-start space-y-2 rounded-bl-2xl rounded-tr-2xl border border-gray-shade-2 bg-white px-3 py-4 transition duration-300 hover:border-[rgb(152,159,233)] hover:shadow-lg`}
+      className={`course-card img-container flex h-auto w-full max-w-sm transform cursor-pointer flex-col items-start space-y-2 rounded-bl-2xl rounded-tr-2xl border border-gray-shade-2 bg-white px-3 py-4 transition duration-300 hover:border-[rgb(152,159,233)] hover:shadow-lg`}
     >
       <div className="image-wrapper relative max-h-36 w-full">
         <img
@@ -60,7 +60,7 @@ function StudentEnrolledCoursesCard({ course, href = "" }) {
         <span>{rating}</span> <StarRating rating={rating} />
       </div>
       <h2 className="mt-2 text-xl font-semibold">{title}</h2>
-      <p>{learning_outcomes}</p>
+      <p>{description}</p>
       <p className="ml-auto text-blue"> {formatCurrency(amount - discount)} </p>
     </div>
   );

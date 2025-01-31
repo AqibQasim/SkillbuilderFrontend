@@ -45,7 +45,7 @@ function CourseHero({ course }) {
               <p
                 className={`text-md mx-auto mb-8 w-[85%] text-center font-normal leading-7 text-gray-600 lg:mx-0 lg:text-left`}
               >
-                {course?.learning_outcomes}
+                {course?.description}
               </p>
               <div className="flex justify-center lg:justify-start">
                 {!isCourseAddedToCart(course) && (
