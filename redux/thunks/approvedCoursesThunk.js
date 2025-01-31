@@ -5,7 +5,7 @@ export const fetchApprovedCourses = createAsyncThunk(
   async (_, { rejectWithValue }) => {
     try {
       const response = await fetch(
-        `${process.env.NEXT_PUBLIC_BASE_API}/student/all-courses`,
+        `${process.env.NEXT_PUBLIC_BASE_API}/get-top-selling-courses`,
         {
           method: "GET",
           headers: {
