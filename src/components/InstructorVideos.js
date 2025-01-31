@@ -285,7 +285,11 @@ const InstructorVideos = ({ onNext, onPrev }) => {
         setSelectedVideo={setSelectedVideo}
         courseIntroLoader={courseIntroLoader}
       />
-      <div className="accordion mt-8 overflow-hidden rounded-md border-2 border-[#BBBBBB] px-4 py-2">
+      <p className="text-bold mt-8 text-xs">
+        Note: The title of the module content is set by the name of your
+        video file.{" "}
+      </p>
+      <div className="accordion mt-1 overflow-hidden rounded-md border-2 border-[#BBBBBB] px-4 py-2">
         {modules.map((item, moduleIndex) => (
           <div key={moduleIndex}>
             <h2>

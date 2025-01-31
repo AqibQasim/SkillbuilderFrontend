@@ -8,6 +8,8 @@ import ImageUpload from "./ImageUpload";
 const InstructorIntendedLearner = ({ onNext }) => {
   const dispatch = useDispatch();
   const [selectedImage, setSelectedImage] = useState(null);
+  const [learningOutcomes, setLearningOutcomes] = useState([""]);
+  const [level, setLevel] = useState("");
   const userId = useSelector((state) => state.auth.user);
   const instructorId = useSelector(
     (state) => state.instructorByUserId.instructorByUserId.id,
@@ -36,6 +38,14 @@ const InstructorIntendedLearner = ({ onNext }) => {
     [userId, instructorId],
   );
 
+  useEffect(() => {
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      learning_outcomes: learningOutcomes,
+    }));
+  }, [learningOutcomes]);
+
+
   console.log("Getting the instructor id correctly?:", instructorId);
 
   const initialFormData = {
@@ -43,11 +53,12 @@ const InstructorIntendedLearner = ({ onNext }) => {
     creation_duration_hours: "",
     image: "",
     category: "",
-    learning_outcomes: "",
+    learning_outcomes: learningOutcomes,
     modulesCount: 0,
     amount: 0,
     charges: 0,
     discount: 0,
+    level, // Adding level to form data
   };
 
   const [formData, setFormData] = useState({
@@ -55,7 +66,7 @@ const InstructorIntendedLearner = ({ onNext }) => {
     title,
     category,
     image: selectedImage,
-    learning_outcomes,
+    learning_outcomes: learningOutcomes,
     amount,
     discount,
   });
@@ -69,6 +80,7 @@ const InstructorIntendedLearner = ({ onNext }) => {
     const dataWithInstructorId = {
       ...formData,
       instructor_id: instructorId,
+      level,
       image: selectedImage,
     };
     const { instructor_id, title, category, learning_outcomes } =
@@ -85,6 +97,20 @@ const InstructorIntendedLearner = ({ onNext }) => {
     console.log(`Field: ${field}, value: ${value}`);
     setFormData((prevFormData) => ({ ...prevFormData, [field]: value }));
   };
+
+   const handleOutcomeChange = (index, value) => {
+     const updatedOutcomes = [...learningOutcomes];
+     updatedOutcomes[index] = value;
+     setLearningOutcomes(updatedOutcomes);
+   };
+
+   const addOutcomeField = () => {
+     setLearningOutcomes([...learningOutcomes, ""]);
+   };
+
+   const removeOutcomeField = (index) => {
+     setLearningOutcomes(learningOutcomes.filter((_, i) => i !== index));
+   };
 
   return (
     <div className="container mt-20">
@@ -132,6 +158,25 @@ const InstructorIntendedLearner = ({ onNext }) => {
             </select>
           </div>
         </div>
+        <br/>
+        <div>
+          <label
+            htmlFor="level"
+            className="text-md mb-4 block font-semibold text-gray-700"
+          >
+            Course Level:
+          </label>
+          <select
+            value={level}
+            onChange={(e) => setLevel(e.target.value)}
+            className="border-darkgrey mt-1 block w-full rounded-md border bg-transparent p-3 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+          >
+            <option value="">Select Level</option>
+            <option value="beginner">Beginner</option>
+            <option value="intermediate">Intermediate</option>
+            <option value="expert">Expert</option>
+          </select>
+        </div>
         <br />
         <div className="grid grid-cols-1 gap-4 md:grid-cols-1">
           <div>
@@ -163,9 +208,7 @@ const InstructorIntendedLearner = ({ onNext }) => {
             </label>
             <textarea
               defaultValue={learning_outcomes}
-              onChange={(e) =>
-                handleChange("learning_outcomes", e.target.value)
-              }
+              onChange={(e) => handleChange("description", e.target.value)}
               // type="text"
               id="learning"
               name="learning"
@@ -179,6 +222,43 @@ const InstructorIntendedLearner = ({ onNext }) => {
         <label
           htmlFor="learning"
           className="text-md mb-4 block font-semibold text-gray-700"
+        >
+          Course Outcomes:
+        </label>
+        {learningOutcomes.map((outcome, index) => (
+          <div key={index} className="mb-2 flex space-x-2">
+            <input
+              type="text"
+              value={outcome}
+              onChange={(e) => handleOutcomeChange(index, e.target.value)}
+              className="border-darkgrey flex-1 rounded-md border bg-transparent p-3 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+              placeholder={`Outcome ${index + 1}`}
+              required
+              minLength={30}
+            />
+            {index > 0 && (
+              <button
+                type="button"
+                onClick={() => removeOutcomeField(index)}
+                className="rounded-md bg-red-500 px-3 py-1 text-white hover:bg-red-600"
+              >
+                Remove
+              </button>
+            )}
+          </div>
+        ))}
+        <button
+          type="button"
+          onClick={addOutcomeField}
+          className="mt-2 rounded-md bg-blue px-2 py-1 text-white"
+        >
+          Add Another Outcome
+        </button>
+
+        <br />
+        <label
+          htmlFor="learning"
+          className="text-md mb-4 mt-4 block font-semibold text-gray-700"
         >
           Upload an image of this course:
         </label>

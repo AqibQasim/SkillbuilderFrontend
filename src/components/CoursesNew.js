@@ -160,7 +160,7 @@ const CoursesNew = ({ selectedCategory, showallCourses, popularTopicsSelected })
                       {course.title}
                     </h3>
                     <p className="mb-2 text-[0.6rem] text-[#5C5C5C]">
-                      {truncateText(course.learning_outcomes || "", max_words)}
+                      {truncateText(course?.description || "", max_words)}
                     </p>
                   </div>
                   <div className="text-xs">
