@@ -52,6 +52,7 @@ const Page = () => {
           </p>
         </div>
         <BootcampHero
+          src="/women.png"
           title={"Empower Your Career with Expert Guidance!"}
           subtitle={
             "Discover the career path that aligns with your skills and aspirations. Our experts are here to help you unlock your full potential."

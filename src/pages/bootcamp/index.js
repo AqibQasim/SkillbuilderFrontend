@@ -148,7 +148,8 @@ const Bootcamp = () => {
             </button>
           </div>
         </div>
-        <div className="mx-auto mt-16 grid max-w-screen-xl gap-3 xl:grid-cols-4 max-xlg:grid-cols-3">
+        
+        <div className=" mt-16 grid grid-cols-1 w-[90%] mx-auto  gap-3 xl:grid-cols-4 lg:grid-cols-3  md:grid-cols-2">
           {filteredCourses?.map((course, i) => (
             <LiveCoursesCard
               selectedCategory={selectedCategory}

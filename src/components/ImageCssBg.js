@@ -1,4 +1,4 @@
-import Image from "next/image";
+ import Image from "next/image";
 
 function ImageCssBg({ src, alt, className, quality = 80, noSize = false }) {
   return (
