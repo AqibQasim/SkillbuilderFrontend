@@ -90,22 +90,22 @@ const CourseDetails = () => {
       <div className="path-wrapper mx-auto mb-8 mt-2 w-[90%] max-w-screen-2xl text-2xl font-semibold">
         <div>What You'll Learn:</div>
       </div>
-      <div className="path-wrapper
-      .
-       mb-8 mt-2 w-[90%] max-w-screen-2xl">
-        <ul>
+      <div className="path-wrapper mx-auto mb-8 mt-2 w-[90%] max-w-screen-2xl">
+        <ul className="grid grid-cols-2 text-wrap">
           {course?.learning_outcomes?.map((outcome, index) => (
             <li key={index} className="flex gap-2">
-              <svg
-                aria-hidden="true"
-                focusable="false"
-                className="h-4 w-4 text-black mx-auto justify-center align-start"
-                viewBox="0 0 16 16"
-                fill="currentColor"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path d="M6 10l-3-3 1.4-1.4L6 7.2 11.6 1.6 13 3z" />
-              </svg>
+              <div className="text-6xl mt-1 ">
+                <svg
+                  aria-hidden="true"
+                  focusable="false"
+                  className="text-black h-4 w-4"
+                  viewBox="0 0 16 16"
+                  fill="currentColor"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path d="M6 10l-3-3 1.4-1.4L6 7.2 11.6 1.6 13 3z" />
+                </svg>
+              </div>
               {outcome}
             </li>
           ))}
