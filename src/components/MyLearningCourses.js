@@ -108,7 +108,6 @@ export const enrolledDummyCourses = [
 ];
 
 function MyLearningCourses() {
-  const [purchasedCourses, setPurchasedCourses] = useState([]);
   const [coursesWithProgress, setCoursesWithProgress] = useState([]);
   const dispatch = useDispatch();
   const { data } = useSelector((state) => state.purchasecourse);
@@ -117,7 +116,7 @@ function MyLearningCourses() {
   const fetchProgress = async (userId, courseId) => {
     try {
       const response = await fetch(
-        `${process.env.NEXT_PUBLIC_BASE_API}/get-course-completion-progress?user_id=${userId}&course_id=${courseId}`
+        `${process.env.NEXT_PUBLIC_BASE_API}/get-course-completion-progress?user_id=${userId}&course_id=${courseId}`,
       );
       const result = await response.json();
       return result.completion;
@@ -145,7 +144,7 @@ function MyLearningCourses() {
               ...item,
               progress,
             };
-          })
+          }),
         );
         setCoursesWithProgress(updatedCourses);
       }
@@ -158,21 +157,31 @@ function MyLearningCourses() {
 
   return (
     <LayoutWidth>
-      <div className="grid grid-cols-[repeat(auto-fill,minmax(320px,1fr))] justify-items-center gap-4">
-        {coursesWithProgress.map((item) => {
-          const instructorName = `${item.course.instructor.user.first_name} ${item.course.instructor.user.last_name}`;
+      <div>
+        <div className="mx-auto max-w-screen-xl px-4">
+          <h2 class="text-2xl font-bold text-gray-900">Enrolled Courses</h2>
+          <p class="mt-2 text-gray-600">
+            {coursesWithProgress?.length > 0
+              ? "You have been enrolled in the following courses"
+              : "You are not enrolled in any course. Get enrolled in any course to upgrade your skills"}{" "}
+          </p>
+        </div>
+        <div className="grid grid-cols-[repeat(auto-fill,minmax(320px,1fr))] justify-items-center gap-4">
+          {coursesWithProgress.map((item) => {
+            const instructorName = `${item.course.instructor.user.first_name} ${item.course.instructor.user.last_name}`;
 
-          return (
-            <MyLearningCourseCard
-              key={item.course.id}
-              id={item.course.id}
-              title={item.course.title}
-              image={item.course.image}
-              instructor={instructorName}
-              progress={item.progress}
-            />
-          );
-        })}
+            return (
+              <MyLearningCourseCard
+                key={item.course.id}
+                id={item.course.id}
+                title={item.course.title}
+                image={item.course.image}
+                instructor={instructorName}
+                progress={item.progress}
+              />
+            );
+          })}
+        </div>
       </div>
     </LayoutWidth>
   );
@@ -202,14 +211,15 @@ function MyLearningCourseCard({ id, title, image, instructor, progress }) {
       <h2 className="mt-2 text-xl font-semibold">{title}</h2>
       <p>Instructor: {instructor}</p>
       <div className="progress mt-auto w-full">
-        <p className="float-right ml-auto text-xl">{progress === null ? 0 : progress}%</p>
+        <p className="float-right ml-auto text-xl">
+          {progress === null ? 0 : progress}%
+        </p>
         <progress
           className="h-1 w-full rounded-full bg-gray-shade-1 text-blue"
           id="enrolled-course-progress"
           value={progress}
           max="100"
         >
-
           {progress === null ? 0 : progress}
         </progress>
       </div>
