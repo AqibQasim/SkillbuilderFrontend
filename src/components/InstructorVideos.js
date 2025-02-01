@@ -24,7 +24,7 @@ const InstructorVideos = ({ onNext, onPrev }) => {
     index: null,
     loading: false,
   });
-  const[courseIntroLoader , setCourseIntroLoader ] = useState(false);
+  const [courseIntroLoader, setCourseIntroLoader] = useState(false);
   const [updateCount, setUpdateCount] = useState(0);
   const courseDetails = useSelector(
     (state) => state.createCourse.courseDetails,
@@ -37,7 +37,7 @@ const InstructorVideos = ({ onNext, onPrev }) => {
 
   const handleVideoUpload = async (event) => {
     const files = Array.from(event.target.files);
-  
+
     // Filter only video files
     const videoFiles = files.filter((file) => {
       if (!file.type.startsWith("video/")) {
@@ -46,9 +46,9 @@ const InstructorVideos = ({ onNext, onPrev }) => {
       }
       return true;
     });
-  
+
     if (videoFiles.length === 0) return;
-  
+
     // Add the selected videos with `loading: true` initially
     const newFiles = videoFiles.map((file) => ({
       file,
@@ -57,21 +57,20 @@ const InstructorVideos = ({ onNext, onPrev }) => {
       loading: true, // Initially set loader to true
       failed: false,
     }));
-  
+
     setModules((prevModules) =>
       prevModules.map((module, index) =>
         index === currentModuleIndex
           ? { ...module, videos: [...module.videos, ...newFiles] }
-          : module
-      )
+          : module,
+      ),
     );
-  
+
     // Upload each video one by one
     for (const [index, file] of videoFiles.entries()) {
       try {
         const videoId = await uploadVideoHandler(file); // Call the API to upload video
 
-        
         // Update the specific video's `videoId` and set `loading: false` after upload
         setModules((prevModules) =>
           prevModules.map((module, modIndex) =>
@@ -79,19 +78,23 @@ const InstructorVideos = ({ onNext, onPrev }) => {
               ? {
                   ...module,
                   videos: module.videos.map((video, vidIndex) =>
-                    vidIndex === module.videos.length - videoFiles.length + index
+                    vidIndex ===
+                    module.videos.length - videoFiles.length + index
                       ? { ...video, videoId, loading: false }
-                      : video
+                      : video,
                   ),
                 }
-              : module
-          )
+              : module,
+          ),
         );
       } catch (error) {
-
         console.error("Failed to upload video:", error);
-        setModuleVideoUploading((c) => ({ ...c, loading: false, failed: true }));
-        
+        setModuleVideoUploading((c) => ({
+          ...c,
+          loading: false,
+          failed: true,
+        }));
+
         // Ensure the loader is removed even if the upload fails
         setModules((prevModules) =>
           prevModules.map((module, modIndex) =>
@@ -99,18 +102,19 @@ const InstructorVideos = ({ onNext, onPrev }) => {
               ? {
                   ...module,
                   videos: module.videos.map((video, vidIndex) =>
-                    vidIndex === module.videos.length - videoFiles.length + index
-                      ? { ...video, loading: false, failed: true}
-                      : video
+                    vidIndex ===
+                    module.videos.length - videoFiles.length + index
+                      ? { ...video, loading: false, failed: true }
+                      : video,
                   ),
                 }
-              : module
-          )
+              : module,
+          ),
         );
       }
     }
-  };  
-  
+  };
+
   const handlePlayVideo = (moduleIndex, videoIndex) => {
     setShowVideos((prevShowVideos) => ({
       ...prevShowVideos,
@@ -121,7 +125,9 @@ const InstructorVideos = ({ onNext, onPrev }) => {
 
   const handleClick = async (index) => {
     setCurrentModuleIndex(index);
-    fileInputRef.current.click();
+    const inputElement = document.getElementById(`input-file-ref-${index}`);
+    // fileInputRef.current.click();
+    inputElement.click();
   };
 
   const formatFileSize = (bytes) => {
@@ -160,7 +166,18 @@ const InstructorVideos = ({ onNext, onPrev }) => {
       ...prevModules,
       { title: (prevModules.length + 1).toString(), videos: [] },
     ]);
-  };  
+  };
+
+  const removeModule = (moduleIndex) => {
+    if (modules.length === 1) return;
+
+    setModules((prevModules) =>
+      prevModules.filter((_, index) => index !== moduleIndex),
+    );
+    if (currentModuleIndex === moduleIndex) {
+      setCurrentModuleIndex(null);
+    }
+  };
 
   const uploadVideoHandler = async (selectedVideo) => {
     if (!selectedVideo) return;
@@ -188,11 +205,11 @@ const InstructorVideos = ({ onNext, onPrev }) => {
 
       if (data.uri) {
         const videoId = data.uri.split("/").pop();
-       setModuleVideoUploading((prevState) => ({
-         ...prevState,
-         loading: false,
-         failed: false,
-       }));
+        setModuleVideoUploading((prevState) => ({
+          ...prevState,
+          loading: false,
+          failed: false,
+        }));
         return videoId;
       } else {
         throw new Error("Failed to get video URI from response");
@@ -274,6 +291,7 @@ const InstructorVideos = ({ onNext, onPrev }) => {
   useEffect(() => {
     console.log("modules are: ", modules);
   }, [modules]);
+  console.log("videos are : ", modules.videos);
 
   return (
     <div>
@@ -286,13 +304,22 @@ const InstructorVideos = ({ onNext, onPrev }) => {
         courseIntroLoader={courseIntroLoader}
       />
       <p className="text-bold mt-8 text-xs">
-        Note: The title of the module content is set by the name of your
-        video file.{" "}
+        Note: The title of the module content is set by the name of your video
+        file.{" "}
       </p>
       <div className="accordion mt-1 overflow-hidden rounded-md border-2 border-[#BBBBBB] px-4 py-2">
         {modules.map((item, moduleIndex) => (
           <div key={moduleIndex}>
-            <h2>
+            <h2 className="relative">
+              {modules.length > 1 && (
+                <button
+                  className="absolute -right-1 top-1/2 z-[2] -translate-y-1/2"
+                  onClick={() => removeModule(moduleIndex)}
+                >
+                  <Image height={20} width={20} alt="cross" src="/Cross.png" />
+                </button>
+              )}
+
               <button
                 type="button"
                 className="text-black flex w-full items-center justify-between py-5 font-medium"
@@ -300,7 +327,7 @@ const InstructorVideos = ({ onNext, onPrev }) => {
               >
                 <span>Module {item.title}</span>
                 <svg
-                  className={`h-3 w-3 transition-transform ${
+                  className={`relative right-6 h-3 w-3 transition-transform ${
                     open === moduleIndex ? "rotate-0" : "rotate-180"
                   }`}
                   aria-hidden="true"
@@ -411,6 +438,7 @@ const InstructorVideos = ({ onNext, onPrev }) => {
                     accept="video/*"
                     ref={fileInputRef}
                     onChange={handleVideoUpload}
+                    id={`input-file-ref-${moduleIndex}`}
                     className="hidden"
                     multiple
                   />
