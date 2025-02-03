@@ -6,7 +6,7 @@ import InstructorCourseStatus from "./InstructorCourseStatus";
 
 function AdminCourseRow({ course }) {
   const router = useRouter();
-  const { image, title, amount, discount, status, id } = course;
+  const { image, title, amount, discount, status, id, enrolled_customers } = course;
   const name = course?.instructor?.user?.first_name;
 
   const handleRowClick = () => {
@@ -26,6 +26,7 @@ function AdminCourseRow({ course }) {
       <div>
         {name}
       </div>
+      <div className="mx-auto">{enrolled_customers.length}</div>
       <div>{formatCurrency(Number(amount))}</div>
       <div>{formatCurrency(Number(discount))}</div>
       <InstructorCourseStatus status={status} />
