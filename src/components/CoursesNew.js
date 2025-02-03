@@ -120,14 +120,14 @@ const  CoursesNew = ({ selectedCategory, showallCourses, popularTopicsSelected }
             filteredCourses.slice(0, filterLength).map((course) => (
               <div
                 key={course.id}
-                className="img-container mb-4 flex h-full w-full max-w-sm transform cursor-pointer flex-col items-start rounded-2xl border border-[#F0F0F0] bg-white p-2 transition-shadow duration-300 hover:border-[rgb(152,159,233)] hover:shadow-lg"
+                className="img-container mb-4 flex h-full w-full rounded-2xl max-w-sm transform cursor-pointer flex-col items-start    border-2 border-[#F0F0F0] bg-white  transition-shadow duration-300 hover:border-[rgb(152,159,233)] hover:shadow-lg"
                 style={{ minHeight: "25rem", maxHeight: "25rem" }}
                 onClick={() =>
                   course.id && router.push(`/courses/${course.id}`)
                 }
               >
                 <Image
-                  className="h-[40%] w-[100%]"
+                  className="h-[40%] w-[100%] rounded-t-2xl"
                   src={
                     course?.image
                       ? `${process.env.NEXT_PUBLIC_BASE_API}/media/course/${course?.image}`
@@ -139,7 +139,7 @@ const  CoursesNew = ({ selectedCategory, showallCourses, popularTopicsSelected }
                 />
                 <div className="flex w-[100%] flex-grow flex-col justify-between p-2">
                   <div>
-                    <div className="mt-2 flex w-full items-center justify-between">
+                    <div className="mt-1 flex w-full items-center justify-between">
                       {/* <div className="flex gap-2">
                         {course.rating ? (
                           <>

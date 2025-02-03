@@ -10,6 +10,7 @@ import BootcampHero from "@/components/bootcampHero";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import CoursePlatforms from "@/components/CoursePlatforms";
 
 const CourseDetails = () => {
   const router = useRouter();
@@ -66,6 +67,7 @@ const CourseDetails = () => {
         <LayoutXPadding>
           <div className="t">
             <HomePageNavbar className="!mt-0 mb-4" />
+           
           </div>
         </LayoutXPadding>
 
@@ -76,6 +78,12 @@ const CourseDetails = () => {
           }
           tagline={"Courses"}
         />
+           <div className=" w-[100%] mt-10 py-12 bg-white">
+           
+           <CoursePlatforms />
+           </div>
+        
+        
         <div class="bg-gray-50 py-10">
           <div className="mx-auto w-[92%] px-4">
             <h2 class="text-2xl font-bold text-gray-900">Popular topics</h2>
@@ -163,7 +171,7 @@ const CourseDetails = () => {
             </div>
           </div>
         </div>
-
+      
         <ExploreCourses popularTopics={popularTopics} />
         <MyLearningCourses />
         <Footer />

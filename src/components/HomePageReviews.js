@@ -6,6 +6,7 @@ import ImageCssBg from "./ImageCssBg";
 import LayoutXPadding from "./LayoutXPadding";
 import ReviewsSlider from "./ReviewsSlider";
 import StarRating from "./StarRating";
+import Image from "next/image";
 
 export const reviews = [
   {
@@ -20,10 +21,22 @@ export const reviews = [
     review: `SkillBuilder is trusted by thousands for its 90+ courses, user-friendly design, and engaging features like quizzes and progress trackers. Its personalized learning paths and practical content make it a go-to platform for career advancement.`,
     rating: 4,
   },
+  
   {
     review: `SkillBuilder is trusted by thousands for its 90+ courses, user-friendly design, and engaging features like quizzes and progress trackers. Its personalized learning paths and practical content make it a go-to platform for career advancement.`,
     rating: 4,
   },
+  
+  {
+    review: `SkillBuilder is trusted by thousands for its 90+ courses, user-friendly design, and engaging features like quizzes and progress trackers. Its personalized learning paths and practical content make it a go-to platform for career advancement.`,
+    rating: 4,
+  },
+  
+  {
+    review: `SkillBuilder is trusted by thousands for its 90+ courses, user-friendly design, and engaging features like quizzes and progress trackers. Its personalized learning paths and practical content make it a go-to platform for career advancement.`,
+    rating: 4,
+  },
+  
 ];
 
 function HomePageReviews() {
@@ -64,16 +77,30 @@ export default HomePageReviews;
 export function HomePageReviewCard({ review, className = "" }) {
   return (
     <div
-      className={`${className} review-card flex max-w-[25.5rem] flex-col rounded-2xl border border-[#DEDEDE] p-4 text-[#4D5156] shadow-[10px_20px_81px_rgba(186,186,186,0.3)] group-odd:!bg-slate-600 2xl:max-w-[36.5rem] xlg:p-6`}
+      className={`${className} review-card flex max-w-[23.5rem] flex-col rounded-2xl border border-[#DEDEDE] p-4 text-[#4D5156] shadow-[10px_20px_81px_rgba(186,186,186,0.3)] group-odd:!bg-slate-600 2xl:max-w-[25.5rem] xlg:p-6`}
     >
-      <p className="review overflow-y-auto font-medium 2xl:text-xl">
+        <Image
+                src="/coma.png"
+                alt="coma-Image"
+                width={40}
+                height={40}
+                className=" inline-block"
+              />
+       
+      <p className="review my-2 mb-4 overflow-y-auto font-medium 2xl:text-lg">
         {review?.review}
       </p>
-      <div className="review-info mt-8 flex items-center justify-between group-[.is-odd]:mt-auto">
+       
+      <hr className="mb-4 border-t-[0.4px] border-[#D0722E] " />
+     
+    
+      <div className="review-info mt-12 flex items-center justify-between group-[.is-odd]:mt-auto">
         <div className="person flex items-center justify-center gap-2">
-          <div className="icon-wrapper relative size-14 rounded-full bg-[#F5F5F5]">
+          <div className="icon-wrapper flex relative size-14 rounded-full bg-[#F5F5F5]">
+         
             <ImageCssBg src="/review_avatar.svg" alt="review avatar image" />
           </div>
+         
           <div className="person-info">
             <h3 className="font-medium text-[#170D23]">Jesper Hale</h3>
             <p className="text-xs text-[#4A525D]">Lead AI Researcher</p>

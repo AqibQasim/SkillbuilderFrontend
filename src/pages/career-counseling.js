@@ -16,7 +16,7 @@ const Page = () => {
   }, []);
 
   return (
-    <div className="home-container mx-auto max-w-[120em] space-y-12 font-satoshi">
+    <div className="home-container mx-auto w-[100%] space-y-12 font-satoshi">
       <LayoutXPadding>
         <div className="s">
           <HomePageNavbar />
@@ -29,14 +29,16 @@ const Page = () => {
         }
         tagline={"Career Counseling"}
       />
-      <div className="mx-auto max-w-7xl px-4">
-        <div className="p-6 md:p-12">
+      <div className="mx-auto w-[90%]">
+        <div className="mx-auto text-center">
           <div className="mb-4 inline-block rounded-full border-2 border-solid border-black-shade-1 px-4 py-1 text-sm font-medium">
             Career Counseling
           </div>
           <h2 className="mb-4 text-2xl font-bold text-gray-900 md:text-4xl">
             Career Counselling and Guidance
           </h2>
+          </div>
+          <div className="py-6 px-7 md:py-12 ">
           <p className="mb-4 leading-relaxed text-gray-600">
             Choosing a career is one of the most important decisions in a
             student’s life. With the world becoming increasingly competitive,
@@ -62,7 +64,7 @@ const Page = () => {
       </div>
 
       <div className="pt5">
-        <div className="mx-auto max-w-7xl px-6">
+        <div className="mx-auto w-[90%] px-6">
           {/* Section Header */}
           <div className="mb-10 text-center">
             <span className="inline-block rounded-full border-2 border-solid border-blue-700 px-4 py-1 text-sm font-medium text-blue-700">
@@ -135,17 +137,17 @@ const Page = () => {
 
       <div class="pt-5">
         <div class="mx-auto max-w-6xl px-6">
-          <div class="mb-8">
+          <div class="mx-auto text-center">
             <span class="inline-block rounded-full border-2 border-solid border-black-shade-1 px-4 py-1 text-sm font-medium">
               Career Counseling
             </span>
-            <h2 class="mt-4 text-3xl font-bold text-gray-900 md:text-4xl">
+            <h2 class="my-4 text-3xl font-bold text-gray-900 md:text-4xl">
               Why Choose 1 to 1 Education Consultancy?
             </h2>
           </div>
-          <div class="space-y-6">
+          <div class="space-y-6 mt-2">
             <div>
-              <h3 class="text-xl font-semibold text-gray-900">
+              <h3 class="text-xl font-semibold text-gray-900 mt-4">
                 Individualized Attention:
               </h3>
               <p class="mt-2 text-sm text-gray-600">
@@ -194,7 +196,7 @@ const Page = () => {
         </div>
       </div>
       <div class="bg-white pt-5">
-        <div class="mx-auto max-w-[90%] px-6">
+        <div class="mx-auto w-[90%] px-6">
           <div class="flex flex-col items-center rounded-lg bg-gray-50 shadow-lg md:flex-row md:items-start">
             {/* <!-- Text Content --> */}
             <div class="w-full p-8 md:w-1/2">
@@ -309,7 +311,7 @@ const Page = () => {
             </div>
 
             {/* <!-- Image Content --> */}
-            <div class="lg-pt:0 flex w-full justify-center p-2 md:w-1/2 md:justify-end md:pt-20">
+            <div class=" flex w-full justify-center p-2 md:w-1/2 md:justify-end md:pt-20 lg:pt-1">
               <Image
                 src="/carrer.png"
                 alt="1 to 1 Education Consultancy"

@@ -158,9 +158,9 @@ function MyLearningCourses() {
   return (
     <LayoutWidth>
       <div>
-        <div className="mx-auto max-w-screen-xl px-4">
+        <div className="mx-auto w-[90%] px-4">
           <h2 class="text-2xl font-bold text-gray-900">Enrolled Courses</h2>
-          <p class="mt-2 text-gray-600">
+          <p class="mt-2 mb-5 text-gray-600">
             {coursesWithProgress?.length > 0
               ? "You have been enrolled in the following courses"
               : "You are not enrolled in any course. Get enrolled in any course to upgrade your skills"}{" "}
