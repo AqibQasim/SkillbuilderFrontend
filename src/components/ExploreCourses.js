@@ -3,8 +3,8 @@ import { useState } from "react";
 import CoursesNew from "./CoursesNew";
 
 function ExploreCourses({ popularTopics }) {
-  const [activeTab, setActiveTab] = useState("Most Popular");
-  const [sortOrder, setSortOrder] = useState("Most Popular");
+  const [activeTab, setActiveTab] = useState("New Courses");
+  // const [sortOrder, setSortOrder] = useState("New Arrivals");
   const [selectedCategory, setSelectedCategory] = useState("");
   
 
@@ -27,29 +27,9 @@ function ExploreCourses({ popularTopics }) {
           Explore courses from experienced, real-world experts.
         </p>
 
-        {/* Tabs Section */}
-        <div className="mt-6 flex items-center justify-between">
-          <ul className="flex gap-6 text-sm font-medium text-gray-600">
-            {["Most Popular", "New Courses", "Trending Courses"].map((tab) => (
-              <li
-                key={tab}
-                className={`cursor-pointer pb-1 ${
-                  activeTab === tab
-                    ? "border-b-4 border-blue-600 font-bold text-blue-600"
-                    : "hover:border-b-4 hover:border-gray-300 hover:text-gray-800"
-                }`}
-                onClick={() => handleTabClick(tab)}
-              >
-                {tab}
-              </li>
-            ))}
-          </ul>
-
-          
-        </div>
-           {/* Sort Button */}
-           <div  className="flex justify-end " >
-          <div className="flex my-6 gap-3">
+        {/* Sort Button */}
+        <div className="flex justify-end">
+          <div className="my-6 flex gap-3">
             <select
               // onClick={() =>
               //   // setSortOrder(
@@ -76,7 +56,7 @@ function ExploreCourses({ popularTopics }) {
               <option value="others">Others</option>
             </select>
 
-            <button
+            {/* <button
               onClick={() =>
                 setSortOrder(
                   sortOrder === "Most Popular"
@@ -94,13 +74,34 @@ function ExploreCourses({ popularTopics }) {
                 height={20}
                 className="ml-2 inline-block"
               />
-            </button>
+            </button> */}
           </div>
-          </div>
+        </div>
+        {/* Tabs Section */}
+        <div className="mt-6 flex items-center justify-between">
+          <ul className="flex gap-6 text-sm font-medium text-gray-600">
+            {["New Courses", "Most Popular"].map((tab) => (
+              <li
+                key={tab}
+                className={`cursor-pointer pb-1 ${
+                  activeTab === tab
+                    ? "border-b-4 border-blue-600 font-bold text-blue-600"
+                    : "hover:border-b-4 hover:border-gray-300 hover:text-gray-800"
+                }`}
+                onClick={() => handleTabClick(tab)}
+              >
+                {tab}
+              </li>
+            ))}
+          </ul>
+        </div>
         {/* Main Content */}
         <div className="mt-8">
           {/* Pass the activeTab and sortOrder to CoursesNew */}
-          <CoursesNew selectedCategory={selectedCategory} showallCourses={true}
+          <CoursesNew
+            activeTab={activeTab}
+            selectedCategory={selectedCategory}
+            showallCourses={true}
           />
         </div>
       </div>
