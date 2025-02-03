@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
+import { useMemo } from "react";
+
 //import StarRating from "./StarRating";
 import Image from "next/image";
 import { useDispatch, useSelector } from "react-redux";
@@ -8,13 +10,14 @@ import { fetchApprovedCourses } from "../../redux/thunks/approvedCoursesThunk";
 // import { addItem } from "../../redux/slices/addToCart";
 // import { filterRepeatedStudents } from "@/utils/filterRepeatedStudents";
 
-const  CoursesNew = ({ selectedCategory, showallCourses, popularTopicsSelected }) => {
+const  CoursesNew = ({ activeTab ,selectedCategory, showallCourses, popularTopicsSelected }) => {
   const [loading, setLoading] = useState(true);
   const [starReady, setStarReady] = useState(false);
   const studentId = useSelector((state) => state.auth.user);
   const router = useRouter();
   const [sortOrder, setSortOrder] = useState(null);
   //const [selectedCategory, setSelectedCategory] = useState(null);
+  const [topSellingCourses, setTopSellingCourses] = useState(null);
   const [selectedFilter, setSelectedFilter] = useState(null);
   const dispatch = useDispatch();
   const {
@@ -24,30 +27,87 @@ const  CoursesNew = ({ selectedCategory, showallCourses, popularTopicsSelected }
   } = useSelector(
     (state) => state.courses || { data: [], isLoading: false, error: null },
   );
-  console.log(courses);
+  console.log("aqwsedrftgyhujikol",courses);
+
+  async function getTopSellingCourses(){
+    const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/get-top-selling-courses`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      }, 
+    }
+   );
+   const data = await response.json();
+
+   setTopSellingCourses(data?.data)
+
+   console.log("Top Seeling courses are ", data?.data)
+
+}  
+useEffect(()=>{
+  if(activeTab === "Most Popular"){
+    getTopSellingCourses();
+  }
+}, [activeTab])
+
+//useEffect(() => {}, [topSellingCourses]);
 
   // Derive filtered courses based on selectedCategory
-  let filteredCourses = courses;
+  const filteredCourses = useMemo(() => {
+    let coursesList =
+      activeTab === "Most Popular" && topSellingCourses ? topSellingCourses : courses;
+
+    if (!coursesList) return [];
+
+    // Filter by category
+    if (selectedCategory) {
+      coursesList = coursesList.filter((c) => c?.category === selectedCategory);
+    }
+
+    // Sorting Logic
+    if (selectedFilter) {
+      if (selectedFilter.toLowerCase() === "low to high") {
+        coursesList = [...coursesList].sort(
+          (a, b) => a.amount - a.discount - (b.amount - b.discount),
+        );
+      } else if (selectedFilter.toLowerCase() === "high to low") {
+        coursesList = [...coursesList].sort(
+          (a, b) => b.amount - b.discount - (a.amount - a.discount),
+        );
+      }
+    }
+
+    return showallCourses ? coursesList : coursesList.slice(0, 4);
+  }, [
+    courses,
+    topSellingCourses,
+    selectedCategory,
+    selectedFilter,
+    showallCourses,
+    activeTab,
+  ]);
+
 
   useEffect(() => {
+    
     dispatch(fetchApprovedCourses());
   }, [dispatch]);
 
-  if (selectedFilter || selectedCategory) {
-    filteredCourses = courses?.filter((c) =>
-      selectedCategory ? c?.category === selectedCategory : true,
-    );
+  // if (selectedFilter || selectedCategory) {
+  //   filteredCourses = courses?.filter((c) =>
+  //     selectedCategory ? c?.category === selectedCategory : true,
+  //   );
 
-    if (selectedFilter?.toLowerCase() === "low to high") {
-      filteredCourses = filteredCourses?.sort(
-        (a, b) => a?.amount - a?.discount - (b?.amount - b?.discount),
-      );
-    } else if (selectedFilter?.toLowerCase() === "high to low") {
-      filteredCourses = filteredCourses?.sort(
-        (a, b) => b?.amount - b?.discount - (a?.amount - a?.discount),
-      );
-    }
-  }
+  //   if (selectedFilter?.toLowerCase() === "low to high") {
+  //     filteredCourses = filteredCourses?.sort(
+  //       (a, b) => a?.amount - a?.discount - (b?.amount - b?.discount),
+  //     );
+  //   } else if (selectedFilter?.toLowerCase() === "high to low") {
+  //     filteredCourses = filteredCourses?.sort(
+  //       (a, b) => b?.amount - b?.discount - (a?.amount - a?.discount),
+  //     );
+  //   }
+  // }
 
   useEffect(() => {
     // Simulate loading and check if StarRating styles are applied
@@ -111,12 +171,12 @@ const  CoursesNew = ({ selectedCategory, showallCourses, popularTopicsSelected }
     return text;
   };
 
-  const filterLength = showallCourses ? filteredCourses.length : 4;
+  const filterLength = showallCourses ? (filteredCourses?.length || 0) : 4;
   return (
     <div className="wrapper">
       <div className="flex w-full flex-col items-center">
         <div className="grid h-auto w-[100%] grid-cols-1 place-items-center gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          {filteredCourses.length > 0 ? (
+          {filteredCourses?.length > 0 ? (
             filteredCourses.slice(0, filterLength).map((course) => (
               <div
                 key={course.id}

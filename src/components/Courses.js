@@ -208,10 +208,7 @@ const Courses = ({ heading, paddingTop }) => {
                         {course?.title}
                       </h3>
                       <p className="mb-2 text-sm">
-                        {truncateText(
-                          course?.learning_outcomes || "",
-                          max_words,
-                        )}
+                        {truncateText(course?.description || "", max_words)}
                         <span className="ml-2 cursor-pointer text-blue-500">
                           See More
                         </span>
