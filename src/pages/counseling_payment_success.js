@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
+import Loader from "@/components/Loader";
 
 const CounselingPaymentSuccess = () => {
   const router = useRouter();
@@ -78,9 +79,9 @@ const CounselingPaymentSuccess = () => {
 
   return (
     <>
-      <div>Counseling Payment Success!</div>
-      <div>Student ID: {student_id}</div>
-      <div>Instructor ID: {instructor_id}</div>
+      <div className="h-screen">
+        <Loader />
+      </div>
     </>
   );
 };
