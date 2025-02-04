@@ -47,7 +47,7 @@ export function ExploreCoursesCard({ className, course }) {
         />
       </div>
       <div className="explore-courses-card-content relative -top-4 h-[calc(100%+1rem)] overflow-hidden rounded-[0.875rem] px-5 py-4 !pb-0 after:absolute after:left-0 after:top-0 after:h-4 after:w-full after:bg-[#B0B1F2] after:content-['']">
-        <div className="image absolute bottom-0 left-0 z-[-1] size-full rounded-t-[0.875rem] bg-[rgba(186,186,186,0.2)]">
+        <div className="image absolute bottom-0 left-0 z-[-1] size-full rounded-t-[0.875rem] bg-[rgba(186,186,186,0.1)]">
           <div className="absolute -top-5 left-0 h-10 w-full bg-[#B0B1F2]"></div>
           <ImageCssBg
             src={cardBottomImage}
