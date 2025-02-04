@@ -1,6 +1,6 @@
 import CourseReview from "@/components/CourseReview";
 import Footer from "@/components/Footer";
-import Navbar from "@/components/Navbar";
+import HomePageNavbar from "@/components/HomePageNavbar";
 import React, { useEffect, useReducer } from "react";
 import Writereview from "@/components/Writereview";
 import Reviews from "@/components/Reviews";
@@ -11,79 +11,52 @@ import { useState } from "react";
 import { useRouter } from "next/router";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchAllReviews } from "../../../redux/thunks/reviewsThunk";
-
+import checkIfStudentHasPurchasedCourse from "@/utils/checkIfStudentHasPurchasedCourse";
 
 const coursereviews = () => {
   const router = useRouter();
   const CourseId = router.query.id;
+  const studentId = useSelector((state) => state.auth.user);
+  //console.log("Student logged in: ",userId)
+  const [hasUserPurchasedCourse, setHasUserPurchasedCourse] = useState(false);
 
-  const [reviewsDatta, setReviewsData] = useState([])
+  const [reviewsDatta, setReviewsData] = useState([]);
 
   const dispatch = useDispatch();
   const { reviewsData: reviews, isReviewsLoading } = useSelector(
     (state) => state.allReviews || { reviewsData: [], isReviewsLoading: true },
   );
-  useEffect(()=>{
-    
+
+  const checkWhetherHasUserPurchasedCourse = async () => {
+    const res = await checkIfStudentHasPurchasedCourse(
+      { id: CourseId },
+      studentId,
+    );
+    if (res) {
+      setHasUserPurchasedCourse(true);
+    }
+  };
+  useEffect(() => {
     dispatch(fetchAllReviews(CourseId));
+    checkWhetherHasUserPurchasedCourse();
+  }, [CourseId]);
+  // useEffect(()=>{
+  //   console.log("Me HUn CourseID: ",CourseId);
+  //   console.log("Me HUn typeof(CourseID): ",typeof(CourseId));
+  //   console.log(reviews)
 
-  } ,[CourseId]);
-  useEffect(()=>{
-    console.log("Me HUn CourseID: ",CourseId);
-    console.log("Me HUn typeof(CourseID): ",typeof(CourseId));
-    console.log(reviews)
-
-  },[])
-  const user = useSelector((state) => state.auth.user);
+  // },[])
 
   useEffect(() => {
-
-    const list = []
+    const list = [];
     reviews.forEach((review) => {
-      console.log("Raatingg ", review?.rating)
+      console.log("Raatingg ", review?.rating);
       list.push({
-        rating: parseFloat(review.rating)
-      }
-      )
-    })
-    setReviewsData(list)
-  }, [reviews])
-  
-  // let arrayofobjects = [
-  //   {
-  //     name: "Taha",
-  //     rating: "3",
-  //     description:
-  //       "Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolore minus alias fugiat eum accusantium dolores, incidunt repellendus velit nihil vero! Aut velit molestiae repudiandae animi. Illo, facere hic sit enim adipisci neque, quam harum nihil velit ducimus accusamus perferendis perspiciatis odio, nulla voluptas laborum. Pariatur.",
-  //   },
-  //   {
-  //     name: "Zubair Alam",
-  //     rating: "4",
-  //     description:
-  //       "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Asperiores incidunt sapiente vel nobis enim voluptate officiis iusto perspiciatis quam. Officiis veritatis maxime similique nesciunt officia distinctio magnam saepe unde dolorum voluptatum autem consequatur ullam quas magni, odit sequi nihil quo placeat laboriosam quia repellat? Ducimus.",
-  //   },
-  //   {
-  //     name: "Rayyan Sajid",
-  //     rating: "5",
-  //     description:
-  //       "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Asperiores incidunt sapiente vel nobis enim voluptate officiis iusto perspiciatis quam. Officiis veritatis maxime similique nesciunt officia distinctio magnam saepe unde dolorum voluptatum autem consequatur ullam quas magni, odit sequi nihil quo placeat laboriosam quia repellat? Ducimus.",
-  //   },
-  //   {
-  //     name: "Ahmad zaman",
-  //     rating: "2",
-  //     description:
-  //       "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Asperiores incidunt sapiente vel nobis enim voluptate officiis iusto perspiciatis quam. Officiis veritatis maxime similique nesciunt officia distinctio magnam saepe unde dolorum voluptatum autem consequatur ullam quas magni, odit sequi nihil quo placeat laboriosam quia repellat? Ducimus.",
-  //   },
-  //   {
-  //     name: "Sanjay ",
-  //     rating: "0",
-  //     description:
-  //       "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Asperiores incidunt sapiente vel nobis enim voluptate officiis iusto perspiciatis quam. Officiis veritatis maxime similique nesciunt officia distinctio magnam saepe unde dolorum voluptatum autem consequatur ullam quas magni, odit sequi nihil quo placeat laboriosam quia repellat? Ducimus.",
-  //   },
-  // ];
-  //sanjay branch data
-
- 
+        rating: parseFloat(review.rating),
+      });
+    });
+    setReviewsData(list);
+  }, [reviews]);
 
   let rating_counts = {
     one: 0,
@@ -139,16 +112,24 @@ const coursereviews = () => {
     <main>
       {" "}
       <div className="w-full bg-bg_gray">
-        <Navbar />
+        <HomePageNavbar />
         <div>
           <Reviews rating={result} total={total_count} counts={rating_counts} />
         </div>
         <ReviewModalContainer isOpen={isModalOpen} onClose={closeModal}>
-          <ReviewModal onClose={closeModal} courseId={CourseId}/>
+          <ReviewModal onClose={closeModal} courseId={CourseId} />
         </ReviewModalContainer>
-        <Writereview openModal={openModal} />
+        {hasUserPurchasedCourse ? (
+          <Writereview openModal={openModal} />
+        ) : (
+          <div className="flex flex-1 justify-center">Purchase the course in order to write your review</div>
+        )}
         {reviews.map((review) => (
-          <CourseReview name={`${review?.user?.first_name} ${review?.user?.last_name}`} description={review.review} time={review.date} />
+          <CourseReview
+            name={`${review?.user?.first_name} ${review?.user?.last_name}`}
+            description={review.review}
+            time={review.date}
+          />
         ))}
 
         <Footer />

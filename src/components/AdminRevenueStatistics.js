@@ -4,7 +4,7 @@ import Chart from "chart.js/auto";
 
 const AdminRevenueStatistics = ({current_balance="50",  chartData=[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]}) => {
 
-  const maxY = Math.max(...chartData) || 10;
+  const maxY = Math.max(...chartData).toFixed(2) || 10;
 
 
   useEffect(() => {

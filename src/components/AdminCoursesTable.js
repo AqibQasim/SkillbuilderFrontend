@@ -27,12 +27,13 @@ function AdminCoursesTable({ courses, courseStatus, emptyStateClasses = "" }) {
       </div>
       <Table
         className="mb-7"
-        columns="grid-cols-[2.5rem_1.1fr_1.25fr_1fr_1fr_1fr_0.25fr]"
+        columns="grid-cols-[2.5rem_1.1fr_1.25fr_1fr_1fr_1fr_1fr_0.25fr]"
       >
         <Table.Header>
           <div></div>
           <div>Course</div>
           <div>Instructor</div>
+          <div>Enrolled Students</div>
           <div>Price</div>
           <div>Discount</div>
           <div>Status</div>

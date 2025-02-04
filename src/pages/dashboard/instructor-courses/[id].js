@@ -7,7 +7,10 @@ import InstructorCourseCard from "@/components/InstructorCourseCard";
 import InstructorsCourseStudentsTable from "@/components/InstructorsCourseStudentsTable";
 import Loader from "@/components/Loader";
 import withAuth from "@/components/WithAuth";
-import { filterRepeatedStudents } from "@/utils/filterRepeatedStudents";
+import {
+  filterRepeatedStudents,
+  getUniqueStudents,
+} from "@/utils/filterRepeatedStudents";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
 import { FaChevronLeft } from "react-icons/fa6";
@@ -15,6 +18,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchStudents } from "../../../../redux/thunks/allstudentsThunk";
 import { fetchOneCourse } from "../../../../redux/thunks/coursesThunks";
 import DashboardCourseModules from "@/components/DashboardCourseModules";
+import CourseModule from "@/components/CourseModule";
 
 function CourseDetail() {
   const { first_name, last_name } = useSelector((state) => state.profile);
@@ -45,6 +49,7 @@ function CourseDetail() {
   }, [id]);
 
   const uniqueStudents = filterRepeatedStudents(students);
+  // const uniqueStudents = getUniqueStudents(students);
 
   const overview = view || "overview";
 
@@ -94,7 +99,11 @@ function CourseDetail() {
             {/* Course Modules */}
             {isSingleCourseLoading && <Loader />}
             {!isSingleCourseLoading && (
-              <DashboardCourseModules modules={singleCourse?.modules} />
+              <CourseModule
+                course={singleCourse?.modules}
+                course_id={id}
+                through_instructor={true}
+              />
             )}
             <DashboardStudentsOverview students={uniqueStudents} />
           </>

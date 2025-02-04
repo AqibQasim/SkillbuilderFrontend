@@ -1,49 +1,66 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import ButtonWithIcon from "./ButtonWithIcon";
 import PointerDiv from "./PointerDiv";
-import HomePageNavbar from "./HomePageNavbar";
+import { useRouter } from "next/router";
 
 const CareerCounselling = () => {
+  const [studentProfile, setStudentProfile] = useState(null);
+
+  useEffect(() => {
+    setStudentProfile(JSON.parse(localStorage.getItem("profile")));
+  }, []);
+
+  const router = useRouter();
+
   return (
     <section className="relative bg-gray-50 px-4 py-16 lg:px-20">
-      <div className="mx-auto mt-8 max-w-7xl">
+      <div className="mx-auto max-w-7xl">
         <div className="mb-12 text-center">
           <span className="rounded-full border border-purple-500 p-2 px-4 text-sm font-semibold text-purple-500">
-            Career Counselling
+            Career Counseling
           </span>
-          <h2 className="mx-auto mt-4 max-w-[70%] text-3xl font-bold text-gray-900 lg:text-5xl">
+          <h2 className="mx-auto mt-4 max-w-[70%] text-3xl font-bold text-gray-900 lg:text-4xl">
             1-on-1 sessions with certified career coaches.
           </h2>
-          <p className="mx-auto mt-4 text-gray-400">
+          <p className="mx-auto mt-4 max-w-[85%] text-gray-400">
             Struggling to understand where to focus? A personalized career
-            Counselling session can provide clear guidance tailored to your
+            counseling session can provide clear guidance tailored to your
             profile.
           </p>
         </div>
-        <div className="relative mx-auto max-w-2xl">
-          <div className="relative overflow-hidden rounded-lg border border-gray-200 shadow-lg">
+        <div className="relative mx-auto max-w-[40rem] px-12">
+          <div className="relative overflow-hidden rounded-xl border border-gray-200 p-4 shadow-lg">
             <Image
               src="/Career.png"
-              alt="Career Counselling Session"
+              alt="Career Counseling Session"
               width={400}
               height={225}
               className="h-auto w-full object-cover"
             />
-            <h3 className="mt-4 text-xl font-bold text-gray-900 lg:text-2xl">
+            <h3 className="mt-4 text-center text-xl font-bold text-gray-900 lg:text-2xl">
               Career Counselling
             </h3>
-            <p>
+            <p className="text-center">
               Offer professional career guidance to help the candidate navigate
               challenges and strategize for improvement.
             </p>
             <br />
-            <form
-              className="w-full"
-              action="/api/checkout_session_counseling"
+            {/* <form
+              className="mx-layout-lg mb-3 w-full"
+              action={"/api/checkout_session_counseling"}
               method="POST"
             >
-              <input type="hidden" name="studentId" value={4} />
+              <input
+                type="hidden"
+                name="studentId"
+                value={studentProfile?.id}
+              />
+              <input
+                type="hidden"
+                name="candidateEmail"
+                value={studentProfile?.email}
+              />
               <input
                 type="hidden"
                 name="items"
@@ -104,9 +121,9 @@ const CareerCounselling = () => {
                     },
                   },
                 ])}
-              />
-              <ButtonWithIcon text="Book a career counselling" />
-            </form>
+              /> */}
+              <ButtonWithIcon onClick={() => {router.push("/career-counseling");}} text="Book a career counselling" className="mx-auto" />
+            {/* </form> */}
           </div>
 
           <div className="absolute left-0 top-3/4 -translate-x-full -translate-y-1/2 transform max-lg:hidden">

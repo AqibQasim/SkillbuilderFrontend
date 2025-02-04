@@ -5,7 +5,7 @@ import LayoutWidth from "./LayoutWidth";
 import LayoutXPadding from "./LayoutXPadding";
 import { useRouter } from "next/router";
 
-const HomepageFooter = ({ className }) => {
+const   HomepageFooter = ({ className }) => {
   const router = useRouter();
 
   useEffect(() => {
@@ -18,10 +18,15 @@ const HomepageFooter = ({ className }) => {
     };
   }, []);
 
+ const onSocialClick = (url) => {
+    window.open(url, "_blank");
+  };
+
+
   return (
     <LayoutXPadding>
       <footer className={`${className} `}>
-        <div className="top flex items-start justify-between max-sm:flex-wrap max-sm:gap-4">
+        <div className="top flex items-start justify-between max-sm:flex-wrap max-sm:gap-4 pt-6">
           <div className="left">
             <Image src="/logo.svg" className="imba" width={180} height={35} />
           </div>
@@ -46,19 +51,29 @@ const HomepageFooter = ({ className }) => {
                 ))}
               </ul>
             </div>
+            
             {/* Second column in the right side */}
             <div className="">
               <h3 className="mb-2 text-xl font-bold text-[#012456]">Contact</h3>
               <ul className="space-y-4 p-2 text-sm text-[#9AA5B8]">
-                {["+92 304 3870323", "info@co-ventech.com"].map(
-                  (item, index) => (
-                    <li key={index} className="text-lg font-medium">
-                      {item}
-                    </li>
-                  ),
-                )}
+                {[
+                  { type: "tel", value: "+92 304 3870323" },
+                  { type: "mailto", value: "info@co-ventech.com" },
+                ].map((item, index) => (
+                  <li key={index} className="text-lg font-medium">
+                    <a
+                      href={`${item.type}:${item.value}`}
+                      className="text-inherit hover:underline"
+                    >
+                      {item.value}
+                    </a>
+                  </li>
+                ))}
               </ul>
+                
+              
             </div>
+            
           </div>
         </div>
         {/* Bottom */}
@@ -85,27 +100,35 @@ const HomepageFooter = ({ className }) => {
               className="cursor-pointer"
               width={40}
               height={40}
+              onClick={() => onSocialClick("https://instagram.com")}
             />
             <Image
               src="/linkedin (2).png"
               className="cursor-pointer"
               width={40}
               height={40}
+              onClick={() => onSocialClick("https://www.facebook.com/people/SkillBuilder/61557538478424/")}
+
+              
             />
             <Image
               src="/facebook (2).png"
               className="cursor-pointer"
               width={40}
               height={40}
+              onClick={() => onSocialClick("https://www.linkedin.com/company/skill-builderss/ ")}
             />
             <Image
               src="/insta (2).png"
               className="cursor-pointer"
               width={40}
               height={40}
+              onClick={() => onSocialClick("https://twitter.com")}
             />
           </div>
         </div>
+            
+
         <div className="py-4 text-center">
           <span className="font-normal text-[#778193] 2xl:font-bold">
             &copy; {new Date().getFullYear()} Skill Builder. All Rights

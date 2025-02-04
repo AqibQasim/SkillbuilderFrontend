@@ -314,7 +314,8 @@ function User({ cartClickHandler, cartItemsLength }) {
           </div>
           {/* ________________________________ */}
           <div
-            className={`absolute -right-6 top-6 z-50 min-w-80 rounded-lg bg-white px-2 py-3 py-4 shadow-lg transition-all duration-300 sm:right-0 ${showNotification ? "visible translate-y-3 opacity-100" : "invisible translate-y-0 opacity-0"}`}
+            className={`absolute -right-6 top-6 z-50 min-w-80 rounded-lg bg-white px-2 
+              py-4 shadow-lg transition-all duration-300 sm:right-0 ${showNotification ? "visible translate-y-3 opacity-100" : "invisible translate-y-0 opacity-0"}`}
           >
             <h2 className="text-lg font-bold">Notification</h2>
             <hr />
@@ -360,7 +361,7 @@ function User({ cartClickHandler, cartItemsLength }) {
         <ButtonSecond className="text-nowrap">Sign in</ButtonSecond>
       </Link>
       <Link href="/counselling">
-        <ButtonWithIcon text="talk to mentor" className="text-nowrap" />
+        <ButtonWithIcon text="Talk To Mentor" className="text-nowrap" />
       </Link>
     </div>
   );

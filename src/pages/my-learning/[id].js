@@ -16,6 +16,7 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchAllReviews } from "../../../redux/thunks/reviewsThunk";
 import { fetchOneCourse } from "../../../redux/thunks/coursesThunks";
+import HomePageNavbar from "@/components/HomePageNavbar";
 
 const courseProgress = 100;
 
@@ -24,18 +25,51 @@ function EnrolledCourseDetails() {
 
   const router = useRouter();
   const [isClient, setIsClient] = useState(false);
+  const [progress, setProgress] = useState(0);
   const enrolledCourseId = router.query.id;
   console.log(" Enrolled CourseId in my-learning: ", enrolledCourseId);
   const courses = useSelector((state) => state.cart.items);
   console.log("length in root file:", courses?.length);
   const { reviewsData: reviews, isReviewsLoading } = useSelector(
     (state) => state.allReviews || { reviewsData: [], isReviewsLoading: true },
+    
   );
+ 
+ 
 
-  const handleViewAllButton = () => {
-    console.log("View All Button is clicked!!");
-    router.replace(`coursereview/${enrolledCourseId}`);
+  useEffect(() => {
+    const fetchUserProgress = async () => {
+      const userId = JSON.parse(localStorage.getItem("profile")).id;
+      console.log("uuuuu",userId);
+      if (userId && enrolledCourseId) {
+        const progress = await fetchProgress(userId, enrolledCourseId);
+        setProgress(progress || 0); // Set fetched progress or fallback to 0
+      }
+    };
+  
+    fetchUserProgress();
+  }, [enrolledCourseId]);
+  
+  console.log("/////pppp",progress)
+  const fetchProgress = async (userId, enrolledCourseId) => {
+    try {
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_BASE_API}/get-course-completion-progress?user_id=${userId}&course_id=${enrolledCourseId}`
+      );
+      const result = await response.json();
+      return result.completion;
+    } catch (error) {
+      console.error("Error fetching course progress:", error);
+      return 0;
+    }
   };
+
+  // const handleViewAllButton = () => {
+  //   console.log("View All Button is clicked!!");
+  //   router.replace(`coursereview/${enrolledCourseId}`);
+  // };
+
+  
 
   useEffect(() => {
     try {
@@ -74,7 +108,9 @@ function EnrolledCourseDetails() {
   return (
     <>
       <div className="h-[100%] w-[100%] bg-bg_gray">
-        <Navbar cartItemsLength={courses?.length} />
+        <LayoutWidth>
+          <HomePageNavbar />
+        </LayoutWidth>
         <LayoutWidth>
           <div className="path-wrapper mb-8 mt-16">
             <CurrentPath dynamicPath={course?.title} />
@@ -87,10 +123,14 @@ function EnrolledCourseDetails() {
             purchasedCourses={course?.purchased_course}
           />
           <EnrolledCourseSkills enrolledCourse={course?.skills} />
-          <CourseModules course={course?.modules} course_id={course.id} heading="Videos" />
+          <CourseModules
+            course={course?.modules}
+            course_id={course.id}
+            heading="Videos"
+          />
           <EnrolledCourseRatingAndReviews reviews={reviews} />
-          <CourseReviews reviews={reviews} CourseId = {course?.id}/>
-          <CourseCertificate course={course} />
+          <CourseReviews reviews={reviews} CourseId={course?.id} />
+          <CourseCertificate course={course}  progress={progress} />
         </div>
         <Footer />
       </div>
@@ -184,8 +224,9 @@ function EnrolledCourseRatingAndReviews({ reviews }) {
   );
 }
 
-function CourseCertificate({ course }) {
+function CourseCertificate({ course, progress }) {
   const router = useRouter();
+  console.log("ppp//////",progress)
 
   const handleCertificateView = () => {
     // Navigate to the certificate page, replace '/certificate' with the correct path if needed
@@ -194,17 +235,26 @@ function CourseCertificate({ course }) {
 
   return (
     <LayoutWidth>
-      {courseProgress === 100 && (
+      
+     
         <>
+        {progress === 100 && (
           <H2 className="ms-16">Certificate </H2>
+        )}
+        
+        {progress === 100 && (
           <button
-            className="ms-16 rounded-md bg-blue p-2 font-medium text-white"
-            onClick={handleCertificateView} // Navigate on button click
-          >
-            View Certificate
-          </button>
+        className={`ms-16 rounded-md bg-blue p-2 font-medium text-white ${
+          progress !== 100 ? "opacity-70 cursor-not-allowed" : ""
+        }`}
+        onClick={handleCertificateView}
+        disabled={progress !== 100} // Disable the button if progress is not 100
+      >
+         View Certificate
+      </button> )}
+        
         </>
-      )}
+     
     </LayoutWidth>
   );
 }

@@ -14,13 +14,22 @@ import ShowPassword from "./ShowPassword";
 import GoogleSignup from "./GoogleSignup";
 
 const Login = () => {
+  // const [email, setEmail] = useState("");
+  // const [password, setPassword] = useState("");
+  // const [formError, setFormError] = useState("");
+  // const [showError, setShowError] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+  // const { isLoading, error, user } = useSelector((state) => state.auth);
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [formError, setFormError] = useState("");
+  const [emailError, setEmailError] = useState("");
+  const [passwordError, setPasswordError] = useState("");
   const [showError, setShowError] = useState(false);
-  const [showPassword, setShowPassword] = useState(false);
   const { isLoading, error, user } = useSelector((state) => state.auth);
+
   const router = useRouter();
+
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -34,125 +43,111 @@ const Login = () => {
     }
   }, [error]);
 
+
+  
   const SubmitHandler = (e) => {
     e.preventDefault();
-    const passwordCriteria =
-      /^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+{}\[\]:;<>,.?~\\/-])[A-Za-z\d!@#$%^&*()_+{}\[\]:;<>,.?~\\/-]{8,}$/;
-    if (!passwordCriteria.test(password)) {
-      setFormError(
-        "Password must contain at least one capital letter, one number, and one special character.",
-      );
-      return;
+  
+    let hasError = false;
+  
+    if (!email.trim()) {
+      setEmailError("Email is required");
+      hasError = true;
+    } else {
+      setEmailError("");
     }
-    setFormError("");
+  
+    if (!password.trim()) {
+      setPasswordError("Password is required");
+      hasError = true;
+    } else if (!/^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+{}\[\]:;<>,.?~\\/-])[A-Za-z\d!@#$%^&*()_+{}\[\]:;<>,.?~\\/-]{8,}$/.test(password)) {
+      setPasswordError("Invalid password");
+      hasError = true;
+    } else {
+      setPasswordError("");
+    }
+  
+    if (hasError) return;
+  
     dispatch(setLoginFlowEmail(email));
     dispatch(loginUser({ email, password }));
   };
-
-  const emailchangeHandler = (event) => {
-    setEmail(event.target.value);
-  };
-
-  const passwordchangeHandler = (event) => {
-    setPassword(event.target.value);
-  };
-
-  const handleGoogleLogin = async (googleUser) => {
-    const token = googleUser.getAuthResponse().id_token;
-    dispatch(loginWithGoogle(token));
-  };
-  if (user) {
-    router.replace("/");
-  }
-
+  
   return (
-    <div className="w-full max-w-md rounded-md bg-white p-6 shadow-md">
-      {showError ? (
+    <div className="w-full h-fit max-w-md rounded-2xl bg-white p-10 shadow-md">
+      
+      {/* Global Error Message (API errors like "Invalid email or password") */}
+      {showError && error && (
         <ErrorMessage
           showError={showError}
           setShowError={setShowError}
           errorMessage={error}
         />
-      ) : null}
-      {formError ? (
-        <ErrorMessage
-          showError={formError}
-          setShowError={setFormError}
-          errorMessage={formError}
-        />
-      ) : null}
-      <h2 className="text-center text-2xl font-bold text-darkgray">
-        Welcome Back
-      </h2>
+      )}
+  
+      <div className="flex items-center justify-between">
+        <h2 className="text-center text-2xl font-bold text-darkgray">
+          Login
+        </h2>
+        <Link href="/signup" className="text-blue-600 hover:underline">
+          Register
+        </Link> 
+      </div>
+  
       {/* Form */}
       <form onSubmit={SubmitHandler}>
-        {/* Email */}
+        {/* Email Field */}
         <div className="mb-4 mt-4">
-          <label
-            htmlFor="email"
-            className="block text-sm font-medium text-gray-900"
-          >
+          <label htmlFor="email" className="block text-sm font-medium text-gray-900">
             Email<span className="text-lg text-red-500">*</span>
           </label>
           <input
             type="email"
             id="email"
+            placeholder="name@domain.com"
             name="email"
             value={email}
             className="mt-1 w-full rounded-lg border border-gray-300 p-2"
-            required
-            onChange={emailchangeHandler}
+            onChange={(e) => setEmail(e.target.value)}
           />
+          {emailError && <p className="text-red-500 text-xs mt-1">{emailError}</p>}
         </div>
-
-        {/* Password */}
+  
+        {/* Password Field */}
         <div>
-          <label
-            htmlFor="password"
-            className="block text-sm font-medium text-gray-900"
-          >
+          <label htmlFor="password" className="block text-sm font-medium text-gray-900">
             Password<span className="text-lg text-red-500">*</span>
           </label>
-          <div className="password-wrapper relative mt-1 flex items-center justify-center">
+          <div className="password-wrapper relative mt-1 flex items-center">
             <input
               type={!showPassword ? "password" : "text"}
               id="password"
+              placeholder="Password"
               name="password"
               value={password}
-              className="w-full rounded-lg border border-gray-300 p-2"
-              required
-              onChange={passwordchangeHandler}
+              className="w-full rounded-lg border border-gray-300 p-2 mb-2"
+              onChange={(e) => setPassword(e.target.value)}
             />
-            <ShowPassword
-              pass={showPassword}
-              setPass={setShowPassword}
-              className="absolute right-2 block cursor-pointer"
-            />
+            <ShowPassword pass={showPassword} setPass={setShowPassword} className="absolute right-2 cursor-pointer" />
           </div>
+          {passwordError && <p className="text-red-500 text-xs mt-1">{passwordError}</p>}
         </div>
-        {/* {formError && (
-          <div className="mb-2 text-center text-red-500">{formError}</div>
-        )} */}
-
-        {/* {!formError && <div className="text-center text-red-500">{error}</div>} */}
-        <Link
-          href="/reset-password"
-          className="ml-2 text-sm font-semibold text-blue"
-        >
-          Forgot Password?
-        </Link>
-
-        {/* Sign Up Button */}
-        <div className="mb-4 mt-8">
-          <button
-            type="submit"
-            className="w-full rounded-lg bg-blue p-2 text-white hover:bg-blue-600"
-          >
+  
+        {/* Forgot Password */}
+        <div className="text-right">
+          <Link href="/reset-password" className="text-sm font-semibold text-blue hover:underline">
+            Forgot Password?
+          </Link>
+        </div>
+  
+        {/* Login Button */}
+        <div className="mb-4 mt-4">
+          <button type="submit" className="w-full rounded-lg bg-blue p-2 text-white hover:bg-blue-600">
             {isLoading ? "Logging in..." : "Login"}
           </button>
         </div>
       </form>
-
+  
       {/* Social Logins */}
       <div className="mt-4">
         <div className="flex items-center justify-center">
@@ -160,36 +155,11 @@ const Login = () => {
           <span className="mx-4 text-gray-300">Or Login With</span>
           <div className="flex-grow border-t border-gray-300"></div>
         </div>
-        {/* <button className="text-black mb-4 mt-4 flex w-full items-center justify-center rounded-lg border border-google-border bg-white p-2">
-          <span className="mr-2">
-            <Image src="/googlelogo.png" width={25} height={25} />
-          </span>
-          <span
-            className="text-sm font-semibold"
-            onClick={() => {
-              window.gapi.auth2
-                .getAuthInstance()
-                .signIn()
-                .then(handleGoogleLogin);
-            }}
-          >
-            Continue with Google
-          </span>
-        </button> */}
-        {/* Continue with google component */}
         <GoogleSignup />
-      </div>
-      <div className="mt-4 text-center">
-        <p className="text-sm">
-          New to SkillBuilder{" "}
-          <Link href="/signup" className="text-blue-600 hover:underline">
-            {" "}
-            Signup
-          </Link>
-        </p>
       </div>
     </div>
   );
+  
 };
 
 export default Login;

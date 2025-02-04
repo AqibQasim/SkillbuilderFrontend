@@ -5,6 +5,7 @@ import { useRouter } from "next/router";
 import LayoutWidth from "./LayoutWidth";
 import { useSelector, useDispatch } from "react-redux";
 import { addItem } from "../../redux/slices/addToCart";
+import checkIfStudentHasPurchasedCourse from "@/utils/checkIfStudentHasPurchasedCourse";
 
 function CourseHero({ course }) {
   const router = useRouter();
@@ -15,18 +16,8 @@ function CourseHero({ course }) {
 
 
   const handleAddToCart = async (course) => {
-    const response = await fetch(
-      `${process.env.NEXT_PUBLIC_BASE_API}/is-course-purchased?course_id=${course.id}&student_id=${studentId}`,
-      {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      },
-    );
-
-    
-    if(response.ok){
+    const response = await checkIfStudentHasPurchasedCourse(course,studentId);
+    if(response){
       alert('You already have purchased this course')
     }else{
       if (!cartItems.some((item) => item.id === course.id)) {
@@ -54,14 +45,14 @@ function CourseHero({ course }) {
               <p
                 className={`text-md mx-auto mb-8 w-[85%] text-center font-normal leading-7 text-gray-600 lg:mx-0 lg:text-left`}
               >
-                {course?.learning_outcomes}
+                {course?.description}
               </p>
               <div className="flex justify-center lg:justify-start">
                 {!isCourseAddedToCart(course) && (
                   <button
-                    onClick={(e) => {
+                    onClick={async(e) => {
                       e.stopPropagation();
-                      handleAddToCart(course);
+                      await handleAddToCart(course);
                     }}
                     className="rounded-md bg-blue px-8 py-3 font-semibold text-white transition duration-300 ease-in-out hover:bg-blue-700"
                   >

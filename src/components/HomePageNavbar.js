@@ -18,8 +18,8 @@ function HomePageNavbar({ className }) {
   const links = [
     { href: "/", title: "Home" },
     { href: "/courses", title: "Courses" },
-    { href: "/counselling", title: "Counselling" },
-    { href: "/bootcamp", title: "Live session" },
+    { href: "/career-counseling", title: "Counselling" },
+    { href: "/bootcamp", title: "Live Courses" },
     { href: "/about", title: "About" },
   ];
 
@@ -38,10 +38,10 @@ function HomePageNavbar({ className }) {
       <div className="logo flex min-w-40 items-center justify-start">
         <Image src="/logo.svg" width={160} height={160} alt="Logo" />
       </div>
-      <div className="links hidden xlg:flex xlg:items-center xlg:justify-start">
+      <div className="links hidden xlg:flex xlg:items-center xlg:justify-center">
         {links.map((link, i) => (
           <Link
-            className={`${pathname === link.href ? "text-[#012256]" : "text-[#969BA3]"} px-6 text-[1.125rem] font-medium capitalize`}
+            className={`${pathname === link.href ? "text-[#012256]" : "text-[#969BA3]"} px-3 text-[1.125rem] font-medium capitalize`}
             href={link.href}
             key={i}
           >
@@ -50,7 +50,9 @@ function HomePageNavbar({ className }) {
         ))}
       </div>
       <div className="buttons hidden gap-[0.625rem] xlg:flex xlg:items-center xlg:justify-start">
-        <ButtonSecond className="flex items-center justify-center text-nowrap">
+
+        {/* button for search */}
+        {/* <ButtonSecond className="flex items-center justify-center text-nowrap">
           {" "}
           <svg
             className="block h-6"
@@ -75,7 +77,7 @@ function HomePageNavbar({ className }) {
               stroke-linejoin="round"
             />
           </svg>
-        </ButtonSecond>
+        </ButtonSecond> */}
         <div className="hidden lg:block">
           <User
             cartItemsLength={cartItems.length}

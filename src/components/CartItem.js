@@ -109,14 +109,22 @@ const CartItem = ({
                     </div>
                 </div>
             </div>
-            <div className='w-[80%] h-[100%] gap-0 flex justify-evenly self-center 
+            <div className='w-[80%] h-[100%] gap-0 flex justify-evenly self-center  
         sm:justify-between sm:flex-col sm:w-fit sm:gap-6 
         md:justify-between md:flex-col md:w-fit md:gap-8 
         lg:justify-normal lg:flex-col lg:w-fit lg:gap-10'>
-                <p className='text-[#FF3939] cursor-pointer' onClick={(e)=> {
+                < button className=' cursor-pointer' onClick={(e)=> {
                     e.stopPropagation();
                     handleRemoveCourse(course?.id)
-                }}>Remove</p>
+                }}> 
+                    <Image
+                src="/red-cross.png"
+                alt="cross-icon-Image"
+                width={30}
+                height={30}
+                className=" inline-block text-red-600"
+              />
+                   </button>
                 <p className='text-[#0000FF]'>{course?.amount}$</p>
             </div>
         </div>

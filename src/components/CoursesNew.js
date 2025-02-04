@@ -1,19 +1,24 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
-import StarRating from "./StarRating";
+import { useMemo } from "react";
+
+//import StarRating from "./StarRating";
 import Image from "next/image";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchApprovedCourses } from "../../redux/thunks/approvedCoursesThunk";
-import LayoutWidth from "./LayoutWidth";
-import { addItem } from "../../redux/slices/addToCart";
+import { fetchTopSellingCourses } from "../../redux/thunks/fetchTopSellingCoursesThunk";
+// import LayoutWidth from "./LayoutWidth";
+// import { addItem } from "../../redux/slices/addToCart";
+// import { filterRepeatedStudents } from "@/utils/filterRepeatedStudents";
 
-const CoursesNew = ({ heading, paddingTop }) => {
+const  CoursesNew = ({ activeTab="Most Popular" ,selectedCategory, showallCourses, popularTopicsSelected }) => {
   const [loading, setLoading] = useState(true);
   const [starReady, setStarReady] = useState(false);
   const studentId = useSelector((state) => state.auth.user);
   const router = useRouter();
   const [sortOrder, setSortOrder] = useState(null);
-  const [selectedCategory, setSelectedCategory] = useState(null);
+  //const [selectedCategory, setSelectedCategory] = useState(null);
+  const [topSellingCourses, setTopSellingCourses] = useState(null);
   const [selectedFilter, setSelectedFilter] = useState(null);
   const dispatch = useDispatch();
   const {
@@ -23,30 +28,90 @@ const CoursesNew = ({ heading, paddingTop }) => {
   } = useSelector(
     (state) => state.courses || { data: [], isLoading: false, error: null },
   );
-  console.log(courses);
+  console.log("aqwsedrftgyhujikol",courses);
+
+  async function getTopSellingCourses(){
+    const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/get-top-selling-courses`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      }, 
+    }
+   );
+   const data = await response.json();
+
+   setTopSellingCourses(data?.data)
+
+   console.log("Top Seeling courses are ", data?.data)
+
+}  
+useEffect(()=>{
+  if(activeTab === "Most Popular"){
+    getTopSellingCourses();
+  }
+}, [activeTab])
+
+//useEffect(() => {}, [topSellingCourses]);
 
   // Derive filtered courses based on selectedCategory
-  let filteredCourses = courses;
+  const filteredCourses = useMemo(() => {
+    let coursesList =
+      activeTab === "Most Popular" && topSellingCourses ? topSellingCourses : courses;
+
+    if (!coursesList) return [];
+
+    // Filter by category
+    if (selectedCategory) {
+      coursesList = coursesList.filter((c) => c?.category === selectedCategory);
+    }
+
+    // Sorting Logic
+    if (selectedFilter) {
+      if (selectedFilter.toLowerCase() === "low to high") {
+        coursesList = [...coursesList].sort(
+          (a, b) => a.amount - a.discount - (b.amount - b.discount),
+        );
+      } else if (selectedFilter.toLowerCase() === "high to low") {
+        coursesList = [...coursesList].sort(
+          (a, b) => b.amount - b.discount - (a.amount - a.discount),
+        );
+      }
+    }
+
+    return showallCourses ? coursesList : coursesList.slice(0, 4);
+  }, [
+    courses,
+    topSellingCourses,
+    selectedCategory,
+    selectedFilter,
+    showallCourses,
+    activeTab,
+  ]);
+
 
   useEffect(() => {
-    dispatch(fetchApprovedCourses());
-  }, [dispatch]);
-
-  if (selectedFilter || selectedCategory) {
-    filteredCourses = courses?.filter((c) =>
-      selectedCategory ? c?.category === selectedCategory : true,
-    );
-
-    if (selectedFilter?.toLowerCase() === "low to high") {
-      filteredCourses = filteredCourses?.sort(
-        (a, b) => a?.amount - a?.discount - (b?.amount - b?.discount),
-      );
-    } else if (selectedFilter?.toLowerCase() === "high to low") {
-      filteredCourses = filteredCourses?.sort(
-        (a, b) => b?.amount - b?.discount - (a?.amount - a?.discount),
-      );
+    if(activeTab==="Most Popular"){
+      dispatch(fetchTopSellingCourses());
+    }else{
+      dispatch(fetchApprovedCourses());
     }
-  }
+  }, [dispatch,activeTab]);
+
+  // if (selectedFilter || selectedCategory) {
+  //   filteredCourses = courses?.filter((c) =>
+  //     selectedCategory ? c?.category === selectedCategory : true,
+  //   );
+
+  //   if (selectedFilter?.toLowerCase() === "low to high") {
+  //     filteredCourses = filteredCourses?.sort(
+  //       (a, b) => a?.amount - a?.discount - (b?.amount - b?.discount),
+  //     );
+  //   } else if (selectedFilter?.toLowerCase() === "high to low") {
+  //     filteredCourses = filteredCourses?.sort(
+  //       (a, b) => b?.amount - b?.discount - (a?.amount - a?.discount),
+  //     );
+  //   }
+  // }
 
   useEffect(() => {
     // Simulate loading and check if StarRating styles are applied
@@ -65,29 +130,29 @@ const CoursesNew = ({ heading, paddingTop }) => {
   }, [router?.isReady, cartItems]);
   console.log("coursesssssss.........\n", courses);
 
-  const handleAddToCart = async (course) => {
-    const response = await fetch(
-      `${process.env.NEXT_PUBLIC_BASE_API}/is-course-purchased?course_id=${course.id}&student_id=${studentId}`,
-      {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      },
-    );
+  // const handleAddToCart = async (course) => {
+  //   const response = await fetch(
+  //     `${process.env.NEXT_PUBLIC_BASE_API}/is-course-purchased?course_id=${course.id}&student_id=${studentId}`,
+  //     {
+  //       method: "GET",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //       },
+  //     },
+  //   );
 
-    if (response.ok) {
-      alert("You already have purchased this course");
-    } else {
-      if (!cartItems.some((item) => item.id === course.id)) {
-        dispatch(addItem(course));
-      }
-    }
-  };
+  //   if (response.ok) {
+  //     alert("You already have purchased this course");
+  //   } else {
+  //     if (!cartItems.some((item) => item.id === course.id)) {
+  //       dispatch(addItem(course));
+  //     }
+  //   }
+  // };
 
-  const isCourseAddedToCart = (course) => {
-    return cartItems.some((item) => item.id === course.id);
-  };
+  // const isCourseAddedToCart = (course) => {
+  //   return cartItems.some((item) => item.id === course.id);
+  // };
 
   if (isLoading || loading) {
     return (
@@ -110,22 +175,23 @@ const CoursesNew = ({ heading, paddingTop }) => {
     return text;
   };
 
+  const filterLength = showallCourses ? (filteredCourses?.length || 0) : 4;
   return (
     <div className="wrapper">
       <div className="flex w-full flex-col items-center">
         <div className="grid h-auto w-[100%] grid-cols-1 place-items-center gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          {filteredCourses.length > 0 ? (
-            filteredCourses.slice(0, 4).map((course) => (
+          {filteredCourses?.length > 0 ? (
+            filteredCourses.slice(0, filterLength).map((course) => (
               <div
                 key={course.id}
-                className="img-container mb-4 flex h-full w-full max-w-sm transform cursor-pointer flex-col items-start rounded-2xl border border-[#F0F0F0] bg-white p-2 transition-shadow duration-300 hover:border-[rgb(152,159,233)] hover:shadow-lg"
+                className="img-container mb-4 flex h-full w-full rounded-2xl max-w-sm transform cursor-pointer flex-col items-start    border-2 border-[#F0F0F0] bg-white  transition-shadow duration-300 hover:border-[rgb(152,159,233)] hover:shadow-lg"
                 style={{ minHeight: "25rem", maxHeight: "25rem" }}
                 onClick={() =>
                   course.id && router.push(`/courses/${course.id}`)
                 }
               >
                 <Image
-                  className="h-[40%] w-[100%]"
+                  className="h-[40%] w-[100%] rounded-t-2xl"
                   src={
                     course?.image
                       ? `${process.env.NEXT_PUBLIC_BASE_API}/media/course/${course?.image}`
@@ -137,7 +203,7 @@ const CoursesNew = ({ heading, paddingTop }) => {
                 />
                 <div className="flex w-[100%] flex-grow flex-col justify-between p-2">
                   <div>
-                    <div className="mt-2 flex w-full items-center justify-between">
+                    <div className="mt-1 flex w-full items-center justify-between">
                       {/* <div className="flex gap-2">
                         {course.rating ? (
                           <>
@@ -158,7 +224,7 @@ const CoursesNew = ({ heading, paddingTop }) => {
                       {course.title}
                     </h3>
                     <p className="mb-2 text-[0.6rem] text-[#5C5C5C]">
-                      {truncateText(course.learning_outcomes || "", max_words)}
+                      {truncateText(course?.description || "", max_words)}
                     </p>
                   </div>
                   <div className="text-xs">
@@ -173,7 +239,7 @@ const CoursesNew = ({ heading, paddingTop }) => {
                       <Image src={"/course_level.png"} width={1} height={1} />
                     </div>
                     <span className="mb-1 ms-1 self-start text-[#2C2C2C]">
-                      <span className="text-[#929292]">Level: </span> Beginner
+                      <span className="text-[#929292]">Level: </span> {course?.level}
                     </span>
                   </div>
                   <div className="flex w-[100%] justify-between pb-2">

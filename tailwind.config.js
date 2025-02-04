@@ -123,6 +123,7 @@ module.exports = {
           "shade-1": "#878A99",
           "shade-2": "#D5D5D5",
           "shade-3": "#F0F1F5",
+          "shade-4": "#EDEFF0",
           // this is max ignore other shades if exists use one of these instead!.
         },
         approve: {

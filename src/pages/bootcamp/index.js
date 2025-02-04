@@ -15,6 +15,8 @@ import { getAllLiveSessionCourses } from "../../../redux/thunks/liveSessionCours
 const Bootcamp = () => {
   const router = useRouter();
   const dispatch = useDispatch();
+  const [selectedFilter, setSelectedFilter] = useState(null);
+  const [selectedCategory, setSelectedCategory] = useState("development");
 
   const liveSessionCourses = useSelector(
     (state) => state.liveSessionCourses.liveSessionCourses,
@@ -31,6 +33,28 @@ const Bootcamp = () => {
   const courses = useSelector((state) => state.cart.items);
   const [isClient, setIsClient] = useState(false);
   const [sortOrder, setSortOrder] = useState("Most Popular");
+
+  const handleChangeSelectedCategory = (event) => {
+    setSelectedCategory(event.target.value?.toLowerCase()); // Update state with the selected value
+  };
+
+  let filteredCourses = liveSessionCourses;
+
+  if (selectedFilter || selectedCategory) {
+    filteredCourses = liveSessionCourses?.filter((c) =>
+      selectedCategory ? c?.category === selectedCategory : true,
+    );
+
+    if (selectedFilter?.toLowerCase() === "low to high") {
+      filteredCourses = filteredCourses?.sort(
+        (a, b) => a?.amount - a?.discount - (b?.amount - b?.discount),
+      );
+    } else if (selectedFilter?.toLowerCase() === "high to low") {
+      filteredCourses = filteredCourses?.sort(
+        (a, b) => b?.amount - b?.discount - (a?.amount - a?.discount),
+      );
+    }
+  }
 
   useEffect(() => {
     setIsClient(true);
@@ -65,34 +89,44 @@ const Bootcamp = () => {
         }
         tagline={"Courses"}
       />
-      <div class="bg-gray-50 py-10">
-        <div className="mx-auto max-w-screen-xl px-4">
+      <div class="bg-gray-50 pt-10">
+        <div className="mx-auto max-w-[92%] max-xsm:w-[80%] px-4">
           <h2 class="text-3xl font-bold text-gray-900">
-            Live online UX/UI Design <br /> Bootcamps
+            Live Online Bootcamps
           </h2>
           <p class="mt-3 text-gray-600">
             Explore courses from experienced, real-world experts.
           </p>
         </div>
-        <div className="mx-auto mt-12 flex max-w-screen-xl justify-end">
+        <div className="mx-auto mt-12 flex max-w-[92%] justify-end">
           <div className="flex gap-3">
-            <button
-              onClick={() =>
-                setSortOrder(
-                  filter === "Most Popular" ? "New Arrivals" : "Most Popular",
-                )
-              }
-              className="flex items-center rounded-full border border-gray-300 bg-pink px-4 py-2 text-sm text-gray-600 hover:bg-pink-300"
-            >
-              <Image
-                src="/filter-tick.png"
-                alt="dropdown-Image"
-                width={20}
-                height={20}
-                className="ml-2 mr-3 inline-block"
-              />
-              Filter
-            </button>
+            <div className="flex gap-3">
+              <select
+                // onClick={() =>
+                //   // setSortOrder(
+                //   //   filter === "Most Popular" ? "New Arrivals" : "Most Popular",
+                //   // )
+                // }
+                onChange={handleChangeSelectedCategory}
+                className="flex items-center rounded-full border border-gray-300 bg-pink px-4 py-2 text-sm text-gray-600 hover:bg-pink-300"
+              >
+                <option value="">
+                  <Image
+                    src="/filter-tick.svg"
+                    alt="dropdown-Image"
+                    width={20}
+                    height={20}
+                    className="ml-2 mr-3 inline-block"
+                  />
+                  Filter
+                </option>
+                <option value="development">Development</option>
+                <option value="design">Design</option>
+                <option value="marketing">Marketing</option>
+                <option value="business">Business</option>
+                <option value="others">Others</option>
+              </select>
+            </div>
             <button
               onClick={() =>
                 setSortOrder(
@@ -114,9 +148,13 @@ const Bootcamp = () => {
             </button>
           </div>
         </div>
-        <div className="mx-auto mt-16 grid max-w-screen-xl gap-3 xl:grid-cols-4 max-xlg:grid-cols-3">
-          {liveSessionCourses?.map((course, i) => (
-            <LiveCoursesCard course={course} />
+        
+        <div className=" mt-16 mx-auto grid max-lsm:place-items-center max-lsm:w-[100%] w-[90%] grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4">
+          {filteredCourses?.map((course, i) => (
+            <LiveCoursesCard
+              selectedCategory={selectedCategory}
+              course={course}
+            />
           ))}
           {/* {Array(8)
             .fill(null)
@@ -125,9 +163,9 @@ const Bootcamp = () => {
             ))} */}
         </div>
         <div class="bg-gray-50 py-12">
-          <div class="mx-auto max-w-screen-xl px-4">
+          <div class="mx-auto max-w-[92%] max-xsm:w-[80%] px-4">
             <h2 class="text-3xl font-bold text-gray-900">
-              Why 100+ designers train with Memorise.ly
+              Why 100+ designers train with Memorisely
             </h2>
             <p class="mt-3 text-gray-600">
               Explore courses from experienced, real-world experts.
@@ -162,11 +200,11 @@ const Bootcamp = () => {
                     Career mentorship
                   </h3>
                 </div>
-                <p class="mb-12 text-sm text-gray-600">
+                <p class="max-sm:mb-12 max-lsm:mb-9   lg:mb-10 md:mb-7 xl:mb-12 text-sm text-gray-600">
                   Gain career mentorship from real teams and community in 90+
                   countries.
                 </p>
-                <div class="h-[57.5%] w-full overflow-hidden rounded-lg">
+                <div class="max-xsm:h-[30%]  sm:h-[45.5%] md:h-[57%] lg:h-[50.5%] xl:[59.5%] w-full overflow-hidden rounded-lg">
                   <Image
                     className="size-full"
                     src={"/live-session2.png"}

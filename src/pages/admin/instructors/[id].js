@@ -16,6 +16,7 @@ import { fetchStudentsByInstructor } from "../../../../redux/thunks/fetchStudent
 import { filterRepeatedStudents } from "@/utils/filterRepeatedStudents";
 import withAuth from "@/components/WithAuth";
 import WithAdminAuth from "@/components/WithAdminAuth";
+import InstructorIntro from "@/components/InstructorIntro";
 
 const InstructorDetails = () => {
   const router = useRouter();
@@ -112,7 +113,10 @@ const InstructorDetails = () => {
         <FaChevronLeft />
       </ButtonCircle>
       <Hero instructor={instructor} />
+      
       {/* <Experience experience={instructor.experience} /> */}
+      <div className="text-2xl font-semibold">Intructor Intro:</div>
+      <InstructorIntro video={instructor?.video_url} />
       <div className="mt-10 space-y-10">
         <Experience
           experience={instructor?.experience ? instructor?.experience : []}
@@ -303,7 +307,7 @@ function CourseCardOnAdminDashboard({ course }) {
           </div>
         </div>
         <h3 className="mt-4 text-lg font-semibold">{course?.title}</h3>
-        <p className="mb-2 text-sm">{course?.learning_outcomes}</p>
+        <p className="mb-2 text-sm">{course?.description}</p>
         <span className="float-right font-semibold text-blue">
           ${course?.amount - course?.discount}
         </span>

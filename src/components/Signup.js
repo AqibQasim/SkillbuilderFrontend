@@ -21,6 +21,7 @@ const Signup = () => {
   const [showError, setShowError] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [termsAgreed, setTermsAgreed] = useState(false);
 
   const { data, status } = useSession();
   const dispatch = useDispatch();
@@ -75,7 +76,7 @@ const Signup = () => {
   }
 
   return (
-    <div className="w-full max-w-md rounded-md bg-white px-6 py-4 shadow-md">
+    <div className="w-full max-w-md rounded-2xl bg-white px-8 py-6 shadow-md">
       {formError ? (
         <ErrorMessage
           showError={formError}
@@ -90,7 +91,13 @@ const Signup = () => {
           errorMessage={error}
         />
       )}
+      <div className="flex items-center justify-between">
       <h2 className="text-2xl font-bold text-darkgray">Create Your Account</h2>
+      <Link href="/login" className="text-blue-600 hover:underline">
+            {" "}
+            Login
+          </Link>
+      </div>
       <p className="text-lightgray">Start your learning journey with us </p>
       {/* Form */}
       <form className="mt-4" onSubmit={handleSubmit}>
@@ -218,21 +225,25 @@ const Signup = () => {
               type="checkbox"
               className="form-checkbox h-4 w-4 text-blue-500"
               required
+              value={termsAgreed}
+              onChange={(e) => setTermsAgreed(e.target.checked)}
             />
             <span className="text-black ml-2 text-sm font-semibold">
               I agree to all our{" "}
-              <a onClick={()=>{router.push("/terms-&-conditions")}} className="text-blue-600 hover:underline cursor-pointer">
+              <a onClick={()=>{
+                router.push("/terms-&-conditions")}} className="text-blue-600 hover:underline cursor-pointer">
                 Terms & Conditions
               </a>
             </span>
           </label>
         </div>
 
-        {/* Sign Up Button */}
-        <div className="mb-4">
+        {/* Sign Up Button disabdle  */}
+        <div className="mb-4 ">
           <button
             type="submit"
-            className="w-full rounded-lg bg-blue-700 p-2 text-white hover:bg-blue-600"
+            className="w-full rounded-lg bg-blue-700 p-2 text-white hover:bg-blue-600 disabled:opacity-40 cursor-not-allowed "
+            disabled= {password === "" || email === "" || first_name === "" || last_name === "" || confirmPassword === "" || termsAgreed === false} 
           >
             {isLoading ? "Signing up..." : "Sign Up"}
           </button>
@@ -241,7 +252,7 @@ const Signup = () => {
       </form>
 
       {/* Login Link */}
-      <div className="text-center">
+      {/* <div className="text-center">
         <p>
           Already have an account?
           <Link href="/login" className="text-blue-600 hover:underline">
@@ -249,7 +260,7 @@ const Signup = () => {
             Login
           </Link>
         </p>
-      </div>
+      </div> */}
 
       {/* Social Logins */}
       <div className="mt-4">

@@ -148,8 +148,8 @@ const admin = () => {
   const uniqueStudents = filterRepeatedStudents(students);
 
   return (
-    <AdminDashboardLayout>
-      {monthlyTotals.length > 0 && (<AdminRevenueStatistics current_balance={totalPlatformFee} chartData={monthlyTotals} />)}
+    <AdminDashboardLayout >
+      {monthlyTotals.length > 0 && (<AdminRevenueStatistics current_balance={totalPlatformFee.toFixed(2) } chartData={monthlyTotals} />)}
       <br />
       <br />
       <AdminCoursesTable

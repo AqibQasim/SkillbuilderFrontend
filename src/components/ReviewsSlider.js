@@ -9,39 +9,18 @@ import { HomePageReviewCard, reviews } from "./HomePageReviews";
 
 function ReviewsSlider() {
   return (
-    <div className="!h-[18rem] xlg:!h-[19.5rem]">
-      <Swiper
-        slidesPerView={"auto"}
-        spaceBetween={20}
-        // initialSlide={2}
-        freeMode={true}
-        //   grabCursor={true}
-        modules={[FreeMode]}
-        centeredSlides={false}
-        style={{
-          marginLeft: "0",
-          height: "100%",
-          boxShadow: "10px 20px 81px rgba(186, 186, 186, 0.2)",
-        }}
-        className="reviews-swiper"
-      >
-        {reviews.map((review, i) => (
-          <SwiperSlide
-            key={review?.review + i}
-            style={{
-              display: "flex",
-              alignItems: "flex-end",
-            }}
-          >
-            <HomePageReviewCard
-              review={review}
-              className={`${i % 2 === 0 ? "is-odd group h-full" : ""}`}
-            />
-          </SwiperSlide>
-        ))}
-      </Swiper>
+    <div className=" mx-auto grid grid-cols-1 w-[90%]  gap-4  lg:grid-cols-3  md:grid-cols-2">
+      {reviews.map((review, i) => (
+        <div key={review?.review + i} className="flex flex-col space-y-2">
+          <HomePageReviewCard
+            review={review}
+            className={`${i % 2 === 0 ? "is-odd group h-full" : "is-odd group h-full"}`}
+          />
+        </div>
+      ))}
     </div>
   );
+
 }
 
 export default ReviewsSlider;

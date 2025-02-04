@@ -1,10 +1,19 @@
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
+import formidable from "formidable";
+
+export const config = {
+  api: {
+    bodyParser: false, // Disable Next.js body parser to handle form data manually
+  },
+};
 
 export default async function handler(req, res) {
   if (req.method === "POST") {
     try {
-      const { items, studentId } = req.body;
-      const parsedItems = JSON.parse(items); // `items` should be an array
+      const form = formidable();
+
+      // const { items, studentId } = req.body;
+      // const parsedItems = JSON.parse(items); // `items` should be an array
 
     //   const totalAmount = parsedItems.reduce(
     //     (total, item) => total + item.amount * 100,
@@ -30,6 +39,29 @@ export default async function handler(req, res) {
     //   const { message } = stripe_acc_data;
     //   const stripe_acc_id = message[0]["account_reg_id"];
 
+    form.parse(req, async(err, fields, files) => {
+      if (err) {
+        return res.status(500).json({ error: "Error parsing form data" });
+      }
+      console.log(fields)
+
+      
+      // Access form input values here
+      const studentId = fields.studentId[0];
+      const parsedItems = JSON.parse(fields.items); // Parse the JSON string back to an object
+
+      if (!studentId) {
+        res.redirect(303, "/login"); // Replace '/login' with the route to your login screen
+        return;
+      }
+      console.log("Student ID:", studentId);
+      console.log("Items:", parsedItems);
+      
+      // res.status(200).json({
+      //   message: "Form submitted successfully",
+      //   studentId,
+      //   items,
+      // });
       const session = await stripe.checkout.sessions.create({
         payment_method_types: ["card"],
         mode: "payment",
@@ -65,10 +97,12 @@ export default async function handler(req, res) {
         // },
 
         success_url: `${req.headers.origin}/counseling_payment_success?student_id=${studentId}&instructor_id=${parsedItems[0]?.instructor_id}`,
-        cancel_url: `${req.headers.origin}/counseling`,
+        cancel_url: `${req.headers.origin}/career-counseling`,
       });
-
+  
       res.redirect(303, session.url);
+    });
+
     } catch (err) {
       res.status(err.statusCode || 500).json({ error: err.message });
     }
