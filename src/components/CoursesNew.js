@@ -6,11 +6,12 @@ import { useMemo } from "react";
 import Image from "next/image";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchApprovedCourses } from "../../redux/thunks/approvedCoursesThunk";
+import { fetchTopSellingCourses } from "../../redux/thunks/fetchTopSellingCoursesThunk";
 // import LayoutWidth from "./LayoutWidth";
 // import { addItem } from "../../redux/slices/addToCart";
 // import { filterRepeatedStudents } from "@/utils/filterRepeatedStudents";
 
-const  CoursesNew = ({ activeTab ,selectedCategory, showallCourses, popularTopicsSelected }) => {
+const  CoursesNew = ({ activeTab="Most Popular" ,selectedCategory, showallCourses, popularTopicsSelected }) => {
   const [loading, setLoading] = useState(true);
   const [starReady, setStarReady] = useState(false);
   const studentId = useSelector((state) => state.auth.user);
@@ -89,9 +90,12 @@ useEffect(()=>{
 
 
   useEffect(() => {
-    
-    dispatch(fetchApprovedCourses());
-  }, [dispatch]);
+    if(activeTab==="Most Popular"){
+      dispatch(fetchTopSellingCourses());
+    }else{
+      dispatch(fetchApprovedCourses());
+    }
+  }, [dispatch,activeTab]);
 
   // if (selectedFilter || selectedCategory) {
   //   filteredCourses = courses?.filter((c) =>
