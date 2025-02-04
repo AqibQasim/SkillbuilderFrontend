@@ -13,11 +13,12 @@ const CoursesSection = () => {
   return (
     <LayoutXPadding>
       <div className="mx-auto">
-        <div className="mx-auto w-fit rounded-full border-2 border-[#4000FF] px-2 py-1 text-center text-sm text-[#4000FF]">
-        Popular Courses
+        <div className="mx-auto w-fit rounded-full border border-[#4000FF] px-2 py-1 text-center text-sm text-[#4000FF]">
+          Popular Courses
         </div>
-        <h1 className="mt-4  mx-auto text-center max-w-[70%] text-2xl font-medium text-[#00204D] md:text-4xl">
-        There are no limits to what you can learn when you have the desire to grow.
+        <h1 className="mx-auto mt-4 max-w-[70%] text-center font-satoshi text-2xl font-medium text-[#00204D] md:text-4xl">
+          There are no limits to what you can learn when you have the desire to
+          grow.
         </h1>
         <CourseCatagories setSelectedCategory={setSelectedCategory} />
         <div className="mt-10">
