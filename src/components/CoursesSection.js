@@ -24,7 +24,14 @@ const CoursesSection = () => {
         <div className="mt-10">
           <CoursesNew selectedCategory={selectedCategory} />
         </div>
-        <div
+        <ButtonSecond
+          withIcon
+          onClick={() => router.push("/courses")}
+          className="!mx-auto my-4 font-bold"
+        >
+          View all courses
+        </ButtonSecond>
+        {/* <div
           className='text-md border-primary hover:bg-primary text-white" mx-auto mb-4 mt-4 flex w-[20%] min-w-fit cursor-pointer justify-between gap-1 rounded-full border border-[#F6EBEB] bg-gradient-to-r from-[#fff] from-50% to-[#ebe7e7] px-4 py-2 text-start text-[#313131] drop-shadow-xl'
           onClick={() => router.push("/courses")}
         >
@@ -36,7 +43,7 @@ const CoursesSection = () => {
             alt="Right Arrow"
             className="inline-block"
           />
-        </div>
+        </div> */}
       </div>
     </LayoutXPadding>
   );
