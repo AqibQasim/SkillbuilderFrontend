@@ -239,7 +239,7 @@ useEffect(()=>{
                       <Image src={"/course_level.png"} width={1} height={1} />
                     </div>
                     <span className="mb-1 ms-1 self-start text-[#2C2C2C]">
-                      <span className="text-[#929292]">Level: </span> Beginner
+                      <span className="text-[#929292]">Level: </span> {course?.level}
                     </span>
                   </div>
                   <div className="flex w-[100%] justify-between pb-2">
