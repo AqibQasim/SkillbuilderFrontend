@@ -23,7 +23,7 @@ const CareerCounselling = () => {
           <h2 className="mx-auto mt-4 max-w-[70%] text-3xl font-bold text-gray-900 lg:text-4xl">
             1-on-1 sessions with certified career coaches.
           </h2>
-          <p className="mx-auto mt-4 max-w-[85%] text-gray-400">
+          <p className="mx-auto mt-4 max-w-[85%] text-sm text-gray-400 lg:text-[unset]">
             Struggling to understand where to focus? A personalized career
             counseling session can provide clear guidance tailored to your
             profile.
@@ -122,7 +122,13 @@ const CareerCounselling = () => {
                   },
                 ])}
               /> */}
-              <ButtonWithIcon onClick={() => {router.push("/career-counseling");}} text="Book a career counselling" className="mx-auto" />
+            <ButtonWithIcon
+              onClick={() => {
+                router.push("/career-counseling");
+              }}
+              text="Book a career counselling"
+              className="mx-auto"
+            />
             {/* </form> */}
           </div>
 

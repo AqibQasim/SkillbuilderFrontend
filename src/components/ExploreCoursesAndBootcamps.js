@@ -20,7 +20,8 @@ function ExploreCoursesAndBootcamps() {
     <LayoutXPadding>
       <div className="explore-courses-and-bootcamps grid grid-cols-1 grid-rows-[1fr_23rem] items-center justify-start gap-4 overflow-x-hidden bg-[#F2F3FF] py-8 lg:py-10 xlg:grid-cols-[40%_60%] xlg:grid-rows-1 xlg:py-16">
         <div className="content text-center xlg:text-left">
-          <div className="mx-auto mb-1.5 w-max rounded-[3.25rem] border border-[#4000FF] bg-white px-4 py-1 text-xs font-medium text-[#4000FF] xlg:mx-[unset]">
+          {/* <div className="mx-auto mb-1.5 w-max rounded-[3.25rem] border border-[#4000FF] bg-white px-4 py-1 text-xs font-medium text-[#4000FF] xlg:mx-[unset]"> */}
+          <div className="mx-auto mb-1.5 w-max rounded-[3.25rem] border border-[#4000FF] bg-inherit px-4 py-1 text-xs font-medium text-[#4000FF] xlg:mx-[unset]">
             Why you need Skillbuilder
           </div>
           <h1 className="mx-auto mb-5 max-w-3xl font-satoshi text-4xl font-semibold text-[#00204D] xlg:mx-[unset]">
