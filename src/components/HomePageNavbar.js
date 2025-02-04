@@ -33,7 +33,7 @@ function HomePageNavbar({ className }) {
 
   return (
     <nav
-      className={`${className} navbar mt-4 grid grid-cols-[1fr_max-content] grid-rows-2 rounded-[3.125rem] bg-white py-[0.625rem] pl-6 pr-3 shadow-[inset_0_0_0_1px_#F2F2F2] xlg:grid-cols-[max-content_1fr_max-content] xlg:grid-rows-1`}
+      className={`${className} ${menu ? "" : "relative z-[1]"} navbar mt-4 grid grid-cols-[1fr_max-content] grid-rows-2 overflow-hidden rounded-[3.125rem] bg-white py-[0.625rem] pl-6 pr-3 shadow-[inset_0_0_0_1px_#F2F2F2] xlg:grid-cols-[max-content_1fr_max-content] xlg:grid-rows-1`}
     >
       <div className="logo flex min-w-40 items-center justify-start">
         <Image src="/logo.svg" width={160} height={160} alt="Logo" />
@@ -41,7 +41,7 @@ function HomePageNavbar({ className }) {
       <div className="links hidden xlg:flex xlg:items-center xlg:justify-center">
         {links.map((link, i) => (
           <Link
-            className={`${pathname === link.href ? "text-[#012256]" : "text-[#969BA3]"} px-3 text-[1.125rem] font-medium capitalize`}
+            className={`${pathname === link.href ? "text-[#012256]" : "text-[#969BA3]"} px-3 font-medium capitalize`}
             href={link.href}
             key={i}
           >
@@ -50,7 +50,6 @@ function HomePageNavbar({ className }) {
         ))}
       </div>
       <div className="buttons hidden gap-[0.625rem] xlg:flex xlg:items-center xlg:justify-start">
-
         {/* button for search */}
         {/* <ButtonSecond className="flex items-center justify-center text-nowrap">
           {" "}
