@@ -6,8 +6,6 @@ import { useRouter } from "next/router";
 import { useEffect } from "react";
 import "../styles/footer.css";
 import LayoutXPadding from "./LayoutXPadding";
-import glassdoorReview from "../../public/glassdoor-review.png";
-import ImageCssBg from "./ImageCssBg";
 
 const footerLinks = [
   {
@@ -69,7 +67,10 @@ const HomepageFooter = ({ className }) => {
 
   return (
     <LayoutXPadding>
-      <footer className={`${className} divide-y divide-[#EBEBEB]`}>
+      <footer
+        // className={`${className} divide-y divide-[#EBEBEB]`}
+        className={`${className} divide-y divide-[#EBEBEB] bg-white pt-10`}
+      >
         <div className="top grid grid-rows-[minmax(0,1fr)_auto_auto] gap-4 lg:!grid-cols-[max-content_1fr_max-content] lg:!grid-rows-1 xs:grid-cols-2 xs:grid-rows-2">
           <div className="left !space-y-5 justify-self-center xs:justify-self-start">
             {/* Glass */}
@@ -171,120 +172,8 @@ const HomepageFooter = ({ className }) => {
       </footer>
     </LayoutXPadding>
   );
-
-  // return (
-  //   <LayoutXPadding>
-  //     <footer className={`${className} `}>
-  //       <div className="top flex items-start justify-between max-sm:flex-wrap max-sm:gap-4 pt-6">
-  //         <div className="left">
-  //           <Image src="/logo.svg" className="imba" width={180} height={35} />
-  //         </div>
-  //         <div className="right flex items-start justify-between gap-7">
-  //           <div className="text-black">
-  //             <h3 className="mb-2 text-xl font-bold text-[#012456]">Company</h3>
-  //             <ul className="space-y-4 p-2 text-sm text-gray_footer_text">
-  //               {[
-  //                 { text: "Home", link: "/" },
-  //                 { text: "Courses", link: "/courses" },
-  //                 { text: "About Us", link: "/about" },
-  //               ].map((item, index) => (
-  //                 <li
-  //                   key={index}
-  //                   className="cursor-pointer text-lg font-medium text-[#9AA5B8]"
-  //                   onClick={() => {
-  //                     router.push(item.link);
-  //                   }}
-  //                 >
-  //                   {item.text}
-  //                 </li>
-  //               ))}
-  //             </ul>
-  //           </div>
-
-  //           {/* Second column in the right side */}
-  //           <div className="">
-  //             <h3 className="mb-2 text-xl font-bold text-[#012456]">Contact</h3>
-  //             <ul className="space-y-4 p-2 text-sm text-[#9AA5B8]">
-  //               {[
-  //                 { type: "tel", value: "+92 304 3870323" },
-  //                 { type: "mailto", value: "info@co-ventech.com" },
-  //               ].map((item, index) => (
-  //                 <li key={index} className="text-lg font-medium">
-  //                   <a
-  //                     href={`${item.type}:${item.value}`}
-  //                     className="text-inherit hover:underline"
-  //                   >
-  //                     {item.value}
-  //                   </a>
-  //                 </li>
-  //               ))}
-  //             </ul>
-
-  //           </div>
-
-  //         </div>
-  //       </div>
-  //       {/* Bottom */}
-  //       <div className="bottom flex flex-wrap justify-center gap-4 sm:flex-nowrap sm:items-end sm:justify-between">
-  //         <div className="left sm-w-[unset] flex w-full items-center justify-around gap-6 sm:justify-start">
-  //           <a
-  //             className="gdWidget"
-  //             href="https://www.glassdoor.com/api/api.htm?version=1&action=employer-review&t.s=w-l&t.a=c&format=300x250&employerId=9082484"
-  //             target="_gd"
-  //           >
-  //             <Image src="/review.svg" width={150} height={100} />
-  //           </a>
-  //           <a
-  //             className="gdWidget"
-  //             href="https://www.glassdoor.com/api/api.htm?version=1&action=employer-review&t.s=w-l&t.a=c&format=300x250&employerId=9082484"
-  //             target="_gd"
-  //           >
-  //             <Image src="/glassdoor.svg" width={250} height={100} />
-  //           </a>
-  //         </div>
-  //         <div className="right links flex items-center justify-center gap-2 max-sm:pt-4">
-  //           <Image
-  //             src="/twitter (2).png"
-  //             className="cursor-pointer"
-  //             width={40}
-  //             height={40}
-  //             onClick={() => onSocialClick("https://instagram.com")}
-  //           />
-  //           <Image
-  //             src="/linkedin (2).png"
-  //             className="cursor-pointer"
-  //             width={40}
-  //             height={40}
-  //             onClick={() => onSocialClick("https://www.facebook.com/people/SkillBuilder/61557538478424/")}
-
-  //           />
-  //           <Image
-  //             src="/facebook (2).png"
-  //             className="cursor-pointer"
-  //             width={40}
-  //             height={40}
-  //             onClick={() => onSocialClick("https://www.linkedin.com/company/skill-builderss/ ")}
-  //           />
-  //           <Image
-  //             src="/insta (2).png"
-  //             className="cursor-pointer"
-  //             width={40}
-  //             height={40}
-  //             onClick={() => onSocialClick("https://twitter.com")}
-  //           />
-  //         </div>
-  //       </div>
-
-  //       <div className="py-4 text-center">
-  //         <span className="font-normal text-[#778193] 2xl:font-bold">
-  //           &copy; {new Date().getFullYear()} Skill Builder. All Rights
-  //           Reserved.
-  //         </span>
-  //       </div>
-  //     </footer>
-  //   </LayoutXPadding>
-  // );
 };
+
 export default HomepageFooter;
 
 function FooterRow({

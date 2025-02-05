@@ -10,9 +10,9 @@ import { useSelector } from "react-redux";
 // import { useState, useEffect } from "react";
 import withAuth from "@/components/WithAuth";
 import CoursesNew from "@/components/CoursesNew";
+import HomepageFooter from "@/components/HomepageFooter";
 
 const ShoppingCart = () => {
-
   useEffect(() => {
     setCurrentTab("");
   }, []);
@@ -22,14 +22,12 @@ const ShoppingCart = () => {
   const courses = useSelector((state) => state.cart.items);
   const id = useSelector((state) => state.singleInstructor.id);
 
-
-  console.log(`id in shopping cart is ${id}`)
-  console.log("length in root file:", courses?.length)
+  console.log(`id in shopping cart is ${id}`);
+  console.log("length in root file:", courses?.length);
 
   useEffect(() => {
-
     setIsClient(true);
-  }, [router?.isReady,courses]);
+  }, [router?.isReady, courses]);
 
   if (!isClient) {
     return null;
@@ -45,14 +43,17 @@ const ShoppingCart = () => {
         <div className="path-wrapper mx-auto mb-8 w-[90%] max-w-screen-2xl">
           <ShopCheckout courses={courses} />
         </div>
-        <div className="text-2xl font-bold text-start mb-2">You Might Also Like</div>
+        <div className="mb-2 text-start text-2xl font-bold">
+          You Might Also Like
+        </div>
         <CoursesNew
           courses={courses}
           // heading="You Might Also Like"
           // paddingTop={"pt-5"}
         />
-        <Footer />
+        {/* <Footer /> */}
       </div>
+      <HomepageFooter />
     </>
   );
 };

@@ -1,19 +1,19 @@
-import React from 'react'
-import LayoutWidth from '@/components/LayoutWidth'
-import CurrentPath from '@/components/CurrentPath'
-import Footer from '@/components/Footer'
-import { useSelector } from 'react-redux';
-import PaymentHistoryTable from '@/components/PaymentHistoryTable'
-import HomePageNavbar from '@/components/HomePageNavbar'
+import React from "react";
+import LayoutWidth from "@/components/LayoutWidth";
+import CurrentPath from "@/components/CurrentPath";
+import Footer from "@/components/Footer";
+import { useSelector } from "react-redux";
+import PaymentHistoryTable from "@/components/PaymentHistoryTable";
+import HomePageNavbar from "@/components/HomePageNavbar";
 
 const purchaseHistory = () => {
-const courses = useSelector((state) => state.cart.items);
+  const courses = useSelector((state) => state.cart.items);
   return (
     <>
       <div className="flex h-[100%] w-[100%] flex-col bg-bg_gray">
-      <LayoutWidth>
-      <HomePageNavbar/>
-      </LayoutWidth>
+        <LayoutWidth>
+          <HomePageNavbar />
+        </LayoutWidth>
         <LayoutWidth>
           <div className="path-wrapper mx-auto mb-8 mt-8 max-w-screen-2xl first-line:w-[90%]">
             <CurrentPath />
@@ -31,9 +31,10 @@ const courses = useSelector((state) => state.cart.items);
           </div>
         </LayoutWidth>
       </div>
-      <Footer />
+      <HomepageFooter />
+      {/* <Footer /> */}
     </>
   );
-}
+};
 
-export default purchaseHistory
+export default purchaseHistory;

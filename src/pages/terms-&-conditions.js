@@ -5,6 +5,7 @@ import LayoutWidth from "@/components/LayoutWidth";
 import CurrentPath from "@/components/CurrentPath";
 import Conditions from "@/components/Conditions";
 import HomePageNavbar from "@/components/HomePageNavbar";
+import HomepageFooter from "@/components/HomepageFooter";
 
 const help = () => {
   const courses = useSelector((state) => state.cart.items);
@@ -26,6 +27,7 @@ const help = () => {
         <Conditions />
       </div>
       <Footer />
+      {/* <HomepageFooter /> */}
     </>
   );
 };

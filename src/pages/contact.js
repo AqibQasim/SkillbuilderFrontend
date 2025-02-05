@@ -1,15 +1,12 @@
 import ContactForm from "@/components/ContactForm";
 import ContactHero from "@/components/ContactHero";
 import CurrentPath from "@/components/CurrentPath";
-import Footer from "@/components/Footer";
-import HomeSvg from "@/components/HomeSvg";
-import LayoutWidth from "@/components/LayoutWidth";
+import HomepageFooter from "@/components/Footer";
 import HomePageNavbar from "@/components/HomePageNavbar";
-import RightIconSvg from "@/components/RightIconSvg";
+import LayoutWidth from "@/components/LayoutWidth";
 // import { setCurrentTab } from "@/utils/currentTabMethods";
-import Image from "next/image";
-import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 
 const contact = () => {
@@ -56,8 +53,9 @@ const contact = () => {
         </LayoutWidth>
         <ContactHero />
         <ContactForm />
-        <Footer />
+        {/* <Footer /> */}
       </div>
+      <HomepageFooter />
     </>
   );
 };
