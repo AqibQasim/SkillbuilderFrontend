@@ -35,7 +35,7 @@ const Signup = () => {
     dispatch(clearLoginFlowEmail());
   }, []);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async(e) => {
     e.preventDefault();
     const passwordCriteria =
       /^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+{}\[\]:;<>,.?~\\/-])[A-Za-z\d!@#$%^&*()_+{}\[\]:;<>,.?~\\/-]{8,}$/;
@@ -60,14 +60,18 @@ const Signup = () => {
       return;
     }
     setFormError("");
-    if (password)
-      dispatch(signupUser({ first_name, last_name, email, password }));
-  };
-  useEffect(() => {
-    if (error) {
-      setShowError(true);
+    if (password){
+      const res= await dispatch(signupUser({ first_name, last_name, email, password }));
+      if(res.type===signupUser.rejected.toString()){
+        setShowError(true);
+      }
     }
-  }, [error]);
+  };
+  // useEffect(() => {
+  //   if (error) {
+  //     setShowError(true);
+  //   }
+  // }, [error]);
   // const { data, status } = useSession();
   console.log("data:", data, "status:", status);
   if (status === "loading") return <h1> loading... please wait</h1>;
@@ -214,7 +218,7 @@ const Signup = () => {
         )} */}
         {successMessage && (
           <div className="mb-2 text-center text-green-500">
-            {successMessage}
+            {JSON.parse(successMessage)?.message}
           </div>
         )}
 
