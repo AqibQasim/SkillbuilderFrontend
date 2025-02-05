@@ -67,7 +67,8 @@ const HomepageFooter = ({ className }) => {
             {/* Trustpilot */}
             <a
               className="gdWidget"
-              href="https://www.glassdoor.com/api/api.htm?version=1&action=employer-review&t.s=w-l&t.a=c&format=300x250&employerId=9082484"
+              // href="https://www.glassdoor.com/api/api.htm?version=1&action=employer-review&t.s=w-l&t.a=c&format=300x250&employerId=9082484"
+              href="https://www.trustpilot.com/review/skillbuilder.online"
               target="_gd"
             >
               <Image src="/review.svg" width={150} height={100} />
@@ -80,8 +81,7 @@ const HomepageFooter = ({ className }) => {
           </div>
           <div className="right">
             <a
-              // href="https://www.producthunt.com/products/recruitinn-ai/reviews?utm_source=badge-product_review&utm_medium=badge&utm_souce=badge-recruitinn&#0045;ai"
-              href="/"
+              href="https://www.producthunt.com/products/skill-builder"
               target="_blank"
               rel="noopener noreferrer"
             >
