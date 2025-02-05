@@ -15,7 +15,7 @@ import { fetchAllReviews } from "../../../redux/thunks/reviewsThunk";
 import Loader from "@/components/Loader";
 import HomePageNavbar from "@/components/HomePageNavbar";
 import LayoutXPadding from "@/components/LayoutXPadding";
-import InstructorIntro from "@/components/InstructorIntro";
+import InstructorIntro from "@/components/InstructorIntro"; 
 import Image from "next/image";
 
 const CourseDetails = () => {
@@ -71,6 +71,12 @@ const CourseDetails = () => {
       <div className="flex min-h-screen w-full items-center justify-center">
         <Loader />
       </div>
+    );
+  }
+  //restrict the url if course id is not available
+  if (!course?.id) {
+    return (
+      router.push("/") && <Loader />
     );
   }
 

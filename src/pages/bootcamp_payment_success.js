@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import HomePageNavbar from "@/components/HomePageNavbar";
 import LayoutWidth from "@/components/LayoutWidth";
@@ -11,41 +11,46 @@ import Link from "next/link";
 
 const   BootcampPaymentSuccess = () => {
   const router = useRouter();
-  const { student_id, instructor_id, course_id, amount } = router?.query;
+  const { student_id,  course_id } = router?.query;
+  console.log("//// Student ID:", student_id, "Course ID:", course_id);
+  const [data, setData] = useState(null);
+  
+  const [loading, setLoading] = useState(true);
 
   async function addCounseling() {
     try {
       const res = await fetch(
-        `${process.env.NEXT_PUBLIC_BASE_API}/live-session-course-payment`,
+        `${process.env.NEXT_PUBLIC_BASE_API}/get-live-session-course-payment-of-student?student_id=${student_id}&course_id=${course_id}`,
         {
-          method: "POST",
+          method: "GET",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            student_id: student_id,
-            instructor_id: instructor_id,
-            course_id: course_id,
-            amount: amount
-          }),
-        },
+        }
       );
 
       if (!res.ok) {
         throw new Error(`Error: ${res.status} - ${res.statusText}`);
       }
 
-      const data = await res.json();
-      console.log("Response:", data);
+      const responseData = await res.json();
+      console.log("API Response:", responseData);
+      setData(responseData.data);
+      
     } catch (error) {
       console.error("Error adding counseling:", error);
+    } finally {
+      setLoading(false);
     }
   }
 
   useEffect(() => {
-    if (router.isReady && student_id && instructor_id) {
+    if (router.isReady && student_id && course_id) {
       addCounseling();
-
     }
-  }, [router?.isReady, student_id, instructor_id]);
+  }, [router?.isReady, student_id, course_id]);
+  console.log("apidata",data)
+
+  if (loading) return <p className="text-center my-10">Loading...</p>;
+  
 
   return (
     <>
@@ -73,7 +78,7 @@ const   BootcampPaymentSuccess = () => {
                   /> 
     </div>
    
-        <h2 class="text-xl mt-4 text-center font-bold">Hi! David</h2>
+        <h2 class="text-xl mt-4 text-center font-bold">Hi!  {data?.student?.first_name}</h2>
         <div className="flex justify-center mt-1" >
     <Image
                     src="/GoldenLine.png"
@@ -107,15 +112,15 @@ const   BootcampPaymentSuccess = () => {
         <div class="mt-4 space-y-3 text-sm text-gray-700">
             <div>
                 <p class="font-medium">Course Name</p>
-                <div class="p-2 border border-gray-300 rounded-md">Introduction to Data Science</div>
+                <div class="p-2 border border-gray-300 rounded-md"> {data?.course?.title}</div>
             </div>
             <div>
                 <p class="font-medium">Session Date & Time</p>
                 <div class="p-2 border border-gray-300 rounded-md">Starts: February 10, 2025, at 5:00 PM</div>
             </div>
             <div>
-                <p class="font-medium">Duration</p>
-                <div class="p-2 border border-gray-300 rounded-md">2 Hours</div>
+                <p class="font-medium">Course Duration</p>
+                <div class="p-2 border border-gray-300 rounded-md">2 Months</div>
             </div>
         </div>
 
