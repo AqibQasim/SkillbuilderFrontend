@@ -1,7 +1,7 @@
 import React from "react";
 import LayoutWidth from "@/components/LayoutWidth";
 import CurrentPath from "@/components/CurrentPath";
-import Footer from "@/components/Footer";
+import HomepageFooter from "@/components/Footer";
 import { useSelector } from "react-redux";
 import PaymentHistoryTable from "@/components/PaymentHistoryTable";
 import HomePageNavbar from "@/components/HomePageNavbar";

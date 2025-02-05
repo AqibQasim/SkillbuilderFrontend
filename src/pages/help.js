@@ -1,12 +1,12 @@
 import React from "react";
 import HomePageNavbar from "@/components/HomePageNavbar";
 import { useSelector } from "react-redux";
-import Footer from "@/components/Footer";
 import LayoutWidth from "@/components/LayoutWidth";
 import CurrentPath from "@/components/CurrentPath";
 import HelpHero from "@/components/HelpHero";
 import HelpCards from "@/components/HelpCards";
 import RecentHelpCards from "@/components/RecentHelpCards";
+import HomepageFooter from "@/components/Footer";
 
 const help = () => {
   const courses = useSelector((state) => state.cart.items);
