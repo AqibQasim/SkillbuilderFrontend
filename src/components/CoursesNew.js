@@ -220,7 +220,7 @@ useEffect(()=>{
                         </span>
                       )} */}
                     </div>
-                    <h3 className="text-md m-0 font-semibold text-[#2C2C2C]">
+                    <h3 className="text-md m-0 font-semibold  text-[#2C2C2C]">
                       {course.title}
                     </h3>
                     <p className="mb-2 text-[0.6rem] text-[#5C5C5C]">

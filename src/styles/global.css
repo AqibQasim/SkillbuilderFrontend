@@ -256,6 +256,12 @@ iframe {
   animation: scroll 40s linear infinite;
 }
 
+.logos3 {
+  display: flex;
+  animation: scroll 60s linear infinite ;
+  
+}
+
 @media (max-width: 1536px) {
   .reviews-swiper > div {
     max-width: 25.5rem;
