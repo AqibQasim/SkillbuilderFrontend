@@ -1,21 +1,24 @@
+import { scrollToSection } from "@/utils/scrollToSection";
+import { useHash } from "@/utils/useHash";
 import Image from "next/image";
+import Link from "next/link";
+import { useRouter } from "next/router";
 import { useEffect } from "react";
 import "../styles/footer.css";
-import LayoutWidth from "./LayoutWidth";
 import LayoutXPadding from "./LayoutXPadding";
-import { useRouter } from "next/router";
-import Link from "next/link";
+import glassdoorReview from "../../public/glassdoor-review.png";
+import ImageCssBg from "./ImageCssBg";
 
 const footerLinks = [
   {
     label: "Company",
     options: [
-      { label: "about", href: "/" },
-      { label: "courses", href: "/" },
-      { label: "career counselling", href: "/" },
-      { label: "live session", href: "/" },
-      { label: "FAQ", href: "/" },
-      { label: "Terms of Services", href: "/" },
+      { label: "about", href: "/about" },
+      { label: "courses", href: "/courses" },
+      { label: "career counselling", href: "/career-counseling" },
+      { label: "live session", href: "/bootcamp" },
+      { label: "FAQ", href: "/#faq" },
+      { label: "Terms of Services", href: "/terms-&-conditions" },
     ],
   },
   {
@@ -25,26 +28,40 @@ const footerLinks = [
   {
     label: "Community",
     options: [
-      { label: "Instagram", href: "/" },
-      { label: "Twitter", href: "/" },
-      { label: "LinkedIn", href: "/" },
-      { label: "facebook", href: "/" },
+      // { label: "Instagram", href: "/" },
+      // { label: "Twitter", href: "/" },
+      {
+        label: "LinkedIn",
+        href: "https://www.linkedin.com/company/skill-builderss/",
+        target: "_blank",
+      },
+      {
+        label: "facebook",
+        href: "https://www.facebook.com/people/SkillBuilder/61557538478424/",
+        target: "_blank",
+      },
     ],
   },
 ];
 
 const HomepageFooter = ({ className }) => {
   const router = useRouter();
+  const hash = useHash();
 
   useEffect(() => {
-    const script = document.createElement("script");
-    script.src = "https://www.glassdoor.com/static/js/api/widget/v1.js";
-    script.async = true;
-    document.body.appendChild(script);
-    return () => {
-      document.body.removeChild(script);
-    };
-  }, []);
+    const section = hash.replace("#", "");
+    if (section) scrollToSection(section);
+  }, [hash]);
+
+  // useEffect(() => {
+  //   const script = document.createElement("script");
+  //   script.src = "https://www.glassdoor.com/static/js/api/widget/v1.js";
+  //   script.async = true;
+  //   document.body.appendChild(script);
+  //   return () => {
+  //     document.body.removeChild(script);
+  //   };
+  // }, []);
 
   const onSocialClick = (url) => {
     window.open(url, "_blank");
@@ -54,25 +71,28 @@ const HomepageFooter = ({ className }) => {
     <LayoutXPadding>
       <footer className={`${className} divide-y divide-[#EBEBEB]`}>
         <div className="top grid grid-rows-[minmax(0,1fr)_auto_auto] gap-4 lg:!grid-cols-[max-content_1fr_max-content] lg:!grid-rows-1 xs:grid-cols-2 xs:grid-rows-2">
-          <div className="left justify-self-center xs:justify-self-start">
+          <div className="left !space-y-5 justify-self-center xs:justify-self-start">
             {/* Glass */}
-            <a
-              className="gdWidget"
-              href="https:www.glassdoor.com/api/api.htm?version=1&action=employer-review&t.s=w-l&t.a=c&format=300x250&employerId=9082484"
-              target="_gd"
-            >
-              <Image src="/glassdoor.svg" width={250} height={100} />
-            </a>
+            <div className="w">
+              <a
+                className="gdWidget"
+                href="https://www.glassdoor.com/Overview/Working-at-Skill-Builder-EI_IE9392144.11,24.htm"
+                target="_gd"
+              >
+                <Image src="/glassdoor-review.png" width={250} height={100} />
+              </a>
+            </div>
 
             {/* Trustpilot */}
-            <a
-              className="gdWidget"
-              // href="https://www.glassdoor.com/api/api.htm?version=1&action=employer-review&t.s=w-l&t.a=c&format=300x250&employerId=9082484"
-              href="https://www.trustpilot.com/review/skillbuilder.online"
-              target="_gd"
-            >
-              <Image src="/review.svg" width={150} height={100} />
-            </a>
+            <div className="w">
+              <a
+                className="gdWidget"
+                href="https://www.trustpilot.com/review/skillbuilder.online"
+                target="_gd"
+              >
+                <Image src="/trustpilot-review.png" width={272} height={100} />
+              </a>
+            </div>
           </div>
           <div className="center row-start-1 row-end-1 flex max-w-[715px] flex-wrap items-start justify-evenly gap-3 md:flex-nowrap lg:!col-span-1 lg:!col-start-2 xs:col-span-2 xs:mx-auto xs:w-full xs:justify-between">
             {footerLinks?.map((row, i) => (
@@ -90,7 +110,7 @@ const HomepageFooter = ({ className }) => {
             >
               <img
                 src="https://api.producthunt.com/widgets/embed-image/v1/product_review.svg?product_id=598081&theme=dark"
-                alt="Recruitinn.ai - Revolutionize Your Hiring with us | Product Hunt"
+                alt="Skillbuilder - Revolutionize Your Learning with us | Product Hunt"
                 style={{ width: "250px", height: "54px" }}
                 width="250"
                 height="54"
@@ -124,7 +144,7 @@ const HomepageFooter = ({ className }) => {
               height={40}
               onClick={() =>
                 onSocialClick(
-                  "https://www.facebook.com/people/SkillBuilder/61557538478424/",
+                  "https://www.linkedin.com/company/skill-builderss/ ",
                 )
               }
             />
@@ -135,7 +155,7 @@ const HomepageFooter = ({ className }) => {
               height={40}
               onClick={() =>
                 onSocialClick(
-                  "https://www.linkedin.com/company/skill-builderss/ ",
+                  "https://www.facebook.com/people/SkillBuilder/61557538478424/",
                 )
               }
             />
@@ -283,6 +303,8 @@ function FooterRow({
             {option?.href ? (
               <Link
                 href={option?.href}
+                target={option?.target ? "_blank" : "_self"}
+                rel={option?.target ? "noopener noreferrer" : undefined}
                 className="flex items-center justify-start gap-2 text-nowrap capitalize"
               >
                 {option?.label}
