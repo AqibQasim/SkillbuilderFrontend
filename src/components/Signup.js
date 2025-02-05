@@ -242,7 +242,7 @@ const Signup = () => {
         <div className="mb-4 ">
           <button
             type="submit"
-            className="w-full rounded-lg bg-blue-700 p-2 text-white hover:bg-blue-600 disabled:opacity-40 cursor-not-allowed "
+            className="w-full rounded-lg bg-blue-700 p-2 text-white hover:bg-blue-600 disabled:opacity-40  "
             disabled= {password === "" || email === "" || first_name === "" || last_name === "" || confirmPassword === "" || termsAgreed === false} 
           >
             {isLoading ? "Signing up..." : "Sign Up"}
