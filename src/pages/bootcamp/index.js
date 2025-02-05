@@ -149,7 +149,7 @@ const Bootcamp = () => {
           </div>
         </div>
         
-        <div className=" mt-16  ">
+        <div className=" mt-16 mx-auto grid max-lsm:place-items-center max-lsm:w-[100%] w-[90%] grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4">
           {filteredCourses?.map((course, i) => (
             <LiveCoursesCard
               selectedCategory={selectedCategory}

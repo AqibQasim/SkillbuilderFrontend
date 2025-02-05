@@ -22,7 +22,9 @@ function LearningSection() {
         </div>
       </LayoutXPadding>
       {/* Globe */}
-      <CustomGlobe />
+      <div className="!mb-10">
+        <CustomGlobe />
+      </div>
     </>
   );
 }

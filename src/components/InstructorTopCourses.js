@@ -8,9 +8,7 @@ function InstructorTopCourses({ courses }) {
   return (
     <div className="top-courser mx-auto mt-16 w-[90%] max-w-screen-2xl space-y-9">
       <SubHeading>Top Courses</SubHeading>
-      <div
-        className="grid h-auto grid-cols-1 place-items-center gap-4 sm:grid-cols-2 lg:grid-cols-4"
-      >
+      <div className="grid h-auto grid-cols-1 place-items-center gap-4 sm:grid-cols-2 lg:grid-cols-4">
         {courses?.map((course) => (
           <div
             key={course.id}
@@ -20,7 +18,11 @@ function InstructorTopCourses({ courses }) {
           >
             <Image
               className="w-[100%] pt-1"
-              src={course.image}
+              src={
+                course?.image
+                  ? `${process.env.NEXT_PUBLIC_BASE_API}/media/course/${course?.image}`
+                  : "/dummyImg.svg"
+              }
               alt={course.title}
               width={280}
               height={260}

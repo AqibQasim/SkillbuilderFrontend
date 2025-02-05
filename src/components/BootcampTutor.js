@@ -7,7 +7,7 @@ const BootcampTutor = ({ tutor }) => {
     <div className="mx-auto w-full max-w-[80%] p-4">
       <h2 className="mb-4 text-2xl font-bold">Meet our Expert Educators</h2>
       <div className="flex max-w-[40rem] flex-col items-center rounded-lg bg-gray-200 p-6 shadow-md md:flex-row md:items-start">
-        <div className="mb-4 h-24 w-24 flex-shrink-0 rounded-lg bg-white md:mb-0 md:h-32 md:w-32">
+        <div className="mb-4 w-full md:w-52  h-[18rem]  flex-shrink-0 rounded-lg bg-white md:mb-0   ">
           {/* <Image /> */}
         </div>
         <div className="md:ml-6">
@@ -22,7 +22,7 @@ const BootcampTutor = ({ tutor }) => {
 
           {/* Description */}
           <p className="mb-4 font-medium text-gray-600">
-            Zubair Alam is a seasoned professional with extensive experience in
+            {name} is a seasoned professional with extensive experience in
             advertising, branding, and creative solutions. As a key member of
             the Four Diagonal Advertising team, he brings a wealth of knowledge
             and a passion for innovation to every project.

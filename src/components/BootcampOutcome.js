@@ -7,7 +7,7 @@ const CourseCard = ({ course }) => {
       <div className="flex flex-col gap-8 md:flex-row">
         {/* Left Section */}
         <div className="flex-1">
-          <h2 className="text-xl font-bold text-gray-800 md:text-2xl">
+          <h2 className="text-lg font-medium text-gray-800 md:text-xl">
             This course includes:
           </h2>
           <h1 className="mt-2 text-2xl font-bold text-gray-900 md:text-3xl">
@@ -21,15 +21,17 @@ const CourseCard = ({ course }) => {
           {/* Features Section */}
           <div className="my-4 flex flex-wrap gap-4">
             <div className="flex items-center space-x-2 rounded-full border p-2">
-              <span className="text-xl text-green-600">🔑</span>
+              {/* <span className="text-xl text-green-600">🔑</span> */}
+              <img src="/cup2.png" alt="key" className="h-10 w-10" />
               <span className="text-sm text-gray-700 md:text-base">
                 16 x tutor-led sessions
               </span>
             </div>
             <div className="flex items-center space-x-2 rounded-full border p-2">
-              <span className="text-xl text-green-600">
+              {/* <span className="text-xl text-green-600">
                 <span className="text-xl text-green-600">🎯</span>
-              </span>
+              </span> */}
+              <img src="/cup2.png" alt="key" className="h-10 w-10" />
               <span className="text-sm text-gray-700 md:text-base">
                 8 hours of self-study
               </span>
@@ -50,10 +52,10 @@ const CourseCard = ({ course }) => {
           <ul className="mt-4 space-y-3">
             {Array.isArray(learningOutcome) && learningOutcome.length > 0 ? (
               learningOutcome.map((outcome, index) => (
-                <li key={index} className="flex items-start">
-                  <span className="mt-1 text-green-500">
-                    <i className="fas fa-check-circle"></i>
-                  </span>
+                <li key={index} className="flex items-center space-x-2">
+                  
+                   <img src="/verify.png" alt="check" className="h-5 w-5" />
+                  
                   <p className="ml-2 text-sm text-gray-700 md:text-base">
                     {outcome}
                   </p>

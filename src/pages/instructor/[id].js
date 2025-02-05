@@ -72,8 +72,8 @@ function InstructorDetails() {
         <InstructorHero instructor={instructor} />
       )}
 
-      {instructor && <InstructorIntro video={instructor.video_url} />}
-      <InstructorTopCourses courses={instructor_courses.approvedCourses} />
+      {instructor && <InstructorIntro video={instructor?.video_url} />}
+      <InstructorTopCourses courses={instructor_courses?.approvedCourses} />
       <Footer />
     </div>
   );

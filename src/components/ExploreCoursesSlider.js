@@ -4,6 +4,7 @@ import "swiper/css";
 import "swiper/css/pagination";
 import { Swiper, SwiperSlide } from "swiper/react";
 import ImageCssBg from "./ImageCssBg";
+import cardBottomImage from "../../public/subtract.png";
 import { useRouter } from "next/router";
 
 function ExploreCoursesSlider({ liveSessionCourses }) {
@@ -35,8 +36,9 @@ export function ExploreCoursesCard({ className, course }) {
   console.log("this is it", course);
   const router = useRouter();
   return (
-    <div onClick={() => router.push(`/bootcamp/${course?.id}`)}
-      className={`${className}  explore-courses-card group relative grid max-w-[25.25rem] grid-rows-[13.375rem_1fr] overflow-hidden rounded-[0.875rem]`}
+    <div
+      onClick={() => router.push(`/bootcamp/${course?.id}`)}
+      className={`${className} explore-courses-card group relative grid max-w-[25.25rem] grid-rows-[13.375rem_1fr] overflow-hidden rounded-[0.875rem]`}
     >
       <div className="explore-courses-card-image relative row-span-1 rounded-[0.875rem] bg-slate-400">
         <ImageCssBg
@@ -44,7 +46,15 @@ export function ExploreCoursesCard({ className, course }) {
           src={course?.image || "/live_session_dummy_image.png"}
         />
       </div>
-      <div className="explore-courses-card-content inverted-radius relative -top-4 h-[calc(100%+1rem)] rounded-[0.875rem] px-5 py-4 !pb-0 group-[.is-even]:bg-[#B0f1F2] group-[.is-odd]:bg-[#B0B1F2]">
+      <div className="explore-courses-card-content relative -top-4 h-[calc(100%+1rem)] overflow-hidden rounded-[0.875rem] px-5 py-4 !pb-0 after:absolute after:left-0 after:top-0 after:h-4 after:w-full after:bg-[#B0B1F2] after:content-['']">
+        <div className="image absolute bottom-0 left-0 z-[-1] size-full rounded-t-[0.875rem] bg-[rgba(186,186,186,0.1)]">
+          <div className="absolute -top-5 left-0 h-10 w-full bg-[#B0B1F2]"></div>
+          <ImageCssBg
+            src={cardBottomImage}
+            alt={"card bottom background image"}
+            className="object-cover object-[bottom_right]"
+          />
+        </div>
         <h2 className="text-xl font-bold text-[#2C2C2C]">
           {course?.title ||
             `Master Interaction Design: Creating Seamless use...`}
@@ -59,9 +69,13 @@ export function ExploreCoursesCard({ className, course }) {
         </p>
         <div className="text-xs">
           By:
-          <span className="font-semibold text-[#2C2C2C]" style={{textTransform:"capitalize"}}>
+          <span
+            className="font-semibold text-[#2C2C2C]"
+            style={{ textTransform: "capitalize" }}
+          >
             {/* Zubair Alam */}
-            { " "+ course?.instructor?.user?.first_name +
+            {" " +
+              course?.instructor?.user?.first_name +
               " " +
               course?.instructor?.user?.last_name || "Zubair Alam"}
           </span>
@@ -70,7 +84,10 @@ export function ExploreCoursesCard({ className, course }) {
           <div className="my-auto h-[9.6px] w-[11.6px]">
             <Image src={"/course_level.png"} width={11.6} height={9.1} />
           </div>
-          <span className="ms-1 self-start text-[#2C2C2C]" style={{textTransform:"capitalize"}}>
+          <span
+            className="ms-1 self-start text-[#2C2C2C]"
+            style={{ textTransform: "capitalize" }}
+          >
             <span className="capitalize text-[#929292]">Level: </span>{" "}
             {course?.level || "Beginner"}
           </span>
@@ -82,18 +99,17 @@ export function ExploreCoursesCard({ className, course }) {
             height={29}
             width={117}
           />
-          <div className="flex items-center justify-start gap-2 rounded-[1.6875rem] bg-white text-sm max-w-fit py-1 px-[0.1rem]">
+          <div className="flex max-w-fit items-center justify-start gap-2 rounded-[1.6875rem] bg-white px-[0.1rem] py-1 text-sm">
             <span className="text-black">
               <span className="stroke-bg_text_black line-through">
                 {" "}
-                {`$${course?.amount}.00`  || "1.00"}{" "}
+                {`$${course?.amount}.00` || "1.00"}{" "}
               </span>{" "}
-              <span className="ms-1"></span>
-              -
+              <span className="ms-1"></span>-
             </span>
             <span className="text-sm font-semibold text-blue">
               {" "}
-              {`$${(course?.amount - course?.discount)}.00` || `$49.00`}{" "}
+              {`$${course?.amount - course?.discount}.00` || `$49.00`}{" "}
             </span>
           </div>
         </div>
@@ -101,9 +117,10 @@ export function ExploreCoursesCard({ className, course }) {
       <Link
         // href={"/home"}
         href={`/bootcamp/${course?.id}`}
-        className="link absolute bottom-0 right-0 flex size-[3.75rem] items-center justify-center rounded-[0.875rem] rounded-tl-[3rem] bg-[#B0B1F2] text-black-shade-1 group-[.is-even]:bg-[#B0f1F2]"
+        // className="link absolute bottom-0 right-0 flex size-[3.75rem] items-center justify-center rounded-[0.875rem] rounded-tl-[3rem] bg-[#B0B1F2] text-black-shade-1 group-[.is-even]:bg-[#B0f1F2]"
+        className="absolute bottom-0 right-0 flex size-12 items-center justify-center rounded-[0.875rem] bg-[#B0B1F2] text-black-shade-1"
       >
-        <Image src="/link_arrow.svg" height={18.5} width={18.5} />
+        <Image src="/link_arrow.svg" height={15.5} width={15.5} />
       </Link>
     </div>
   );

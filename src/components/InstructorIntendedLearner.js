@@ -168,6 +168,7 @@ const InstructorIntendedLearner = ({ onNext }) => {
           </label>
           <select
             value={level}
+            required={true}
             onChange={(e) => setLevel(e.target.value)}
             className="border-darkgrey mt-1 block w-full rounded-md border bg-transparent p-3 shadow-sm focus:border-blue-500 focus:ring-blue-500"
           >

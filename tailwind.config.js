@@ -38,6 +38,7 @@ module.exports = {
         md: "768px", // Medium devices (tablets, 768px and up)
         lg: "1023px", // Large devices (desktops, 992px and up)
         xlg: "1280px", // Extra large devices (large desktops, 1200px and up)
+        "1xl": "1347px",
         "max-xsm": { max: "319px" }, // Styles for devices smaller than 320px
         "max-sm": { max: "540px" }, // Styles for devices smaller than 640px
         "max-lsm": { max: "767px" },

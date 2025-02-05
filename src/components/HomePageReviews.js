@@ -21,22 +21,21 @@ export const reviews = [
     review: `SkillBuilder is trusted by thousands for its 90+ courses, user-friendly design, and engaging features like quizzes and progress trackers. Its personalized learning paths and practical content make it a go-to platform for career advancement.`,
     rating: 4,
   },
-  
+
   {
     review: `SkillBuilder is trusted by thousands for its 90+ courses, user-friendly design, and engaging features like quizzes and progress trackers. Its personalized learning paths and practical content make it a go-to platform for career advancement.`,
     rating: 4,
   },
-  
+
   {
     review: `SkillBuilder is trusted by thousands for its 90+ courses, user-friendly design, and engaging features like quizzes and progress trackers. Its personalized learning paths and practical content make it a go-to platform for career advancement.`,
     rating: 4,
   },
-  
+
   {
     review: `SkillBuilder is trusted by thousands for its 90+ courses, user-friendly design, and engaging features like quizzes and progress trackers. Its personalized learning paths and practical content make it a go-to platform for career advancement.`,
     rating: 4,
   },
-  
 ];
 
 function HomePageReviews() {
@@ -77,30 +76,29 @@ export default HomePageReviews;
 export function HomePageReviewCard({ review, className = "" }) {
   return (
     <div
-      className={`${className} review-card flex max-w-[23.5rem] flex-col rounded-2xl border border-[#DEDEDE] p-4 text-[#4D5156] shadow-[10px_20px_81px_rgba(186,186,186,0.3)] group-odd:!bg-slate-600 2xl:max-w-[25.5rem] xlg:p-6`}
+      className={`${className} review-card z-[2] flex max-w-[23.5rem] flex-col rounded-2xl border border-[#DEDEDE] p-4 text-[#4D5156] transition-all duration-300 ease-in-out group-odd:!bg-slate-600 hover:z-[1] 2xl:max-w-[25.5rem] xlg:p-6`}
     >
-        <Image
-                src="/coma.png"
-                alt="coma-Image"
-                width={40}
-                height={40}
-                className=" inline-block"
-              />
-       
+      {/* hover:shadow-[7_17px_41px_0_rgba(201,201,201,0.1),26_69px_74px_0_rgba(201,201,201,0.09),59_156px_100px_0_rgba(201,201,201,0.05),105_278px_119px_0_rgba(201,201,201,0.01)] */}
+      <Image
+        src="/coma.png"
+        alt="coma-Image"
+        width={40}
+        height={40}
+        className="inline-block"
+      />
+
       <p className="review my-2 mb-4 overflow-y-auto font-medium 2xl:text-lg">
         {review?.review}
       </p>
-       
-      <hr className="mb-4 border-t-[0.4px] border-[#D0722E] " />
-     
-    
+
+      <hr className="mb-4 border-t-[0.4px] border-[#D0722E]" />
+
       <div className="review-info mt-12 flex items-center justify-between group-[.is-odd]:mt-auto">
         <div className="person flex items-center justify-center gap-2">
-          <div className="icon-wrapper flex relative size-14 rounded-full bg-[#F5F5F5]">
-         
+          <div className="icon-wrapper relative flex size-14 rounded-full bg-[#F5F5F5]">
             <ImageCssBg src="/review_avatar.svg" alt="review avatar image" />
           </div>
-         
+
           <div className="person-info">
             <h3 className="font-medium text-[#170D23]">Jesper Hale</h3>
             <p className="text-xs text-[#4A525D]">Lead AI Researcher</p>
