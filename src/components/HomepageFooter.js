@@ -53,7 +53,7 @@ const HomepageFooter = ({ className }) => {
   return (
     <LayoutXPadding>
       <footer className={`${className} divide-y divide-[#EBEBEB]`}>
-        <div className="top flex items-start justify-between gap-8">
+        <div className="top flex flex-wrap items-start justify-between gap-8">
           <div className="left">
             {/* Glass */}
             <a
@@ -74,7 +74,7 @@ const HomepageFooter = ({ className }) => {
               <Image src="/review.svg" width={150} height={100} />
             </a>
           </div>
-          <div className="center flex max-w-[714px] flex-1 items-start justify-between">
+          <div className="center flex max-w-[714px] flex-1 flex-wrap items-start justify-between gap-3 md:flex-nowrap">
             {footerLinks?.map((row) => (
               <FooterRow options={row} />
             ))}
@@ -95,7 +95,56 @@ const HomepageFooter = ({ className }) => {
             </a>
           </div>
         </div>
-        <div className="bottom"></div>
+        <div className="bot xs:grid-cols-[max-content_1fr_max-content] xs:grid-rows-1 grid grid-rows-3 items-center justify-center gap-2 py-4">
+          <span className="xs:row-start-1 xs:row-end-1 row-start-3 row-end-3 mx-auto text-xs text-[#4A525D]">
+            &copy; {new Date().getFullYear()} Skillbuilder All rights reserved.
+          </span>
+          <Image
+            alt=""
+            src="/skillbuilder-logo-icon.svg"
+            className="mx-auto"
+            height={44}
+            width={32}
+          />
+          <span className="mx-auto flex items-center gap-2">
+            {/* <Image
+              src="/twitter-icon-footer.svg"
+              className="cursor-pointer"
+              width={40}
+              height={40}
+              onClick={() => onSocialClick("https://instagram.com")}
+            /> */}
+            <Image
+              src="/linkedin-icon-footer.svg"
+              className="cursor-pointer"
+              width={40}
+              height={40}
+              onClick={() =>
+                onSocialClick(
+                  "https://www.facebook.com/people/SkillBuilder/61557538478424/",
+                )
+              }
+            />
+            <Image
+              src="/facebook-icon-footer.svg"
+              className="cursor-pointer"
+              width={40}
+              height={40}
+              onClick={() =>
+                onSocialClick(
+                  "https://www.linkedin.com/company/skill-builderss/ ",
+                )
+              }
+            />
+            {/* <Image
+              src="/instagram-icon-footer.svg"
+              className="cursor-pointer"
+              width={40}
+              height={40}
+              onClick={() => onSocialClick("https://twitter.com")}
+            /> */}
+          </span>
+        </div>
       </footer>
     </LayoutXPadding>
   );
@@ -230,7 +279,7 @@ function FooterRow({
             {option?.href ? (
               <Link
                 href={option?.href}
-                className="flex items-center justify-start gap-2 capitalize"
+                className="flex items-center justify-start gap-2 text-nowrap capitalize"
               >
                 {option?.label}
                 <Image

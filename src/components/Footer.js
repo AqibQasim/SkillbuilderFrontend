@@ -24,7 +24,6 @@ const Footer = () => {
     window.open(url, "_blank");
   };
 
-
   return (
     // <footer className="w-[100%] bg-white text-white p-4 mt-12 max-sm:mt-[-4rem]">
     <footer className="mt-12 w-full bg-white pt-12 text-white">
@@ -100,35 +99,41 @@ const Footer = () => {
               </span>
               <span className="flex items-center gap-2 max-sm:pt-4">
                 <Image
-                              src="/twitter (2).png"
-                              className="cursor-pointer"
-                              width={40}
-                              height={40}
-                              onClick={() => onSocialClick("https://instagram.com")}
-                            />
-                            <Image
-                              src="/linkedin (2).png"
-                              className="cursor-pointer"
-                              width={40}
-                              height={40}
-                              onClick={() => onSocialClick("https://www.facebook.com/people/SkillBuilder/61557538478424/")}
-                
-                              
-                            />
-                            <Image
-                              src="/facebook (2).png"
-                              className="cursor-pointer"
-                              width={40}
-                              height={40}
-                              onClick={() => onSocialClick("https://www.linkedin.com/company/skill-builderss/ ")}
-                            />
-                            <Image
-                              src="/insta (2).png"
-                              className="cursor-pointer"
-                              width={40}
-                              height={40}
-                              onClick={() => onSocialClick("https://twitter.com")}
-                            />
+                  src="/twitter (2).png"
+                  className="cursor-pointer"
+                  width={40}
+                  height={40}
+                  onClick={() => onSocialClick("https://instagram.com")}
+                />
+                <Image
+                  src="/linkedin (2).png"
+                  className="cursor-pointer"
+                  width={40}
+                  height={40}
+                  onClick={() =>
+                    onSocialClick(
+                      "https://www.facebook.com/people/SkillBuilder/61557538478424/",
+                    )
+                  }
+                />
+                <Image
+                  src="/facebook (2).png"
+                  className="cursor-pointer"
+                  width={40}
+                  height={40}
+                  onClick={() =>
+                    onSocialClick(
+                      "https://www.linkedin.com/company/skill-builderss/ ",
+                    )
+                  }
+                />
+                <Image
+                  src="/insta (2).png"
+                  className="cursor-pointer"
+                  width={40}
+                  height={40}
+                  onClick={() => onSocialClick("https://twitter.com")}
+                />
               </span>
             </div>
           </div>
