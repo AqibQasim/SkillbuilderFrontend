@@ -4,7 +4,7 @@ import Image from "next/image";
 const BootcampHero = ({ title, subtitle, tagline, src }) => {
   return (
     <div className="mx-auto w-[95%]">
-      <div className="relative overflow-hidden rounded-xl">
+      <div className="relative overflow-hidden rounded-xl z-0">
         {/* Image */}
         <Image
           src={src || "/bootcamp-heroimage.svg"}

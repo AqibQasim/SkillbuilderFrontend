@@ -61,6 +61,7 @@ const authSlice = createSlice({
         state.successMessage = action.payload;
       })
       .addCase(signupUser.rejected, (state, action) => {
+        console.log("in reject mode: ", action?.payload)
         state.error = action.payload;
         state.isLoading = false;
       });
