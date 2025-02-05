@@ -20,7 +20,7 @@ function CoursePlatforms() {
       <div className="course-platforms">
         <div className="overflow-x-hidden text-center">
           <p className="mb-7 text-xl font-semibold text-[#00204D]">
-            You can also access our course from various platforms
+            Our Collaborators
           </p>
 
           <div className="platform-icons relative bg-white">

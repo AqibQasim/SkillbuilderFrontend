@@ -20,6 +20,7 @@ const  CoursesNew = ({ activeTab="Most Popular" ,selectedCategory, showallCourse
   //const [selectedCategory, setSelectedCategory] = useState(null);
   const [topSellingCourses, setTopSellingCourses] = useState(null);
   const [selectedFilter, setSelectedFilter] = useState(null);
+
   const dispatch = useDispatch();
   const {
     courses = [],
@@ -220,8 +221,8 @@ useEffect(()=>{
                         </span>
                       )} */}
                     </div>
-                    <h3 className="text-md m-0 font-semibold text-[#2C2C2C]">
-                      {course.title}
+                    <h3 className="text-md m-0 font-semibold  text-[#2C2C2C]">
+                       {course.title.length > 35 ? course.title.substring(0, 55) + "..." : course.title }  
                     </h3>
                     <p className="mb-2 text-[0.6rem] text-[#5C5C5C]">
                       {truncateText(course?.description || "", max_words)}
