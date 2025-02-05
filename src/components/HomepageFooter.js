@@ -53,8 +53,8 @@ const HomepageFooter = ({ className }) => {
   return (
     <LayoutXPadding>
       <footer className={`${className} divide-y divide-[#EBEBEB]`}>
-        <div className="top flex flex-wrap items-start justify-between gap-8">
-          <div className="left">
+        <div className="top grid grid-rows-[minmax(0,1fr)_auto_auto] gap-4 lg:!grid-cols-[max-content_1fr_max-content] lg:!grid-rows-1 xs:grid-cols-2 xs:grid-rows-2">
+          <div className="left justify-self-center xs:justify-self-start">
             {/* Glass */}
             <a
               className="gdWidget"
@@ -74,12 +74,15 @@ const HomepageFooter = ({ className }) => {
               <Image src="/review.svg" width={150} height={100} />
             </a>
           </div>
-          <div className="center flex max-w-[714px] flex-1 flex-wrap items-start justify-between gap-3 md:flex-nowrap">
-            {footerLinks?.map((row) => (
-              <FooterRow options={row} />
+          <div className="center row-start-1 row-end-1 flex max-w-[715px] flex-wrap items-start justify-evenly gap-3 md:flex-nowrap lg:!col-span-1 lg:!col-start-2 xs:col-span-2 xs:mx-auto xs:w-full xs:justify-between">
+            {footerLinks?.map((row, i) => (
+              <FooterRow
+                className={i === 1 ? "order-last xs:order-none" : ""}
+                options={row}
+              />
             ))}
           </div>
-          <div className="right">
+          <div className="right justify-self-center xs:justify-self-end">
             <a
               href="https://www.producthunt.com/products/skill-builder"
               target="_blank"
@@ -95,8 +98,8 @@ const HomepageFooter = ({ className }) => {
             </a>
           </div>
         </div>
-        <div className="bot xs:grid-cols-[max-content_1fr_max-content] xs:grid-rows-1 grid grid-rows-3 items-center justify-center gap-2 py-4">
-          <span className="xs:row-start-1 xs:row-end-1 row-start-3 row-end-3 mx-auto text-xs text-[#4A525D]">
+        <div className="bot grid grid-rows-3 items-center justify-center gap-2 py-4 xs:grid-cols-[max-content_1fr_max-content] xs:grid-rows-1">
+          <span className="row-start-3 row-end-3 mx-auto text-xs text-[#4A525D] xs:row-start-1 xs:row-end-1">
             &copy; {new Date().getFullYear()} Skillbuilder All rights reserved.
           </span>
           <Image
@@ -265,10 +268,11 @@ const HomepageFooter = ({ className }) => {
 export default HomepageFooter;
 
 function FooterRow({
+  className,
   options = { label: "Company", options: [{ label: "about", href: "/" }] },
 }) {
   return (
-    <div className="row">
+    <div className={`${className} row`}>
       <h3 className="mb-2 text-xl font-bold text-[#170D23]">
         {" "}
         {options.label}
