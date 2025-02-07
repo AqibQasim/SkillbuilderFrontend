@@ -15,7 +15,7 @@ const Fields = () => {
 
   function handleContinue() {
     if (selected === "student") {
-      router.back();
+      router.push('/');
     } else if (selected === "instructor") {
       router.push(instructorPath);
     }
