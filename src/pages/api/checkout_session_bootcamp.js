@@ -4,6 +4,10 @@ export default async function handler(req, res) {
   if (req.method === "POST") {
     try {
       const { course_title, course_description, amount, student_id, instructor_id, course_id} = req.body;
+      if (!student_id) {
+        res.redirect(303, "/login"); // Replace '/login' with the route to your login screen
+        return;
+      }
     //   const parsedItems = JSON.parse(items); // `items` should be an array
 
       //   const totalAmount = parsedItems.reduce(
