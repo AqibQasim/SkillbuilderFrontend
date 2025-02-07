@@ -86,7 +86,7 @@ const CourseDetails = () => {
         
         <div class="bg-gray-50 py-10">
           <div className="mx-auto w-[92%] px-4">
-            <h2 class="text-2xl font-bold text-gray-900">Popular topics</h2>
+            <h2 class="text-2xl font-bold text-gray-900">Top Selling</h2>
             <p class="mt-2 text-gray-600">
               Explore courses from experienced, real-world experts.
             </p>
