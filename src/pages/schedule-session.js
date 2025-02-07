@@ -87,8 +87,11 @@ const ScheduleSession = () => {
 
   return (
     <div className="overflow-hidden">
-      {profile && <InlineWidget url={`https://calendly.com/syedzubairalam123/career-counselling-session?email=${profile.email}&name=${profile.first_name + " " + profile.last_name}`} />}
-    
+      {profile && (
+        <InlineWidget
+          url={`https://calendly.com/syedzubair/meet-with-zubair-co-ventech?email=${profile.email}&name=${profile.first_name + " " + profile.last_name}`}
+        />
+      )}
     </div>
   );
 }
