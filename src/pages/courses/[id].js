@@ -17,6 +17,7 @@ import HomePageNavbar from "@/components/HomePageNavbar";
 import LayoutXPadding from "@/components/LayoutXPadding";
 import InstructorIntro from "@/components/InstructorIntro";
 import Image from "next/image";
+import HomepageFooter from "@/components/HomepageFooter";
 
 const CourseDetails = () => {
   const router = useRouter();
@@ -73,6 +74,10 @@ const CourseDetails = () => {
       </div>
     );
   }
+  //restrict the url if course id is not available
+  if (!course?.id) {
+    return router.push("/") && <Loader />;
+  }
 
   return (
     <div className="w-full bg-bg_gray">
@@ -94,7 +99,7 @@ const CourseDetails = () => {
         <ul className="grid grid-cols-2 text-wrap">
           {course?.learning_outcomes?.map((outcome, index) => (
             <li key={index} className="flex gap-2">
-              <div className="text-6xl mt-1 ">
+              <div className="mt-1 text-6xl">
                 <svg
                   aria-hidden="true"
                   focusable="false"
@@ -118,7 +123,8 @@ const CourseDetails = () => {
       <CourseInstructor course={course} user={user} />
       <CourseModule course={course?.modules} course_id={id} />
       <CourseReviews reviews={reviews} CourseId={id} />
-      <Footer />
+      {/* <Footer /> */}
+      <HomepageFooter />
     </div>
   );
 };

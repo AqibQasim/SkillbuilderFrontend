@@ -28,8 +28,8 @@ export default function BootcampSection({ course }) {
   }, [userId, course?.course_id]);
 
   return (
-    <section className="bg-gray-50 px-6 md:px-12 lg:px-20">
-      <div className="mx-auto grid max-w-7xl grid-cols-1 items-center gap-10 md:grid-cols-2">
+    <section className="bg-gray-50 px-6 md:px-12 lg:px-20 py-6 ">
+      <div className="mx-auto  grid max-w-7xl grid-cols-1 items-center gap-10 md:grid-cols-2">
         {/* Left Content */}
         <div>
           {/* rating */}
@@ -64,27 +64,46 @@ export default function BootcampSection({ course }) {
             60% Live Instructor-led online training, 40% On-demand flexible
             learning <span className="font-normal">(Best of both worlds!)</span>
           </p>
-          {/* Features */}
-          <div className="mb-8 flex gap-4 sm:flex-col xl:flex-row">
-            <div className="flex items-center gap-3 rounded-full bg-white p-4 shadow-md">
-              <span className="rounded-full bg-blue-100 p-2 text-blue-500">
+         
+          {/* Features Section */}
+          {/* <div className="mb-8 grid grid-cols-1 gap-4 sm:grid-cols-2"> */}
+            {/* <div className="flex items-center gap-3 rounded-lg bg-white p-4 shadow-lg">
+              <span className="rounded-full bg-blue-100 p-3 text-blue-500">
                 🔑
               </span>
-              <p className="rounded-3xl font-medium text-gray-800">
+              <p className="font-small text-gray-800">
                 Master in-demand skills with expert guidance
               </p>
-            </div>
-            <div className="flex items-center gap-3 rounded-full bg-white p-4 shadow-md">
-              <span className="rounded-full bg-blue-100 p-2 text-blue-500">
+            </div> */}
+            
+            {/* <div className="flex items-center gap-3 rounded-5xl bg-white p-4 shadow-lg">
+              <span className="rounded-full bg-blue-100 p-3 text-blue-500">
                 🎯
               </span>
-              <p className="font-medium text-gray-800">
+              <p className="font-small text-gray-800">
                 Transform learning experiences for career success
               </p>
             </div>
-          </div>
+          </div> */}
           {/* Enroll Now Button */}
-          <div>{course?.amount - course?.discount}</div>
+          {/* <div>{course?.amount - course?.discount}</div> */}
+          <div className="my-4 flex gap-4">
+            <div className="flex items-center space-x-2 rounded-full border p-2">
+              {/* <span className="text-xl text-green-600">🔑</span> */}
+              <img src="/cup.png" alt="key" className="h-10 w-10" />
+              <span className="text-sm text-gray-700 md:text-base">
+              Master in-demand skills with expert guidance
+              </span>
+            </div>
+            <div className="flex items-center space-x-2 rounded-full border p-2">
+              <img src="/cup.png" alt="key" className="h-10 w-10" />
+               
+                {/* <span className="text-xl text-green-600">🎯</span> */}
+              <span className="text-sm text-gray-700 md:text-base">
+              Transform learning experiences for career success
+              </span>
+            </div>
+          </div>
           <form
             className="w-full"
             action="/api/checkout_session_bootcamp"
@@ -114,11 +133,11 @@ export default function BootcampSection({ course }) {
         </div>
 
         {/* Right Content */}
-        <div className="relative">
+        <div className="w-full h-96">
           <img
-            src="/bootcampVideo2.png"
+            src="/img-vid.png"
             alt="Computer Science Bootcamp"
-            className="border-black h-full w-full border pt-40"
+            className="h-full object-cover rounded-2xl shadow-lg"
             // className="rounded-lg shadow-lg"
           />
         </div>

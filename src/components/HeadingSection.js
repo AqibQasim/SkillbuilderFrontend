@@ -13,7 +13,7 @@ function HeadingSection({
       <h2 className="mx-auto mb-5 max-w-3xl font-satoshi text-4xl font-semibold text-[#00204D]">
         {headingText}
       </h2>
-      <p className="mx-auto max-w-3xl text-lg font-medium text-[#5F646B]">
+      <p className="mx-auto max-w-3xl font-medium text-[#5F646B] xl:text-lg">
         {text}
       </p>
     </div>

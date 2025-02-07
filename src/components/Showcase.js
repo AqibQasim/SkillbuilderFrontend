@@ -9,18 +9,18 @@ function Showcase() {
     // add tmep height
     <LayoutXPadding>
       <div className="mx-3 !mt-0 rounded-[1.25rem] bg-[#F3F7FA] !px-4 !pt-4 sm:!px-[3.1rem] md:pt-11 xl:mx-5">
-        <HomePageNavbar className="!mt-0" />
+        <HomePageNavbar className="!mt-0 z-[2]" />
         <div className="content mb-8 mt-5 flex flex-col items-center justify-center text-center md:mb-11 lg:mt-10 2xl:mt-24">
-          <div className="highlight relative w-max rounded-[2.2rem] border border-[#000DFF] bg-gradient-to-br from-[#E8E9FF] from-50% to-[rgba(193,197,255,0.5)] px-4 py-2 text-[0.9375rem] text-xs font-medium text-[#313131] md:px-5 xlg:mx-[unset]">
+          <div className="highlight relative z-[1] w-max rounded-[2.2rem] border border-[#000DFF] bg-gradient-to-br from-[#E8E9FF] from-50% to-[rgba(193,197,255,0.5)] px-4 py-2 text-[0.9375rem] text-xs font-medium text-[#313131] md:px-5 xlg:mx-[unset]">
             Rate 4.9/5 from over 157+ review
           </div>
 
-          <h1 className="z-[1] mb-[1.125rem] mt-[1.125rem] max-w-[59rem] text-2xl font-bold text-[#00204D] md:text-3xl lg:text-5xl">
+          <h1 className="z-[1] mb-2 mt-[1.125rem] max-w-[59rem] text-2xl font-bold text-[#00204D] md:text-3xl lg:mb-[1.125rem] lg:text-4xl">
             Your Partner in Building Skill, Confidence, and Endless
             opportunities
           </h1>
 
-          <p className="z-[1] max-w-[56rem] font-medium text-[#4D5156] md:text-xl">
+          <p className="z-[1] max-w-[56rem] text-sm font-medium text-[#4D5156] md:text-lg">
             SkillBuilder offers expert-led courses to help you master skills,
             achieve goals, and transform ambitions into success.
           </p>

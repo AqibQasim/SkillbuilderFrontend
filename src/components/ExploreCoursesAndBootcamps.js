@@ -18,20 +18,21 @@ function ExploreCoursesAndBootcamps() {
 
   return (
     <LayoutXPadding>
-      <div className="explore-courses-and-bootcamps grid grid-cols-1 grid-rows-[1fr_23rem] items-center justify-start gap-4 overflow-x-hidden bg-[#F2F3FF] py-8 lg:py-10 xlg:grid-cols-[40%_60%] xlg:grid-rows-1 xlg:py-16">
-        <div className="content text-center xlg:text-left">
-          <div className="mx-auto mb-1.5 w-max rounded-[3.25rem] border border-[#4000FF] bg-white px-4 py-1 text-xs font-medium text-[#4000FF] xlg:mx-[unset]">
+      <div className="explore-courses-and-bootcamps 1xl:grid-cols-[40%_60%] grid grid-cols-1 grid-rows-[1fr_23rem] items-center justify-start gap-4 overflow-x-hidden bg-[#F2F3FF] py-8 lg:py-10 xlg:grid-rows-1 xlg:py-16">
+        <div className="content 1xl:text-left text-center">
+          {/* <div className="mx-auto mb-1.5 w-max rounded-[3.25rem] border border-[#4000FF] bg-white px-4 py-1 text-xs font-medium text-[#4000FF] xlg:mx-[unset]"> */}
+          <div className="1xl:mx-[unset] mx-auto mb-1.5 w-max rounded-[3.25rem] border border-[#4000FF] bg-inherit px-4 py-1 text-xs font-medium text-[#4000FF]">
             Why you need Skillbuilder
           </div>
-          <h1 className="mx-auto mb-5 max-w-3xl font-satoshi text-4xl font-semibold text-[#00204D] xlg:mx-[unset]">
+          <h1 className="1xl:mx-[unset] mx-auto mb-5 max-w-3xl font-satoshi text-4xl font-semibold text-[#00204D]">
             Explore SkillBuilder Courses and Bootcamps Tailored for You
           </h1>
-          <p className="mx-auto max-w-3xl text-lg font-medium text-[#5F646B] xlg:mx-[unset] xlg:max-w-[unset]">
+          <p className="1xl:max-w-[unset] mx-auto max-w-3xl text-lg font-medium text-[#5F646B]">
             SkillBuilder offers flexible courses and immersive bootcamps
             tailored to your learning style, career goals, and schedule,
             ensuring a personalized and impactful experience.
           </p>
-          <div className="mt-7 flex flex-wrap items-center justify-center gap-4 sm:flex-nowrap xlg:justify-start">
+          <div className="1xl:justify-start mt-7 flex flex-wrap items-center justify-center gap-4 sm:flex-nowrap">
             <PointerDiv pointer={false} />
             <PointerDiv pointer={false} />
           </div>

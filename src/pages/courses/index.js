@@ -95,9 +95,9 @@ const CourseDetails = () => {
             {/* Title Section  */}
 
             {/* Topics Section  */}
-            <div class="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5">
+            {/* <div class="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5"> */}
               {/* <!-- Topic Buttons --> */}
-              {popularTopics?.map((popularTopic, index) => (
+              {/* {popularTopics?.map((popularTopic, index) => (
                 <div
                   onClick={(e) => {
                     setPopularTopics((v) => {
@@ -114,6 +114,86 @@ const CourseDetails = () => {
                   {popularTopic?.topic}
                 </div>
               ))}
+            </div> */}
+             <div className="platform-icons relative mt-6">
+            <div className="left-shadow pointer-events-none absolute bottom-0 left-0 z-[2] h-full w-36 bg-gradient-to-r  from-gray-100 from-15%"></div>
+            <div className="right-shadow pointer-events-none absolute bottom-0 right-0 z-[2] h-full w-36 bg-gradient-to-l  from-gray-100  from-15%"></div>
+            <div className="icons relative z-[1] flex items-center overflow-hidden whitespace-nowrap">
+              <div className={`logos3 flex h-auto gap-6 md:gap-8 xl:gap-10`}>
+               
+              {popularTopics?.map((popularTopic, index) => (
+                <div
+                  // onClick={(e) => {
+                  //   setPopularTopics((v) => {
+                  //     const updatedTopics = [...v]; // Create a shallow copy of the array
+                  //     if (updatedTopics[index]) {
+                  //       updatedTopics[index].checked =
+                  //         !updatedTopics[index].checked; // Toggle the `checked` property
+                  //     }
+                  //     return updatedTopics; // Return the new array
+                  //   });
+                  // }}
+                  class={`cursor-pointer self-center  rounded-full border border-gray-300 ${popularTopic?.checked ? "bg-blue-400" : "bg-pink"} px-4 py-2 text-center text-gray-800 hover:bg-gray-100`}
+                >
+                  {popularTopic?.topic}
+                </div>
+              ))}
+              {popularTopics?.map((popularTopic, index) => (
+                <div
+                  // onClick={(e) => {
+                  //   setPopularTopics((v) => {
+                  //     const updatedTopics = [...v]; // Create a shallow copy of the array
+                  //     if (updatedTopics[index]) {
+                  //       updatedTopics[index].checked =
+                  //         !updatedTopics[index].checked; // Toggle the `checked` property
+                  //     }
+                  //     return updatedTopics; // Return the new array
+                  //   });
+                  // }}
+                  class={`cursor-pointer self-center   rounded-full border border-gray-300 ${popularTopic?.checked ? "bg-blue-400" : "bg-pink"} px-4 py-2 text-center text-gray-800 hover:bg-gray-100`}
+                >
+                  {popularTopic?.topic}
+                </div>
+              ))}
+              {popularTopics?.map((popularTopic, index) => (
+                <div
+                  // onClick={(e) => {
+                  //   setPopularTopics((v) => {
+                  //     const updatedTopics = [...v]; // Create a shallow copy of the array
+                  //     if (updatedTopics[index]) {
+                  //       updatedTopics[index].checked =
+                  //         !updatedTopics[index].checked; // Toggle the `checked` property
+                  //     }
+                  //     return updatedTopics; // Return the new array
+                  //   });
+                  // }}
+                  class={`cursor-pointer self-center rounded-full border border-gray-300 ${popularTopic?.checked ? "bg-blue-400" : "bg-pink"} px-4 py-2 text-center text-gray-800 hover:bg-gray-100`}
+                >
+                  {popularTopic?.topic}
+                </div>
+              ))}
+              {popularTopics?.map((popularTopic, index) => (
+                <div
+                  // onClick={(e) => {
+                  //   setPopularTopics((v) => {
+                  //     const updatedTopics = [...v]; // Create a shallow copy of the array
+                  //     if (updatedTopics[index]) {
+                  //       updatedTopics[index].checked =
+                  //         !updatedTopics[index].checked; // Toggle the `checked` property
+                  //     }
+                  //     return updatedTopics; // Return the new array
+                  //   });
+                  // }}
+                  class={`cursor-pointer self-center rounded-full border border-gray-300 ${popularTopic?.checked ? "bg-blue-400" : "bg-pink"} px-4 py-2 text-center text-gray-800 hover:bg-gray-100`}
+                >
+                  {popularTopic?.topic}
+                </div>
+              ))}
+              
+              </div>
+            </div>
+          </div>
+
               {/* <span
               onClick={togglePopularTopicsClickedByUser}
               class="cursor-pointer rounded-full border border-gray-300 bg-pink px-4 py-2 text-center text-gray-800 hover:bg-gray-100"
@@ -168,7 +248,6 @@ const CourseDetails = () => {
             >
               Data Science
             </span> */}
-            </div>
           </div>
         </div>
       

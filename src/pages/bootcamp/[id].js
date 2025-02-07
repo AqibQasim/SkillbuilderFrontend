@@ -8,6 +8,7 @@ import HomepageFooter from "@/components/HomepageFooter";
 import HomePageNavbar from "@/components/HomePageNavbar";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
+import Loader from "@/components/Loader";
 import { useDispatch, useSelector } from "react-redux";
 import { getOneLiveSessionCourse } from "../../../redux/thunks/liveSessionCourseThunk";
 
@@ -22,6 +23,12 @@ const page = () => {
     if (!id || course?.id === id) return;
     dispatch(getOneLiveSessionCourse(id));
   }, [id]);
+
+  if (!course) {
+    return (
+      router.replace('/')  && <Loader />
+    );
+  };
 
   return (
     <div className="home-container mx-auto max-w-[120em] space-y-12 font-satoshi">
