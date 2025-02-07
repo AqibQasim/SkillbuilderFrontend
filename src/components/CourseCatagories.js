@@ -12,7 +12,7 @@ const CourseCatagories = ({ setSelectedCategory }) => {
   const [currentSelected, setCurrentSelected] = useState(null);
 
   return (
-    <div className="mx-auto mt-4 flex flex-wrap justify-center text-center">
+    <div className="mx-auto mt-4 grid w-[80%] grid-cols-2 place-items-center gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6   text-center">
       {categories.map((category, index) => (
         <div
           key={index}

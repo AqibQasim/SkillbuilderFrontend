@@ -4,7 +4,7 @@ import LayoutXPadding from "./LayoutXPadding";
 import ImageCssBg from "./ImageCssBg";
 import showcaseImage from "../../public/showcase-image.png";
 
-function Showcase() {
+function  Showcase() {
   return (
     // add tmep height
     <LayoutXPadding>
@@ -31,15 +31,15 @@ function Showcase() {
           style={{ perspective: "1000px" }}
         >
           {/* Shape */}
-          <div className="border-shape absolute -top-48 left-0 size-12 bg-[#2A6ED4] mix-blend-overlay md:-top-52 lg:-top-60 xl:size-16 2xl:-top-64"></div>
+          <div className="border-shape absolute -top-48 left-0 size-12 bg-[#2A6ED4] mix-blend-overlay hidden md:block md:-top-52 lg:-top-60 xl:size-16 2xl:-top-64"></div>
           {/* Shape2 */}
           <div className="shape-2 absolute -left-[5.6rem] -top-[4.1rem] bg-[#F3F7FA]">
             <div className="sector !size-52"></div>
             <div className="bg-[rgba(255, 255, 255, 0.5)] absolute inset-[2.3rem] size-60 rounded-full backdrop-blur-[7px]"></div>
           </div>
           {/* Shape 3 */}
-          <div className="shape-2 absolute -top-[12rem] right-0 flex size-64 items-start justify-end bg-[#F3F7FA]">
-            <div className="border-shape-2 size-36 bg-[#2A6ED4]"></div>
+          <div className="shape-2 absolute -top-[12rem] hidden md:flex right-0 size-64 items-start justify-end bg-[#F3F7FA]">
+            <div className="border-shape-2  size-36 bg-[#2A6ED4]"></div>
             <Image
               className="absolute -right-4 -top-16"
               src="/shape-try.png"

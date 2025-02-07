@@ -42,10 +42,10 @@ const LandingFAQs = () => {
       >
         <div className="mb-[2rem] mt-20 flex h-[100%] w-[100%] flex-col items-center justify-center">
           <div className="flex h-[20%] w-[90%] flex-col items-center justify-center">
-            <h2 className="font-sans text-4xl font-semibold">
+            <h2 className="font-sans text-2xl sm:text-4xl font-semibold">
               Frequently Asked Questions
             </h2>
-            <p className="text-smallText mt-3 text-sm">
+            <p className="text-smallText mt-3 text-xs sm:text-sm">
               Everything you need to know about SkillBuilder.
             </p>
           </div>
@@ -59,7 +59,7 @@ const LandingFAQs = () => {
                 <div className="flex justify-between">
                   <span
                     onClick={() => setDropDownState(!dropDownState)}
-                    className="cursor-pointer font-sans font-semibold tracking-wide sm:text-lg"
+                    className="cursor-pointer font-sans font-semibold tracking-wide text-sm  sm:text-lg"
                   >
                     What is SkillBuilder?
                   </span>
@@ -86,7 +86,7 @@ const LandingFAQs = () => {
                 className="border-darkPurple flex flex-col border-b-[1px] py-4"
               >
                 <div className="flex justify-between">
-                  <span className="cursor-pointer font-sans font-semibold tracking-wide sm:text-lg">
+                  <span className="cursor-pointer font-sans font-semibold tracking-wide text-sm  sm:text-lg">
                     How do I enroll in a course?
                   </span>
                   <Image
@@ -111,7 +111,7 @@ const LandingFAQs = () => {
                 className="border-darkPurple flex flex-col border-b-[1px] py-4"
               >
                 <div className="flex justify-between">
-                  <span className="cursor-pointer font-sans font-semibold tracking-wide sm:text-lg">
+                  <span className="cursor-pointer font-sans font-semibold tracking-wide text-sm  sm:text-lg">
                     Do I get lifetime access to courses?
                   </span>
                   <Image
@@ -138,7 +138,7 @@ const LandingFAQs = () => {
                 <div className="flex justify-between">
                   <span
                     onClick={() => setDropDownState(!fourthDropDownState)}
-                    className="cursor-pointer font-sans font-semibold tracking-wide sm:text-lg"
+                    className="cursor-pointer font-sans font-semibold tracking-wide text-sm  sm:text-lg"
                   >
                     Can I get a refund if I’m not satisfied?
                   </span>
@@ -161,10 +161,10 @@ const LandingFAQs = () => {
 
               <li
                 onClick={toggleFifthDropDown}
-                className="border-darkPurple flex flex-col border-b-[1px] py-4"
+                className="border-darkPurple md:flex flex-col border-b-[1px] py-4 hidden"
               >
                 <div className="flex justify-between">
-                  <span className="cursor-pointer font-sans font-semibold tracking-wide sm:text-lg">
+                  <span className="cursor-pointer font-sans font-semibold tracking-wide text-sm sm:text-lg">
                     Can I access courses on mobile devices?
                   </span>
                   <Image
@@ -186,10 +186,10 @@ const LandingFAQs = () => {
 
               <li
                 onClick={toggleSixthDropDown}
-                className="border-darkPurple flex flex-col border-b-[1px] py-4"
+                className="border-darkPurple md:flex flex-col border-b-[1px] py-4 hidden "
               >
                 <div className="flex justify-between">
-                  <span className="cursor-pointer font-sans font-semibold tracking-wide sm:text-lg">
+                  <span className="cursor-pointer font-sans font-semibold tracking-wide text-sm sm:text-lg">
                     Will I receive a certificate after completing a course?
                   </span>
                   <Image
