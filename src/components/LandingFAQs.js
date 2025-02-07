@@ -42,10 +42,10 @@ const LandingFAQs = () => {
       >
         <div className="mb-[2rem] mt-20 flex h-[100%] w-[100%] flex-col items-center justify-center">
           <div className="flex h-[20%] w-[90%] flex-col items-center justify-center">
-            <h2 className="font-sans text-4xl font-semibold">
+            <h2 className="font-sans text-2xl sm:text-4xl font-semibold">
               Frequently Asked Questions
             </h2>
-            <p className="text-smallText mt-3 text-sm">
+            <p className="text-smallText mt-3 text-xs sm:text-sm">
               Everything you need to know about SkillBuilder.
             </p>
           </div>
