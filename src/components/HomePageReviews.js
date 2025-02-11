@@ -10,33 +10,43 @@ import Image from "next/image";
 
 export const reviews = [
   {
-    review: `SkillBuilder is trusted by thousands for its 90+ courses, user-friendly design, and engaging features like quizzes and progress trackers. Its personalized learning paths and practical content make it a go-to platform for career advancement.`,
-    rating: 4,
+    name: 'Qadir Bukhsh',
+    location: 'United States',
+    review: `Had an amazing experience with Sir Zubair and the team. The bootcamp covered everything in automation, and the support was excellent. Highly recommend it for anyone looking to start their journey in test automation!`,
+    rating: 5,
   },
   {
-    review: `SkillBuilder is trusted by thousands for its 90+ courses, user-friendly design, and engaging features like quizzes and progress trackers. Its personalized learning paths and practical content make it a go-to platform for career advancement.`,
-    rating: 4,
+    name: 'Davina',
+    location: 'Pakistan',
+    review: `A great experience with Skill Builder’s Test Automation bootcamp. Sir Zubair explained everything in detail, making even remote sessions interactive. Highly recommended for anyone struggling with self-learning automation!`,
+    rating: 5,
   },
   {
-    review: `SkillBuilder is trusted by thousands for its 90+ courses, user-friendly design, and engaging features like quizzes and progress trackers. Its personalized learning paths and practical content make it a go-to platform for career advancement.`,
-    rating: 4,
+    name: 'Noor e Hira',
+    location: 'Pakistan',
+    review: `Completed the SQA Mastery course with Sir Zubair, and it was an outstanding experience. His expertise made complex topics easy to grasp. A must for anyone looking to build a strong foundation in SQA.`,
+    rating: 5,
   },
-
   {
-    review: `SkillBuilder is trusted by thousands for its 90+ courses, user-friendly design, and engaging features like quizzes and progress trackers. Its personalized learning paths and practical content make it a go-to platform for career advancement.`,
-    rating: 4,
+    name: 'Adnan Siddiqui',
+    location: 'Germany',
+    review: `Great experience! The tutor is highly knowledgeable and explains concepts thoroughly until they are well understood. Highly recommended for those looking to master test automation.`,
+    rating: 5,
   },
-
   {
-    review: `SkillBuilder is trusted by thousands for its 90+ courses, user-friendly design, and engaging features like quizzes and progress trackers. Its personalized learning paths and practical content make it a go-to platform for career advancement.`,
-    rating: 4,
+    name: 'Sidra Munaf',
+    location: 'United Kingdom',
+    review: `Enrolled in the Test Automation bootcamp, and it has been a transformative experience. Sir Zubair and the team provide practical insights and real-world challenges, making learning highly effective.`,
+    rating: 5,
   },
-
   {
-    review: `SkillBuilder is trusted by thousands for its 90+ courses, user-friendly design, and engaging features like quizzes and progress trackers. Its personalized learning paths and practical content make it a go-to platform for career advancement.`,
-    rating: 4,
+    name: 'Shaheer Khan',
+    location: 'Pakistan',
+    review: `I recently completed SkillBuilder’s Web Automation course. The content was excellent, and the instructor’s guidance was invaluable. I gained hands-on experience with Selenium and Cypress. Looking forward to exploring more courses with SkillBuilder!`,
+    rating: 5,
   },
 ];
+
 
 function HomePageReviews() {
   return (
@@ -100,8 +110,8 @@ export function HomePageReviewCard({ review, className = "" }) {
           </div>
 
           <div className="person-info">
-            <h3 className="font-medium text-[#170D23]">Jesper Hale</h3>
-            <p className="text-xs text-[#4A525D]">Lead AI Researcher</p>
+            <h3 className="font-medium text-[#170D23]">{review?.name} </h3>
+            <p className="text-xs text-[#4A525D]">{review?.location}</p>
           </div>
         </div>
         <StarRating rating={review?.rating} />
