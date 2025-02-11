@@ -1,10 +1,9 @@
-import Link from "next/link";
-import ButtonSecond from "./ButtonSecond";
-import ButtonWithIcon from "./ButtonWithIcon";
-import { useSelector } from "react-redux";
-import { useState } from "react";
-import { useRouter } from "next/router";
 import Image from "next/image";
+import Link from "next/link";
+import { useRouter } from "next/router";
+import { useState } from "react";
+import { useSelector } from "react-redux";
+import logo from "../../public/hero-logo.png";
 import SmallScreenButton from "./SmallScreenButton";
 import SmallScreenMenu from "./SmallScreenMenu";
 import SmallScreenSearch from "./SmallScreenSearch";
@@ -36,7 +35,15 @@ function HomePageNavbar({ className }) {
       className={`${className} ${menu ? "" : "relative z-[1]"} navbar mt-4 grid grid-cols-[1fr_max-content] grid-rows-2 rounded-[3.125rem] bg-white py-[0.625rem] pl-6 pr-3 shadow-[inset_0_0_0_1px_#F2F2F2] xlg:grid-cols-[max-content_1fr_max-content] xlg:grid-rows-1`}
     >
       <div className="logo flex min-w-40 items-center justify-start">
-        <Image src="/logo.svg" width={160} height={160} alt="Logo" />
+        {/* <Image src="/logo.svg" width={160} height={160} alt="Logo" /> */}
+        <div className="relative h-7 w-40">
+          <Image
+            className="absolute inset-0"
+            quality={90}
+            src={logo}
+            alt="Logo"
+          />
+        </div>
       </div>
       <div className="links hidden xlg:flex xlg:items-center xlg:justify-center">
         {links.map((link, i) => (

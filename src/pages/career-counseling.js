@@ -18,7 +18,7 @@ const Page = () => {
   return (
     <div className="home-container mx-auto w-[100%] space-y-12 font-satoshi">
       <LayoutXPadding>
-        <div className="s">
+        <div className="mb-4">
           <HomePageNavbar />
         </div>
       </LayoutXPadding>
@@ -37,8 +37,8 @@ const Page = () => {
           <h2 className="mb-4 text-2xl font-bold text-gray-900 md:text-4xl">
             Career Counselling and Guidance
           </h2>
-          </div>
-          <div className="py-6 px-7 md:py-12 ">
+        </div>
+        <div className="px-7 py-6 md:py-12">
           <p className="mb-4 leading-relaxed text-gray-600">
             Choosing a career is one of the most important decisions in a
             student’s life. With the world becoming increasingly competitive,
@@ -145,9 +145,9 @@ const Page = () => {
               Why Choose 1 to 1 Education Consultancy?
             </h2>
           </div>
-          <div class="space-y-6 mt-2">
+          <div class="mt-2 space-y-6">
             <div>
-              <h3 class="text-xl font-semibold text-gray-900 mt-4">
+              <h3 class="mt-4 text-xl font-semibold text-gray-900">
                 Individualized Attention:
               </h3>
               <p class="mt-2 text-sm text-gray-600">
@@ -311,7 +311,7 @@ const Page = () => {
             </div>
 
             {/* <!-- Image Content --> */}
-            <div class=" flex w-full justify-center p-2 md:w-1/2 md:justify-end md:pt-20 lg:pt-1">
+            <div class="flex w-full justify-center p-2 md:w-1/2 md:justify-end md:pt-20 lg:pt-1">
               <Image
                 src="/carrer.png"
                 alt="1 to 1 Education Consultancy"

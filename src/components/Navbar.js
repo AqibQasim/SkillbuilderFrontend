@@ -6,6 +6,7 @@ import { useState } from "react";
 import User from "@/components/User";
 import { togglerMethod } from "@/utils/navMenuToggler";
 import LayoutWidth from "./LayoutWidth";
+import logo from "../../public/hero-logo.png";
 
 const Navbar = ({ cartItemsLength }) => {
   console.log("cart item length:", cartItemsLength);
@@ -35,7 +36,10 @@ const Navbar = ({ cartItemsLength }) => {
       <div className="flex h-[10vh] w-[100%] flex-row items-center justify-center bg-white">
         <LayoutWidth>
           <div className="flex w-[90%] items-center justify-between">
-            <Image src="/logo.svg" width={160} height={160} alt="Logo" />
+            {/* <Image src="/logo.svg" width={160} height={160} alt="Logo" /> */}
+            <div className="relative h-7 w-40">
+              <Image className="absolute inset-0" src={logo} alt="Logo" />
+            </div>
 
             <div className="ml-auto mr-4 block lg:hidden">
               <User
@@ -188,8 +192,11 @@ const Navbar = ({ cartItemsLength }) => {
               <Link className="px-[1.2rem] py-2 lg:px-[0.5rem]" href="/courses">
                 Courses
               </Link>
-              <Link className="px-[1.2rem] py-2 lg:px-[0.5rem]" href="/recordedcourses">
-               Recorded Courses
+              <Link
+                className="px-[1.2rem] py-2 lg:px-[0.5rem]"
+                href="/recordedcourses"
+              >
+                Recorded Courses
               </Link>
               <Link className="px-[1.2rem] py-2 lg:px-[0.5rem]" href="/about">
                 About Us
