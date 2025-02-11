@@ -56,10 +56,18 @@ function  Showcase() {
             }}
             className="h-full w-full transform rounded-t-[2rem] shadow-[0_-36px_80px_0_rgba(148,184,255,0.1),0_-145px_145px_0_rgba(148,184,255,0.09),0_-327px_196px_0_rgba(148,184,255,0.05),0_-581px_232px_0_rgba(148,184,255,0.01)]"
           >
-            <ImageCssBg
+            {/* <ImageCssBg
               className="object-cover object-top"
               quality={90}
               src={showcaseImage}
+            /> */}
+
+<video
+              className="h-full w-full rounded-t-[2rem] object-contain md:object-cover object-center "
+              src="/video/skillbuilder.mp4"
+              poster="/showcase-image.png"
+              controlsList="nodownload"
+              controls
             />
           </div>
         </div>
