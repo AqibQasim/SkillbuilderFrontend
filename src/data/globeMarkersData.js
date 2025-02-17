@@ -6,7 +6,6 @@ const tutors = [
     tutor: true,
   },
   {
-    // lat: 1.42,
     lat: -10.42,
     lng: -20.636377,
     pos: 1,
@@ -16,6 +15,24 @@ const tutors = [
     lat: 25.206418231550687,
     lng: -50.04680121804626,
     pos: 0,
+    tutor: true,
+  },
+  {
+    lat: 25.7617, // Pacific Ocean (Carlos)
+    lng: -150.1217,
+    pos: 3,
+    tutor: true,
+  },
+  {
+    lat: 35.689487,
+    lng: 139.691711,
+    pos: 4,
+    tutor: true,
+  },
+  {
+    lat: -33.86882,
+    lng: 151.20929,
+    pos: 5,
     tutor: true,
   },
 ];

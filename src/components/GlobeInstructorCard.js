@@ -24,39 +24,64 @@ const reviews = [
       "Specializes in machine learning and AI projects.",
     ],
   },
+
+  {
+    name: "Carlos Mendez",
+    role: "Software Engineer",
+    experience: [
+      "6+ Years in software development.",
+      "Focus on backend systems and cloud infrastructure.",
+    ],
+  },
+  {
+    name: "Aisha Khan",
+    role: "Data Analyst",
+    experience: [
+      "8+ Years in data analysis and visualization.",
+      "Proficient in Python and R for data manipulation.",
+    ],
+  },
+  {
+    name: "Yuki Tanaka",
+    role: "UX Designer",
+    experience: [
+      "9+ Years in user experience design.",
+      "Expert in creating intuitive and user-friendly interfaces.",
+    ],
+  },
 ];
 
 export const markups = reviews.map((review, i) => {
   const experienceList = review.experience
     .map((exp) => `<li>${exp}</li>`)
     .join("");
-  return `<div style={{backgroundColor: "red"}} className="test-card bg-[rgba(255, 255, 255, 0.5)] w-max max-w-[400px] space-y-4 rounded-[1.25rem] p-4 shadow-[inset_0_0_0_2px_#F6EBEB] backdrop-blur-[7px]">
-      <div className="person flex items-center justify-start gap-2">
-        <div className="icon-wrapper relative size-12 rounded-full bg-[#F5F5F5]">
+  return `<div className="globe-instructor-details">
+      <div>
+        <div>
           <ImageCssBg src="/review_avatar.svg" alt="review avatar image" />
         </div>
-        <div className="person-info">
-          <h3 className="font-medium text-[#170D23]"> ${review.name} </h3>
-          <p className="text-[#4A525D]">${review.role} </p>
+        <div>
+          <h3>${review.name}</h3>
+          <p>${review.role}</p>
         </div>
       </div>
-      <ul className="text-xs font-medium text-[#000F27]">
+      <ul>
       ${experienceList}
       </ul>
     </div>`;
 });
 
-export const globeInstructorCardMarkup = `<div style={{backgroundColor: "red"}} className="test-card bg-[rgba(255, 255, 255, 0.5)] w-max max-w-[400px] space-y-4 rounded-[1.25rem] p-4 shadow-[inset_0_0_0_2px_#F6EBEB] backdrop-blur-[7px]">
-      <div className="person flex items-center justify-start gap-2">
-        <div className="icon-wrapper relative size-12 rounded-full bg-[#F5F5F5]">
+export const globeInstructorCardMarkup = `<div className="globe-instructor-details">
+      <div>
+        <div>
           <ImageCssBg src="/review_avatar.svg" alt="review avatar image" />
         </div>
-        <div className="person-info">
-          <h3 className="font-medium text-[#170D23]">Zubair Alam</h3>
-          <p className="text-[#4A525D]">Mentor</p>
+        <div>
+          <h3>Zubair Alam</h3>
+          <p>Mentor</p>
         </div>
       </div>
-      <ul className="text-xs font-medium text-[#000F27]">
+      <ul>
         <li>10+ Years of average mentor experience.</li>
         <li>Access to live Q&A, workshops, and 1-on-1 sessions.</li>
       </ul>
@@ -65,17 +90,17 @@ export const globeInstructorCardMarkup = `<div style={{backgroundColor: "red"}} 
 // Above code is for 3d object html marker prop
 function GlobeInstructorCard() {
   return (
-    <div className="test-card bg-[rgba(255, 255, 255, 0.5)] w-max max-w-[400px] space-y-4 rounded-[1.25rem] p-4 shadow-[inset_0_0_0_2px_#F6EBEB] backdrop-blur-[7px]">
-      <div className="person flex items-center justify-start gap-2">
-        <div className="icon-wrapper relative size-12 rounded-full bg-[#F5F5F5]">
+    <div className="globe-instructor-details">
+      <div>
+        <div>
           <ImageCssBg src="/review_avatar.svg" alt="review avatar image" />
         </div>
-        <div className="person-info">
-          <h3 className="font-medium text-[#170D23]">Zubair Alam</h3>
-          <p className="text-[#4A525D]">Mentor</p>
+        <div>
+          <h3>Zubair Alam</h3>
+          <p>Mentor</p>
         </div>
       </div>
-      <ul className="text-xs font-medium text-[#000F27]">
+      <ul>
         <li>10+ Years of average mentor experience.</li>
         <li>Access to live Q&A, workshops, and 1-on-1 sessions.</li>
       </ul>
