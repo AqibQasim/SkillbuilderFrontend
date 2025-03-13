@@ -31,7 +31,8 @@ function  Showcase() {
           style={{ perspective: "1000px" }}
         >
           {/* Shape */}
-          <div className="border-shape absolute -top-48 left-0 size-12 bg-[#2A6ED4] mix-blend-overlay hidden md:block md:-top-52 lg:-top-60 xl:size-16 2xl:-top-64"></div>
+          <div className="border-shape absolute -top-48 left-0 size-12 bg-[#2A6ED4] mix-blend-overlay hidden md:block
+           md:-top-52 lg:-top-60 xl:size-16 2xl:-top-64"></div>
           {/* Shape2 */}
           <div className="shape-2 absolute -left-[5.6rem] -top-[4.1rem] bg-[#F3F7FA]">
             <div className="sector !size-52"></div>
