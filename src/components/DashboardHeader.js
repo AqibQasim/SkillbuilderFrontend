@@ -64,7 +64,7 @@ function DashboardHeader() {
 
   useEffect(() => {
     if (paymentMethodAvailable) {
-      router.push('/course-upload');
+      router.push('/live-courses');
     } 
   }, [paymentMethodAvailable]);
 
@@ -85,7 +85,7 @@ function DashboardHeader() {
             onClick={handleUploadCourseClick}
             className="hidden md:block"
           >
-            Upload course +
+            Live Course +
           </Button>
       <User />
         </>

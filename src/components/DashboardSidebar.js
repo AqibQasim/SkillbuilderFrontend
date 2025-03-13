@@ -7,6 +7,7 @@ import ClipboardSvg from "./ClipboardSvg";
 import WalletSvg from "./WalletSvg";
 import { useRouter } from "next/router";
 import Image from "next/image";
+import InstructorSvg from "./instructorSvg";
 
 const links = [
   { href: "/dashboard", icon: <MenuSvg />, name: "Overview" },
@@ -14,6 +15,11 @@ const links = [
     href: "/dashboard/instructor-courses",
     icon: <CourseSvg />,
     name: "Courses",
+  },
+  {
+    href: "/dashboard/live-courses",
+    icon:  <InstructorSvg/>,
+    name: "Live Courses",
   },
   { href: "/dashboard/students", icon: <PersonSvg />, name: "Students" },
   {
