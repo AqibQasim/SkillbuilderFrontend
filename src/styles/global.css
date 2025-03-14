@@ -59,8 +59,8 @@ body {
   background-color: rgba(255, 255, 255, 0.3);
   width: max-content !important;
   max-width: 25rem;
-  border-radius: 1.25rem;
-  padding: 1rem;
+  border-radius: 1rem;
+  padding: 0.75rem;
   box-shadow: inset 0 0 0 2px #f6ebeb;
   backdrop-filter: blur(5px);
 }
@@ -69,14 +69,14 @@ body {
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  gap: 0.5rem;
-  margin-bottom: 0.5rem;
+  gap: 0.375rem;
+  margin-bottom: 0.375rem;
 }
 
 .globe-instructor-details > :first-child > :first-child > :first-child {
   position: relative;
-  height: 3rem;
-  width: 3rem;
+  height: 2.75rem;
+  width: 2.75rem;
   border-radius: 9999px;
   background-color: #f5f5f5;
   background-image: url("/review_avatar.svg");
@@ -86,16 +86,18 @@ body {
 }
 
 .globe-instructor-details > :first-child > :first-child > :nth-child(2) h3 {
+  font-size: 0.875rem;
   font-weight: 500;
   color: #170d23;
 }
 
 .globe-instructor-details > :first-child > :first-child > :nth-child(2) p {
   color: #4a525d;
+  font-size: 0.75rem;
 }
 
 .globe-instructor-details > :first-child > ul {
-  font-size: smaller;
+  font-size: 0.625rem;
   font-weight: 500;
   color: #000f27;
 }
@@ -144,11 +146,8 @@ body {
   aspect-ratio: 1;
   border-radius: 50%;
   background: #514b82;
-  -webkit-mask: repeating-conic-gradient(
-      #0000 0deg,
-      #000 1deg 70deg,
-      #0000 71deg 90deg
-    ),
+  -webkit-mask:
+    repeating-conic-gradient(#0000 0deg, #000 1deg 70deg, #0000 71deg 90deg),
     radial-gradient(
       farthest-side,
       #0000 calc(100% - var(--b) - 1px),
@@ -174,10 +173,8 @@ iframe {
   --r: 0.875rem; /* the radius */
   --s: 3.5rem; /* the size of the corner*/
   border-radius: var(--r);
-  --_m: /calc(2 * var(--r)) calc(2 * var(--r)) radial-gradient(
-      #000 70%,
-      #0000 72%
-    ) no-repeat;
+  --_m: /calc(2 * var(--r)) calc(2 * var(--r))
+    radial-gradient(#000 70%, #0000 72%) no-repeat;
   mask:
     right 0 bottom calc(var(--s) + var(--r)) var(--_m),
     right calc(var(--s) + var(--r)) bottom 0 var(--_m),
@@ -258,8 +255,7 @@ iframe {
 
 .logos3 {
   display: flex;
-  animation: scroll 60s linear infinite ;
-  
+  animation: scroll 60s linear infinite;
 }
 
 @media (max-width: 1536px) {
