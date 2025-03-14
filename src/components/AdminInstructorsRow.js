@@ -17,6 +17,7 @@ function AdminInstructorsRow({ isSpecific, instructor }) {
     live_session_rights: instructor.user.live_session_rights,
     career_counselling_rights: instructor.user.career_counselling_rights,
   });
+  const token= localStorage.getItem('adminToken')
 
   const changePermission = async (key, value) => {
     // Update state
@@ -34,12 +35,16 @@ function AdminInstructorsRow({ isSpecific, instructor }) {
       `${process.env.NEXT_PUBLIC_BASE_API}/update-instructor-rights`,
       {
         method: "PATCH",
-        body: {
-          instructor_id: id,
-          rights: JSON.stringify({
-            ...permissions,
-          }),
+        headers:{
+          "Content-Type": "application/json",
+          authorization:`Bearer ${token}`
         },
+        body: JSON.stringify({
+          instructor_id: id,
+          rights: {
+            [key]:value
+          },
+        }),
       },
     );
 

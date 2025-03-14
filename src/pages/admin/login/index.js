@@ -7,21 +7,35 @@ const AdminLogin = () => {
   const [password, setPassword] = useState("");
   const router = useRouter();
 
-  const handleLogin = (e) => {
-    e.preventDefault();
+ 
+  const handleLogin = async (event) => {
+    event.preventDefault(); 
 
-    // Static credentials for admin login
-    const adminUsername = "admin";
-    const adminPassword = "password123";
-
-    if (username === adminUsername && password === adminPassword) {
-      // Store the login state in localStorage
-      localStorage.setItem("adminAuth", "true");
-      router.push("/admin");
-    } else {
-      alert("Invalid credentials");
+    try {
+        const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/admin-login`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ username, password }),
+        });
+        const data = await response.json();
+        if (response.ok && response.status===200  ) { //resolve bug: admin was not navigatiing to its dashboard
+            console.log('Login Successful:', data.message);
+            localStorage.setItem('adminToken', data.data.token);
+            localStorage.setItem('admin', JSON.stringify(data.data.admin));
+            localStorage.setItem("adminAuth", "true");
+            alert('Login Successful!');
+             router.push("/admin"); 
+        } else {
+            console.error('Login Failed:', data.message);
+            alert(data.message);
+        }
+    } catch (error) {
+        console.error('Error:', error);
+        alert('Invalid credentials.Please try again.');
     }
-  };
+};
 
   return (
     <div className="flex min-h-screen flex-col items-center justify-center bg-gray-100">
