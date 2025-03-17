@@ -3,7 +3,7 @@ function ButtonWithIcon({ className, text, type, onClick }) {
     <button
     type={type}
     onClick={onClick}
-      className={`${className} button relative flex items-center justify-center gap-2 rounded-[2.5rem] bg-gradient-to-br from-[#6B73FF] to-[#000DFF] py-1.5 pl-5 pr-1.5 font-medium text-white`}
+      className={`${className} button relative flex items-center justify-between gap-2 rounded-[2.5rem] bg-gradient-to-br from-[#6B73FF] to-[#000DFF] py-1.5 pl-5 pr-1.5 font-medium text-white`}
     >
       {text}
       <span className="icon flex h-[34px] w-[38px] items-center justify-center rounded-[9.375rem] bg-white">

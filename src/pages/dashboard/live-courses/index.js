@@ -16,10 +16,10 @@ const LiveCourses = () => {
     description: "",
     timeOptions: "",
     videoConf: "",
-    level: "Intermediate",
+    level: "",
     price: "",
     discount: "",
-    category: " Others",
+    category: "Others",
 
     media: [],
   });
