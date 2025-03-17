@@ -6,11 +6,11 @@ import { FiTrash2 } from "react-icons/fi";
 import CourseCatagories from "@/components/CourseCatagories";
 import Link from "next/link";
 import LiveCoursePopup from "@/components/LiveCoursePopup";
+import { instructor } from "@/data/getInstructorById";
 
 const LiveCourses = () => {
   const [currentStep, setCurrentStep] = useState(1);
   const [formData, setFormData] = useState({
-    // Step 1 Data
     title: "",
     description: "",
     timeOptions: "",
@@ -20,7 +20,6 @@ const LiveCourses = () => {
     discount: "",
     category: "Others",
 
-    //step 2 Data
     media: [],
   });
 
@@ -34,7 +33,6 @@ const LiveCourses = () => {
     return effectiveAmount > 0 ? (effectiveAmount * 0.8).toFixed(2) : "0.00";
   }, [formData.price, formData.discount]);
 
-  const [learningOutcomes, setLearningOutcomes] = useState([""]);
   const categories = [
     "Development",
     "Testing",
@@ -43,37 +41,40 @@ const LiveCourses = () => {
     "Design",
     "Others",
   ];
-  const [modules, setModules] = useState([]);
 
+  const [learningOutcomes, setLearningOutcomes] = useState([]);
+  const [modules, setModules] = useState([]);
+  
+
+  const [learningOutcomeInput, setLearningOutcomeInput] = useState({
+    outcome: "",
+  });
   const [moduleInput, setModuleInput] = useState({
     modTitle: "",
     modDescription: "",
   });
 
-  const addOutcomeField = () => {
 
-    const outcome = learningOutcomes[learningOutcomes.length - 1];
-    if (!outcome ) {
-      return
-    }
 
-    setLearningOutcomes([...learningOutcomes, ""]);
-  };
 
-  const handleOutcomeChange = (index, value) => {
-    const updatedOutcomes = [...learningOutcomes];
-    updatedOutcomes[index] = value;
-    setLearningOutcomes(updatedOutcomes);
-  };
+ 
+
+  
 
   const handleAddModule = () => {
     if (!moduleInput.modTitle || !moduleInput.modDescription) return;
 
-    // Append the new module from moduleInput to the modules array
     setModules((prevModules) => [...prevModules, moduleInput]);
 
-    // Reset the module input fields
     setModuleInput({ modTitle: "", modDescription: "" });
+  };
+
+  const handleAddOutcome = () => {
+    if (!learningOutcomeInput.outcome) return;
+
+    setLearningOutcomes((prevOutcomes) => [...prevOutcomes, learningOutcomeInput]);
+
+    setLearningOutcomeInput({ outcome: "" });
   };
 
   const handleFileUpload = (type, file) => {
@@ -112,9 +113,7 @@ const LiveCourses = () => {
     }, 2000);
   };
 
-  const removeOutcomeField = (index) => {
-    setLearningOutcomes(learningOutcomes.filter((_, i) => i !== index));
-  };
+ 
   const handleRemoveFile = (fileName) => {
     setFormData((prev) => ({
       ...prev,
@@ -126,6 +125,49 @@ const LiveCourses = () => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
+
+
+
+  async function createLiveCourse() {
+    try {
+     
+      const instructor = localStorage.getItem("profile");
+      const instructor_id = JSON.parse(instructor).id;
+      // console.log("Instructor ID: ", instructor_id);
+     
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_BASE_API}/create-live-session-course`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            instructor_id: instructor_id,
+            title: formData.title,
+            description: formData.description,
+            timeOptions: formData.timeOptions,
+            videoConf: formData.videoConf,
+            level: formData.level,
+            amount: formData.price,
+            discount: formData.discount,
+            category: formData.category,
+            modules: modules,
+            learning_outcomes:  learningOutcomes,
+            modulesCount: modules.length,
+            video_url: 'https://www.youtube.com/watch?v=Vg27c5gxvtc'
+          }),
+        },
+      );
+      const data = await response.json();
+      // console.log("Data from create live course: ", data);
+      return data;
+    } catch (error) {
+      console.log("Error occured: ", error);
+    }
+  }
+
+
 
   return (
     <DashboardLayout>
@@ -294,8 +336,7 @@ const LiveCourses = () => {
                 />
               </div>
             </div>
-            <div></div>
-            {/* Add Modules Section */}
+           
             <div className="mb-6">
               <h2 className="pb-1 text-xl font-medium capitalize">
                 Add Modules
@@ -334,7 +375,9 @@ const LiveCourses = () => {
                   placeholder="Description."
                 />
               </div>
+                  <h1 className="mb-2 block text-sm font-medium text-gray-shade-1">Modules Added: {modules.length}</h1>
             </div>
+            
 
             <div className="mr-auto">
               <button
@@ -371,49 +414,86 @@ const LiveCourses = () => {
                 </div>
               ))}
             </div>
-            <div className="mr-auto">
-              <label
-                htmlFor="learning"
-                className="text-md mb-4 block font-semibold text-gray-700"
-              >
-                Course Outcomes
-              </label>
-              {learningOutcomes.map((outcome, index) => (
-                <div key={index} className="mb-2 flex space-x-2">
-                  <input
-                    type="text"
-                    value={outcome}
-                    onChange={(e) => handleOutcomeChange(index, e.target.value)}
-                    className="w-full rounded-md border bg-gray-200 p-2"
-                    placeholder={`Outcome ${index + 1}`}
-                    required
-                    minLength={30}
-                  />
-                  {index > 0 && (
-                    <button
-                      type="button"
-                      onClick={() => removeOutcomeField(index)}
-                      className="rounded-md bg-red-500 px-3 py-1 text-white hover:bg-red-600"
-                    >
-                      Remove
-                    </button>
-                  )}
-                </div>
-              ))}
 
+{/* Learning Outcomes */}
+            <div className="mb-6">
+              <h2 className="pb-1 text-xl font-medium capitalize">
+                Learning Outcomes
+              </h2>
+
+              <div className="mb-6">
+                <label className="mb-2 block text-sm font-medium text-gray-700">
+                  Learning Outcome  
+                </label>
+                <input
+                  type="text"
+                  name="outcome"
+                  value={learningOutcomeInput.outcome}
+                  onChange={(e) =>
+                    setLearningOutcomeInput({ ...learningOutcomeInput, outcome: e.target.value })
+                  }
+                  className="w-full rounded-md border bg-gray-200 p-2"
+                  placeholder="Outcome"
+                />
+              </div>
+
+              
+                  <h1 className="mb-2 block text-sm font-medium text-gray-shade-1">Outcomes Added: {learningOutcomes.length}</h1>
+            </div>
+            
+
+            <div className="mr-auto">
               <button
-                onClick={addOutcomeField}
+                onClick={handleAddOutcome}
                 className="rounded text-blue-600 hover:underline"
               >
-                Add Outcomes +
+                Add Outcome +
               </button>
             </div>
 
+            <div className="mb-6">
+              {learningOutcomes.length > 0 && (
+                <h3 className="text-lg font-semibold">Outcomes Added:</h3>
+              )}
+              {learningOutcomes.map((outcome, index) => (
+                <div
+                  key={index}
+                  className="my-2 rounded-md border bg-gray-50 p-3"
+                >
+                  <div className="flex justify-between">
+                    <h4 className="font-medium text-gray-800">
+                      {index + 1}. {outcome.outcome}
+                    </h4>
+                    <FiTrash2
+                      onClick={() =>
+                        setLearningOutcomes((prev) => prev.filter((_, i) => i !== index))
+                      }
+                    />
+                  </div>
+
+                 
+                </div>
+              ))}
+            </div>
+
+
+
+            
             <div className="flex gap-4">
               <button className="rounded px-4 py-2 text-gray-600 hover:bg-gray-50">
                 Cancel
               </button>
-              <Button className="ml-auto" onClick={() => setCurrentStep(2)}>
+              <Button className="ml-auto" onClick={() => {
+              if(!formData.title || !formData.description || !formData.timeOptions || !formData.videoConf || !formData.price || !formData.discount || !formData.category || modules.length < 1 || learningOutcomes.length < 1){ 
+                  alert("Please fill all the fields")
+                  return
+                
+                }
+                else{
+                  setCurrentStep(2)
+                }
+                
+                }}>
                 Continue
               </Button>
             </div>
@@ -603,7 +683,10 @@ const LiveCourses = () => {
               >
                 Back
               </button>
-              <Button onClick={() => setShowPopup(true)}>Submit</Button>
+              <Button onClick={() => {
+                createLiveCourse()
+                // setShowPopup(true)
+              }}>Submit</Button>
             </div>
           </div>
         )}
