@@ -7,6 +7,7 @@ import CourseCatagories from "@/components/CourseCatagories";
 import Link from "next/link";
 import LiveCoursePopup from "@/components/LiveCoursePopup";
 import { instructor } from "@/data/getInstructorById";
+import { useSelector } from "react-redux";
 
 const LiveCourses = () => {
   const [currentStep, setCurrentStep] = useState(1);
@@ -126,14 +127,18 @@ const LiveCourses = () => {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-
+  const instructorId = useSelector(
+    (state) => state.instructorByUserId.instructorByUserId.id,
+  );
 
   async function createLiveCourse() {
     try {
      
       const instructor = localStorage.getItem("profile");
-      const instructor_id = JSON.parse(instructor).id;
+      // const instructor_id = JSON.parse(instructor).id;
       // console.log("Instructor ID: ", instructor_id);
+     
+      
      
       const response = await fetch(
         `${process.env.NEXT_PUBLIC_BASE_API}/create-live-session-course`,
@@ -143,7 +148,7 @@ const LiveCourses = () => {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
-            instructor_id: instructor_id,
+            instructor_id: instructorId,
             title: formData.title,
             description: formData.description,
             timeOptions: formData.timeOptions,
