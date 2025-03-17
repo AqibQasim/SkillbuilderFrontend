@@ -574,11 +574,30 @@ const LiveCourses = () => {
                 Cancel
               </button>
               <Button className="ml-auto" onClick={() => {
-              if(!formData.title || !formData.description || !formData.timeOptions || !formData.videoConf || !formData.price || !formData.discount || !formData.category || modules.length < 1 || learningOutcomes.length < 1){ 
+              if(!formData.title || !formData.description || !formData.timeOptions || !formData.videoConf || !formData.price || !formData.category || modules.length < 1 || learningOutcomes.length < 1){ 
                   alert("Please fill all the fields")
                   return
                 
                 }
+                else if(formData.price < 0 ){
+                  alert("Price cannot be negative")
+                  return
+                }
+                else if(formData.discount > formData.price ){
+                  alert("Discount cannot be greater than price")
+                  return
+
+                }
+                else if(formData.discount < 0 ){
+                  alert("Discount cannot be negative")
+                  return
+
+                }
+                else if(formData.timeOptions < 0 ){
+                  alert("Enter valid hours")
+                  return
+                }
+                
 
                 else{
                   setCurrentStep(2)
