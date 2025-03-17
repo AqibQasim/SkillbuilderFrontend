@@ -19,10 +19,12 @@ const LiveCourses = () => {
     level: "Intermediate",
     price: "",
     discount: "",
-    category: "Others",
+    category: " Others",
 
     media: [],
   });
+
+  
 
   const thumbnailInputRef = useRef(null);
   const videoInputRef = useRef(null);
@@ -34,14 +36,12 @@ const LiveCourses = () => {
     return effectiveAmount > 0 ? (effectiveAmount * 0.8).toFixed(2) : "0.00";
   }, [formData.price, formData.discount]);
 
-  const categories = [
-    "Development",
-    "Testing",
-    "Business",
-    "Marketing",
-    "Design",
-    "Others",
-  ];
+  const [moduleVideoUploading, setModuleVideoUploading] = useState({
+    loading: false,
+    failed: false,
+  });
+
+
 
   const [learningOutcomes, setLearningOutcomes] = useState([]);
   const [modules, setModules] = useState([]);
@@ -51,9 +51,86 @@ const LiveCourses = () => {
     outcome: "",
   });
   const [moduleInput, setModuleInput] = useState({
-    modTitle: "",
-    modDescription: "",
+    title: "",
+    description: "",
   });
+
+
+  const uploadVideoHandler = async (selectedVideo) => {
+    if (!selectedVideo) return;
+    setModuleVideoUploading((prevState) => ({
+      ...prevState,
+      loading: true,
+      failed: false,
+    }));
+    const formData = new FormData();
+    formData.append("video", selectedVideo);
+    try {
+      const response = await fetch("/api/upload-video", {
+        method: "POST",
+        body: formData,
+      });
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || "Unable to post video");
+      }
+      const data = await response.json();
+      if (data.uri) {
+        const videoId = data.uri.split("/").pop();
+        setModuleVideoUploading((prevState) => ({
+          ...prevState,
+          loading: false,
+          failed: false,
+        }));
+        return videoId;
+      } else {
+        throw new Error("Failed to get video URI from response");
+      }
+    } catch (error) {
+      setIsLoading(false);
+      setModuleVideoUploading((prevState) => ({
+        ...prevState,
+        loading: false,
+        failed: true,
+      }));
+      selectedVideo.failed = true;
+      console.error("Failed to upload video", error.message);
+      alert.error("Failed to upload video");
+    }
+  };
+
+
+  const [videoId , setVideoId] = useState(null)
+
+  const uploadVideo = async () => {
+    const videoFile = formData.media.find(
+      (file) => file.type === "video",
+    )?.file;
+    if (!videoFile) {
+      alert("Please Select Introductory Video To Upload");
+      return;
+
+    }
+    
+      setVideoId(await uploadVideoHandler(videoFile));
+      setCurrentStep(3);
+      
+
+  
+    
+
+    // if (videoId) {
+    //   alert(`Video uploaded successfully with ID: ${videoId}`);
+    // } else {
+    //   alert("Video upload failed");
+    // }
+    // alert("uploading");
+  };
+
+
+
+
+
 
 
 
@@ -63,11 +140,11 @@ const LiveCourses = () => {
   
 
   const handleAddModule = () => {
-    if (!moduleInput.modTitle || !moduleInput.modDescription) return;
+    if (!moduleInput.title || !moduleInput.description) return;
 
     setModules((prevModules) => [...prevModules, moduleInput]);
 
-    setModuleInput({ modTitle: "", modDescription: "" });
+    setModuleInput({ title: "", description: "" });
   };
 
   const handleAddOutcome = () => {
@@ -133,10 +210,18 @@ const LiveCourses = () => {
 
   async function createLiveCourse() {
     try {
+
+      // if(videoId === null){
+      //   alert("Please upload introductory video")
+      //   return
+      // }
      
       const instructor = localStorage.getItem("profile");
       // const instructor_id = JSON.parse(instructor).id;
       // console.log("Instructor ID: ", instructor_id);
+
+     
+      const outcomes = learningOutcomes.map((outcome) => outcome.outcome);
      
       
      
@@ -158,9 +243,9 @@ const LiveCourses = () => {
             discount: formData.discount,
             category: formData.category,
             modules: modules,
-            learning_outcomes:  learningOutcomes,
+            learning_outcomes:  outcomes,
             modulesCount: modules.length,
-            video_url: 'https://www.youtube.com/watch?v=Vg27c5gxvtc'
+            video_url: videoId,
           }),
         },
       );
@@ -354,9 +439,9 @@ const LiveCourses = () => {
                 <input
                   type="text"
                   name="modTitle"
-                  value={moduleInput.modTitle}
+                  value={moduleInput.title}
                   onChange={(e) =>
-                    setModuleInput({ ...moduleInput, modTitle: e.target.value })
+                    setModuleInput({ ...moduleInput, title: e.target.value })
                   }
                   className="w-full rounded-md border bg-gray-200 p-2"
                   placeholder="Introduction to Product Design"
@@ -369,11 +454,11 @@ const LiveCourses = () => {
                 </label>
                 <textarea
                   name="modDescription"
-                  value={moduleInput.modDescription}
+                  value={moduleInput.description}
                   onChange={(e) =>
                     setModuleInput({
                       ...moduleInput,
-                      modDescription: e.target.value,
+                      description: e.target.value,
                     })
                   }
                   className="h-32 w-full rounded-md border bg-gray-200 p-2"
@@ -404,7 +489,7 @@ const LiveCourses = () => {
                 >
                   <div className="flex justify-between">
                     <h4 className="font-medium text-gray-800">
-                      {index + 1}. {mod.modTitle}
+                      {index + 1}. {mod.title}
                     </h4>
                     <FiTrash2
                       onClick={() =>
@@ -414,7 +499,7 @@ const LiveCourses = () => {
                   </div>
 
                   <p className="mt-1 text-sm text-gray-600">
-                    {mod.modDescription}
+                    {mod.description}
                   </p>
                 </div>
               ))}
@@ -494,6 +579,7 @@ const LiveCourses = () => {
                   return
                 
                 }
+
                 else{
                   setCurrentStep(2)
                 }
@@ -654,7 +740,11 @@ const LiveCourses = () => {
                 Back
               </button>
               <div className="ml-auto flex gap-4">
-                <Button onClick={() => setCurrentStep(3)}>Continue</Button>
+                <Button
+                className={`${moduleVideoUploading.loading ? "bg-gray-400" : ""}`}
+                disabled={moduleVideoUploading.loading}
+                onClick={() => uploadVideo()
+                }>Continue</Button>
               </div>
             </div>
           </div>
@@ -689,8 +779,10 @@ const LiveCourses = () => {
                 Back
               </button>
               <Button onClick={() => {
-                createLiveCourse()
-                // setShowPopup(true)
+
+                 createLiveCourse().then((data) => {
+                  setShowPopup(true)
+                 })
               }}>Submit</Button>
             </div>
           </div>

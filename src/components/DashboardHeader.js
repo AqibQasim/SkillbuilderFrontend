@@ -64,7 +64,7 @@ function DashboardHeader() {
 
   useEffect(() => {
     if (paymentMethodAvailable) {
-      router.push('/live-courses');
+      router.push('/dashboard/live-courses');
     } 
   }, [paymentMethodAvailable]);
 
