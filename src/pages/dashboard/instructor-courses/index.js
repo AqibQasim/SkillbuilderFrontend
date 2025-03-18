@@ -4,7 +4,6 @@ import withAuth from "@/components/WithAuth";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchCoursesByInstructorId } from "../../../../redux/thunks/instructorCoursesThunk";
-import { fetchOneInstructor } from "../../../../redux/thunks/instructorThunk";
 import Loader from "@/components/Loader";
 import { fetchInstructorByUserId } from "../../../../redux/thunks/InstructorByUserIdThunk";
 

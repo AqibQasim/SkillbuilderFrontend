@@ -75,9 +75,9 @@ function Dashboard() {
 
   return (
     <DashboardLayout>
-      <div className="flex size-full flex-col">
+      <div className="flex size-full flex-col ">
         {/* <InstructorCourseTable courses={courses} courseStatus="pending" /> */}
-        <div className="pending-courses">
+        <div className="pending-courses m-auto">
           <InstructorPendingCourseTable
             emptyStateClasses="!size-[unset] !block"
             courses={pendingCourses}

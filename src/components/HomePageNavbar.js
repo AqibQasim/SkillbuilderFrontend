@@ -96,7 +96,7 @@ function HomePageNavbar({ className }) {
       <SmallScreenButton className="z-[9999]" menu={menu} setMenu={setMenu} />
       {menu ? <SmallScreenMenu className="z-[9998]" /> : null}
 
-      <SmallScreenSearch className="col-start-1 col-end-3 xlg:hidden" />
+      {/* <SmallScreenSearch className=" h-0  xlg:hidden" /> */}
     </nav>
   );
 }
