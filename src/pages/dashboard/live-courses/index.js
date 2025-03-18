@@ -8,6 +8,7 @@ import Link from "next/link";
 import LiveCoursePopup from "@/components/LiveCoursePopup";
 import { instructor } from "@/data/getInstructorById";
 import { useSelector } from "react-redux";
+import { parse } from "path";
 
 const LiveCourses = () => {
   const [currentStep, setCurrentStep] = useState(1);
@@ -17,8 +18,8 @@ const LiveCourses = () => {
     timeOptions: "",
     videoConf: "",
     level: "",
-    price: "",
-    discount: "",
+    price: 0,
+    discount: 0,
     category: "Others",
 
     media: [],
@@ -574,6 +575,10 @@ const LiveCourses = () => {
                 Cancel
               </button>
               <Button className="ml-auto" onClick={() => {
+                let price = parseInt(formData.price);
+                
+                let discount = parseInt(formData.discount);
+
               if(!formData.title || !formData.description || !formData.timeOptions || !formData.videoConf || !formData.price || !formData.category || modules.length < 1 || learningOutcomes.length < 1){ 
                   alert("Please fill all the fields")
                   return
@@ -583,8 +588,10 @@ const LiveCourses = () => {
                   alert("Price cannot be negative")
                   return
                 }
-                else if(formData.discount > formData.price ){
-                  alert("Discount cannot be greater than price")
+                
+                else if(discount > price ){
+
+                  alert(`Discount cannot be greater than price ${price} ${discount}`)
                   return
 
                 }

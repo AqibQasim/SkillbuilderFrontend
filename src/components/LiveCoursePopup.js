@@ -137,7 +137,7 @@ const LiveCoursePopup = ( {title,price, timeOptions,videoConf}  ) => {
 
                <ButtonWithIcon 
                onClick={() => alert("View All Sessions clicked clicked")}
-               text="View All Sessions clicked" className="text-nowrap w-[65%]" />
+               text="View All Sessions" className="text-nowrap w-[65%]" />
               {/* <Button 
               className='w-[62%]'
               onClick={() => alert("")}>
