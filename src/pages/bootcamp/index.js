@@ -16,7 +16,7 @@ const Bootcamp = () => {
   const router = useRouter();
   const dispatch = useDispatch();
   const [selectedFilter, setSelectedFilter] = useState(null);
-  const [selectedCategory, setSelectedCategory] = useState("development");
+  const [selectedCategory, setSelectedCategory] = useState("Others");
 
   const liveSessionCourses = useSelector(
     (state) => state.liveSessionCourses.liveSessionCourses,
@@ -40,20 +40,23 @@ const Bootcamp = () => {
 
   let filteredCourses = liveSessionCourses;
 
-  if (selectedFilter || selectedCategory) {
+  if (selectedCategory) {
+    console.log('sadlif', liveSessionCourses);
+    console.log('Zaman ', liveSessionCourses?.category?.toLowerCase());
+    console.log('Ahmed ', selectedCategory?.toLowerCase());
     filteredCourses = liveSessionCourses?.filter((c) =>
-      selectedCategory ? c?.category === selectedCategory : true,
+      selectedCategory ? c?.category?.toLowerCase() === selectedCategory?.toLowerCase() : true,
     );
 
-    if (selectedFilter?.toLowerCase() === "low to high") {
-      filteredCourses = filteredCourses?.sort(
-        (a, b) => a?.amount - a?.discount - (b?.amount - b?.discount),
-      );
-    } else if (selectedFilter?.toLowerCase() === "high to low") {
-      filteredCourses = filteredCourses?.sort(
-        (a, b) => b?.amount - b?.discount - (a?.amount - a?.discount),
-      );
-    }
+    // if (selectedFilter?.toLowerCase() === "low to high") {
+    //   filteredCourses = filteredCourses?.sort(
+    //     (a, b) => a?.amount - a?.discount - (b?.amount - b?.discount),
+    //   );
+    // } else if (selectedFilter?.toLowerCase() === "high to low") {
+    //   filteredCourses = filteredCourses?.sort(
+    //     (a, b) => b?.amount - b?.discount - (a?.amount - a?.discount),
+    //   );
+    // }
   }
 
   useEffect(() => {
