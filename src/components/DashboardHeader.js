@@ -17,7 +17,7 @@ function DashboardHeader() {
   );
   const [paymentMethodAvailable, setPaymentMethodAvailable] = useState(false);
 
-  const fetchPaymentDetails = async () => {
+  const fetchPaymentDetails = async (btn) => {
     try {
       console.log(instructorId);
       const response = await fetch(
@@ -46,6 +46,7 @@ function DashboardHeader() {
           setPaymentMethodAvailable(true);
         } else {
           alert("Please Add payment method first.");
+          
           router.push('/dashboard/payments');
         }
       } else {
@@ -58,15 +59,28 @@ function DashboardHeader() {
     }
   };
 
-  const handleUploadCourseClick = async () => {
+  const handleLiveUploadCourseClick = async () => {
     await fetchPaymentDetails();
+    if(paymentMethodAvailable){
+      router.push('/dashboard/live-courses');
+    }
+
   };
 
-  useEffect(() => {
-    if (paymentMethodAvailable) {
-      router.push('/dashboard/live-courses');
-    } 
-  }, [paymentMethodAvailable]);
+  const handleUploadCourseClick = async () => {
+    await fetchPaymentDetails();
+    if(paymentMethodAvailable){
+      router.push('/course-upload');
+    }
+    
+  };
+
+  // useEffect(() => {
+  //   if (paymentMethodAvailable ) {
+
+  //     router.push('/dashboard/live-courses');
+  //   } 
+  // }, [paymentMethodAvailable]);
 
   return (
     <header className="flex h-[75px] w-full items-center justify-end gap-6 border-b border-dashboard-border px-5">
@@ -83,6 +97,13 @@ function DashboardHeader() {
           </Button>
           <Button
             onClick={handleUploadCourseClick}
+            fill="fill"
+            className=""
+          >
+            Upload Course +
+          </Button>
+          <Button
+            onClick={handleLiveUploadCourseClick}
             className="hidden md:block"
           >
             Live Course +
