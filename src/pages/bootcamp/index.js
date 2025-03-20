@@ -15,19 +15,10 @@ import { getAllLiveSessionCourses } from "../../../redux/thunks/liveSessionCours
 const Bootcamp = () => {
   const router = useRouter();
   const dispatch = useDispatch();
-  const [selectedFilter, setSelectedFilter] = useState(null);
-  const [selectedCategory, setSelectedCategory] = useState("Others");
+  const [selectedCategory, setSelectedCategory] = useState(null);
 
   const liveSessionCourses = useSelector(
     (state) => state.liveSessionCourses.liveSessionCourses,
-  );
-
-  const { user, isInstLoading } = useSelector(
-    (state) => state.singleInstructor || { user: {}, isInstLoading: true },
-  );
-
-  const { reviewsData: reviews, isReviewsLoading } = useSelector(
-    (state) => state.allReviews || { reviewsData: [], isReviewsLoading: true },
   );
 
   const courses = useSelector((state) => state.cart.items);
@@ -47,16 +38,6 @@ const Bootcamp = () => {
     filteredCourses = liveSessionCourses?.filter((c) =>
       selectedCategory ? c?.category?.toLowerCase() === selectedCategory?.toLowerCase() : true,
     );
-
-    // if (selectedFilter?.toLowerCase() === "low to high") {
-    //   filteredCourses = filteredCourses?.sort(
-    //     (a, b) => a?.amount - a?.discount - (b?.amount - b?.discount),
-    //   );
-    // } else if (selectedFilter?.toLowerCase() === "high to low") {
-    //   filteredCourses = filteredCourses?.sort(
-    //     (a, b) => b?.amount - b?.discount - (a?.amount - a?.discount),
-    //   );
-    // }
   }
 
   useEffect(() => {

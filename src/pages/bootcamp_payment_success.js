@@ -43,7 +43,7 @@ const   BootcampPaymentSuccess = () => {
   }
 
   useEffect(() => {
-    if (router.isReady && student_id && course_id) {
+    if (student_id && course_id) {
       addCounseling();
     }
   }, [router?.isReady, student_id, course_id]);

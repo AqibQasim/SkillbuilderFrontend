@@ -37,18 +37,6 @@ export default function BootcampSection({ course }) {
             <span className="text-md font-semibold">{course?.rating || 0}</span>
             <div className="flex text-yellow-400">
               <StarRating rating={course?.rating || 0} />
-              {/* Star Rating */}
-              {/* {Array.from({ length: 5 }).map((_, i) => (
-                  <svg
-                    key={i}
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="currentColor"
-                    viewBox="0 0 24 24"
-                    className="h-4 w-4"
-                  >
-                    <path d="M12 2.25l2.788 8.568h9.012L16.9 15.307l3.374 9.443-7.274-5.239-7.274 5.239 3.374-9.443L.2 10.818h9.012L12 2.25z" />
-                  </svg>
-                ))} */}
             </div>
           </div>
 
@@ -64,27 +52,6 @@ export default function BootcampSection({ course }) {
             60% Live Instructor-led online training, 40% On-demand flexible
             learning <span className="font-normal">(Best of both worlds!)</span>
           </p>
-         
-          {/* Features Section */}
-          {/* <div className="mb-8 grid grid-cols-1 gap-4 sm:grid-cols-2"> */}
-            {/* <div className="flex items-center gap-3 rounded-lg bg-white p-4 shadow-lg">
-              <span className="rounded-full bg-blue-100 p-3 text-blue-500">
-                🔑
-              </span>
-              <p className="font-small text-gray-800">
-                Master in-demand skills with expert guidance
-              </p>
-            </div> */}
-            
-            {/* <div className="flex items-center gap-3 rounded-5xl bg-white p-4 shadow-lg">
-              <span className="rounded-full bg-blue-100 p-3 text-blue-500">
-                🎯
-              </span>
-              <p className="font-small text-gray-800">
-                Transform learning experiences for career success
-              </p>
-            </div>
-          </div> */}
           {/* Enroll Now Button */}
           {/* <div>{course?.amount - course?.discount}</div> */}
           <div className="my-4 flex gap-4">
@@ -120,7 +87,7 @@ export default function BootcampSection({ course }) {
               name="course_description"
               value={course?.description}
             />
-            <input type="hidden" name="amount" value={course?.amount} />
+            <input type="hidden" name="amount" value={course?.amount-course?.discount} />
             <input type="hidden" name="student_id" value={userId} />
             <input type="hidden" name="course_id" value={course?.id} />
 

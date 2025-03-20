@@ -109,7 +109,7 @@ export function ExploreCoursesCard({ className, course }) {
             </span>
             <span className="text-sm font-semibold text-blue">
               {" "}
-              {`$${course?.amount - course?.discount}.00` || `$49.00`}{" "}
+              {`$${course?.amount - course?.discount}.00` || `$50.00`}{" "}
             </span>
           </div>
         </div>
