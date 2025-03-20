@@ -22,9 +22,6 @@ const ShoppingCart = () => {
   const courses = useSelector((state) => state.cart.items);
   const id = useSelector((state) => state.singleInstructor.id);
 
-  console.log(`id in shopping cart is ${id}`);
-  console.log("length in root file:", courses?.length);
-
   useEffect(() => {
     setIsClient(true);
   }, [router?.isReady, courses]);
