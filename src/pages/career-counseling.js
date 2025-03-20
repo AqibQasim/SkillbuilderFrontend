@@ -7,6 +7,7 @@ import { useRouter } from "next/router";
 import HomepageFooter from "@/components/HomepageFooter";
 import Image from "next/image";
 import LayoutXPadding from "@/components/LayoutXPadding";
+import HomePageReviews from "@/components/HomePageReviews";
 
 const Page = () => {
   const [studentProfile, setStudentProfile] = useState(null);
@@ -61,8 +62,69 @@ const Page = () => {
      <div className="min-w-[95%] h-auto flex justify-center items-center mx-auto text-center" >
         <div className=" w-[85%] md:w-[85%] lg:min-w-[90%] h-auto border rounded-xl flex flex-col-reverse md:flex-row items-center    lg:items-start p-6 lg:p-5 bg-gray-50">
       {/* Left Section */}
-      <div className=" w-4/6 lg:w-2/5 space-y-4 text-center md:text-left">
-        <h1 className="text-3xl md:text-5xl font-semibold text-gray-900">1 to 1 Education Consultancy</h1>
+       
+        
+      <div className="  w-full relative lg:w-1/2 lg:flex justify-center mt-8 md:mt-0">
+        {/* Background Card Placeholder */}
+        <div className="absolute top-20 left-8 w-150 h-150 bg-gray-50 ">
+        <Image
+            src={"/AI-card.png"}
+            alt="man "
+            width={400}
+            height={400}
+            className="w-full h-full "
+          />
+
+        </div>
+
+        {/* Middle Card (Main Content) */}
+        <div className="absolute left-0 top-44 w-150 h-150">
+          <Image
+            src={"/invest-card.png"} // Ensure this path is correct
+            alt="Invest Card"
+            width={920}
+            height={980}
+            className="w-full h-full"
+          />
+        </div>
+
+        {/* Profile Card on Top */}
+        <div className="absolute top-7 right-[-65px] h-150 w-150 ]">
+          <Image
+            src={"/man.png"} // Ensure this path is correct
+            alt="Profile Image"
+            width={500}
+            height={500}
+            className="w-full h-full"
+          />
+          
+        </div>
+        <div className="absolute top-80 right-[80px] h-150 w-100 ]">
+          <Image
+            src={"/text.png"} // Ensure this path is correct
+            alt="Profile Image"
+            width={500}
+            height={500}
+            className="w-full h-full"
+          />
+          
+        </div>
+      </div>
+       {/* Right Section for small screens with Images */}
+      <div className=" w-4/6 lg:w-1/2 space-y-4 text-center md:text-left">
+       <div  className="flex" >
+        <h1 className="text-3xl md:text-5xl font-semibold text-gray-900">1 to 1 Education Consultancy</ h1>
+        <div className="">
+        <Image
+          src="/25$.png"
+          alt="button "
+          width={200}
+          height={200}
+          className="  hover:scale-105 "
+        />
+        </div>
+
+       </div>
         <p className="text-gray-700 text-sm mr-2px">
           Get expert career guidance personalized to your goals for just <span className="font-bold">$25 per session</span>. Book now to gain clarity and confidence in your career path!
         </p>
@@ -100,99 +162,13 @@ const Page = () => {
         </div>
       </div>
 
-      {/* Right Section for small screens with Images */}
-      <div className="hidden lg:hidden w-2/6 h-auto md:flex bg-gray-100 justify-center ">
-      {/* Background Card Placeholder */}
-      <div className="  w-750 h-750 bg-gray-50 sm:block ">
-      <Image
-          src={"/AI-card.png"}
-          alt="man "
-          width={700}
-          height={700}
-          className="w-full h-full  transform rotate-[5deg] "
-        />
-
-        </div>
-        
-      </div>
-
-      
-    <div className=" hidden  relative right-12 w-full lg:w-3/5 lg:flex bg-gray-100 justify-center mt-8 md:mt-0">
-      {/* Background Card Placeholder */}
-      <div className="absolute top-12  w-150 h-150 bg-gray-50 hidden sm:block transform rotate-[-5deg]">
-      <Image
-          src={"/AI-card.png"}
-          alt="man "
-          width={400}
-          height={400}
-          className="w-full h-full "
-        />
-
-      </div>
-
-      {/* Middle Card (Main Content) */}
-      <div className="absolute  w-150 h-150 transform rotate-[-1deg]">
-        <Image
-          src={"/invest-card.png"} // Ensure this path is correct
-          alt="Invest Card"
-          width={920}
-          height={980}
-          className="w-full h-full"
-        />
-      </div>
-
-      {/* Profile Card on Top */}
-      <div className="absolute top-7 right-[-65px] h-150 w-150 ]">
-        <Image
-          src={"/man.png"} // Ensure this path is correct
-          alt="Profile Image"
-          width={500}
-          height={500}
-          className="w-full h-full"
-        />
-        
-      </div>
-    </div>
-
-
-
          </div>
      </div>
 
-         {/* old code  */}
-      <div className="mx-auto w-[90%]">
-        <div className="mx-auto text-center">
-          <div className="mb-4 inline-block rounded-full border-2 border-solid border-black-shade-1 px-4 py-1 text-sm font-medium">
-            Career Counseling
-          </div>
-          <h2 className="mb-4 text-2xl font-bold text-gray-900 md:text-4xl">
-            Career Counselling and Guidance
-          </h2>
-          </div>
-          <div className="py-6 px-7 md:py-12 ">
-          <p className="mb-4 leading-relaxed text-gray-600">
-            Choosing a career is one of the most important decisions in a
-            student’s life. With the world becoming increasingly competitive,
-            making the right career choice can seem challenging. This is where
-            career counseling comes in to guide students by assessing their
-            strengths and interests towards suitable career paths aligned with
-            their personality and goals.
-          </p>
-          <p className="leading-relaxed text-gray-600">
-            Our career counseling services are designed to provide personalized
-            support to students throughout their journey of career exploration,
-            planning, and development.
-          </p>
-        </div>
-        <BootcampHero
-          src="/women.png"
-          title={"Empower Your Career with Expert Guidance!"}
-          subtitle={
-            "Discover the career path that aligns with your skills and aspirations. Our experts are here to help you unlock your full potential."
-          }
-          tagline={"Skillbuilder"}
-        />
-      </div>
+        
+
+
+
 
     
         <div className="mx-auto w-[95%] ">
@@ -375,7 +351,7 @@ const Page = () => {
         </div>
       </div> */}
       
-    <div class="bg-gray-50 border rounded-2xl mx-auto shadow-lg p-8 max-w-[95%] w-full flex flex-col md:flex-row items-center">
+     <div class="bg-gray-50 border rounded-2xl mx-auto shadow-lg p-8 max-w-[95%] w-full flex flex-col md:flex-row items-center">
         {/* <!-- Left Content --> */}
         <div class="md:w-1/2 space-y-4">
             <h1 class="text-3xl font-bold">Plan Your Career with <br/> <span class="text-black">Expert Guidance</span></h1>
@@ -447,52 +423,123 @@ const Page = () => {
             
         </div>
     </div>
-</div>
-<div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-6xl mx-auto w-full">
-        <div class=  "relative  bg-white py-6 rounded-lg shadow-md flex flex-col space-y-3">
-            <div class="bg-gray-200 w-16 h-16 rounded-lg"> 
-                <Image
-                src={"/icon1.png"}
-                alt="Profile Image"
-                width={100}
-                height={100}
-                className="w-full h-full"
-              /></div> 
-            <h3 class="font-bold text-lg">Guidance That Puts You First</h3>
-            <p class="text-gray-600 ">Your career path should reflect your strengths, ambitions, and interests. We take the time to understand your goals and provide insights that help you move forward with confidence.</p>
-            
-            <div className="absolute bottom-0 right-0 mt-5 w-40 h-32 "> 
-                <Image
-                src={"/calender.png"}
-                alt="Profile Image"
-                width={100}
-                height={100}
-                className="w-full h-full"
-              /></div> 
-        </div>
-        <div class="bg-white p-6 rounded-lg shadow-md flex flex-col space-y-3">
-            <div class="bg-gray-200 w-10 h-10 rounded-lg"></div> 
-            <h3 class="font-bold text-lg">Structured and Practical Career Planning</h3>
-            <p class="text-gray-600">We help you navigate key decisions, whether it's choosing the right course, university, or career path by providing a clear roadmap as per your aspirations.</p>
-        </div>
-        <div class="bg-white p-6 rounded-lg shadow-md flex flex-col space-y-3">
-            <div class="bg-gray-200 w-10 h-10 rounded-lg"></div> 
-            <h3 class="font-bold text-lg">Expert Advice from Industry Professionals</h3>
-            <p class="text-gray-600">Our team brings years of experience in education and industry, offering valuable insights that go beyond standard career advice.</p>
-        </div>
-        <div class="bg-white p-6 rounded-lg shadow-md flex flex-col space-y-3">
-            <div class="bg-gray-200 w-10 h-10 rounded-lg"></div> 
-            <h3 class="font-bold text-lg">Continuous Support for Long-Term Success</h3>
-            <p class="text-gray-600">Our commitment doesn’t end with a consultation. We ensure you have the right resources to succeed in your academic and professional journey.</p>
-        </div>
-    </div>
+     </div>
+
+
+                      <div className="w-[75%] mx-auto ">
+                  {/* Background Image */}
+                  <div className="z-0 opacity-30">
+                    <Image
+                      src={"/background.png"}
+                      alt="career-counseling Hero"
+                      width={1020}
+                      height={1080}
+                      className="h-full w-full object-cover"
+                    />
+                  </div>
+
+                  {/* Content Overlay */}
+                  <div className="relative bottom-12 mx-auto h-12 z-10 w-[60%] flex flex-col items-center justify-center  text-center  px-4">
+                    <h1 className="text-4xl font-semibold">Why Choose 1-on-1 Career Counseling with Us?</h1>
+                    <p className="mt-5 text-xs text-gray-500">
+                    Making the right career decision is important, and we’re here to guide you every step of the way. Our personalized counseling sessions help you gain clarity, make informed choices, and build a strong foundation for your future.
+                    </p>
+                  </div>
+                </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-6xl mx-auto w-[70%] md:w-[80%] xl:w-[75%] lg:w-[70%]">
+          <div class=  "relative  bg-white py-6 rounded-xl shadow-md flex flex-col space-y-3 border border-orange-shade-1">
+              <div class="bg-gray-200 w-16 h-12 rounded-lg"> 
+                  <Image
+                  src={"/icon1.png"}
+                  alt="Profile Image"
+                  width={100}
+                  height={100}
+                  className="w-full h-full"
+                /></div> 
+              <h3 class="font-bold text-lg px-6">Guidance That Puts You First</h3>
+              <p class="text-gray-600 px-6 ">Your career path should reflect your strengths, ambitions, and interests. We take the time to understand your goals and provide insights that help you move forward with confidence.</p>
+              <div className="h-20 w-full"></div>
+              <div className="absolute bottom-0 right-0 mt-5 w-40 h-28 rounded-br-lg p-1"> 
+                  <Image
+                  src={"/calender.png"}
+                  alt="Profile Image"
+                  width={100}
+                  height={100}
+                  className="w-full h-full"
+                /></div> 
+          </div>
+          <div class="relative bg-white py-6 rounded-xl shadow-md flex flex-col space-y-3 border border-orange-shade-1">
+          <div class="bg-gray-200 w-16 h-12 rounded-lg"> 
+                  <Image
+                  src={"/icon2.png"}
+                  alt="Profile Image"
+                  width={100}
+                  height={100}
+                  className="w-full h-full"
+                /></div>  
+              <h3 class="font-bold text-lg px-6">Structured and Practical Career Planning</h3>
+              <p class="text-gray-600 px-6">We help you navigate key decisions, whether it's choosing the right course, university, or career path by providing a clear roadmap as per your aspirations.</p>
+              <div className="h-20 w-full"></div>
+              <div className="absolute bottom-0 right-0 mt-5 w-40 h-28 rounded-br-lg p-1 "> 
+                  <Image
+                  src={"/calender.png"}
+                  alt="Profile Image"
+                  width={100}
+                  height={100}
+                  className="w-full h-full"
+                /></div> 
+          </div>
+          <div class="relative bg-white py-6 rounded-xl shadow-md flex flex-col space-y-3 border border-orange-shade-1">
+          <div class="bg-gray-200 w-16 h-12 rounded-lg"> 
+                  <Image
+                  src={"/icon3.png"}
+                  alt="Profile Image"
+                  width={100}
+                  height={100}
+                  className="w-full h-full"
+                /></div>  
+              <h3 class="font-bold  px-6 text-lg">Expert Advice from Industry Professionals</h3>
+              <p class="text-gray-600 px-6 ">Our team brings years of experience in education and industry, offering valuable insights that go beyond standard career advice.</p>
+              <div className="h-20 w-full"></div>
+              <div className="absolute bottom-0 right-0 mt-5 w-40 h-28 rounded-br-lg p-1 "> 
+                  <Image
+                  src={"/calender.png"}
+                  alt="Profile Image"
+                  width={100}
+                  height={100}
+                  className="w-full h-full"
+                /></div> 
+          </div>
+          <div class="relative bg-white py-6 rounded-xl shadow-md flex flex-col space-y-3 border border-orange-shade-1">
+          <div class="bg-gray-200 w-16 h-12 rounded-lg"> 
+                  <Image
+                  src={"/icon4.png"}
+                  alt="Profile Image"
+                  width={100}
+                  height={100}
+                  className="w-full h-full"
+                /></div>  
+              <h3 class="font-bold px-6 text-lg">Continuous Support for Long-Term Success</h3>
+              <p class="text-gray-600 px-6">Our commitment doesn’t end with a consultation. We ensure you have the right resources to succeed in your academic and professional journey.</p>
+              <div className="h-20 w-full"></div>
+              <div className="absolute bottom-0 right-0 mt-5 w-40 h-28 rounded-br-lg p-1"> 
+                  <Image
+                  src={"/calender.png"}
+                  alt="Profile Image"
+                  width={100}
+                  height={100}
+                  className="w-full h-full rounded-br-lg"
+                /></div> 
+          </div>
+      </div>
 
 
 
-      <div class="bg-white pt-5">
+      {/* <div class="bg-white pt-5">
         <div class="mx-auto w-[90%] px-6">
           <div class="flex flex-col items-center rounded-lg bg-gray-50 shadow-lg md:flex-row md:items-start">
-            {/* <!-- Text Content --> */}
+            
             <div class="w-full p-8 md:w-1/2">
               <span class="inline-block rounded-full border-2 border-solid border-black-shade-1 px-4 py-1 text-sm font-medium">
                 Career Counseling
@@ -604,7 +651,7 @@ const Page = () => {
               </form>
             </div>
 
-            {/* <!-- Image Content --> */}
+           
             <div class=" flex w-full justify-center p-2 md:w-1/2 md:justify-end md:pt-20 lg:pt-1">
               <Image
                 src="/carrer.png"
@@ -616,7 +663,9 @@ const Page = () => {
             </div>
           </div>
         </div>
-      </div>
+      </div>  */}
+
+      <HomePageReviews    role="career"/>
 
       <HomepageFooter />
     </div>

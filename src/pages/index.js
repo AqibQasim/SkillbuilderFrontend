@@ -126,7 +126,7 @@ const index = () => {
       {/* Globe section remaining */}
       <LearningSection />
 
-      <HomePageReviews />
+      <HomePageReviews  role="home" />
       <LandingFAQs />
       <HomepageFooter />
     </div>

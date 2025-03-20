@@ -1,4 +1,4 @@
-function HeadingSection({
+function HeadingSection({ role,
   className = "",
   labelText = "Build up the community",
   headingText = "Join the biggest community of learning",
@@ -7,13 +7,13 @@ function HeadingSection({
 }) {
   return (
     <div className={`${className} content mb-4 text-center`}>
-      <div className="mx-auto mb-1.5 w-max rounded-[3.25rem] border border-[#4000FF] bg-white px-4 py-1 text-xs font-medium text-[#4000FF]">
+      {role === "home" && <div className="mx-auto mb-1.5 w-max rounded-[3.25rem] border border-[#4000FF] bg-white px-4 py-1 text-xs font-medium text-[#4000FF]">
         {labelText}
-      </div>
+      </div> }
       <h2 className="mx-auto mb-5 max-w-3xl font-satoshi text-4xl font-semibold text-[#00204D]">
         {headingText}
       </h2>
-      <p className="mx-auto max-w-3xl font-medium text-[#5F646B] xl:text-lg">
+      <p className="mx-auto max-w-3xl font-medium text-[#5F646B] ">
         {text}
       </p>
     </div>
