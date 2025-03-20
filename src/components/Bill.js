@@ -29,7 +29,9 @@ const Bill = (props) => {
         <form className="w-full" action="/api/checkout_sessions" method="POST">
           <input type="hidden" name="studentId" value={userId} />
           <input type="hidden" name="items" value={JSON.stringify(courses)} />
-          <button className="bg-blue h-8 w-full rounded-lg text-white" type="submit">
+          <button
+          disabled={courses.length === 0}
+          className= {`${courses.length == 0 ? 'bg-blue-300' : 'bg-blue'}  h-8 w-full rounded-lg text-white`} type="submit">
             Checkout
           </button>
         </form>
