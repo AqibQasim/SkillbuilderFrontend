@@ -58,15 +58,20 @@ function DashboardHeader() {
     }
   };
 
+  const handleLiveUploadCourseClick = async () => {
+    await fetchPaymentDetails();
+    if(paymentMethodAvailable){
+      console.log("Payment method available");
+      router.push('/live-course-upload');
+    }
+
+  };
+
   const handleUploadCourseClick = async () => {
     await fetchPaymentDetails();
   };
 
-  useEffect(() => {
-    if (paymentMethodAvailable) {
-      router.push('/dashboard/live-courses');
-    } 
-  }, [paymentMethodAvailable]);
+  
 
   return (
     <header className="flex h-[75px] w-full items-center justify-end gap-6 border-b border-dashboard-border px-5">
@@ -82,7 +87,7 @@ function DashboardHeader() {
             Student
           </Button>
           <Button
-            onClick={handleUploadCourseClick}
+            onClick={handleLiveUploadCourseClick}
             className="hidden md:block"
           >
             Live Course +

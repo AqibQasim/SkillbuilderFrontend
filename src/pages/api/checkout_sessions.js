@@ -63,6 +63,7 @@ export default async function handler(req, res) {
 
       res.redirect(303, session.url);
     } catch (err) {
+      console.log(err)
       res.status(err.statusCode || 500).json({ error: err.message });
     }
   } else {

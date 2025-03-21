@@ -17,10 +17,11 @@ const links = [
     name: "Courses",
   },
   {
-    href: "/dashboard/live-courses",
+    href: "/dashboard/instructor-live-courses",
     icon:  <InstructorSvg/>,
     name: "Live Courses",
   },
+ 
   { href: "/dashboard/students", icon: <PersonSvg />, name: "Students" },
   {
     href: "/dashboard/payments",
