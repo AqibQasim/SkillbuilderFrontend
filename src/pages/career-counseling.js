@@ -64,9 +64,9 @@ const Page = () => {
       {/* Left Section */}
        
         
-      <div className="  w-full relative lg:w-1/2 lg:flex justify-center mt-8 md:mt-0">
+      <div className="  w-full relative md:1/5 lg:w-1/2 lg:flex justify-center mt-8 md:mt-0">
         {/* Background Card Placeholder */}
-        <div className="absolute top-20 left-8 w-150 h-150 bg-gray-50 ">
+        <div className="absolute hidden  lg:block top-20 left-8 w-150 h-150 bg-gray-50 ">
         <Image
             src={"/AI-card.png"}
             alt="man "
@@ -78,7 +78,7 @@ const Page = () => {
         </div>
 
         {/* Middle Card (Main Content) */}
-        <div className="absolute left-0 top-44 w-150 h-150">
+        <div className=" hidden  lg:block absolute left-0 top-44 w-150 h-150">
           <Image
             src={"/invest-card.png"} // Ensure this path is correct
             alt="Invest Card"
@@ -89,9 +89,9 @@ const Page = () => {
         </div>
 
         {/* Profile Card on Top */}
-        <div className="absolute top-7 right-[-65px] h-150 w-150 ]">
+        <div className="absolute hidden lg:block lg:top-7 lg:right-[-65px] h-150 w-150 ]">
           <Image
-            src={"/man.png"} // Ensure this path is correct
+            src={"/man.png"} 
             alt="Profile Image"
             width={500}
             height={500}
@@ -99,7 +99,17 @@ const Page = () => {
           />
           
         </div>
-        <div className="absolute top-80 right-[80px] h-150 w-100 ]">
+        <div className="absolute hidden md:bottom-[-220px] md:block lg:top-7 lg:right-[-65px] lg:hidden lg:h-150 lg:w-150 h-96 w-96 ]">
+          <Image
+            src={"/man.png"} 
+            alt="Profile Image"
+            width={500}
+            height={500}
+            className="w-full h-full"
+          />
+          
+        </div>
+        <div className="absolute md:top-24 hidden md:block   lg:top-80 lg:right-[80px] h-150 w-100 ]">
           <Image
             src={"/text.png"} // Ensure this path is correct
             alt="Profile Image"
@@ -111,9 +121,9 @@ const Page = () => {
         </div>
       </div>
        {/* Right Section for small screens with Images */}
-      <div className=" w-4/6 lg:w-1/2 space-y-4 text-center md:text-left">
+      <div className=" md:w-4/5  lg:w-1/2 space-y-4 text-center md:text-left">
        <div  className="flex" >
-        <h1 className="text-3xl md:text-5xl font-semibold text-gray-900">1 to 1 Education Consultancy</ h1>
+        <h1 className="text-3xl  font-semibold text-gray-900">1 to 1 Education Consultancy</ h1>
         <div className="">
         <Image
           src="/25$.png"
@@ -397,7 +407,7 @@ const Page = () => {
               
               </div> 
             
-            <div class="absolute top-4 right-4 bg-white  rounded-lg shadow-md w-56 text-sm">
+            <div class="absolute top-4 max-xsm:hidden block -right-16 md:-right-8  lg:right-6 bg-white  rounded-lg shadow-md w-56 text-sm">
             <Image
                 src={"/national.png"}
                 alt="Profile Image"
@@ -407,7 +417,8 @@ const Page = () => {
               />
             </div>
             
-            <div class="absolute bottom-12 left-8  rounded-lg shadow-md w-48 h-32   text-sm">
+            <div class="absolute bottom-12 max-xsm:hidden  block -left-16 md:-left-10
+             lg:left-8  rounded-lg shadow-md w-48 h-32   text-sm">
              
                 <Image
                 src={"/state.png"}
@@ -439,9 +450,9 @@ const Page = () => {
                   </div>
 
                   {/* Content Overlay */}
-                  <div className="relative bottom-12 mx-auto h-12 z-10 w-[60%] flex flex-col items-center justify-center  text-center  px-4">
-                    <h1 className="text-4xl font-semibold">Why Choose 1-on-1 Career Counseling with Us?</h1>
-                    <p className="mt-5 text-xs text-gray-500">
+                  <div className="relative bottom-12 mx-auto h-12 z-10  flex flex-col items-center justify-center  text-center  px-4">
+                    <h1 className="md:2xl  w-[60%]   lg:text-4xl font-semibold">Why Choose 1-on-1 Career Counseling with Us?</h1>
+                    <p className="mt-5 block  w-[90%] sm:w-[80%] md:w-[60%] text-xs text-gray-500">
                     Making the right career decision is important, and we’re here to guide you every step of the way. Our personalized counseling sessions help you gain clarity, make informed choices, and build a strong foundation for your future.
                     </p>
                   </div>
