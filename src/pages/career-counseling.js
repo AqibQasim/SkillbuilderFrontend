@@ -8,6 +8,8 @@ import HomepageFooter from "@/components/HomepageFooter";
 import Image from "next/image";
 import LayoutXPadding from "@/components/LayoutXPadding";
 import HomePageReviews from "@/components/HomePageReviews";
+import CareerHero from "@/components/CarrerHero";
+import Counseling from "@/components/Counseling";
 
 const Page = () => {
   const [studentProfile, setStudentProfile] = useState(null);
@@ -20,161 +22,15 @@ const Page = () => {
     <div className="home-container  w-[100%] space-y-12 font-satoshi">
       <div className=" bg-gray-50" >
   <LayoutXPadding>
-    <div className="absolute inset-0 z-20">
+    <div className="absolute inset-0 z-50">
       <HomePageNavbar />
     </div>
   </LayoutXPadding>
 
-  <div  className="overflow-hidden z-0 min-h-[440px] sm:min-h-[440px] md:min-h-[450px] lg:min-h-[520px] xl:min-h-[500px] " >
-  <Image
-    src={"/CareerBackRound.png"}
-    alt="career-counsling Hero"
-    width={1920}
-    height={1080}
-    className="h-full w-full object-contain hidden sm:block "
-  />
-  <div className="flex  flex-col items-center justify-center absolute inset-0 z-20 text-center sm:px-4">
-    <div className="text-center relative top-16 max-xsm:w-[100%] max-sm:w-[85%] w-[80%] sm:w-[80%] md:w-[70%] lg:w-[64%] xl:w-[60%]">
-      <h1 className="max-xsm:text-lg max-sm:text-2xl text-3xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-5xl text-center font-medium text-black">
-        Unlock Your True Potential with
-        <span className="text-blue-shade-1 font-semibold"> AI-Powered </span>
-        Career Counseling!
-      </h1>
-      <div className="max-sm:[70%] flex justify-center px-10 text-center">
-      <p className="text-gray-600 mt-4 text-center max-sm:text-xs  sm:text-base">
-        Personalized career guidance with the power of AI & expert mentorship.
-      </p>
-      </div>
-      <div className="flex justify-center mt-12 relative">
-        <Image
-          src={"/button.png"}
-          alt="Button"
-          width={90}
-          height={90}
-          className="hover:scale-105 "
-        />
-      </div>
-  </div>
-  </div>
-</div>
+      <CareerHero/>
     </div>  
-      {/* three cards  */}
-     <div className="min-w-[95%] h-auto flex justify-center items-center mx-auto text-center" >
-        <div className=" w-[85%] md:w-[85%] lg:min-w-[90%] h-auto border rounded-xl flex flex-col-reverse md:flex-row items-center    lg:items-start p-6 lg:p-5 bg-gray-50">
-      {/* Left Section */}
-       
-        
-      <div className="  w-full relative md:1/5 lg:w-1/2 lg:flex justify-center mt-8 md:mt-0">
-        {/* Background Card Placeholder */}
-        <div className="absolute hidden  lg:block top-20 left-8 w-150 h-150 bg-gray-50 ">
-        <Image
-            src={"/AI-card.png"}
-            alt="man "
-            width={400}
-            height={400}
-            className="w-full h-full "
-          />
-
-        </div>
-
-        {/* Middle Card (Main Content) */}
-        <div className=" hidden  lg:block absolute left-0 top-44 w-150 h-150">
-          <Image
-            src={"/invest-card.png"} // Ensure this path is correct
-            alt="Invest Card"
-            width={920}
-            height={980}
-            className="w-full h-full"
-          />
-        </div>
-
-        {/* Profile Card on Top */}
-        <div className="absolute hidden lg:block lg:top-7 lg:right-[-65px] h-150 w-150 ]">
-          <Image
-            src={"/man.png"} 
-            alt="Profile Image"
-            width={500}
-            height={500}
-            className="w-full h-full"
-          />
-          
-        </div>
-        <div className="absolute hidden md:bottom-[-220px] md:block lg:top-7 lg:right-[-65px] lg:hidden lg:h-150 lg:w-150 h-96 w-96 ]">
-          <Image
-            src={"/man.png"} 
-            alt="Profile Image"
-            width={500}
-            height={500}
-            className="w-full h-full"
-          />
-          
-        </div>
-        <div className="absolute md:top-24 hidden md:block   lg:top-80 lg:right-[80px] h-150 w-100 ]">
-          <Image
-            src={"/text.png"} // Ensure this path is correct
-            alt="Profile Image"
-            width={500}
-            height={500}
-            className="w-full h-full"
-          />
-          
-        </div>
-      </div>
-       {/* Right Section for small screens with Images */}
-      <div className=" md:w-4/5  lg:w-1/2 space-y-4 text-center md:text-left">
-       <div  className="flex" >
-        <h1 className="text-3xl  font-semibold text-gray-900">1 to 1 Education Consultancy</ h1>
-        <div className="">
-        <Image
-          src="/25$.png"
-          alt="button "
-          width={200}
-          height={200}
-          className="  hover:scale-105 "
-        />
-        </div>
-
-       </div>
-        <p className="text-gray-700 text-sm mr-2px">
-          Get expert career guidance personalized to your goals for just <span className="font-bold">$25 per session</span>. Book now to gain clarity and confidence in your career path!
-        </p>
-        <div className="space-y-3">
-          <div className="flex items-start space-x-2">
-            <span className="text-blue-600">➝</span>
-            <div>
-              <h2 className="font-semibold text-gray-900">Personalized Career Roadmap</h2>
-              <p className="text-gray-600 text-sm">Get expert guidance tailored to your skills, interests, and goals to help you choose the right career path.</p>
-            </div>
-          </div>
-          <div className="flex items-start space-x-2">
-            <span className="text-blue-600">➝</span>
-            <div>
-              <h2 className="font-semibold text-gray-900">Affordable & Actionable Insights</h2>
-              <p className="text-gray-600 text-sm">For just $25 per session, receive practical advice and strategies to accelerate your career growth.</p>
-            </div>
-          </div>
-          <div className="flex items-start space-x-2">
-            <span className="text-blue-600">➝</span>
-            <div>
-              <h2 className="font-semibold text-gray-900">Gain Clarity & Confidence</h2>
-              <p className="text-gray-600 text-sm">Make informed career decisions with expert-backed insights, ensuring a successful and fulfilling future.</p>
-            </div>
-          </div>
-        </div>
-        <div className="mt-4 relative left-2">
-        <Image
-          src={"/carrer-button.png"}
-          alt="button "
-          width={200}
-          height={200}
-          className="  hover:scale-105 "
-        />
-        </div>
-      </div>
-
-         </div>
-     </div>
-
+   
+     <Counseling/>
         
 
 
