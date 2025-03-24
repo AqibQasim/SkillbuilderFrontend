@@ -12,12 +12,12 @@ function InstructorCourseRow({ course }) {
   const { image, title, amount, discount, status, id } = course;
   const { first_name, last_name } = useSelector((state) => state.profile);
 
-  console.log(course);
+  console.log('statussss' , course.s);
 
   const handleRowClick = () => {
     try {
       if (id) {
-        router.push(`/dashboard/instructor-courses/${id}`);
+        router.push(`/dashboard/instructor-live-courses/${id}`);
       } else {
         throw new Error("Course ID is not defined");
       }

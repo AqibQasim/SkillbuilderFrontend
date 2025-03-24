@@ -20,6 +20,8 @@ import {
 } from "../slices/fetchStudentsByInstructorSlice";
 import getAllReviewsSlice from "../slices/getAllReviewsSlice";
 import instructorCoursesSliceReducer from "../slices/instructorCoursesSlice";
+import instructorLiveCoursesReducer from "../slices/instructorLiveCoursesSlice";  
+import liveCoursesReducer from "../slices/allLiveCoursesSlice";
 import instructorIntroVideoSlice from "../slices/instructorIntroVideoSlice";
 import instructorvideoReducer from "../slices/instructorvideoslice";
 import loginFlowSlice from "../slices/loginFlowSlice";
@@ -35,6 +37,7 @@ import fetchNotificationStudentSlice from "../slices/fetchNotificationStudentSli
 
 // Import the new courseReducer from your courseSlice
 import courseUploadReducer from "../slices/courseUploadSlice"; // <- your new reducer for uploading course content
+import instructorLiveCourses from "@/pages/dashboard/instructor-live-courses";
 
 // Function to load state from localStorage
 function loadState() {
@@ -86,6 +89,7 @@ export const store = configureStore({
     contact: contactReducer,
     profile: profileReducer,
     courses: coursesReducer,
+    liveCourses: liveCoursesReducer,
     singleCourse: singleCourseReducer,
     singleInstructor: singleInstructorReducer,
     singleUser: singleUserSlice,
@@ -96,6 +100,8 @@ export const store = configureStore({
     videoUpload: instructorvideoReducer,
     courseVideoUpload: courseVideoUploadReducer,
     instructorCourses: instructorCoursesSliceReducer,
+    instructorLiveCourses: instructorLiveCoursesReducer,
+    
     courseStatus: courseStatusSlice,
     students: studentsSlice,
     allInstructors: allInstructorsReducer,

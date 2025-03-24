@@ -7,7 +7,7 @@ import InstructorLiveCourseStatus from "./InstructorLiveCourseStatus";
 
 function AdminLiveCourseRow({ course }) {
   const router = useRouter();
-  const { image, title, amount, discount, level, id } = course;
+  const { image, title, amount, discount, level,status, id } = course;
   const name =
     course?.instructor?.user?.first_name +
     " " +
@@ -31,7 +31,7 @@ function AdminLiveCourseRow({ course }) {
       <div>{formatCurrency(Number(amount))}</div>
       <div>{level}</div>
       {/* TODO: fetch real status */}
-      <InstructorLiveCourseStatus status='approved' />
+      <InstructorLiveCourseStatus status= {status} />
       <AdminCourseActions course={course} className="ml-auto" />
     </Table.Row>
   );

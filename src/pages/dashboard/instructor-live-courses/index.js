@@ -6,6 +6,7 @@ import { fetchCoursesByInstructorId } from "../../../../redux/thunks/instructorC
 import Loader from "@/components/Loader";
 import { fetchInstructorByUserId } from "../../../../redux/thunks/InstructorByUserIdThunk";
 import InstructorLiveCourseTable from "@/components/InstructorLiveCourseTable";
+import { fetchLiveCoursesByInstructorId } from "../../../../redux/thunks/instructorLiveCoursesThunk";
 
 function LiveCourses() {
   const dispatch = useDispatch();
@@ -19,7 +20,7 @@ function LiveCourses() {
   const instructorError = useSelector(
     (state) => state.instructorByUserId.error,
   );
-  const courses = useSelector((state) => state.instructorCourses.courses);
+  const courses = useSelector((state) => state.instructorLiveCourses.liveCourses);
   console.log("instructor courses in instructor-courses page", courses);
 
   useEffect(() => {
@@ -29,7 +30,7 @@ function LiveCourses() {
 
   useEffect(() => {
     if (!instructorId || courses?.length > 0) return;
-    dispatch(fetchCoursesByInstructorId(instructorId));
+    dispatch(fetchLiveCoursesByInstructorId(instructorId));
   }, [instructorId, courses?.length]);
 
   if (instructorLoading) {

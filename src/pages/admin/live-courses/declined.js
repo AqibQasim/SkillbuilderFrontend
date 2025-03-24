@@ -1,7 +1,7 @@
 import AdminDashboardLayout from "@/components/AdminDashboardLayout";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchCourses } from "../../../../redux/thunks/allCoursesThunk";
+import { fetchLiveCourses } from "../../../../redux/thunks/allLiveCoursesThunk";
 import AdminCoursesTable from "@/components/AdminCoursesTable";
 import withAuth from "@/components/WithAuth";
 import WithAdminAuth from "@/components/WithAdminAuth";
@@ -18,7 +18,7 @@ const approved = () => {
 
   useEffect(function () {
     if (courses.length > 0) return;
-    dispatch(fetchCourses());
+    dispatch(fetchLiveCourses());
   }, []);
 
   console.log("Declined courses dsad", declinedCourses);

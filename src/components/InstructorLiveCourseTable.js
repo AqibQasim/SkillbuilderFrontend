@@ -122,7 +122,7 @@ function InstructorLiveCourseTable({ courses = [], courseStatus }) {
           <div></div>
         </Table.Header>
         <Table.Body
-          data={statusCourses}
+          data={courses}
           render={(course, i) => (
             <InstructorCourseRow course={course} key={i} />
           )}

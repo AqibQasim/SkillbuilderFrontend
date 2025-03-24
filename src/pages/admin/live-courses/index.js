@@ -4,7 +4,7 @@ import AdminLiveCoursesTable from "@/components/AdminLiveCoursesTable";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { useEffect } from "react";
-import { fetchCourses } from "../../../../redux/thunks/allCoursesThunk";
+
 import { useState } from "react";
 import AdminLiveCoursesStudents from "@/components/AdminLiveCoursesStudents";
 
@@ -25,7 +25,7 @@ const index = () => {
       );
 
       const data = await response.json();
-
+      console.log('data11122', data)
       setLiveCourses(data?.data);
       return data?.data;
     } catch (error) {

@@ -1,5 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { fetchCourses } from "../thunks/allCoursesThunk";
 import { getAllLiveSessionCourses } from "../thunks/liveSessionCoursesThunk";
 
 const liveSessionCoursesSlice = createSlice({
