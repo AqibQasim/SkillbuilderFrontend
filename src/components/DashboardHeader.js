@@ -56,12 +56,11 @@ function DashboardHeader() {
     } catch (err) {
       console.error("Error in fetchPaymentDetails:", err);
     }
-  };
+  };      
 
   const handleLiveUploadCourseClick = async () => {
     await fetchPaymentDetails();
     if(paymentMethodAvailable){
-      console.log("Payment method available");
       router.push('/live-course-upload');
     }
 
@@ -69,6 +68,9 @@ function DashboardHeader() {
 
   const handleUploadCourseClick = async () => {
     await fetchPaymentDetails();
+    if(paymentMethodAvailable){
+      router.push('/course-upload');
+    }
   };
 
   
@@ -85,6 +87,12 @@ function DashboardHeader() {
             }}
           >
             Student
+          </Button>
+          <Button
+            onClick={handleUploadCourseClick}
+            className="hidden md:block"
+          >
+            Upload Course +
           </Button>
           <Button
             onClick={handleLiveUploadCourseClick}
