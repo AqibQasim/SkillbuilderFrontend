@@ -25,6 +25,11 @@ const links = [
     href: "/admin/live-courses",
     icon: <CourseSvg />,
     name: "Live Courses",
+    subLinks: [
+      { href: "/admin/live-courses/pending", name: "Pending" },
+      { href: "/admin/live-courses/approved", name: "Approved" },
+      { href: "/admin/live-courses/declined", name: "Declined" },
+    ],
   },
   {
     href: "/admin/career-counselling",

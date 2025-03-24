@@ -16,12 +16,12 @@ function AdminLiveCoursesStudents({
         className={`${emptyStateClasses} text-center" flex size-full flex-col items-center justify-center gap-4`}
       >
         <h2 className="text-2xl font-medium capitalize">
-          No {heading} Courses
+          No Enrolled  Students
         </h2>
-        <p>
+        {/* <p>
           There are currently no {heading} courses to review. Please check back
           later.
-        </p>
+        </p> */}
       </div>
     );
 

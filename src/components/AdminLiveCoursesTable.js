@@ -24,7 +24,7 @@ function AdminLiveCoursesTable({ courses, courseStatus, emptyStateClasses = "" }
     <>
       <Table
         className="mb-7"
-        columns="grid-cols-[2.5rem_1.1fr_1.25fr_1fr_1fr]"
+        columns="grid-cols-[2.5rem_1.1fr_1.25fr_1fr_1fr_1fr_0.25fr]"
       >
         <Table.Header>
           <div></div>
@@ -32,6 +32,7 @@ function AdminLiveCoursesTable({ courses, courseStatus, emptyStateClasses = "" }
           <div>Instructor</div>
           <div>Price</div>
           <div>Level</div>
+          <div>Status</div>
         </Table.Header>
         <Table.Body
           data={courses}
