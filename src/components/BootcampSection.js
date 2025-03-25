@@ -28,10 +28,10 @@ export default function BootcampSection({ course }) {
   }, [userId, course?.course_id]);
 
   return (
-    <section className="bg-gray-50 px-6 md:px-12 lg:px-20 py-6 ">
-      <div className="mx-auto  grid max-w-7xl grid-cols-1 items-center gap-10 md:grid-cols-2">
+    <section className=" px-6 md:px-12 lg:px-20 py-6">
+      <div className="mx-auto grid max-w-7xl grid-cols-1 md:grid-cols-2">
         {/* Left Content */}
-        <div>
+        <div className="w-full  h-96">
           {/* rating */}
           <div className="mb-4 flex w-max items-center gap-2 rounded-3xl bg-gray-200 px-2 py-1">
             <span className="text-md font-semibold">{course?.rating || 0}</span>
@@ -100,7 +100,7 @@ export default function BootcampSection({ course }) {
         </div>
 
         {/* Right Content */}
-        <div className="w-full h-96">
+        <div className="w-full h-96 flex justify-center">
           <img
             src="/img-vid.png"
             alt="Computer Science Bootcamp"

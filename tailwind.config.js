@@ -97,6 +97,9 @@ module.exports = {
         pink: {
           DEFAULT: "#F9F2F2",
         },
+        orange: {
+          "shade-1": "#D37252",
+        },
         lightbrown: {
           DEFAULT: "#FFFFFF",
         },

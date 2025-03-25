@@ -7,6 +7,9 @@ import { useRouter } from "next/router";
 import HomepageFooter from "@/components/HomepageFooter";
 import Image from "next/image";
 import LayoutXPadding from "@/components/LayoutXPadding";
+import HomePageReviews from "@/components/HomePageReviews";
+import CareerHero from "@/components/CarrerHero";
+import Counseling from "@/components/Counseling";
 
 const Page = () => {
   const [studentProfile, setStudentProfile] = useState(null);
@@ -16,126 +19,144 @@ const Page = () => {
   }, []);
 
   return (
-    <div className="home-container mx-auto w-[100%] space-y-12 font-satoshi">
-      <LayoutXPadding>
-        <div className="mb-4">
-          <HomePageNavbar />
-        </div>
-      </LayoutXPadding>
-      <BootcampHero
-        title={"Shape Your Career Today!"}
-        subtitle={
-          "SkillBuilder offers flexible courses and immersive bootcamps tailored to your learning style, career goals, and schedule, ensuring a personalized and impactful experience."
-        }
-        tagline={"Career Counseling"}
-      />
-      <div className="mx-auto w-[90%]">
-        <div className="mx-auto text-center">
-          <div className="mb-4 inline-block rounded-full border-2 border-solid border-black-shade-1 px-4 py-1 text-sm font-medium">
-            Career Counseling
-          </div>
-          <h2 className="mb-4 text-2xl font-bold text-gray-900 md:text-4xl">
-            Career Counselling and Guidance
-          </h2>
-        </div>
-        <div className="px-7 py-6 md:py-12">
-          <p className="mb-4 leading-relaxed text-gray-600">
-            Choosing a career is one of the most important decisions in a
-            student’s life. With the world becoming increasingly competitive,
-            making the right career choice can seem challenging. This is where
-            career counseling comes in to guide students by assessing their
-            strengths and interests towards suitable career paths aligned with
-            their personality and goals.
-          </p>
-          <p className="leading-relaxed text-gray-600">
-            Our career counseling services are designed to provide personalized
-            support to students throughout their journey of career exploration,
-            planning, and development.
-          </p>
-        </div>
-        <BootcampHero
-          src="/women.png"
-          title={"Empower Your Career with Expert Guidance!"}
-          subtitle={
-            "Discover the career path that aligns with your skills and aspirations. Our experts are here to help you unlock your full potential."
-          }
-          tagline={"Skillbuilder"}
-        />
-      </div>
+    <div className="home-container  w-[100%] space-y-12 font-satoshi">
+      <div className=" bg-gray-50" >
+  <LayoutXPadding>
+    <div className="absolute inset-0 z-50">
+      <HomePageNavbar />
+    </div>
+  </LayoutXPadding>
 
-      <div className="pt5">
-        <div className="mx-auto w-[90%] px-6">
+      <CareerHero/>
+    </div>  
+   
+     <Counseling/>
+        
+
+
+
+
+    
+        <div className="mx-auto w-[95%] ">
           {/* Section Header */}
           <div className="mb-10 text-center">
-            <span className="inline-block rounded-full border-2 border-solid border-blue-700 px-4 py-1 text-sm font-medium text-blue-700">
-              Career Counseling
-            </span>
             <h2 className="mt-4 text-3xl font-bold text-gray-900 md:text-4xl">
-              Process of Career Counselling and Guidance
+                Career Counseling Process
             </h2>
+            <p className="text-xs text-center mx-auto mt-5 w-[70%] text-gray-600 " >We assess your skills and interests using AI-driven insights, refined by expert mentors. In a one-on-one session, you’ll receive personalized guidance and a clear action plan to confidently navigate your career path.</p>
           </div>
-
-          {/* Steps Grid */}
-          <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-            {/* Step Component */}
-            {[
-              {
-                step: "01",
-                title: "Career Counseling",
-                description:
-                  "Discover the career path that aligns with your skills and aspirations. Our experts are here to help you unlock your full potential!",
-                icon: "/cape1.png",
-              },
-              {
-                step: "02",
-                title: "Payment",
-                description:
-                  "Choose your preferred payment method and confirm your booking in a few simple steps.",
-                icon: "/cape2.png",
-              },
-              {
-                step: "03",
-                title: "Career Insight",
-                description:
-                  "Based on our analysis, here are your tailored recommendations to achieve your career goals.",
-                icon: "/cape3.png",
-              },
-              {
-                step: "04",
-                title: "Calendly (Schedule Your Session)",
-                description:
-                  "Select a date and time that works best for you. Our experts are ready to guide you.",
-                icon: "/cape4.png",
-              },
-            ].map((item, index) => (
-              <div
-                key={index}
-                className="rounded-lg bg-gray-shade-4 p-6 shadow-lg"
-              >
-                <div className="mb-10 flex justify-between rounded-2xl border-[1px] border-solid border-neutral-700 p-1 px-2">
-                  <div className="text-sm font-medium">Step</div>
-                  <div className="text-sm">{item.step}</div>
-                </div>
-                <div className="mb-4">
-                  <Image
-                    src={item.icon}
-                    alt="dropdown-Image"
-                    width={40}
-                    height={40}
-                    className=""
-                  />
-                </div>
-                <h3 className="mb-3 text-xl font-semibold text-gray-900">
-                  {item.title}
-                </h3>
-                <p className="text-sm text-gray-600">{item.description}</p>
-              </div>
-            ))}
-          </div>
+         
+        <div class="relative mx-auto flex justify-between items-center mb-5 w-[95%]">
+            {/* <!-- Dotted Line --> */}
+            <div class="absolute top-1/2 left-0 w-full border-t-2 border-dotted border-gray-300 transform -translate-y-1/2"></div>
+            
+            {/* <!-- Circles --> */}
+            <div class="relative bg-white w-15 h-15  flex items-center justify-center  ">
+               <Image
+                src={"/circle.png"} // Ensure this path is correct
+                alt="Profile Image"
+                width={100}
+                height={100}
+                className="w-full h-full"
+              />
         </div>
-      </div>
+            <div class="relative bg-white w-15 h-15  flex items-center justify-center ">
+            <Image
+                src={"/circle.png"} // Ensure this path is correct
+                alt="Profile Image"
+                width={100}
+                height={100}
+                className="w-full h-full"
+              />
+            </div>
+            <div class="relative bg-white w-15 h-15  flex items-center justify-center">
+            <Image
+                src={"/circle.png"} // Ensure this path is correct
+                alt="Profile Image"
+                width={100}
+                height={100}
+                className="w-full h-full"
+              />
+            </div>
+            <div class="relative bg-white w-15 h-15  flex items-center justify-center ">
+             <Image
+                src={"/circle.png"} // Ensure this path is correct
+                alt="Profile Image"
+                width={100}
+                height={100}
+                className="w-full h-full"
+              />
+            </div>
+            <div class="relative  w-3 h-3 rounded-full shadow-md flex items-center justify-center border border-gray-300 bg-gray-300"></div>
+        </div>
+       
+          {/* Steps Grid */}
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 mx-auto">
+          {/* <!-- Card 1 --> */}
+        <div class="  rounded-2xl border  overflow-hidden p-2">
+            <div class=" w-full h-56 rounded-xl mb-4"> 
+            <Image
+                src={"/1stcard.png"}
+                alt="Profile Image"
+                width={100}
+                height={100}
+                className="w-full h-full"
+              />
+            </div>
+            <h3 class="text-xl font-bold">Payment</h3>
+            <p class="text-gray-400">Start by securing your session with a simple payment process.</p>
+        </div>
+        
+        {/* <!-- Card 2 --> */}
+        <div class="  rounded-2xl border  overflow-hidden p-2">
+            <div class="bg-white w-full h-56 rounded-xl mb-4"> 
+            <Image
+                src={"/2ndcard.png"} 
+                alt="Profile Image"
+                width={100}
+                height={100}
+                className="w-full h-full"
+              />
+            </div>
+            <h3 class="text-xl font-bold">Career Profiling through AI</h3>
+            <p class="text-gray-400">Take an AI-driven interview to help our experts understand your skills, strengths, and aspirations better.</p>
+        </div>
+        
+        {/* <!-- Card 3 --> */}
+        <div class="  rounded-2xl border  overflow-hidden p-2">
+            <div class="bg-white w-full h-56 rounded-xl mb-4">
+            <Image
+                src={"/3rdcard.png"} 
+                alt="Profile Image"
+                width={100}
+                height={100}
+                className="w-full h-full"
+              />
 
-      <div class="pt-5">
+            </div>
+            <h3 class="text-xl font-bold">Schedule Your 1-on-1 Session</h3>
+            <p class="text-gray-400">Pick a convenient time for a personal counseling session with our expert.</p>
+        </div>
+        
+        {/* <!-- Card 4 --> */}
+        <div class="  rounded-2xl border overflow-hidden p-2">
+            <div class="bg-white w-full h-56 rounded-xl mb-4">
+            <Image
+                src={"/4thcard.png"} 
+                alt="Profile Image"
+                width={100}
+                height={100}
+                className="w-full h-full"
+              />
+            </div>
+            <h3 class="text-xl font-bold">Career Counseling</h3>
+            <p class="text-gray-400">Engage in a deep, insightful session where our experts guide you toward the best career choices based on your profile and goals.</p>
+        </div>
+        </div>
+        </div>
+    
+
+      {/* <div class="pt-5">
         <div class="mx-auto max-w-6xl px-6">
           <div class="mx-auto text-center">
             <span class="inline-block rounded-full border-2 border-solid border-black-shade-1 px-4 py-1 text-sm font-medium">
@@ -194,11 +215,198 @@ const Page = () => {
             </div>
           </div>
         </div>
+      </div> */}
+      
+     <div class="bg-gray-50 border rounded-2xl mx-auto shadow-lg p-8 max-w-[95%] w-full flex flex-col md:flex-row items-center">
+        {/* <!-- Left Content --> */}
+        <div class="md:w-1/2 space-y-4">
+            <h1 class="text-3xl font-bold">Plan Your Career with <br/> <span class="text-black">Expert Guidance</span></h1>
+            <p class="text-gray-600">Choosing the right career is a pivotal decision for every undergraduate. Career counseling provides clarity, direction, and expert insights, helping students align their strengths with the right opportunities. It bridges the gap between education and the professional world, ensuring informed and confident career choices.</p>
+            
+            <div class="space-y-2">
+                <div class="flex items-start space-x-2">
+                    <span class="text-blue-600">&#9679;</span>
+                    <div>
+                        <h3 class="font-semibold">Find Your Perfect Career Fit</h3>
+                        <p class="text-gray-500 text-sm">Discover career paths that align with your skills, interests, and long-term goals through expert guidance.</p>
+                    </div>
+                </div>
+                
+                <div class="flex items-start space-x-2">
+                    <span class="text-blue-600">&#9679;</span>
+                    <div>
+                        <h3 class="font-semibold">Personalized Guidance for a Confident Future</h3>
+                        <p class="text-gray-500 text-sm">Get tailored advice and actionable steps to navigate your career journey with clarity and confidence.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <Image
+              src={"/bookNow.png"}
+              alt="button "
+              width={200}
+              height={200}
+              className="  hover:scale-105 "
+            />
+        </div>
+        
+        {/* <!-- Right Image Section --> */}
+        <div class="md:w-1/2 mt-6 md:mt-0 relative flex justify-center">
+            <div class="bg-white w-80 h-96 rounded-xl shadow-md">
+            <Image
+                src={"/SmilingYoungWoman.png"}
+                alt="Profile Image"
+                width={100}
+                height={100}
+                className="w-full h-full"
+              />
+              
+              </div> 
+            
+            <div class="absolute top-4 max-xsm:hidden block -right-16 md:-right-8  lg:right-6 bg-white  rounded-lg shadow-md w-56 text-sm">
+            <Image
+                src={"/national.png"}
+                alt="Profile Image"
+                width={100}
+                height={100}
+                className="w-full h-full"
+              />
+            </div>
+            
+            <div class="absolute bottom-12 max-xsm:hidden  block -left-16 md:-left-10
+             lg:left-8  rounded-lg shadow-md w-48 h-32   text-sm">
+             
+                <Image
+                src={"/state.png"}
+                alt="Profile Image"
+                width={300}
+                height={300}
+                className="w-full h-full"
+              />
+                  
+                 
+         
+         
+            
+        </div>
+    </div>
+     </div>
+
+
+                      <div className="w-[75%] mx-auto ">
+                  {/* Background Image */}
+                  <div className="z-0 opacity-30">
+                    <Image
+                      src={"/background.png"}
+                      alt="career-counseling Hero"
+                      width={1020}
+                      height={1080}
+                      className="h-full w-full object-cover"
+                    />
+                  </div>
+
+                  {/* Content Overlay */}
+                  <div className="relative bottom-12 mx-auto h-12 z-10  flex flex-col items-center justify-center  text-center  px-4">
+                    <h1 className="md:2xl  w-[60%]   lg:text-4xl font-semibold">Why Choose 1-on-1 Career Counseling with Us?</h1>
+                    <p className="mt-5 block  w-[90%] sm:w-[80%] md:w-[60%] text-xs text-gray-500">
+                    Making the right career decision is important, and we’re here to guide you every step of the way. Our personalized counseling sessions help you gain clarity, make informed choices, and build a strong foundation for your future.
+                    </p>
+                  </div>
+                </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-6xl mx-auto w-[70%] md:w-[80%] xl:w-[75%] lg:w-[70%]">
+          <div class=  "relative  bg-white py-6 rounded-xl shadow-md flex flex-col space-y-3 border border-orange-shade-1">
+              <div class="bg-gray-200 w-16 h-12 rounded-lg"> 
+                  <Image
+                  src={"/icon1.png"}
+                  alt="Profile Image"
+                  width={100}
+                  height={100}
+                  className="w-full h-full"
+                /></div> 
+              <h3 class="font-bold text-lg px-6">Guidance That Puts You First</h3>
+              <p class="text-gray-600 px-6 ">Your career path should reflect your strengths, ambitions, and interests. We take the time to understand your goals and provide insights that help you move forward with confidence.</p>
+              <div className="h-20 w-full"></div>
+              <div className="absolute bottom-0 right-0 mt-5 w-40 h-28 rounded-br-lg p-1"> 
+                  <Image
+                  src={"/calender.png"}
+                  alt="Profile Image"
+                  width={100}
+                  height={100}
+                  className="w-full h-full"
+                /></div> 
+          </div>
+          <div class="relative bg-white py-6 rounded-xl shadow-md flex flex-col space-y-3 border border-orange-shade-1">
+          <div class="bg-gray-200 w-16 h-12 rounded-lg"> 
+                  <Image
+                  src={"/icon2.png"}
+                  alt="Profile Image"
+                  width={100}
+                  height={100}
+                  className="w-full h-full"
+                /></div>  
+              <h3 class="font-bold text-lg px-6">Structured and Practical Career Planning</h3>
+              <p class="text-gray-600 px-6">We help you navigate key decisions, whether it's choosing the right course, university, or career path by providing a clear roadmap as per your aspirations.</p>
+              <div className="h-20 w-full"></div>
+              <div className="absolute bottom-0 right-0 mt-5 w-40 h-28 rounded-br-lg p-1 "> 
+                  <Image
+                  src={"/calender.png"}
+                  alt="Profile Image"
+                  width={100}
+                  height={100}
+                  className="w-full h-full"
+                /></div> 
+          </div>
+          <div class="relative bg-white py-6 rounded-xl shadow-md flex flex-col space-y-3 border border-orange-shade-1">
+          <div class="bg-gray-200 w-16 h-12 rounded-lg"> 
+                  <Image
+                  src={"/icon3.png"}
+                  alt="Profile Image"
+                  width={100}
+                  height={100}
+                  className="w-full h-full"
+                /></div>  
+              <h3 class="font-bold  px-6 text-lg">Expert Advice from Industry Professionals</h3>
+              <p class="text-gray-600 px-6 ">Our team brings years of experience in education and industry, offering valuable insights that go beyond standard career advice.</p>
+              <div className="h-20 w-full"></div>
+              <div className="absolute bottom-0 right-0 mt-5 w-40 h-28 rounded-br-lg p-1 "> 
+                  <Image
+                  src={"/calender.png"}
+                  alt="Profile Image"
+                  width={100}
+                  height={100}
+                  className="w-full h-full"
+                /></div> 
+          </div>
+          <div class="relative bg-white py-6 rounded-xl shadow-md flex flex-col space-y-3 border border-orange-shade-1">
+          <div class="bg-gray-200 w-16 h-12 rounded-lg"> 
+                  <Image
+                  src={"/icon4.png"}
+                  alt="Profile Image"
+                  width={100}
+                  height={100}
+                  className="w-full h-full"
+                /></div>  
+              <h3 class="font-bold px-6 text-lg">Continuous Support for Long-Term Success</h3>
+              <p class="text-gray-600 px-6">Our commitment doesn’t end with a consultation. We ensure you have the right resources to succeed in your academic and professional journey.</p>
+              <div className="h-20 w-full"></div>
+              <div className="absolute bottom-0 right-0 mt-5 w-40 h-28 rounded-br-lg p-1"> 
+                  <Image
+                  src={"/calender.png"}
+                  alt="Profile Image"
+                  width={100}
+                  height={100}
+                  className="w-full h-full rounded-br-lg"
+                /></div> 
+          </div>
       </div>
-      <div class="bg-white pt-5">
+
+
+
+      {/* <div class="bg-white pt-5">
         <div class="mx-auto w-[90%] px-6">
           <div class="flex flex-col items-center rounded-lg bg-gray-50 shadow-lg md:flex-row md:items-start">
-            {/* <!-- Text Content --> */}
+            
             <div class="w-full p-8 md:w-1/2">
               <span class="inline-block rounded-full border-2 border-solid border-black-shade-1 px-4 py-1 text-sm font-medium">
                 Career Counseling
@@ -310,8 +518,8 @@ const Page = () => {
               </form>
             </div>
 
-            {/* <!-- Image Content --> */}
-            <div class="flex w-full justify-center p-2 md:w-1/2 md:justify-end md:pt-20 lg:pt-1">
+           
+            <div class=" flex w-full justify-center p-2 md:w-1/2 md:justify-end md:pt-20 lg:pt-1">
               <Image
                 src="/carrer.png"
                 alt="1 to 1 Education Consultancy"
@@ -322,7 +530,9 @@ const Page = () => {
             </div>
           </div>
         </div>
-      </div>
+      </div>  */}
+
+      <HomePageReviews    role="career"/>
 
       <HomepageFooter />
     </div>

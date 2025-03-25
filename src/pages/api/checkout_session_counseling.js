@@ -12,33 +12,6 @@ export default async function handler(req, res) {
     try {
       const form = formidable();
 
-      // const { items, studentId } = req.body;
-      // const parsedItems = JSON.parse(items); // `items` should be an array
-
-    //   const totalAmount = parsedItems.reduce(
-    //     (total, item) => total + item.amount * 100,
-    //     0,
-    //   );
-
-    //   const stripe_acc_details = await fetch(
-    //     `${process.env.NEXT_PUBLIC_BASE_API}/check-payment-rec?id=${parsedItems[0].instructor_id}`,
-    //     {
-    //       method: "GET",
-    //       headers: {
-    //         "Content-Type": "application/json",
-    //       },
-    //     },
-    //   );
-
-    //   if (!stripe_acc_details.ok) {
-    //     const errorData = await stripe_acc_details.json();
-    //     throw new Error(errorData.message || "Failed to fetch payment details");
-    //   }
-
-    //   const stripe_acc_data = await stripe_acc_details.json();
-    //   const { message } = stripe_acc_data;
-    //   const stripe_acc_id = message[0]["account_reg_id"];
-
     form.parse(req, async(err, fields, files) => {
       if (err) {
         return res.status(500).json({ error: "Error parsing form data" });
@@ -54,14 +27,6 @@ export default async function handler(req, res) {
         res.redirect(303, "/login"); // Replace '/login' with the route to your login screen
         return;
       }
-      console.log("Student ID:", studentId);
-      console.log("Items:", parsedItems);
-      
-      // res.status(200).json({
-      //   message: "Form submitted successfully",
-      //   studentId,
-      //   items,
-      // });
       const session = await stripe.checkout.sessions.create({
         payment_method_types: ["card"],
         mode: "payment",

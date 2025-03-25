@@ -48,18 +48,19 @@ export const reviews = [
 ];
 
 
-function HomePageReviews() {
+function HomePageReviews({ role }) {
   return (
     <>
       <LayoutXPadding>
         <HeadingSection
+        role={role}
           labelText="Feedback"
           headingText="A skill-Building Journey with Skillbuilder"
           text="How Skillbuilder course helped you master new skills and advance in your career"
         />
       </LayoutXPadding>
       <ReviewsSlider />
-      <LayoutXPadding>
+      {role === "home" && <LayoutXPadding>
         <div className="btn w-full">
           <div className="wrapper box-shad !mx-auto w-max rounded-[2.5rem] bg-transparent shadow-[10px_20px_81px_rgba(186,186,186,0.5)]">
             <ButtonSecond
@@ -76,7 +77,7 @@ function HomePageReviews() {
             </ButtonSecond>
           </div>
         </div>
-      </LayoutXPadding>
+        </LayoutXPadding>}
     </>
   );
 }
