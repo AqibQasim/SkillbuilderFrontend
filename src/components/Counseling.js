@@ -5,12 +5,12 @@ const Counseling = () => {
     <div className="min-w-[95%] h-auto flex justify-center items-center mx-auto text-center">
       <div className="w-[85%] md:w-[85%] lg:min-w-[90%] h-auto border rounded-xl flex flex-col-reverse md:flex-row items-center lg:items-start p-6 lg:p-5 bg-gray-50">
         {/* Left Section */}
-        <div className="w-full relative md:w-1/5 lg:w-1/2 lg:flex justify-center mt-8 md:mt-0">
-          <div className="absolute hidden lg:block top-20 left-8 w-150 h-150 bg-gray-50">
+        <div className="w-full relative md:w-2/5 lg:w-1/2 lg:flex justify-center mt-8 md:mt-0">
+          <div className="absolute hidden lg:block top-20 left-8 2xl:left-40 w-150 h-150  2xl:w-52 2xl:h-48">
             <Image src="/AI-card.png" alt="AI Card" width={400} height={400} className="w-full h-full" />
           </div>
-          <div className="hidden lg:block absolute left-0 top-44 w-150 h-150">
-            <Image src="/invest-card.png" alt="Invest Card" width={920} height={980} className="w-full h-full" />
+          <div className="hidden lg:block absolute left-0 2xl:left-32 top-44 w-150 h-150 2xl:w-56 2xl:h-[18rem] 2xl:top-48">
+            <Image src="/invest-card.png" alt="Invest Card" width={920} height={980} className="w-full h-full " />
           </div>
           <div className="absolute hidden lg:block lg:top-7 lg:right-[-65px] h-150 w-150">
             <Image src="/man.png" alt="Profile Image" width={500} height={500} className="w-full h-full" />
@@ -24,9 +24,9 @@ const Counseling = () => {
         </div>
 
         {/* Right Section */}
-        <div className="md:w-4/5 lg:w-1/2 space-y-4 text-center md:text-left">
+        <div className="md:w-3/5 lg:w-1/2 space-y-4 text-center md:text-left">
           <div className="flex">
-            <h1 className="text-3xl  lg:text-4xl font-semibold text-gray-900">1 to 1 Education Consultancy</h1>
+            <h1 className="text-3xl  lg:text-4xl xl:text-5xl font-semibold text-gray-900">1 to 1 Education Consultancy</h1>
             <div className="relative lg:right-24">
               <Image src="/25$.png" alt="Price" width={100} height={100} className="hover:scale-105" />
             </div>
@@ -58,7 +58,7 @@ const Counseling = () => {
             </div>
           </div>
           <div className="mt-4 relative left-2">
-            <Image src="/carrer-button.png" alt="Button" width={200} height={200} className="hover:scale-105" />
+            <Image src="/carrer-button.png" alt="Button" width={200} height={200} className="hover:scale-105 cursor-pointer " />
           </div>
         </div>
       </div>

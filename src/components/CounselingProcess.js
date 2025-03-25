@@ -28,7 +28,8 @@ const CounselingProcess = () => {
       </div>
 
       {/* Steps Grid */}
-      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 mx-auto">
+      <div className="flex justify-center items-center">
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 mx-auto ">
         {[
           {
             image: "/1stcard.png",
@@ -53,7 +54,7 @@ const CounselingProcess = () => {
               "Engage in a deep, insightful session where our experts guide you toward the best career choices based on your profile and goals."
           }
         ].map((step, index) => (
-          <div key={index} className="rounded-2xl border overflow-hidden p-2">
+          <div key={index} className="rounded-2xl border overflow-hidden max-w-[350px] p-2">
             <div className="w-full h-56 rounded-xl mb-4">
               <Image src={step.image} alt={step.title} width={100} height={100} className="w-full h-full" />
             </div>
@@ -62,6 +63,7 @@ const CounselingProcess = () => {
           </div>
         ))}
       </div>
+    </div>
     </div>
   );
 };
