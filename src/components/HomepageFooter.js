@@ -186,7 +186,7 @@ function FooterRow({
         {" "}
         {options.label}
       </h3>
-      <ul className="space-y-4 text-sm font-light text-[#4A525D]">
+      <ul className="space-y-4 text-sm mb-10 font-light text-[#4A525D]">
         {options?.options.map((option) => (
           <li>
             {option?.href ? (
