@@ -1,6 +1,6 @@
 import Image from "next/image";
 
-const CareerGuidance = () => {
+const CareerGuidance = ({ studentProfile }) => {
   return (
     <div className="bg-gray-50 border rounded-2xl mx-auto shadow-lg p-8 max-w-[95%] w-full flex flex-col md:flex-row items-center">
       {/* Left Content */}
@@ -40,13 +40,34 @@ const CareerGuidance = () => {
           </div>
         </div>
 
-        <Image
-          src={"/bookNow.png"}
-          alt="Book Now Button"
-          width={200}
-          height={200}
-          className="hover:scale-105 hover:cursor-pointer"
-        />
+        <form
+          className="w-full flex justify-start"
+          action={"/api/checkout_session_counseling"}
+          method="POST"
+        >
+          <input type="hidden" name="studentId" value={studentProfile?.id} />
+          <input type="hidden" name="candidateEmail" value={studentProfile?.email} />
+          <input
+            type="hidden"
+            name="items"
+            value={JSON.stringify([
+              {
+                id: 21,
+                instructor_id: 4,
+                title: "Career Counselling By Zubair Alam",
+                description: "You will get career counselling by Syed Muhammad Zubair Alam.",
+                amount: "25",
+                discount: "0",
+                charges: "0.6",
+                active: false,
+                status: "approved",
+              },
+            ])}
+          />
+          <button type="submit" className="hover:scale-105 transition-transform duration-300 ease-in-out cursor-pointer">
+            <Image src="/bookNow.png" alt="Book Now Button" width={200} height={200} />
+          </button>
+        </form>
       </div>
 
       {/* Right Image Section */}

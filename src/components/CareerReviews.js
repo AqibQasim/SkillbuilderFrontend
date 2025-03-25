@@ -58,10 +58,10 @@ function HomePageReviews() {
 
 export default HomePageReviews;
 
-export function HomePageReviewCard({ review, className = "" }) {
+export function HomePageReviewCard({ review, className = "" ,MAX_LENGTH = 50}) {
   const [isExpanded, setIsExpanded] = useState(false);
-  const MAX_LENGTH = 10; // Adjusted for better readability
-
+   // Adjusted for better readability
+    console.log("maxlength/////",MAX_LENGTH )
   const toggleReadMore = (e) => {
     e.preventDefault();
     e.stopPropagation();
@@ -79,7 +79,7 @@ export function HomePageReviewCard({ review, className = "" }) {
         {review?.review.length > MAX_LENGTH && (
           <span
             onClick={toggleReadMore}
-            className="ml-1 cursor-pointer text-[#D0722E] font-bold block"
+            className="ml-1 cursor-pointer text-[#D0722E] font-medium block"
           >
             {isExpanded ? " See Less" : " See More"}
           </span>

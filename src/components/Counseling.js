@@ -1,6 +1,6 @@
 import Image from "next/image";
 
-const Counseling = () => {
+const Counseling = ({ studentProfile }) => {
   return (
     <div className="min-w-[95%] h-auto flex justify-center items-center mx-auto text-center">
       <div className="w-[85%] md:w-[85%] lg:min-w-[90%] h-auto border rounded-xl flex flex-col-reverse md:flex-row items-center lg:items-start p-6 lg:p-5 bg-gray-50">
@@ -58,7 +58,34 @@ const Counseling = () => {
             </div>
           </div>
           <div className="mt-4 relative left-2">
-            <Image src="/carrer-button.png" alt="Button" width={200} height={200} className="hover:scale-105 cursor-pointer " />
+             <form
+                      className="w-full flex justify-start"
+                      action={"/api/checkout_session_counseling"}
+                      method="POST"
+                    >
+                      <input type="hidden" name="studentId" value={studentProfile?.id} />
+                      <input type="hidden" name="candidateEmail" value={studentProfile?.email} />
+                      <input
+                        type="hidden"
+                        name="items"
+                        value={JSON.stringify([
+                          {
+                            id: 21,
+                            instructor_id: 4,
+                            title: "Career Counselling By Zubair Alam",
+                            description: "You will get career counselling by Syed Muhammad Zubair Alam.",
+                            amount: "25",
+                            discount: "0",
+                            charges: "0.6",
+                            active: false,
+                            status: "approved",
+                          },
+                        ])}
+                      />
+                      <button type="submit" className="hover:scale-105 transition-transform duration-300 ease-in-out cursor-pointer">
+                      <Image src="/carrer-button.png" alt="Button" width={200} height={200}  />
+                      </button>
+                    </form>
           </div>
         </div>
       </div>
