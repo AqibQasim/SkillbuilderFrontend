@@ -137,7 +137,7 @@ const LiveCoursePopup = ( {title,price, timeOptions,videoConf}  ) => {
 
                <ButtonWithIcon 
                onClick={() => 
-                router.push("/dashboard/instrucotr-live-courses")
+                router.push("/dashboard/instructor-live-courses")
                }
                text="View All Sessions" className="text-nowrap w-[65%]" />
               {/* <Button 

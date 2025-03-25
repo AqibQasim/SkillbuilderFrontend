@@ -563,10 +563,11 @@ const LiveCourseUpload = () => {
                       return;
                     } else if (formData.price < 0) {
                       alert("Price cannot be negative");
+                      
                       return;
                     } else if (discount > price) {
                       alert(
-                        `Discount cannot be greater than price ${price} ${discount}`,
+                        `Discount cannot be greater than price ${price}`,
                       );
                       return;
                     } else if (formData.discount < 0) {
