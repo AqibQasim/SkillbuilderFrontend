@@ -3,10 +3,9 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchCourses } from "../../../../redux/thunks/allCoursesThunk";
 import AdminCoursesTable from "@/components/AdminCoursesTable";
-import withAuth from "@/components/WithAuth";
 import WithAdminAuth from "@/components/WithAdminAuth";
 
-const approved = () => {
+const declined = () => {
   const dispatch = useDispatch();
   const { courses, declinedCourses, status, error } = useSelector(
     (state) => state.courses,
@@ -29,4 +28,4 @@ const approved = () => {
     </AdminDashboardLayout>
   );
 };
-export default WithAdminAuth(approved);
+export default WithAdminAuth(declined);

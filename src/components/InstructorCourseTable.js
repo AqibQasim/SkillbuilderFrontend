@@ -8,6 +8,7 @@ import Loader from "./Loader";
 import Table from "./Table";
 import { useState } from "react";
 import { useEffect } from "react";
+import InstructorLiveCourseRow from "./InstructorLiveCourseRow";
 
 const filterOptions = [
   { label: "All", value: "all" },
@@ -124,7 +125,7 @@ function InstructorCourseTable({ courses = [], courseStatus }) {
         <Table.Body
           data={statusCourses}
           render={(course, i) => (
-            <InstructorCourseRow course={course} key={i} />
+          <InstructorCourseRow course={course} key={i} />
           )}
         />
       </Table>

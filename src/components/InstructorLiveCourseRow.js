@@ -7,7 +7,7 @@ import ChevronRightIconSvg from "./ChevronRightIconSvg";
 import InstructorCourseStatus from "./InstructorCourseStatus";
 import Image from "next/image";
 
-function InstructorCourseRow({ course }) {
+function InstructorLiveCourseRow({ course }) {
   const router = useRouter();
   const { image, title, amount, discount, status, id } = course;
   const { first_name, last_name } = useSelector((state) => state.profile);
@@ -17,7 +17,7 @@ function InstructorCourseRow({ course }) {
   const handleRowClick = () => {
     try {
       if (id) {
-        router.push(`/dashboard/instructor-courses/${id}`);
+        // router.push(`/dashboard/instructor-live-courses/${id}`);
       } else {
         throw new Error("Course ID is not defined");
       }
@@ -62,4 +62,4 @@ function InstructorCourseRow({ course }) {
   );
 }
 
-export default InstructorCourseRow;
+export default InstructorLiveCourseRow;

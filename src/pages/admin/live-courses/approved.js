@@ -10,7 +10,7 @@ import AdminLiveCoursesTable from "@/components/AdminLiveCoursesTable";
 const approved = () => {
   const dispatch = useDispatch();
   const { courses, approvedCourses, status, error } = useSelector(
-    (state) => state.courses,
+    (state) => state.liveCourses,
   );
 
   console.log("status", status);

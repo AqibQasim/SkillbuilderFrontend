@@ -59,7 +59,7 @@ function Courses() {
 
   return (
     <DashboardLayout>
-      <InstructorCourseTable courses={courses} />
+      <InstructorCourseTable courses={courses}  />
     </DashboardLayout>
   );
 }
