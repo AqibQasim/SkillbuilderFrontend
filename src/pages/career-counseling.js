@@ -35,7 +35,7 @@ const Page = () => {
       </div>
 
       <LayoutXPadding>
-        <div className="relative">
+        <div className="relative z-[70]">
           <HomePageNavbar />
         </div>
       </LayoutXPadding>

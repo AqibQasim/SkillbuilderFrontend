@@ -5,10 +5,10 @@ const CareerGuidance = ({ studentProfile }) => {
     <div className="bg-gray-50 border rounded-2xl mx-auto shadow-lg p-8 max-w-[95%] w-full flex flex-col md:flex-row items-center">
       {/* Left Content */}
       <div className="md:w-1/2 space-y-4">
-        <h1 className="text-3xl font-bold">
-          Plan Your Career with <br /> <span className="text-black">Expert Guidance</span>
+        <h1 className="text-3xl font-satoshi font-bold">
+          Plan Your Career with <br /> <span className="text-black font-satoshi">Expert Guidance</span>
         </h1>
-        <p className="text-gray-600">
+        <p className="text-gray-600 font-satoshi ">
           Choosing the right career is a pivotal decision for every undergraduate.
           Career counseling provides clarity, direction, and expert insights, helping
           students align their strengths with the right opportunities. It bridges
@@ -20,8 +20,8 @@ const CareerGuidance = ({ studentProfile }) => {
           <div className="flex items-start space-x-2">
             <span className="text-blue-600">&#9679;</span>
             <div>
-              <h3 className="font-semibold">Find Your Perfect Career Fit</h3>
-              <p className="text-gray-500 text-sm">
+              <h3 className="font-semibold font-satoshi">Find Your Perfect Career Fit</h3>
+              <p className="text-gray-500 font-satoshi text-sm">
                 Discover career paths that align with your skills, interests, and
                 long-term goals through expert guidance.
               </p>
@@ -31,8 +31,8 @@ const CareerGuidance = ({ studentProfile }) => {
           <div className="flex items-start space-x-2">
             <span className="text-blue-600">&#9679;</span>
             <div>
-              <h3 className="font-semibold">Personalized Guidance for a Confident Future</h3>
-              <p className="text-gray-500 text-sm">
+              <h3 className="font-semibold font-satoshi">Personalized Guidance for a Confident Future</h3>
+              <p className="text-gray-500 text-sm font-satoshi">
                 Get tailored advice and actionable steps to navigate your career journey
                 with clarity and confidence.
               </p>

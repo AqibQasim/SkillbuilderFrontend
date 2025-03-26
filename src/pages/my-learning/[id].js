@@ -50,7 +50,7 @@ function EnrolledCourseDetails() {
     fetchUserProgress();
   }, [enrolledCourseId]);
   
-  console.log("/////pppp",progress)
+  
   const fetchProgress = async (userId, enrolledCourseId) => {
     try {
       const response = await fetch(
@@ -226,7 +226,7 @@ function EnrolledCourseRatingAndReviews({ reviews }) {
 
 function CourseCertificate({ course, progress }) {
   const router = useRouter();
-  console.log("ppp//////",progress)
+  
 
   const handleCertificateView = () => {
     // Navigate to the certificate page, replace '/certificate' with the correct path if needed

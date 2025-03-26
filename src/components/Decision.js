@@ -16,13 +16,13 @@ const Decision = () => {
 
       {/* Content Overlay */}
       <div className="relative bottom-12 mx-auto h-12 md:h-24 lg:h-12 z-10 flex flex-col items-center justify-center text-center px-4">
-        <h1 className="md:w-[60%] max-sm:w-[90%] sm:w-[80%] text-xl sm:text-2xl md:text-3xl lg:text-4xl 2xl:text-5xl relative 2xl:bottom-6 font-semibold">
+        <h1 className="md:w-[60%] max-sm:w-[90%] sm:w-[80%] text-xl sm:text-2xl md:text-3xl lg:text-4xl 2xl:text-5xl relative 2xl:bottom-6 font-satoshi font-semibold">
           Why Choose 1-on-1 Career Counseling with Us?
         </h1>
-        <p className="mt-5 mb-5 sm:block w-[90%] sm:w-[80%] md:w-[70%] hidden text-xs text-gray-500 relative lg:bottom-0 2xl:bottom-6 ">
+        <p className="mt-5 mb-5 sm:block w-[90%] sm:w-[80%] md:w-[70%] hidden text-xs text-gray-500 relative lg:bottom-0 2xl:bottom-6 font-satoshi">
           Making the right career decision is important, and we’re here to guide you every step of the way. Our personalized counseling sessions help you gain clarity, make informed choices, and build a strong foundation for your future.
         </p>
-        <p className="mt-5 mb-5  w-[90%]  block sm:hidden text-xs text-gray-500 relative lg:bottom-0 2xl:bottom-6 ">
+        <p className="mt-5 mb-5  w-[90%]  block sm:hidden text-xs text-gray-500 relative lg:bottom-0 2xl:bottom-6 font-satoshi ">
           Making the right career decision is important, and we’re here to guide you every step of the way. 
         </p>
       </div>

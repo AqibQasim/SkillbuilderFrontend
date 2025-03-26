@@ -12,7 +12,6 @@ import Link from "next/link";
 const   BootcampPaymentSuccess = () => {
   const router = useRouter();
   const { student_id,  course_id } = router?.query;
-  console.log("//// Student ID:", student_id, "Course ID:", course_id);
   const [data, setData] = useState(null);
   
   const [loading, setLoading] = useState(true);

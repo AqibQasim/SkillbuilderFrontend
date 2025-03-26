@@ -48,7 +48,7 @@ function User({ cartClickHandler, cartItemsLength }) {
   const [notifications, setNotifications] = useState([]);
   const isSSOUser = useSelector((state) => state.singleUser.userData.isSSOUser);
   const profileImage = useSelector((state) => state.singleUser);
-  console.log("/////////////////////////", profile);
+ 
 
   const instructorId = useSelector(
     (state) => state.instructorByUserId.instructorByUserId.id,

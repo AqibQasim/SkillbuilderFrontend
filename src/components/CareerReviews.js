@@ -60,8 +60,7 @@ export default HomePageReviews;
 
 export function HomePageReviewCard({ review, className = "" ,MAX_LENGTH = 50}) {
   const [isExpanded, setIsExpanded] = useState(false);
-   // Adjusted for better readability
-    console.log("maxlength/////",MAX_LENGTH )
+    
   const toggleReadMore = (e) => {
     e.preventDefault();
     e.stopPropagation();

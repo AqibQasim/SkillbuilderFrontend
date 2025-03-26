@@ -5,10 +5,10 @@ const CounselingProcess = () => {
     <div className="mx-auto w-[95%]">
       {/* Section Header */}
       <div className="mb-10 text-center">
-        <h2 className="mt-4 text-3xl font-bold text-gray-900 md:text-4xl">
+        <h2 className="mt-4 text-3xl font-bold text-gray-900 font-satoshi md:text-4xl">
           Career Counseling Process
         </h2>
-        <p className="text-xs text-center mx-auto mt-5 w-[70%] text-gray-600">
+        <p className="text-xs font-satoshi text-center mx-auto mt-5 w-[70%] text-gray-600">
           We assess your skills and interests using AI-driven insights, refined
           by expert mentors. In a one-on-one session, you’ll receive
           personalized guidance and a clear action plan to confidently navigate
@@ -58,8 +58,8 @@ const CounselingProcess = () => {
             <div className="w-full h-56 rounded-xl mb-4">
               <Image src={step.image} alt={step.title} width={100} height={100} className="w-full h-full" />
             </div>
-            <h3 className="text-xl font-bold">{step.title}</h3>
-            <p className="text-gray-400">{step.description}</p>
+            <h3 className="text-xl font-satoshi font-bold">{step.title}</h3>
+            <p className="text-gray-400 font-satoshi ">{step.description}</p>
           </div>
         ))}
       </div>

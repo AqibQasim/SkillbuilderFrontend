@@ -26,34 +26,34 @@ const Counseling = ({ studentProfile }) => {
         {/* Right Section */}
         <div className="md:w-3/5 lg:w-1/2 space-y-4 text-center md:text-left">
           <div className="flex">
-            <h1 className="text-3xl  lg:text-4xl xl:text-5xl font-semibold text-gray-900">1 to 1 Education Consultancy</h1>
+            <h1 className="text-3xl font-satoshi  lg:text-4xl xl:text-5xl font-semibold text-gray-900">1 to 1 Education Consultancy</h1>
             <div className="relative lg:right-24">
               <Image src="/25$.png" alt="Price" width={100} height={100} className="hover:scale-105" />
             </div>
           </div>
-          <p className="text-gray-700 text-sm">
+          <p className="text-gray-700 font-satoshi text-sm">
             Get expert career guidance personalized to your goals for just <span className="font-bold">$25 per session</span>. Book now to gain clarity and confidence in your career path!
           </p>
           <div className="space-y-3">
             <div className="flex items-start space-x-2">
               <span className="text-blue-600">➝</span>
               <div>
-                <h2 className="font-semibold text-gray-900">Personalized Career Roadmap</h2>
-                <p className="text-gray-600 text-sm">Get expert guidance tailored to your skills, interests, and goals to help you choose the right career path.</p>
+                <h2 className="font-semibold text-gray-900 font-satoshi">Personalized Career Roadmap</h2>
+                <p className="text-gray-600 text-sm font-satoshi">Get expert guidance tailored to your skills, interests, and goals to help you choose the right career path.</p>
               </div>
             </div>
             <div className="flex items-start space-x-2">
               <span className="text-blue-600">➝</span>
               <div>
-                <h2 className="font-semibold text-gray-900">Affordable & Actionable Insights</h2>
-                <p className="text-gray-600 text-sm">For just $25 per session, receive practical advice and strategies to accelerate your career growth.</p>
+                <h2 className="font-semibold text-gray-900 font-satoshi">Affordable & Actionable Insights</h2>
+                <p className="text-gray-600 text-sm font-satoshi">For just $25 per session, receive practical advice and strategies to accelerate your career growth.</p>
               </div>
             </div>
             <div className="flex items-start space-x-2">
               <span className="text-blue-600">➝</span>
               <div>
-                <h2 className="font-semibold text-gray-900">Gain Clarity & Confidence</h2>
-                <p className="text-gray-600 text-sm">Make informed career decisions with expert-backed insights, ensuring a successful and fulfilling future.</p>
+                <h2 className="font-semibold text-gray-900 font-satoshi">Gain Clarity & Confidence</h2>
+                <p className="text-gray-600 text-sm font-satoshi">Make informed career decisions with expert-backed insights, ensuring a successful and fulfilling future.</p>
               </div>
             </div>
           </div>

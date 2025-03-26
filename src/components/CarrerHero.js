@@ -6,17 +6,17 @@ const CareerHero = ({ studentProfile }) => {
       {/* Content Overlay */}
       <div className="absolute inset-0 flex flex-col items-center justify-center z-50 text-center sm:px-4">
         <div className="relative top-16 w-[80%] sm:w-[80%] md:w-[70%] lg:w-[64%] xl:w-[60%]">
-          <h1 className="text-3xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-5xl font-medium text-black">
+          <h1 className="text-3xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-5xl font-medium text-black font-satoshi ">
             Unlock Your True Potential with
-            <span className="text-blue-shade-1 font-semibold"> AI-Powered </span>
+            <span className="text-blue-shade-1 font-semibold font-satoshi"> AI-Powered </span>
             Career Counseling!
           </h1>
-          <p className="mt-4 text-gray-600 text-xs sm:text-base">
+          <p className="mt-4 text-gray-600 text-xs sm:text-base font-satoshi">
             Personalized career guidance with the power of AI & expert mentorship.
           </p>
 
           {/* Button Image with Form Submission */}
-          <div className="flex justify-center mt-12 z-50 relative">
+          <div className="flex justify-center mt-12 z-40 relative">
             <form
               className="w-full flex justify-center"
               action={"/api/checkout_session_counseling"}
