@@ -2,7 +2,7 @@ import Image from "next/image";
 
 const CareerGuidance = ({ studentProfile }) => {
   return (
-    <div className="bg-gray-50 border rounded-2xl mx-auto shadow-lg p-8 max-w-[95%] w-full flex flex-col md:flex-row items-center">
+    <div className="bg-gray-50 border rounded-2xl mx-auto shadow-lg p-8 max-w-[90%] w-full flex flex-col md:flex-row items-center">
       {/* Left Content */}
       <div className="md:w-1/2 space-y-4">
         <h1 className="text-3xl font-satoshi font-bold">
