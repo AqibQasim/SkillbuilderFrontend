@@ -2,7 +2,6 @@ import Table from "@/components/Table";
 import { formatCurrency } from "@/utils/formatCurrency";
 import { useRouter } from "next/router";
 import AdminCourseActions from "./AdminCourseActions";
-import InstructorCourseStatus from "./InstructorCourseStatus";
 import InstructorLiveCourseStatus from "./InstructorLiveCourseStatus";
 
 function AdminLiveCourseRow({ course }) {
@@ -30,7 +29,6 @@ function AdminLiveCourseRow({ course }) {
       <div>{name}</div>
       <div>{formatCurrency(Number(amount))}</div>
       <div>{level}</div>
-      {/* TODO: fetch real status */}
       <InstructorLiveCourseStatus status= {status} />
       <AdminCourseActions course={course} className="ml-auto" />
     </Table.Row>

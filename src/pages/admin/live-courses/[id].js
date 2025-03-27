@@ -3,6 +3,7 @@ import AdminDashboardLayout from "@/components/AdminDashboardLayout";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import { useEffect } from "react";
+import WithAdminAuth from "@/components/WithAdminAuth";
 
 const liveCourseData = () => {
   const router = useRouter();
@@ -149,4 +150,4 @@ const liveCourseData = () => {
   );
 };
 
-export default liveCourseData;
+export default WithAdminAuth(liveCourseData);

@@ -7,6 +7,7 @@ import { useEffect } from "react";
 
 import { useState } from "react";
 import AdminLiveCoursesStudents from "@/components/AdminLiveCoursesStudents";
+import WithAdminAuth from "@/components/WithAdminAuth";
 
 const index = () => {
   const [LiveCourses, setLiveCourses] = useState(null);
@@ -70,4 +71,4 @@ const index = () => {
   );
 };
 
-export default index;
+export default WithAdminAuth(index);
