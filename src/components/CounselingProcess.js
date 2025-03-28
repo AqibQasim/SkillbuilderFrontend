@@ -2,10 +2,10 @@ import Image from "next/image";
 
 const CounselingProcess = () => {
   return (
-    <div className="mx-auto w-[95%]">
+    <div className="mx-auto w-[95%] relative 2xl:-top-5">
       {/* Section Header */}
       <div className="mb-10 text-center">
-        <h2 className="mt-4 text-3xl font-bold text-gray-900 font-satoshi md:text-4xl">
+        <h2 className="mt-4 2xl:mt-0 text-3xl font-bold text-gray-900 font-satoshi md:text-4xl">
           Career Counseling Process
         </h2>
         <p className="text-xs font-satoshi text-center mx-auto mt-5 w-[70%] text-gray-600">
@@ -32,35 +32,42 @@ const CounselingProcess = () => {
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 mx-auto ">
         {[
           {
-            image: "/1stcard.png",
+            image: "/1stCARD.svg",
             title: "Payment",
             description: "Start by securing your session with a simple payment process."
           },
           {
-            image: "/2ndcard.png",
+            image: "/2ndCARD.svg",
             title: "Career Profiling through AI",
             description:
               "Take an AI-driven interview to help our experts understand your skills, strengths, and aspirations better."
           },
           {
-            image: "/3rdcard.png",
+            image: "/3rdCARD.svg",
             title: "Schedule Your 1-on-1 Session",
             description: "Pick a convenient time for a personal counseling session with our expert."
           },
           {
-            image: "/4thcard.png",
+            image: "/4thCARD.svg",
             title: "Career Counseling",
             description:
               "Engage in a deep, insightful session where our experts guide you toward the best career choices based on your profile and goals."
           }
         ].map((step, index) => (
-          <div key={index} className="rounded-2xl border overflow-hidden max-w-[350px] p-2">
-            <div className="w-full h-56 rounded-xl mb-4">
-              <Image src={step.image} alt={step.title} width={100} height={100} className="w-full h-full" />
+          <div key={index} className="rounded-2xl overflow-hidden border max-w-[300px] 2xl:min-w-[380px]  p-2">
+            <div className="w-full  h-[282px] xl:h-[270px] 2xl:h-[364px] rounded-xl mb-4 relative">
+              <Image 
+                src={step.image} 
+                alt={step.title} 
+                layout="fill" 
+                objectFit="cover" 
+                className="rounded-xl"
+              />
             </div>
             <h3 className="text-xl font-satoshi font-bold">{step.title}</h3>
-            <p className="text-gray-400 font-satoshi ">{step.description}</p>
+            <p className="text-gray-400 font-satoshi">{step.description}</p>
           </div>
+
         ))}
       </div>
     </div>

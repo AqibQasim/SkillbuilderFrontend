@@ -2,8 +2,8 @@ import Image from "next/image";
 
 const Counseling = ({ studentProfile }) => {
   return (
-    <div className="min-w-[95%] h-auto flex justify-center items-center mx-auto text-center">
-      <div className="w-[85%] md:w-[85%] lg:min-w-[90%] h-auto border rounded-xl flex flex-col-reverse md:flex-row items-center lg:items-start p-6 lg:p-5 bg-gray-50">
+    <div className="min-w-[95%] h-auto flex justify-center items-center mx-auto text-center relative 2xl:-top-24 ">
+      <div className="w-[85%] md:w-[85%] lg:min-w-[90%] h-auto border rounded-xl flex flex-col-reverse md:flex-row items-center lg:items-start p-6 lg:p-5 bg-gray-50  ">
         {/* Left Section */}
         <div className="w-full relative md:w-2/5 lg:w-1/2 lg:flex justify-center mt-8 md:mt-0">
           <div className="absolute hidden lg:block top-20 left-8 2xl:left-40 w-150 h-150  2xl:w-52 2xl:h-48">
@@ -24,7 +24,7 @@ const Counseling = ({ studentProfile }) => {
         </div>
 
         {/* Right Section */}
-        <div className="md:w-3/5 lg:w-1/2 space-y-4 text-center md:text-left">
+        <div className="md:w-3/5 lg:w-1/2 space-y-4 text-center md:text-left 2xl:mt-12">
           <div className="flex">
             <h1 className="text-3xl font-satoshi  lg:text-4xl xl:text-5xl font-semibold text-gray-900">1 to 1 Education Consultancy</h1>
             <div className="relative lg:right-24">
@@ -82,7 +82,7 @@ const Counseling = ({ studentProfile }) => {
                           },
                         ])}
                       />
-                      <button type="submit" className="hover:scale-105 transition-transform duration-300 ease-in-out cursor-pointer">
+                      <button type="submit" className="hover:scale-105 transition-transform duration-300 ease-in-out cursor-pointer 2xl:mb-16">
                       <Image src="/carrer-button.png" alt="Button" width={200} height={200}  />
                       </button>
                     </form>

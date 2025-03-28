@@ -30,7 +30,7 @@ const Page = () => {
       </div>
 
       {/* Page content */}
-      <div className="relative bottom-12 pt-2">
+      <div className="relative bottom-12  pt-2">
         <div className="absolute inset-0 -z-10">
           <Image
             src={"/CareerBackRound.png"}

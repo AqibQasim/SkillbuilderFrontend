@@ -2,7 +2,7 @@ import Image from "next/image";
 
 const CareerHero = ({ studentProfile }) => {
   return (
-    <div className="relative overflow-hidden min-h-[440px] sm:min-h-[440px] md:min-h-[450px] lg:min-h-[520px] xl:min-h-[500px]">
+    <div className="relative overflow-hidden min-h-[440px] sm:min-h-[440px] md:min-h-[450px] lg:min-h-[520px] xl:min-h-[500px] ">
       {/* Content Overlay */}
       <div className="absolute inset-0 flex flex-col items-center justify-center z-50 text-center sm:px-4">
         <div className="relative top-16 w-[80%] sm:w-[80%] md:w-[70%] lg:w-[64%] xl:w-[60%]">
