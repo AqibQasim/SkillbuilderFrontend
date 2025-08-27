@@ -20,18 +20,33 @@ const ResetPasswordUpdatePasswordForm = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const passwordCriteria =
-      /^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+{}\[\]:;<>,.?~\\/-])[A-Za-z\d!@#$%^&*()_+{}\[\]:;<>,.?~\\/-]{8,}$/;
+    const minimumLength = 8;
+    const hasUppercase = /[A-Z]/.test(password);
+    const hasNumber = /\d/.test(password);
+    const hasSpecial = /[!@#$%^&*()_+{}\[\]:;<>,.?~\\\/-]/.test(password);
 
     if (password !== confirmPassword) {
       setLocalError("Passwords do not match");
       return;
     }
 
-    if (!passwordCriteria.test(password)) {
-      setLocalError(
-        "Password must contain at least one capital letter, one number, and one special character.",
-      );
+    if (password.length < minimumLength) {
+      setLocalError("Password is too short. It must be at least 8 characters.");
+      return;
+    }
+
+    if (!hasUppercase) {
+      setLocalError("Password must include at least one uppercase letter.");
+      return;
+    }
+
+    if (!hasNumber) {
+      setLocalError("Password must include at least one number.");
+      return;
+    }
+
+    if (!hasSpecial) {
+      setLocalError("Password must include at least one special character.");
       return;
     }
     setLocalError(null);
